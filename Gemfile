@@ -47,3 +47,32 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 end
+gem "govuk-components"
+gem "govuk_design_system_formbuilder"
+
+group :development, :test do
+  gem "rspec"
+  gem "rspec-rails"
+  gem "capybara"
+  gem "factory_bot_rails"
+  gem "shoulda-matchers"
+end
+
+group :development, :test do
+  gem "rubocop-govuk", require: false
+end
+
+group :development do
+  gem "solargraph", require: false
+  gem "solargraph-rails", require: false
+end
+
+group :development do
+  gem "rladr"
+end
+
+group :development, :production do
+  gem "amazing_print"
+  gem "rails_semantic_logger"
+end
+gem "dfe-analytics", github: "DFE-Digital/dfe-analytics", tag: "v1.15.8"

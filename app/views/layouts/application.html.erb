@@ -1,29 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" class="govuk-template">
   <head>
-    <title><%= content_for(:title) || "Get Into Teaching Interface Api" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Get Into Teaching Interface Api">
-    <meta name="mobile-web-app-capable" content="yes">
+    <title><%= [yield(:page_title).presence, t('service.name')].compact.join(' - ') %></title>
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+    <%= tag :meta, name: 'viewport', content: 'width=device-width, initial-scale=1' %>
+    <meta charset="utf-8">
+    <%= tag :meta, property: 'og:image', content: asset_path('images/govuk-opengraph-image.png') %>
+    <%= tag :meta, name: 'theme-color', content: '#0b0c0c' %>
+    <%= favicon_link_tag asset_path('images/favicon.ico') %>
+    <%= favicon_link_tag asset_path('images/govuk-icon-mask.svg'), rel: 'mask-icon', type: 'image/svg', color: "#0b1c0c" %>
+    <%= favicon_link_tag asset_path('images/govuk-icon-180.png'), rel: 'apple-touch-icon', type: 'image/png', size: '180x180' %>
 
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="govuk-template__body">
+    <script>
+      document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');
+    </script>
+
+    <%= govuk_skip_link %>
+
+    <%= govuk_header(full_width_border: true) %>
+
+    <%=
+      govuk_service_navigation(
+        service_name: "GOV.UK Rails Boilerplate",
+        navigation_items: [
+          { text: "Navigation item 1", href: "#", active: true },
+          { text: "Navigation item 2", href: "#" },
+          { text: "Navigation item 3", href: "#" }
+        ]
+      )
+    %>
+
+    <div class="govuk-width-container">
+      <main class="govuk-main-wrapper" id="main-content" role="main">
+        <%= yield %>
+      </main>
+    </div>
+
+    <%= govuk_footer %>
   </body>
 </html>

@@ -1,6 +1,12 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  # Semantic logging for integration with Kibana
+  config.log_level = :info                                # Or :warn, or :error
+  config.log_format = :json                               # For parsing in Logit
+  config.rails_semantic_logger.add_file_appender = false  # Don't log to file
+  config.active_record.logger = nil                       # Don't log SQL
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.

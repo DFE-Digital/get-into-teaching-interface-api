@@ -1,91 +1,108 @@
 # syntax=docker/dockerfile:1
 # check=error=true
 
-# This Dockerfile is designed for production, not development. Use with Kamal or build'n'run by hand:
+# This Dockerfile is designed for production, not development.
+# Build'n'run by hand:
 # docker build -t get_into_teaching_interface_api .
 # docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name get_into_teaching_interface_api get_into_teaching_interface_api
+#
+# This template builds four images, to optimise caching:
+# node: the official Node image, used to copy specific node and yarn into the builder image
+# base: the base image with shared configuration for builder and production stages
+# builder: builds gems and node modules
+# production: runs the actual app
 
 # For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
-# Make sure RUBY_VERSION matches the Ruby version in .ruby-version
+# Make sure RUBY_VERSION matches the Ruby version in .tool-versions and .ruby-version
 ARG RUBY_VERSION=4.0.3
-FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
-
-# Rails app lives here
-WORKDIR /rails
-
-# Install base packages
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libjemalloc2 postgresql-client && \
-    ln -s /usr/lib/$(uname -m)-linux-gnu/libjemalloc.so.2 /usr/local/lib/libjemalloc.so && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
-
-# Set production environment variables and enable jemalloc for reduced memory usage and latency.
-ENV RAILS_ENV="production" \
-    BUNDLE_DEPLOYMENT="1" \
-    BUNDLE_PATH="/usr/local/bundle" \
-    BUNDLE_WITHOUT="development" \
-    LD_PRELOAD="/usr/local/lib/libjemalloc.so"
-
-# Throw-away build stage to reduce size of final image
-FROM base AS build
-
-# Install packages needed to build gems and node modules
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev node-gyp pkg-config python-is-python3 && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
-
-# Install JavaScript dependencies
+# Make sure NODE_VERSION matches the NodeJS version in .tool-versions and package.json
 ARG NODE_VERSION=24.15.0
-ARG YARN_VERSION=4.14.1
-ENV PATH=/usr/local/node/bin:$PATH
-RUN curl -sL https://github.com/nodenv/node-build/archive/master.tar.gz | tar xz -C /tmp/ && \
-    /tmp/node-build-master/bin/node-build "${NODE_VERSION}" /usr/local/node && \
-    rm -rf /tmp/node-build-master
-RUN corepack enable && yarn set version $YARN_VERSION
 
-# Install application gems
-COPY vendor/* ./vendor/
+# Node image
+FROM docker.io/library/node:$NODE_VERSION-alpine3.23 AS node
+
+# Build base image
+FROM docker.io/library/ruby:$RUBY_VERSION-alpine3.23 AS base
+
+# Add the timezone (base image) as it's not configured by default in Alpine
+RUN apk add --update --no-cache tzdata && \
+    cp /usr/share/zoneinfo/Europe/London /etc/localtime && \
+    echo "Europe/London" > /etc/timezone
+
+# Set production environment variables
+ENV RAILS_ENV="production"
+
+# Build builder image from base
+FROM base AS builder
+
+# Install node
+COPY --from=node /usr/lib /usr/lib
+COPY --from=node /usr/local/share /usr/local/share
+COPY --from=node /usr/local/lib /usr/local/lib
+COPY --from=node /usr/local/include /usr/local/include
+COPY --from=node /usr/local/bin /usr/local/bin
+
+WORKDIR /app
+
+# build-base: dependencies for bundle
+# node: node includes yarn as a package manager
+# postgresql-dev: postgres driver and libraries
+# yaml-dev: psych issues
+RUN apk add --no-cache build-base postgresql17-dev yaml-dev
+RUN npm install -g corepack
+RUN corepack enable
+
+# Install gems defined in Gemfile
 COPY Gemfile Gemfile.lock ./
 
-RUN bundle install && \
-    rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
-    # -j 1 disable parallel compilation to avoid a QEMU bug: https://github.com/rails/bootsnap/issues/495
-    bundle exec bootsnap precompile -j 1 --gemfile
+# Install gems and remove gem cache
+RUN bundler -v && \
+    bundle config set --local deployment 'true' && \
+    bundle config set --local without 'development test' && \
+    bundle config set --local retry 5 && \
+    bundle config set --local jobs 4 && \
+    bundle install --no-cache && \
+    rm -rf /usr/local/bundle/cache
 
-# Install node modules
+# Install node packages defined in package.json
 COPY package.json yarn.lock ./
 RUN yarn install --immutable
 
-# Copy application code
+# Copy all files to /app (except what is defined in .dockerignore)
 COPY . .
 
-# Precompile bootsnap code for faster boot times.
-# -j 1 disable parallel compilation to avoid a QEMU bug: https://github.com/rails/bootsnap/issues/495
-RUN bundle exec bootsnap precompile -j 1 app/ lib/
-
-# Precompiling assets for production without requiring secret RAILS_MASTER_KEY
+# Precompile assets
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
+# Cleanup to save space in the production image
+RUN rm -rf node_modules log/* tmp/* /tmp && \
+    rm -rf /usr/local/bundle/cache && \
+    rm -rf .env
 
-RUN rm -rf node_modules
+# Build runtime image from base
+FROM base AS production
 
+# The application runs from /app
+WORKDIR /app
 
-# Final stage for app image
-FROM base
+# Create non-root user and group
+RUN addgroup -S appgroup -g 20001 && adduser -S appuser -G appgroup -u 10001
 
-# Run and own only the runtime files as a non-root user for security
-RUN groupadd --system --gid 1000 rails && \
-    useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash
-USER 1000:1000
+# libpq: required to run postgres
+RUN apk add --no-cache libpq
 
-# Copy built artifacts: gems, application
-COPY --chown=rails:rails --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
-COPY --chown=rails:rails --from=build /rails /rails
+# Copy files generated in the builder image
+COPY --from=builder /app /app
+COPY --from=builder /usr/local/bundle /usr/local/bundle
 
-# Entrypoint prepares the database.
-ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+# Change ownership only for directories that need write access
+RUN chown -R appuser:appgroup /app/tmp
 
-# Start server via Thruster by default, this can be overwritten at runtime
-EXPOSE 80
-CMD ["./bin/thrust", "./bin/rails", "server"]
+ARG COMMIT_SHA
+ENV COMMIT_SHA=$COMMIT_SHA
+
+# Use non-root user
+USER 10001
+
+CMD ["./bin/rails", "server"]

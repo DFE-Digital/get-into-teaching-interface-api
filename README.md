@@ -1,24 +1,97 @@
-# README
+# Get into teaching interface api
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Replace this with a description of what this service does and who it's for.
 
-Things you may want to cover:
+## Getting started
 
-* Ruby version
+### Prerequisites
 
-* System dependencies
+Make sure you have the following installed:
 
-* Configuration
+- [asdf](https://asdf-vm.com/) with Ruby and Node plugins
+- [Postgres](https://www.postgresql.org/)
 
-* Database creation
+The required versions are:
+- Ruby: 4.0.3 (see `.ruby-version`)
+- Node: 24.15.0 (see `package.json` under `engines.node`)
+- Yarn: 4.14.1 (see `package.json` under `packageManager`)
 
-* Database initialization
+### Setup
 
-* How to run the test suite
+```bash
+# Clone the repository
+git clone <repository-url>
+cd get_into_teaching_interface_api
 
-* Services (job queues, cache servers, search engines, etc.)
+# Install Ruby and Node versions
+asdf install
 
-* Deployment instructions
+# Setup the application
+bin/setup
+```
 
-* ...
+`bin/setup` will install gems, install JavaScript packages, set up the database, and start the Rails development server. See the script to understand what it runs.
+
+## Running the application locally
+
+```bash
+# Start the development server
+bin/setup
+
+# Run tests and linters
+bin/ci
+```
+
+See `bin/setup` and `bin/ci` scripts to understand what gets run each time.
+
+## Making changes
+
+After pulling changes from your branch:
+
+```bash
+bin/setup
+```
+
+This will update gems, JavaScript packages, run any pending migrations, and start the dev server.
+
+### Linting
+
+To run the linters:
+
+```bash
+bin/rubocop
+```
+
+Autofix linting errors:
+
+```bash
+bin/rubocop --autocorrect-all
+```
+### Intellisense
+
+[solargraph](https://github.com/castwide/solargraph) is bundled as part of the
+development dependencies. You need to [set it up for your
+editor](https://github.com/castwide/solargraph#using-solargraph), and then run
+this command to index your local bundle (re-run if/when we install new
+dependencies and you want completion):
+
+```sh
+bundle exec yard gems
+```
+
+You'll also need to configure your editor's `solargraph` plugin to
+`useBundler`:
+
+```diff
++  "solargraph.useBundler": true,
+```
+## How the application works
+
+We keep track of architecture decisions in [Architecture Decision Records
+(ADRs)](/adr/).
+
+We use `rladr` to generate the boilerplate for new records:
+
+```bash
+bundle exec rladr new title
+```

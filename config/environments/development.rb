@@ -1,6 +1,11 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  # Semantic logging for integration with Kibana
+  config.log_level = :info                        # Or :debug
+  config.log_format = :color                      # Console colorised non-json output
+  config.semantic_logger.backtrace_level = :debug # Show file and line number (expensive: not for production)
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Make code changes take effect immediately without server restart.
