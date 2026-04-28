@@ -9,13 +9,11 @@ module CRM
             @client = client
           end
 
-          def countries
-            LookUpItems::CountriesResource.new(@client)
-          end
+          def countries = LookUpItems::CountriesResource.new(@client)
 
-          def degree_countries
-            LookUpItems::DegreeCountriesResource.new(@client)
-          end
+          def degree_countries = LookUpItems::DegreeCountriesResource.new(@client)
+
+          def teaching_subjects = LookUpItems::TeachingSubjectsResource.new(@client)
         end
       end
     end

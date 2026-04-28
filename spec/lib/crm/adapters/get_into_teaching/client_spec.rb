@@ -60,4 +60,21 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
       expect(unknown.iso_code).to be_nil
     end
   end
+
+  describe "#lookup_items.teaching_subjects", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/teaching_subjects" } do
+    subject(:result) { adapter.lookup_items.teaching_subjects.all }
+
+    it "returns TeachingSubjectResource instances" do
+      expect(result).to all(be_a(CRM::Resources::LookUpItems::TeachingSubjectResource))
+    end
+
+    it "deserializes the first entry correctly" do
+      expect(result.first).to eq(
+                                CRM::Resources::LookUpItems::TeachingSubjectResource.new(
+                                  id: "6b793433-cd1f-e911-a979-000d3a20838a",
+                                  value: "Art",
+                                )
+                              )
+    end
+  end
 end

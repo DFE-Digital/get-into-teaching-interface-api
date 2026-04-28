@@ -18,4 +18,10 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::LookUpItemsResource do
       expect(resource.degree_countries).to be_a(CRM::Adapters::GetIntoTeaching::Resources::LookUpItems::DegreeCountriesResource)
     end
   end
+
+  describe "#teaching_subjects" do
+    it "returns a GIT LookUpItems::TeachingSubjectsResource" do
+      expect(resource.teaching_subjects).to be_a(CRM::Adapters::GetIntoTeaching::Resources::LookUpItems::TeachingSubjectsResource)
+    end
+  end
 end

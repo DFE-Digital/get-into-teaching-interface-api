@@ -12,6 +12,10 @@ module CRM
           def degree_countries
             LookUpItems::DegreeCountriesResource.new
           end
+
+          def teaching_subjects
+            LookUpItems::TeachingSubjectsResource.new
+          end
         end
       end
     end

@@ -16,4 +16,10 @@ RSpec.describe CRM::Adapters::Demo::Resources::LookUpItemsResource do
       expect(resource.degree_countries).to be_a(CRM::Adapters::Demo::Resources::LookUpItems::DegreeCountriesResource)
     end
   end
+
+  describe "#teaching_subjects" do
+    it "returns a Demo LookUpItems::TeachingSubjectsResource" do
+      expect(resource.teaching_subjects).to be_a(CRM::Adapters::Demo::Resources::LookUpItems::TeachingSubjectsResource)
+    end
+  end
 end

@@ -1,0 +1,5 @@
+### Degree Countries lookup items
+GET http://localhost:3000/api/lookup_items/degree_countries
+
+### Degree Countries lookup items with forced cache miss
+GET http://localhost:3000/api/lookup_items/degree_countries?force_cache_miss=true

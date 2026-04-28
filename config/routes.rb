@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     namespace :lookup_items do
       resources :countries, only: :index
       resources :degree_countries, only: :index
+      resources :teaching_subjects, only: :index
     end
   end
 

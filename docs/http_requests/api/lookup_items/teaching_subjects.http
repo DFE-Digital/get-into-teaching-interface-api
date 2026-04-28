@@ -1,0 +1,5 @@
+### Teaching Subjects lookup items
+GET http://localhost:3000/api/lookup_items/teaching_subjects
+
+### Teaching Subjects lookup items with forced cache miss
+GET http://localhost:3000/api/lookup_items/teaching_subjects?force_cache_miss=true
