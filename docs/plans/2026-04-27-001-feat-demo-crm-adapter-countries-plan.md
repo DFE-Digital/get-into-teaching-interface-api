@@ -248,6 +248,7 @@ DemoCRMAdapter::Countries#all
 ## Sources & References
 
 - **Origin document:** [docs/brainstorms/2026-04-24-crm-adapter-architecture-requirements.md](docs/brainstorms/2026-04-24-crm-adapter-architecture-requirements.md)
+- **Solution doc:** [docs/solutions/best-practices/crm-adapter-pattern-demo-phase-2026-04-27.md](docs/solutions/best-practices/crm-adapter-pattern-demo-phase-2026-04-27.md)
 - Related code: `app/controllers/api/lookup_items/countries_controller.rb`
 - Related code: `spec/requests/api/lookup_items/countries_spec.rb`
 - Related code: `config/initializers/inflections.rb`

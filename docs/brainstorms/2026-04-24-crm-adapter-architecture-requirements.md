@@ -407,3 +407,8 @@ unless the team decides to standardise on Minitest across all DFE services.
 ## Next Steps
 
 -> `/ce:plan` for structured implementation planning
+
+## Implementation
+
+- **Plan:** [docs/plans/2026-04-27-001-feat-demo-crm-adapter-countries-plan.md](../plans/2026-04-27-001-feat-demo-crm-adapter-countries-plan.md) (status: completed)
+- **Solution doc:** [docs/solutions/best-practices/crm-adapter-pattern-demo-phase-2026-04-27.md](../solutions/best-practices/crm-adapter-pattern-demo-phase-2026-04-27.md)

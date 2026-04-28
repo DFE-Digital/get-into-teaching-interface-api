@@ -241,3 +241,5 @@ cross-cutting logic, the question answers itself.
 - 2026-04-24: Initial ideation — 38 candidates generated across 4 frames
   (developer pain, inversion/automation, assumption-breaking, leverage/compounding),
   23 rejected, 7 survived
+- 2026-04-27: Demo phase implemented — countries endpoint live, LookUpItems namespace
+  established. See [solution doc](../solutions/best-practices/crm-adapter-pattern-demo-phase-2026-04-27.md).
