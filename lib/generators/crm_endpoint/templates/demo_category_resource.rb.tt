@@ -1,0 +1,17 @@
+# frozen_string_literal: true
+
+module CRM
+  module Adapters
+    module Demo
+      module Resources
+        module <%= list_type_module %>
+          class <%= category_class %> < CRM::Resources::<%= list_type_module %>::<%= category_class %>
+            def <%= collection %>
+              <%= category_module %>::<%= collection_class %>.new
+            end
+          end
+        end
+      end
+    end
+  end
+end

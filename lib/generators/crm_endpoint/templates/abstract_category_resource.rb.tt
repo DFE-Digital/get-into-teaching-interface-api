@@ -1,0 +1,11 @@
+# frozen_string_literal: true
+
+module CRM
+  module Resources
+    module <%= list_type_module %>
+      class <%= category_class %>
+        def <%= collection %>(*) = raise NotImplementedError
+      end
+    end
+  end
+end

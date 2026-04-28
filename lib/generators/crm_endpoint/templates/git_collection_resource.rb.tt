@@ -1,0 +1,29 @@
+# frozen_string_literal: true
+
+module CRM
+  module Adapters
+    module GetIntoTeaching
+      module Resources
+        module <%= list_type_module %>
+<% if depth == 3 -%>
+          module <%= category_module %>
+            class <%= collection_class %> < CRM::Adapters::GetIntoTeaching::Resource
+              def all(**params)
+                response = get_request("<%= api_path %>", params: params)
+                response_to_collection(response, type: CRM::Resources::<%= list_type_module %>::<%= category_module %>::<%= singular_class %>)
+              end
+            end
+          end
+<% else -%>
+          class <%= collection_class %> < CRM::Adapters::GetIntoTeaching::Resource
+            def all(**params)
+              response = get_request("<%= api_path %>", params: params)
+              response_to_collection(response, type: CRM::Resources::<%= list_type_module %>::<%= singular_class %>)
+            end
+          end
+<% end -%>
+        end
+      end
+    end
+  end
+end

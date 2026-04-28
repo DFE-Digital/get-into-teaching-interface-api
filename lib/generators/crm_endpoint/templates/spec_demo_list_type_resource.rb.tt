@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+require "rails_helper"
+
+RSpec.describe CRM::Adapters::Demo::Resources::<%= list_type_class %> do
+  subject(:resource) { described_class.new }
+
+  describe "#<%= list_type_first_method %>" do
+    it "returns a Demo <%= list_type_first_method_return %>" do
+      expect(resource.<%= list_type_first_method %>).to be_a(CRM::Adapters::Demo::Resources::<%= list_type_first_method_return %>)
+    end
+  end
+end

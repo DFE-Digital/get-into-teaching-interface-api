@@ -1,0 +1,8 @@
+class <%= controller_class %> < API::ApplicationController
+  def index
+    data = Rails.cache.fetch(**cache_options.to_h) do
+      <%= fluent_chain %>
+    end
+    render json: { data: data }
+  end
+end

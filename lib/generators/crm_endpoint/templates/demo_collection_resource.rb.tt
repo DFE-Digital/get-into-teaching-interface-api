@@ -1,0 +1,33 @@
+# frozen_string_literal: true
+
+module CRM
+  module Adapters
+    module Demo
+      module Resources
+        module <%= list_type_module %>
+<% if depth == 3 -%>
+          module <%= category_module %>
+            class <%= collection_class %> < CRM::Resources::<%= list_type_module %>::<%= category_module %>::<%= collection_class %>
+              def all(*)
+                [
+                  CRM::Resources::<%= list_type_module %>::<%= category_module %>::<%= singular_class %>.new(id: "3fa85f64-5717-4562-b3fc-2c963f66afa6", value: "Example 1"),
+                  CRM::Resources::<%= list_type_module %>::<%= category_module %>::<%= singular_class %>.new(id: "3fa85f64-5717-4562-b3fc-2c963f66afa7", value: "Example 2"),
+                ]
+              end
+            end
+          end
+<% else -%>
+          class <%= collection_class %> < CRM::Resources::<%= list_type_module %>::<%= collection_class %>
+            def all(*)
+              [
+                CRM::Resources::<%= list_type_module %>::<%= singular_class %>.new(id: "3fa85f64-5717-4562-b3fc-2c963f66afa6", value: "Example 1"),
+                CRM::Resources::<%= list_type_module %>::<%= singular_class %>.new(id: "3fa85f64-5717-4562-b3fc-2c963f66afa7", value: "Example 2"),
+              ]
+            end
+          end
+<% end -%>
+        end
+      end
+    end
+  end
+end

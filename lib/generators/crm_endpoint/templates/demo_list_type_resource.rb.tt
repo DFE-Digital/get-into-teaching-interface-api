@@ -1,0 +1,15 @@
+# frozen_string_literal: true
+
+module CRM
+  module Adapters
+    module Demo
+      module Resources
+        class <%= list_type_class %> < CRM::Resources::<%= list_type_class %>
+          def <%= list_type_first_method %>
+            <%= list_type_first_method_return %>.new
+          end
+        end
+      end
+    end
+  end
+end

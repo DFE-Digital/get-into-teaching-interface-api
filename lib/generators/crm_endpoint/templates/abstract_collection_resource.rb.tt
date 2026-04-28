@@ -1,0 +1,25 @@
+# frozen_string_literal: true
+
+module CRM
+  module Resources
+    module <%= list_type_module %>
+<% if depth == 3 -%>
+      module <%= category_module %>
+        class <%= collection_class %>
+          # @return [Array<<%= crm_resource_ns %>::<%= singular_class %>]
+          def all(*)
+            raise NotImplementedError
+          end
+        end
+      end
+<% else -%>
+      class <%= collection_class %>
+        # @return [Array<<%= crm_resource_ns %>::<%= singular_class %>]
+        def all(*)
+          raise NotImplementedError
+        end
+      end
+<% end -%>
+    end
+  end
+end

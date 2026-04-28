@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+require "rails_helper"
+
+RSpec.describe CRM::Adapters::Demo::Resources::<%= list_type_module %>::<%= category_class %> do
+  subject(:resource) { described_class.new }
+
+  describe "#<%= collection %>" do
+    it "returns a Demo <%= list_type_module %>::<%= category_module %>::<%= collection_class %>" do
+      expect(resource.<%= collection %>).to be_a(CRM::Adapters::Demo::Resources::<%= list_type_module %>::<%= category_module %>::<%= collection_class %>)
+    end
+  end
+end

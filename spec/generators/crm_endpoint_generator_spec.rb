@@ -41,6 +41,44 @@ RSpec.describe CrmEndpointGenerator do
     end
   end
 
+  describe "derived name helpers (depth-2)" do
+    # Uses lookup_items/countries to verify depth-2 derivation.
+    # Note: "lookup_items".camelize => "LookupItems" (no underscore between Look/Up).
+    # Existing CRM resources use look_up_items (with underscore) — that's pre-generator legacy.
+    subject(:gen) { generator("lookup_items/countries") }
+
+    it { expect(gen.list_type_class).to eq("LookupItemsResource") }
+    it { expect(gen.collection_class).to eq("CountriesResource") }
+    it { expect(gen.singular_class).to eq("CountryResource") }
+    it { expect(gen.list_type_module).to eq("LookupItems") }
+    it { expect(gen.category_module).to be_nil }
+    it { expect(gen.crm_resource_ns).to eq("CRM::Resources::LookupItems") }
+    it { expect(gen.list_type_first_method).to eq("countries") }
+    it { expect(gen.list_type_first_method_return).to eq("LookupItems::CountriesResource") }
+    it { expect(gen.api_path).to eq("/api/lookup_items/countries") }
+    it { expect(gen.fluent_chain).to eq("CRM::Client.new.lookup_items.countries.all") }
+    it { expect(gen.controller_class).to eq("API::LookupItems::CountriesController") }
+    it { expect(gen.route_helper).to eq("api_lookup_items_countries_path") }
+  end
+
+  describe "derived name helpers (depth-3)" do
+    subject(:gen) { generator("pick_list_items/candidate/initial_teacher_training_years") }
+
+    it { expect(gen.list_type_class).to eq("PickListItemsResource") }
+    it { expect(gen.category_class).to eq("CandidateResource") }
+    it { expect(gen.collection_class).to eq("InitialTeacherTrainingYearsResource") }
+    it { expect(gen.singular_class).to eq("InitialTeacherTrainingYearResource") }
+    it { expect(gen.list_type_module).to eq("PickListItems") }
+    it { expect(gen.category_module).to eq("Candidate") }
+    it { expect(gen.crm_resource_ns).to eq("CRM::Resources::PickListItems::Candidate") }
+    it { expect(gen.list_type_first_method).to eq("candidate") }
+    it { expect(gen.list_type_first_method_return).to eq("PickListItems::CandidateResource") }
+    it { expect(gen.api_path).to eq("/api/pick_list_items/candidate/initial_teacher_training_years") }
+    it { expect(gen.fluent_chain).to eq("CRM::Client.new.pick_list_items.candidate.initial_teacher_training_years.all") }
+    it { expect(gen.controller_class).to eq("API::PickListItems::Candidate::InitialTeacherTrainingYearsController") }
+    it { expect(gen.route_helper).to eq("api_pick_list_items_candidate_initial_teacher_training_years_path") }
+  end
+
   describe "argument validation" do
     it "raises ArgumentError for a 1-segment path" do
       expect { generator("only_one_segment") }

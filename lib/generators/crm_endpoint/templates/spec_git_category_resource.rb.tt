@@ -1,0 +1,15 @@
+# frozen_string_literal: true
+
+require "rails_helper"
+
+RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::<%= list_type_module %>::<%= category_class %> do
+  let(:client) { instance_double(CRM::Adapters::GetIntoTeaching::Client) }
+
+  subject(:resource) { described_class.new(client) }
+
+  describe "#<%= collection %>" do
+    it "returns a GIT <%= list_type_module %>::<%= category_module %>::<%= collection_class %>" do
+      expect(resource.<%= collection %>).to be_a(CRM::Adapters::GetIntoTeaching::Resources::<%= list_type_module %>::<%= category_module %>::<%= collection_class %>)
+    end
+  end
+end

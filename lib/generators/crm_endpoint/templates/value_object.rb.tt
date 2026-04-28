@@ -1,0 +1,15 @@
+# frozen_string_literal: true
+
+module CRM
+  module Resources
+    module <%= list_type_module %>
+<% if depth == 3 -%>
+      module <%= category_module %>
+        <%= singular_class %> = Data.define(:id, :value)
+      end
+<% else -%>
+      <%= singular_class %> = Data.define(:id, :value)
+<% end -%>
+    end
+  end
+end

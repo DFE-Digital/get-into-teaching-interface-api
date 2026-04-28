@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+require "rails_helper"
+
+RSpec.describe CRM::Resources::<%= list_type_class %> do
+  subject(:resource) { described_class.new }
+
+  describe "#<%= list_type_first_method %>" do
+    it "raises NotImplementedError" do
+      expect { resource.<%= list_type_first_method %> }.to raise_error(NotImplementedError)
+    end
+  end
+end
