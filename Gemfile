@@ -41,33 +41,21 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
-end
 
-group :development do
-  # Use console on exceptions pages [https://github.com/rails/web-console]
-  gem "web-console"
-end
-gem "govuk-components"
-gem "govuk_design_system_formbuilder"
-
-group :development, :test do
   gem "rspec"
   gem "rspec-rails"
   gem "capybara"
   gem "factory_bot_rails"
   gem "shoulda-matchers"
-end
-
-group :development, :test do
   gem "rubocop-govuk", require: false
+  gem "dotenv-rails", "~> 3.2"
 end
 
 group :development do
+  # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem "web-console"
   gem "solargraph", require: false
   gem "solargraph-rails", require: false
-end
-
-group :development do
   gem "rladr"
 end
 
@@ -75,4 +63,13 @@ group :development, :production do
   gem "amazing_print"
   gem "rails_semantic_logger"
 end
+
+gem "govuk-components"
+gem "govuk_design_system_formbuilder"
+
 gem "dfe-analytics", github: "DFE-Digital/dfe-analytics", tag: "v1.15.8"
+
+gem "faraday", "~> 2.14"
+gem "vcr", "~> 6.4"
+
+gem "webmock", "~> 3.26", group: :test

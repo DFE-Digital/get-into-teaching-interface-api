@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
-RSpec.describe CRM::Client::Country do
+RSpec.describe CRM::Resources::LookUpItems::CountryResource do
   it "can be instantiated with id, value, and iso_code" do
     country = described_class.new(id: "abc-123", value: "United Kingdom", iso_code: "GB")
 

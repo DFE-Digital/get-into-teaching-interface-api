@@ -43,10 +43,13 @@ app/
   models/                 # Active Record models (minimal by design)
 lib/
   crm/
-    client/               # CRM::Client — value objects (Data.define) + delegation classes
+    client.rb             # CRM::Client — facade, constructor-injected adapter (default: Demo)
+    resources/
+      look_up_items_resource.rb          # abstract base
+      look_up_items/                     # value objects + abstract resource classes
     adapters/
-      demo/               # CRM::Adapters::Demo — hardcoded data, used until Dynamics365 is wired
-      dynamics365/        # CRM::Adapters::Dynamics365 — (future) live CRM adapter
+      demo/               # CRM::Adapters::Demo — hardcoded data, default adapter
+      get_into_teaching/  # CRM::Adapters::GetIntoTeaching — live HTTP adapter (Faraday)
 spec/
   requests/api/           # Request specs (integration, use named route helpers)
   lib/crm/                # Unit specs for lib/crm/ — mirror the lib/ structure
@@ -75,14 +78,22 @@ adr/                      # Architecture Decision Records
 
 ### CRM adapter pattern
 
-New CRM entities follow the three-layer pattern under `lib/crm/`:
+New lookup resources follow the three-level call chain:
 
-1. **Value object** — `CRM::Client::Foo = Data.define(...)` in `lib/crm/client/foo.rb`
-2. **Delegation class** — `CRM::Client::Foos` in `lib/crm/client/foos.rb`, injects adapter via constructor
-3. **Adapter** — `CRM::Adapters::Demo::Foos` in `lib/crm/adapters/demo/foos.rb` (hardcoded until Dynamics365 is ready)
+```
+Controller → CRM::Client#lookup_items → LookUpItemsResource#<resource> → <Resource>#all
+```
 
-Controller calls `CRM::Client::Foos.new.all` inside `Rails.cache.fetch(**cache_options.to_h)`.
+Controller calls `CRM::Client.new.lookup_items.<resource>.all` inside `Rails.cache.fetch(**cache_options.to_h)`.
 Caching stays in the controller — `CRM::Client` is cache-unaware.
+
+When adding a new lookup resource (e.g. subjects), add in order:
+1. **Value object** — `CRM::Resources::LookUpItems::SubjectResource = Data.define(...)` in `lib/crm/resources/look_up_items/subject_resource.rb`
+2. **Abstract resource** — `CRM::Resources::LookUpItems::SubjectsResource#all` raises `NotImplementedError`
+3. **`#subjects` method** — added to `CRM::Resources::LookUpItemsResource` (abstract) and both adapter `LookUpItemsResource` classes
+4. **Demo resource** — hardcoded stub in `lib/crm/adapters/demo/resources/look_up_items/`
+5. **HTTP resource** — `< CRM::Adapters::GetIntoTeaching::Resource`, calls `get_request` + `response_to_collection`
+6. **Controller + route** — follow `API::LookupItems::CountriesController` as the template
 
 See `docs/solutions/best-practices/crm-adapter-pattern-demo-phase-2026-04-27.md` for the full pattern with examples.
 

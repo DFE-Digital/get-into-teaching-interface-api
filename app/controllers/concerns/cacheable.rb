@@ -23,6 +23,7 @@ module Cacheable
 
   def force_cache_miss?
     force_cache_miss_param = params.fetch(:force_cache_miss, Rails.env.local?)
+    puts force_cache_miss_param
     ActiveModel::Type::Boolean.new.cast(force_cache_miss_param)
   end
 end
