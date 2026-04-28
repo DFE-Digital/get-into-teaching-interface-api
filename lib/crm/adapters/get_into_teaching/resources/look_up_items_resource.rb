@@ -12,6 +12,10 @@ module CRM
           def countries
             LookUpItems::CountriesResource.new(@client)
           end
+
+          def degree_countries
+            LookUpItems::DegreeCountriesResource.new(@client)
+          end
         end
       end
     end

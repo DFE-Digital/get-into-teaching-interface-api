@@ -6,6 +6,10 @@ module CRM
       def countries(*)
         raise NotImplementedError
       end
+
+      def degree_countries(*)
+        raise NotImplementedError
+      end
     end
   end
 end

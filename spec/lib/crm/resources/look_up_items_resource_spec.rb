@@ -10,4 +10,10 @@ RSpec.describe CRM::Resources::LookUpItemsResource do
       expect { resource.countries }.to raise_error(NotImplementedError)
     end
   end
+
+  describe "#degree_countries" do
+    it "raises NotImplementedError" do
+      expect { resource.degree_countries }.to raise_error(NotImplementedError)
+    end
+  end
 end

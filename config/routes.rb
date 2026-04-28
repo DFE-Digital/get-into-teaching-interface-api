@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :lookup_items do
       resources :countries, only: :index
+      resources :degree_countries, only: :index
     end
   end
 

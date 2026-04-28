@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://getintoteachingapi-development.test.teacherservices.cloud/api/lookup_items/degree_countries
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.14.1
+      Authorization:
+      - "<AUTH>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 28 Apr 2026 11:41:57 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - private,max-age=300
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '[{"id":"6f9e7b81-e44d-f011-877a-00224886d23e","value":"Another Country","isoCode":null},{"id":"72f5c2e6-74f9-e811-a97a-000d3a2760f2","value":"United
+        Kingdom","isoCode":"GB"}]'
+  recorded_at: Tue, 28 Apr 2026 11:41:57 GMT
+recorded_with: VCR 6.4.0

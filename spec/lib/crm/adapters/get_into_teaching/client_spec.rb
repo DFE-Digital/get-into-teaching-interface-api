@@ -35,4 +35,29 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
       expect(unknown.iso_code).to be_nil
     end
   end
+
+  describe "#lookup_items.degree_countries", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/degree_countries" } do
+    subject(:result) { adapter.lookup_items.degree_countries.all }
+
+    it "returns CountryResource instances" do
+      expect(result).to all(be_a(CRM::Resources::LookUpItems::DegreeCountryResource))
+    end
+
+    it "deserializes the first entry correctly" do
+      expect(result.first).to eq(
+                                CRM::Resources::LookUpItems::DegreeCountryResource.new(
+                                  id: "6f9e7b81-e44d-f011-877a-00224886d23e",
+                                  value: "Another Country",
+                                  iso_code: nil
+                                )
+                              )
+    end
+
+    it "handles entries with a null iso_code" do
+      unknown = result.find { |c| c.value == "Another Country" }
+
+      expect(unknown).not_to be_nil
+      expect(unknown.iso_code).to be_nil
+    end
+  end
 end
