@@ -29,6 +29,8 @@ module CRM
             def adviser_eligibilities = Candidate::AdviserEligibilitiesResource.new(@client)
 
             def adviser_requirements = Candidate::AdviserRequirementsResource.new(@client)
+
+            def types = Candidate::TypesResource.new(@client)
           end
         end
       end

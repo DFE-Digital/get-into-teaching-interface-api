@@ -47,6 +47,10 @@ module CRM
             def adviser_requirements
               Candidate::AdviserRequirementsResource.new
             end
+
+            def types
+              Candidate::TypesResource.new
+            end
           end
         end
       end

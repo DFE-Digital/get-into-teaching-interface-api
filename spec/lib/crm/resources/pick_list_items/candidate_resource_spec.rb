@@ -74,4 +74,10 @@ RSpec.describe CRM::Resources::PickListItems::CandidateResource do
       expect { resource.adviser_requirements }.to raise_error(NotImplementedError)
     end
   end
+
+  describe "#types" do
+    it "raises NotImplementedError" do
+      expect { resource.types }.to raise_error(NotImplementedError)
+    end
+  end
 end
