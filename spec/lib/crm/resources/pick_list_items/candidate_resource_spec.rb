@@ -62,4 +62,10 @@ RSpec.describe CRM::Resources::PickListItems::CandidateResource do
       expect { resource.consideration_journey_stages }.to raise_error(NotImplementedError)
     end
   end
+
+  describe "#adviser_eligibilities" do
+    it "raises NotImplementedError" do
+      expect { resource.adviser_eligibilities }.to raise_error(NotImplementedError)
+    end
+  end
 end

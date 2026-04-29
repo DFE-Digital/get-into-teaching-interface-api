@@ -39,6 +39,10 @@ module CRM
             def consideration_journey_stages
               Candidate::ConsiderationJourneyStagesResource.new
             end
+
+            def adviser_eligibilities
+              Candidate::AdviserEligibilitiesResource.new
+            end
           end
         end
       end

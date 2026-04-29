@@ -21,6 +21,8 @@ module CRM
         def retake_gcse_statuses(*) = raise NotImplementedError
 
         def consideration_journey_stages(*) = raise NotImplementedError
+
+        def adviser_eligibilities(*) = raise NotImplementedError
       end
     end
   end

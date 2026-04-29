@@ -58,4 +58,10 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::PickListItems::Candida
       expect(resource.consideration_journey_stages).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::Candidate::ConsiderationJourneyStagesResource)
     end
   end
+
+  describe "#adviser_eligibilities" do
+    it "returns a GIT PickListItems::Candidate::AdviserEligibilitiesResource" do
+      expect(resource.adviser_eligibilities).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::Candidate::AdviserEligibilitiesResource)
+    end
+  end
 end
