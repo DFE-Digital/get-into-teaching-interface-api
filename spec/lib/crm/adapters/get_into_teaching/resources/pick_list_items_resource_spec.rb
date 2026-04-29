@@ -10,4 +10,10 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::PickListItemsResource 
       expect(resource.candidate).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::CandidateResource)
     end
   end
+
+  describe "#qualification" do
+    it "returns a GIT PickListItems::QualificationResource" do
+      expect(resource.qualification).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::QualificationResource)
+    end
+  end
 end

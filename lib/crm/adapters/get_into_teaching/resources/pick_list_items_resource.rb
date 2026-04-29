@@ -8,6 +8,8 @@ module CRM
           end
 
           def candidate = PickListItems::CandidateResource.new(@client)
+
+          def qualification = PickListItems::QualificationResource.new(@client)
         end
       end
     end

@@ -8,4 +8,10 @@ RSpec.describe CRM::Resources::PickListItemsResource do
       expect { resource.candidate }.to raise_error(NotImplementedError)
     end
   end
+
+  describe "#qualification" do
+    it "raises NotImplementedError" do
+      expect { resource.qualification }.to raise_error(NotImplementedError)
+    end
+  end
 end
