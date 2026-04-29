@@ -19,6 +19,8 @@ module CRM
             def event_subscription_channels = Candidate::EventSubscriptionChannelsResource.new(@client)
 
             def teacher_training_adviser_subscription_channels = Candidate::TeacherTrainingAdviserSubscriptionChannelsResource.new(@client)
+
+            def gcse_statuses = Candidate::GcseStatusesResource.new(@client)
           end
         end
       end

@@ -27,6 +27,10 @@ module CRM
             def teacher_training_adviser_subscription_channels
               Candidate::TeacherTrainingAdviserSubscriptionChannelsResource.new
             end
+
+            def gcse_statuses
+              Candidate::GcseStatusesResource.new
+            end
           end
         end
       end

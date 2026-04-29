@@ -1,0 +1,5 @@
+### Candidate Gcse statuses
+GET http://localhost:3000/api/pick_list_items/candidate/gcse_statuses
+
+### Candidate Gcse statuses with forced cache miss
+GET http://localhost:3000/api/pick_list_items/candidate/gcse_statuses?force_cache_miss=true

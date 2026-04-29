@@ -178,4 +178,21 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
       )
     end
   end
+
+  describe "#pick_list_items.candidate.gcse_statuses", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/gcse_statuses" } do
+    subject(:result) { adapter.pick_list_items.candidate.gcse_statuses.all }
+
+    it "returns GcseStatusResource instances" do
+      expect(result).to all(be_a(CRM::Resources::PickListItems::Candidate::GcseStatusResource))
+    end
+
+    it "deserializes the first entry correctly" do
+      expect(result.first).to eq(
+        CRM::Resources::PickListItems::Candidate::GcseStatusResource.new(
+          id: 222750000,
+          value: "Completed GCSE",
+        )
+      )
+    end
+  end
 end

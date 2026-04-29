@@ -13,6 +13,10 @@ module CRM
         def event_subscription_channels(*) = raise NotImplementedError
 
         def teacher_training_adviser_subscription_channels(*) = raise NotImplementedError
+
+        def gcse_status(*) = raise NotImplementedError
+
+        def gcse_statuses(*) = raise NotImplementedError
       end
     end
   end

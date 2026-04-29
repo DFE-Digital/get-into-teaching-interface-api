@@ -38,4 +38,16 @@ RSpec.describe CRM::Resources::PickListItems::CandidateResource do
       expect { resource.teacher_training_adviser_subscription_channels }.to raise_error(NotImplementedError)
     end
   end
+
+  describe "#gcse_status" do
+    it "raises NotImplementedError" do
+      expect { resource.gcse_status }.to raise_error(NotImplementedError)
+    end
+  end
+
+  describe "#gcse_statuses" do
+    it "raises NotImplementedError" do
+      expect { resource.gcse_statuses }.to raise_error(NotImplementedError)
+    end
+  end
 end
