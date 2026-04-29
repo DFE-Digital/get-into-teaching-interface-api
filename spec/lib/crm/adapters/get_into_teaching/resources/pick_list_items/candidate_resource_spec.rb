@@ -88,4 +88,10 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::PickListItems::Candida
       expect(resource.situations).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::Candidate::SituationsResource)
     end
   end
+
+  describe "#citizenships" do
+    it "returns a GIT PickListItems::Candidate::CitizenshipsResource" do
+      expect(resource.citizenships).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::Candidate::CitizenshipsResource)
+    end
+  end
 end

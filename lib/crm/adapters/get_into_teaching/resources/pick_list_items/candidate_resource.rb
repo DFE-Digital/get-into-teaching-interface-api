@@ -35,6 +35,8 @@ module CRM
             def assignment_statuses = Candidate::AssignmentStatusesResource.new(@client)
 
             def situations = Candidate::SituationsResource.new(@client)
+
+            def citizenships = Candidate::CitizenshipsResource.new(@client)
           end
         end
       end

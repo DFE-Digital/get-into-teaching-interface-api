@@ -59,6 +59,10 @@ module CRM
             def situations
               Candidate::SituationsResource.new
             end
+
+            def citizenships
+              Candidate::CitizenshipsResource.new
+            end
           end
         end
       end
