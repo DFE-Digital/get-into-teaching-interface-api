@@ -1,0 +1,5 @@
+### Teaching event Statuses
+GET http://localhost:3000/api/pick_list_items/teaching_event/statuses
+
+### Teaching event Statuses with forced cache miss
+GET http://localhost:3000/api/pick_list_items/teaching_event/statuses?force_cache_miss=true

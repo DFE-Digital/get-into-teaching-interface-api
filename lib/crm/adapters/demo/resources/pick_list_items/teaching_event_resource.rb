@@ -11,6 +11,10 @@ module CRM
             def regions
               TeachingEvent::RegionsResource.new
             end
+
+            def statuses
+              TeachingEvent::StatusesResource.new
+            end
           end
         end
       end

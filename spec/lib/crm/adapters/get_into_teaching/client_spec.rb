@@ -484,4 +484,21 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
       )
     end
   end
+
+  describe "#pick_list_items.teaching_event.statuses", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/pick_list_items/teaching_event/statuses" } do
+    subject(:result) { adapter.pick_list_items.teaching_event.statuses.all }
+
+    it "returns StatusResource instances" do
+      expect(result).to all(be_a(CRM::Resources::PickListItems::TeachingEvent::StatusResource))
+    end
+
+    it "deserializes the first entry correctly" do
+      expect(result.first).to eq(
+        CRM::Resources::PickListItems::TeachingEvent::StatusResource.new(
+          id: 222750000,
+          value: "Open",
+        )
+      )
+    end
+  end
 end

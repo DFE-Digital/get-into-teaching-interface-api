@@ -14,4 +14,10 @@ RSpec.describe CRM::Adapters::Demo::Resources::PickListItems::TeachingEventResou
       expect(resource.regions).to be_a(CRM::Adapters::Demo::Resources::PickListItems::TeachingEvent::RegionsResource)
     end
   end
+
+  describe "#statuses" do
+    it "returns a Demo PickListItems::TeachingEvent::StatusesResource" do
+      expect(resource.statuses).to be_a(CRM::Adapters::Demo::Resources::PickListItems::TeachingEvent::StatusesResource)
+    end
+  end
 end

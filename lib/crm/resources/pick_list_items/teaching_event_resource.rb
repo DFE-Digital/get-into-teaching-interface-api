@@ -5,6 +5,8 @@ module CRM
         def types(*) = raise NotImplementedError
 
         def regions(*) = raise NotImplementedError
+
+        def statuses(*) = raise NotImplementedError
       end
     end
   end

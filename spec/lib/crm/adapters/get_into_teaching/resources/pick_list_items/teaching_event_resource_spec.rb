@@ -16,4 +16,10 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::PickListItems::Teachin
       expect(resource.regions).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::TeachingEvent::RegionsResource)
     end
   end
+
+  describe "#statuses" do
+    it "returns a GIT PickListItems::TeachingEvent::StatusesResource" do
+      expect(resource.statuses).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::TeachingEvent::StatusesResource)
+    end
+  end
 end
