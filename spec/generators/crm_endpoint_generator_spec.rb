@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require "rails_helper"
 require "rails/generators"
 require "generators/crm_endpoint/crm_endpoint_generator"
@@ -131,9 +129,7 @@ RSpec.describe CrmEndpointGenerator do
 
       FileUtils.mkdir_p(File.join(tmp_dir, "lib/crm"))
       File.write(File.join(tmp_dir, "lib/crm/client.rb"), <<~RUBY)
-        # frozen_string_literal: true
-
-        module CRM
+                module CRM
           class Client
             def initialize(adapter: CRM::Adapters::Demo::Client.new)
               @adapter = adapter
@@ -148,9 +144,7 @@ RSpec.describe CrmEndpointGenerator do
 
       FileUtils.mkdir_p(File.join(tmp_dir, "lib/crm/adapters/demo"))
       File.write(File.join(tmp_dir, "lib/crm/adapters/demo/client.rb"), <<~RUBY)
-        # frozen_string_literal: true
-
-        module CRM
+                module CRM
           module Adapters
             module Demo
               class Client
@@ -165,9 +159,7 @@ RSpec.describe CrmEndpointGenerator do
 
       FileUtils.mkdir_p(File.join(tmp_dir, "lib/crm/adapters/get_into_teaching"))
       File.write(File.join(tmp_dir, "lib/crm/adapters/get_into_teaching/client.rb"), <<~RUBY)
-        # frozen_string_literal: true
-
-        module CRM
+                module CRM
           module Adapters
             module GetIntoTeaching
               class Client
@@ -182,9 +174,7 @@ RSpec.describe CrmEndpointGenerator do
 
       FileUtils.mkdir_p(File.join(tmp_dir, "spec/lib/crm/adapters/get_into_teaching"))
       File.write(File.join(tmp_dir, "spec/lib/crm/adapters/get_into_teaching/client_spec.rb"), <<~RUBY)
-        # frozen_string_literal: true
-
-        require "rails_helper"
+                require "rails_helper"
 
         RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
           subject(:adapter) { described_class.new }

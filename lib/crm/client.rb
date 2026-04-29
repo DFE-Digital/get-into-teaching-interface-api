@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module CRM
   class Client
     def initialize(adapter: CRM::Adapters::Demo::Client.new)
