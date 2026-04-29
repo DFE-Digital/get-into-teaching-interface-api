@@ -1,0 +1,5 @@
+### Candidate Locations
+GET http://localhost:3000/api/pick_list_items/candidate/locations
+
+### Candidate Locations with forced cache miss
+GET http://localhost:3000/api/pick_list_items/candidate/locations?force_cache_miss=true

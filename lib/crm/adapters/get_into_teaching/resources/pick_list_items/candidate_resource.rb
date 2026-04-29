@@ -39,6 +39,8 @@ module CRM
             def citizenships = Candidate::CitizenshipsResource.new(@client)
 
             def visa_statuses = Candidate::VisaStatusesResource.new(@client)
+
+            def locations = Candidate::LocationsResource.new(@client)
           end
         end
       end

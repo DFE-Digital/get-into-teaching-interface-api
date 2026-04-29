@@ -348,4 +348,21 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
       )
     end
   end
+
+  describe "#pick_list_items.candidate.locations", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/locations" } do
+    subject(:result) { adapter.pick_list_items.candidate.locations.all }
+
+    it "returns LocationResource instances" do
+      expect(result).to all(be_a(CRM::Resources::PickListItems::Candidate::LocationResource))
+    end
+
+    it "deserializes the first entry correctly" do
+      expect(result.first).to eq(
+        CRM::Resources::PickListItems::Candidate::LocationResource.new(
+          id: 222750000,
+          value: "United Kingdom",
+        )
+      )
+    end
+  end
 end

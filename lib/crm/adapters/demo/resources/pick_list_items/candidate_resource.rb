@@ -67,6 +67,10 @@ module CRM
             def visa_statuses
               Candidate::VisaStatusesResource.new
             end
+
+            def locations
+              Candidate::LocationsResource.new
+            end
           end
         end
       end
