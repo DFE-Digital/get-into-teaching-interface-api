@@ -98,4 +98,10 @@ RSpec.describe CRM::Resources::PickListItems::CandidateResource do
       expect { resource.citizenships }.to raise_error(NotImplementedError)
     end
   end
+
+  describe "#visa_statuses" do
+    it "raises NotImplementedError" do
+      expect { resource.visa_statuses }.to raise_error(NotImplementedError)
+    end
+  end
 end

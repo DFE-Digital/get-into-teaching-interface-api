@@ -92,4 +92,10 @@ RSpec.describe CRM::Adapters::Demo::Resources::PickListItems::CandidateResource 
       expect(resource.citizenships).to be_a(CRM::Adapters::Demo::Resources::PickListItems::Candidate::CitizenshipsResource)
     end
   end
+
+  describe "#visa_statuses" do
+    it "returns a Demo PickListItems::Candidate::VisaStatusesResource" do
+      expect(resource.visa_statuses).to be_a(CRM::Adapters::Demo::Resources::PickListItems::Candidate::VisaStatusesResource)
+    end
+  end
 end

@@ -33,6 +33,8 @@ module CRM
         def situations(*) = raise NotImplementedError
 
         def citizenships(*) = raise NotImplementedError
+
+        def visa_statuses(*) = raise NotImplementedError
       end
     end
   end

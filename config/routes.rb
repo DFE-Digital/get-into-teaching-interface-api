@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :pick_list_items do
       namespace :candidate do
+        resources :visa_statuses, only: :index
         resources :citizenships, only: :index
         resources :situations, only: :index
         resources :assignment_statuses, only: :index

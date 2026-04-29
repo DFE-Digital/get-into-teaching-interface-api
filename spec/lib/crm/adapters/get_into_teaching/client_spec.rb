@@ -331,4 +331,21 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
       )
     end
   end
+
+  describe "#pick_list_items.candidate.visa_statuses", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/visa_statuses" } do
+    subject(:result) { adapter.pick_list_items.candidate.visa_statuses.all }
+
+    it "returns VisaStatusResource instances" do
+      expect(result).to all(be_a(CRM::Resources::PickListItems::Candidate::VisaStatusResource))
+    end
+
+    it "deserializes the first entry correctly" do
+      expect(result.first).to eq(
+        CRM::Resources::PickListItems::Candidate::VisaStatusResource.new(
+          id: 222750000,
+          value: "Yes, I have a visa, pre-settled status or leave to remain",
+        )
+      )
+    end
+  end
 end

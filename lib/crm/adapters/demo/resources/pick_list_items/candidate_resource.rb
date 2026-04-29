@@ -63,6 +63,10 @@ module CRM
             def citizenships
               Candidate::CitizenshipsResource.new
             end
+
+            def visa_statuses
+              Candidate::VisaStatusesResource.new
+            end
           end
         end
       end
