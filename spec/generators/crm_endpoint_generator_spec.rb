@@ -260,6 +260,20 @@ RSpec.describe CrmEndpointGenerator do
         expect(exists?("spec/lib/crm/adapters/get_into_teaching/resources/new_list_type/subjects_resource_spec.rb")).to be true
         expect(exists?("spec/requests/api/new_list_type/subjects_spec.rb")).to be true
       end
+
+      it "creates HTTP request files with correct content" do
+        expect(exists?("docs/http_requests/api/new_list_type/subjects.http")).to be true
+        expect(exists?("docs/http_requests/git_api/new_list_type/subjects.http")).to be true
+
+        api_content = content_of("docs/http_requests/api/new_list_type/subjects.http")
+        expect(api_content).to include("### Subjects")
+        expect(api_content).to include("GET http://localhost:3000/api/new_list_type/subjects")
+        expect(api_content).to include("?force_cache_miss=true")
+
+        git_content = content_of("docs/http_requests/git_api/new_list_type/subjects.http")
+        expect(git_content).to include("GET {{apiUrl}}/api/new_list_type/subjects")
+        expect(git_content).to include("Authorization: Bearer {{apiKey}}")
+      end
     end
 
     describe "depth-3 path: pick_list_items/candidate/initial_teacher_training_years" do
@@ -339,6 +353,15 @@ RSpec.describe CrmEndpointGenerator do
           "spec/lib/crm/adapters/get_into_teaching/resources/pick_list_items/candidate/initial_teacher_training_years_resource_spec.rb",
           "spec/requests/api/pick_list_items/candidate/initial_teacher_training_years_spec.rb",
         ].each { |path| expect(exists?(path)).to be(true), "expected #{path} to exist" }
+      end
+
+      it "creates HTTP request files with correct depth-3 title and path" do
+        expect(exists?("docs/http_requests/api/pick_list_items/candidate/initial_teacher_training_years.http")).to be true
+        expect(exists?("docs/http_requests/git_api/pick_list_items/candidate/initial_teacher_training_years.http")).to be true
+
+        api_content = content_of("docs/http_requests/api/pick_list_items/candidate/initial_teacher_training_years.http")
+        expect(api_content).to include("### Candidate Initial teacher training years")
+        expect(api_content).to include("GET http://localhost:3000/api/pick_list_items/candidate/initial_teacher_training_years")
       end
     end
 
