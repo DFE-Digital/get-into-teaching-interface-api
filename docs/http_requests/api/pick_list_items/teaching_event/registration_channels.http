@@ -1,0 +1,5 @@
+### Teaching event Registration channels
+GET http://localhost:3000/api/pick_list_items/teaching_event/registration_channels
+
+### Teaching event Registration channels with forced cache miss
+GET http://localhost:3000/api/pick_list_items/teaching_event/registration_channels?force_cache_miss=true

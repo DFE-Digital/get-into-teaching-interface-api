@@ -15,6 +15,10 @@ module CRM
             def statuses
               TeachingEvent::StatusesResource.new
             end
+
+            def registration_channels
+              TeachingEvent::RegistrationChannelsResource.new
+            end
           end
         end
       end

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :pick_list_items do
       namespace :teaching_event do
+        resources :registration_channels, only: :index
         resources :statuses, only: :index
         resources :regions, only: :index
         resources :types, only: :index

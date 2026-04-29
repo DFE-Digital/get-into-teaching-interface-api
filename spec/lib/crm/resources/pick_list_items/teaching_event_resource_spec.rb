@@ -20,4 +20,10 @@ RSpec.describe CRM::Resources::PickListItems::TeachingEventResource do
       expect { resource.statuses }.to raise_error(NotImplementedError)
     end
   end
+
+  describe "#registration_channels" do
+    it "raises NotImplementedError" do
+      expect { resource.registration_channels }.to raise_error(NotImplementedError)
+    end
+  end
 end

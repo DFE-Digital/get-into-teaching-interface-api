@@ -13,6 +13,8 @@ module CRM
             def regions = TeachingEvent::RegionsResource.new(@client)
 
             def statuses = TeachingEvent::StatusesResource.new(@client)
+
+            def registration_channels = TeachingEvent::RegistrationChannelsResource.new(@client)
           end
         end
       end

@@ -22,4 +22,10 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::PickListItems::Teachin
       expect(resource.statuses).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::TeachingEvent::StatusesResource)
     end
   end
+
+  describe "#registration_channels" do
+    it "returns a GIT PickListItems::TeachingEvent::RegistrationChannelsResource" do
+      expect(resource.registration_channels).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::TeachingEvent::RegistrationChannelsResource)
+    end
+  end
 end
