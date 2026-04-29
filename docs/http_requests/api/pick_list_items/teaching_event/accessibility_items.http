@@ -1,0 +1,5 @@
+### Teaching event Accessibility items
+GET http://localhost:3000/api/pick_list_items/teaching_event/accessibility_items
+
+### Teaching event Accessibility items with forced cache miss
+GET http://localhost:3000/api/pick_list_items/teaching_event/accessibility_items?force_cache_miss=true

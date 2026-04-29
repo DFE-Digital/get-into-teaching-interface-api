@@ -15,6 +15,8 @@ module CRM
             def statuses = TeachingEvent::StatusesResource.new(@client)
 
             def registration_channels = TeachingEvent::RegistrationChannelsResource.new(@client)
+
+            def accessibility_items = TeachingEvent::AccessibilityItemsResource.new(@client)
           end
         end
       end

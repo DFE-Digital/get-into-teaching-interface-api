@@ -9,6 +9,8 @@ module CRM
         def statuses(*) = raise NotImplementedError
 
         def registration_channels(*) = raise NotImplementedError
+
+        def accessibility_items(*) = raise NotImplementedError
       end
     end
   end

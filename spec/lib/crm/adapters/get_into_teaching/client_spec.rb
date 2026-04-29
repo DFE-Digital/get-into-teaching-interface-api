@@ -603,4 +603,21 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
       )
     end
   end
+
+  describe "#pick_list_items.teaching_event.accessibility_items", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/pick_list_items/teaching_event/accessibility_items" } do
+    subject(:result) { adapter.pick_list_items.teaching_event.accessibility_items.all }
+
+    it "returns AccessibilityItemResource instances" do
+      expect(result).to all(be_a(CRM::Resources::PickListItems::TeachingEvent::AccessibilityItemResource))
+    end
+
+    it "deserializes the first entry correctly" do
+      expect(result.first).to eq(
+        CRM::Resources::PickListItems::TeachingEvent::AccessibilityItemResource.new(
+          id: 222750000,
+          value: "Wheelchair accessible",
+        )
+      )
+    end
+  end
 end

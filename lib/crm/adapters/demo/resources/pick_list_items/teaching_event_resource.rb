@@ -19,6 +19,10 @@ module CRM
             def registration_channels
               TeachingEvent::RegistrationChannelsResource.new
             end
+
+            def accessibility_items
+              TeachingEvent::AccessibilityItemsResource.new
+            end
           end
         end
       end

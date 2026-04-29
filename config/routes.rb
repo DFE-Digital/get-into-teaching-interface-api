@@ -14,6 +14,7 @@ Rails.application.routes.draw do
         resources :channels, only: :index
       end
       namespace :teaching_event do
+        resources :accessibility_items, only: :index
         resources :registration_channels, only: :index
         resources :statuses, only: :index
         resources :regions, only: :index

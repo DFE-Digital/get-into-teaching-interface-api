@@ -26,4 +26,10 @@ RSpec.describe CRM::Adapters::Demo::Resources::PickListItems::TeachingEventResou
       expect(resource.registration_channels).to be_a(CRM::Adapters::Demo::Resources::PickListItems::TeachingEvent::RegistrationChannelsResource)
     end
   end
+
+  describe "#accessibility_items" do
+    it "returns a Demo PickListItems::TeachingEvent::AccessibilityItemsResource" do
+      expect(resource.accessibility_items).to be_a(CRM::Adapters::Demo::Resources::PickListItems::TeachingEvent::AccessibilityItemsResource)
+    end
+  end
 end
