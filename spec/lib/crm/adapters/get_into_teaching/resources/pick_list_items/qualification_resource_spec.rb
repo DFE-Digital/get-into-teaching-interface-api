@@ -10,4 +10,10 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::PickListItems::Qualifi
       expect(resource.degree_statuses).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::Qualification::DegreeStatusesResource)
     end
   end
+
+  describe "#types" do
+    it "returns a GIT PickListItems::Qualification::TypesResource" do
+      expect(resource.types).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::Qualification::TypesResource)
+    end
+  end
 end

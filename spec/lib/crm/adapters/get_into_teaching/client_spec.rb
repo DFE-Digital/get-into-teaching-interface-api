@@ -399,4 +399,21 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
       )
     end
   end
+
+  describe "#pick_list_items.qualification.types", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/qualification/types" } do
+    subject(:result) { adapter.pick_list_items.qualification.types.all }
+
+    it "returns TypeResource instances" do
+      expect(result).to all(be_a(CRM::Resources::PickListItems::Qualification::TypeResource))
+    end
+
+    it "deserializes the first entry correctly" do
+      expect(result.first).to eq(
+        CRM::Resources::PickListItems::Qualification::TypeResource.new(
+          id: 222750000,
+          value: "Degree",
+        )
+      )
+    end
+  end
 end

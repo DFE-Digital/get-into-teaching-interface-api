@@ -8,4 +8,10 @@ RSpec.describe CRM::Adapters::Demo::Resources::PickListItems::QualificationResou
       expect(resource.degree_statuses).to be_a(CRM::Adapters::Demo::Resources::PickListItems::Qualification::DegreeStatusesResource)
     end
   end
+
+  describe "#types" do
+    it "returns a Demo PickListItems::Qualification::TypesResource" do
+      expect(resource.types).to be_a(CRM::Adapters::Demo::Resources::PickListItems::Qualification::TypesResource)
+    end
+  end
 end

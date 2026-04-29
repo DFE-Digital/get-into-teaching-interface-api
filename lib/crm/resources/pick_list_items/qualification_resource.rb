@@ -3,6 +3,8 @@ module CRM
     module PickListItems
       class QualificationResource
         def degree_statuses(*) = raise NotImplementedError
+
+        def types(*) = raise NotImplementedError
       end
     end
   end

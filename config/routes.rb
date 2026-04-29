@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     namespace :pick_list_items do
       namespace :qualification do
         resources :degree_statuses, only: :index
+        resources :types, only: :index
       end
       namespace :candidate do
         resources :has_qualified_teacher_statuses, only: :index

@@ -7,6 +7,10 @@ module CRM
             def degree_statuses
               Qualification::DegreeStatusesResource.new
             end
+
+            def types
+              Qualification::TypesResource.new
+            end
           end
         end
       end
