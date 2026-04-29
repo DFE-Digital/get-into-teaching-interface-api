@@ -27,6 +27,8 @@ module CRM
             def consideration_journey_stages = Candidate::ConsiderationJourneyStagesResource.new(@client)
 
             def adviser_eligibilities = Candidate::AdviserEligibilitiesResource.new(@client)
+
+            def adviser_requirements = Candidate::AdviserRequirementsResource.new(@client)
           end
         end
       end

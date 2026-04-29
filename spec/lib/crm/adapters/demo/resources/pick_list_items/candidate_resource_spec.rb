@@ -62,4 +62,10 @@ RSpec.describe CRM::Adapters::Demo::Resources::PickListItems::CandidateResource 
       expect(resource.adviser_eligibilities).to be_a(CRM::Adapters::Demo::Resources::PickListItems::Candidate::AdviserEligibilitiesResource)
     end
   end
+
+  describe "#adviser_requirements" do
+    it "returns a Demo PickListItems::Candidate::AdviserRequirementsResource" do
+      expect(resource.adviser_requirements).to be_a(CRM::Adapters::Demo::Resources::PickListItems::Candidate::AdviserRequirementsResource)
+    end
+  end
 end

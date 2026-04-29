@@ -43,6 +43,10 @@ module CRM
             def adviser_eligibilities
               Candidate::AdviserEligibilitiesResource.new
             end
+
+            def adviser_requirements
+              Candidate::AdviserRequirementsResource.new
+            end
           end
         end
       end

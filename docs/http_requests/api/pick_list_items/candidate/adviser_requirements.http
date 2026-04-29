@@ -1,0 +1,5 @@
+### Candidate Adviser requirements
+GET http://localhost:3000/api/pick_list_items/candidate/adviser_requirements
+
+### Candidate Adviser requirements with forced cache miss
+GET http://localhost:3000/api/pick_list_items/candidate/adviser_requirements?force_cache_miss=true

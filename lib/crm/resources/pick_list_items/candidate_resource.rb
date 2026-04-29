@@ -23,6 +23,8 @@ module CRM
         def consideration_journey_stages(*) = raise NotImplementedError
 
         def adviser_eligibilities(*) = raise NotImplementedError
+
+        def adviser_requirements(*) = raise NotImplementedError
       end
     end
   end

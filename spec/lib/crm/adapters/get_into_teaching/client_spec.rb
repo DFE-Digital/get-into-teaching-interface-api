@@ -246,4 +246,21 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
       )
     end
   end
+
+  describe "#pick_list_items.candidate.adviser_requirements", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/adviser_requirements" } do
+    subject(:result) { adapter.pick_list_items.candidate.adviser_requirements.all }
+
+    it "returns AdviserRequirementResource instances" do
+      expect(result).to all(be_a(CRM::Resources::PickListItems::Candidate::AdviserRequirementResource))
+    end
+
+    it "deserializes the first entry correctly" do
+      expect(result.first).to eq(
+        CRM::Resources::PickListItems::Candidate::AdviserRequirementResource.new(
+          id: 222750000,
+          value: "No",
+        )
+      )
+    end
+  end
 end
