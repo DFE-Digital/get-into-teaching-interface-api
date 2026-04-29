@@ -1,0 +1,5 @@
+### Candidate Has qualified teacher statuses
+GET http://localhost:3000/api/pick_list_items/candidate/has_qualified_teacher_statuses
+
+### Candidate Has qualified teacher statuses with forced cache miss
+GET http://localhost:3000/api/pick_list_items/candidate/has_qualified_teacher_statuses?force_cache_miss=true

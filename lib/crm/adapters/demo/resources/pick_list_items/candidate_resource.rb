@@ -71,6 +71,10 @@ module CRM
             def locations
               Candidate::LocationsResource.new
             end
+
+            def has_qualified_teacher_statuses
+              Candidate::HasQualifiedTeacherStatusesResource.new
+            end
           end
         end
       end

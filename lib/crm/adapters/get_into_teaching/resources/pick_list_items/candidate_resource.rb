@@ -41,6 +41,8 @@ module CRM
             def visa_statuses = Candidate::VisaStatusesResource.new(@client)
 
             def locations = Candidate::LocationsResource.new(@client)
+
+            def has_qualified_teacher_statuses = Candidate::HasQualifiedTeacherStatusesResource.new(@client)
           end
         end
       end

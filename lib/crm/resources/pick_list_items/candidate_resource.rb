@@ -37,6 +37,8 @@ module CRM
         def visa_statuses(*) = raise NotImplementedError
 
         def locations(*) = raise NotImplementedError
+
+        def has_qualified_teacher_statuses(*) = raise NotImplementedError
       end
     end
   end
