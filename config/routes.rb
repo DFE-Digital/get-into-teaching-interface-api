@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :pick_list_items do
       namespace :contact_creation_channel do
+        resources :services, only: :index
         resources :sources, only: :index
       end
       namespace :service_subscription do

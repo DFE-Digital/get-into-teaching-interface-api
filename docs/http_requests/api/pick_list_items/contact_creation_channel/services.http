@@ -1,0 +1,5 @@
+### Contact creation channel Services
+GET http://localhost:3000/api/pick_list_items/contact_creation_channel/services
+
+### Contact creation channel Services with forced cache miss
+GET http://localhost:3000/api/pick_list_items/contact_creation_channel/services?force_cache_miss=true
