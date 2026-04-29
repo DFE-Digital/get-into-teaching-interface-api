@@ -231,6 +231,8 @@ class CrmEndpointGenerator < Rails::Generators::Base
       "        def #{list_type}\n          Resources::#{list_type_class}.new(self)\n        end",
       "\n      end\n    end\n  end\nend\n"
     )
+
+    insert_git_client_spec
   end
 
   # ── Controller layer ─────────────────────────────────────────────────────────
@@ -341,6 +343,35 @@ class CrmEndpointGenerator < Rails::Generators::Base
     else
       template tmpl, path
     end
+  end
+
+  def insert_git_client_spec
+    spec_path    = "spec/lib/crm/adapters/get_into_teaching/client_spec.rb"
+    describe_key = "\"##{segments.join('.')}\""
+    return unless dest_exist?(spec_path)
+    return if dest_read(spec_path).include?(describe_key)
+
+    cassette = "CRM_Adapters_GetIntoTeaching_Client/#{collection}"
+    chain    = "adapter.#{segments.join('.')}.all"
+    fqn      = "#{crm_resource_ns}::#{singular_class}"
+
+    snippet = "\n\n  describe \"##{segments.join('.')}\", " \
+              "vcr: { cassette_name: \"#{cassette}\" } do\n" \
+              "    subject(:result) { #{chain} }\n\n" \
+              "    it \"returns #{singular_class} instances\" do\n" \
+              "      expect(result).to all(be_a(#{fqn}))\n" \
+              "    end\n\n" \
+              "    it \"deserializes the first entry correctly\" do\n" \
+              "      expect(result.first).to eq(\n" \
+              "        #{fqn}.new(\n" \
+              "          id: \"TODO\",\n" \
+              "          value: \"TODO\",\n" \
+              "        )\n" \
+              "      )\n" \
+              "    end\n" \
+              "  end"
+
+    insert_into_file spec_path, snippet, before: "\nend\n"
   end
 
   def insert_client_method(path, method_name, snippet, anchor)

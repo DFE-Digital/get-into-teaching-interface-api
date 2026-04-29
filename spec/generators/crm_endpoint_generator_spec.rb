@@ -179,6 +179,23 @@ RSpec.describe CrmEndpointGenerator do
           end
         end
       RUBY
+
+      FileUtils.mkdir_p(File.join(tmp_dir, "spec/lib/crm/adapters/get_into_teaching"))
+      File.write(File.join(tmp_dir, "spec/lib/crm/adapters/get_into_teaching/client_spec.rb"), <<~RUBY)
+        # frozen_string_literal: true
+
+        require "rails_helper"
+
+        RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
+          subject(:adapter) { described_class.new }
+
+          describe "#lookup_items" do
+            it "returns a GIT LookUpItemsResource" do
+              expect(adapter.lookup_items).to be_a(CRM::Adapters::GetIntoTeaching::Resources::LookUpItemsResource)
+            end
+          end
+        end
+      RUBY
     end
 
     describe "depth-2 path: new_list_type/subjects" do
@@ -236,6 +253,13 @@ RSpec.describe CrmEndpointGenerator do
 
       it "inserts a list_type method into GIT::Client" do
         expect(content_of("lib/crm/adapters/get_into_teaching/client.rb")).to include("def new_list_type")
+      end
+
+      it "inserts a VCR describe block into the GIT client spec" do
+        content = content_of("spec/lib/crm/adapters/get_into_teaching/client_spec.rb")
+        expect(content).to include("describe \"#new_list_type.subjects\"")
+        expect(content).to include("vcr: { cassette_name: \"CRM_Adapters_GetIntoTeaching_Client/subjects\" }")
+        expect(content).to include("adapter.new_list_type.subjects.all")
       end
 
       it "creates spec files for all generated files" do
@@ -304,6 +328,13 @@ RSpec.describe CrmEndpointGenerator do
         expect(content_of("lib/crm/adapters/get_into_teaching/client.rb")).to include("def pick_list_items")
       end
 
+      it "inserts a VCR describe block into the GIT client spec" do
+        content = content_of("spec/lib/crm/adapters/get_into_teaching/client_spec.rb")
+        expect(content).to include("describe \"#pick_list_items.candidate.initial_teacher_training_years\"")
+        expect(content).to include("vcr: { cassette_name: \"CRM_Adapters_GetIntoTeaching_Client/initial_teacher_training_years\" }")
+        expect(content).to include("adapter.pick_list_items.candidate.initial_teacher_training_years.all")
+      end
+
       it "creates spec files for all generated files" do
         [
           "spec/lib/crm/resources/pick_list_items_resource_spec.rb",
@@ -357,6 +388,12 @@ RSpec.describe CrmEndpointGenerator do
       it "does not duplicate describe blocks in the list_type resource spec" do
         content = content_of("spec/lib/crm/resources/pick_list_items_resource_spec.rb")
         expect(content.scan("\"#candidate\"").length).to eq(1)
+      end
+
+      it "does not duplicate VCR describe blocks in the GIT client spec" do
+        content = content_of("spec/lib/crm/adapters/get_into_teaching/client_spec.rb")
+        expect(content.scan("\"#pick_list_items.candidate.initial_teacher_training_years\"").length).to eq(1)
+        expect(content.scan("\"#pick_list_items.candidate.preferred_education_phases\"").length).to eq(1)
       end
     end
 
