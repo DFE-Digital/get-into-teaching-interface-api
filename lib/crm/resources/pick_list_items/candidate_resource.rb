@@ -5,6 +5,8 @@ module CRM
         def initial_teacher_training_years(*) = raise NotImplementedError
 
         def preferred_education_phases(*) = raise NotImplementedError
+
+        def channels(*) = raise NotImplementedError
       end
     end
   end

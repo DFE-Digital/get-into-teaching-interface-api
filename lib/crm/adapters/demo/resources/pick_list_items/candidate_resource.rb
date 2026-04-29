@@ -11,6 +11,10 @@ module CRM
             def preferred_education_phases
               Candidate::PreferredEducationPhasesResource.new
             end
+
+            def channels
+              Candidate::ChannelsResource.new
+            end
           end
         end
       end

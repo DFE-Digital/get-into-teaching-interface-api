@@ -1,0 +1,5 @@
+### Candidate Channels
+GET http://localhost:3000/api/pick_list_items/candidate/channels
+
+### Candidate Channels with forced cache miss
+GET http://localhost:3000/api/pick_list_items/candidate/channels?force_cache_miss=true

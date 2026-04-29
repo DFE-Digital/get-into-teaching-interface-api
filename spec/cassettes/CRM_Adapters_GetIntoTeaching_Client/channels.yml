@@ -1,0 +1,89 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://getintoteachingapi-development.test.teacherservices.cloud/api/pick_list_items/candidate/channels
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.14.1
+      Authorization:
+      - "<AUTH>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 29 Apr 2026 09:33:41 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - private,max-age=300
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '[{"id":222750000,"value":"Graduate Promotions Registration"},{"id":222750001,"value":"Campus
+        Registrations - Unknown event type"},{"id":222750002,"value":"Grad Fayre Registrations"},{"id":222750003,"value":"University
+        Campus Pop-up Registrations"},{"id":222750004,"value":"University Campus Registrations"},{"id":222750005,"value":"Web
+        Registration"},{"id":222750006,"value":"UCAS Registration"},{"id":222750007,"value":"GITIS
+        Web Registration"},{"id":222750008,"value":"GITIS Web Registration - with
+        Callback"},{"id":222750009,"value":"GITIS Web Registration - Event driven"},{"id":222750010,"value":"GITIS
+        Web Registration - Event driven with Callback"},{"id":222750011,"value":"Within
+        Dynamics"},{"id":222750012,"value":"NCTL University Campus Virtual Pop-up
+        Registrations"},{"id":222750013,"value":"Off Campus"},{"id":222750014,"value":"Teach
+        First"},{"id":222750015,"value":"Early Years Registration - Historic"},{"id":222750016,"value":"Inbound
+        Email - Historic"},{"id":222750017,"value":"Paper-Based Registrations  - Historic"},{"id":222750018,"value":"Unknown
+        - Historic"},{"id":222750019,"value":"RTT Web Registration"},{"id":222750020,"value":"Scholarship
+        Registration"},{"id":222750021,"value":"School Experience - Web Registration"},{"id":222750022,"value":"Shopping
+        Centre Pop-Up Event Registrations - Historic"},{"id":222750023,"value":"Freshers
+        Fair"},{"id":222750024,"value":"Inbound Call"},{"id":222750025,"value":"Apply
+        for Teacher Training"},{"id":222750026,"value":"Internship"},{"id":222750027,"value":"GITIS
+        - TTA Service"},{"id":222750028,"value":"GITIS - Mailing List Service"},{"id":222750029,"value":"GITIS
+        - Events Service"},{"id":222750030,"value":"GITIS - On-campus - Brand Ambassador
+        activity"},{"id":222750031,"value":"GITIS - On-campus - Hybrid Careers Tour"},{"id":222750032,"value":"GITIS
+        - On-campus - Online events (students)"},{"id":222750033,"value":"GITIS -
+        On-campus - Webinar"},{"id":222750034,"value":"GITIS - On-campus - Freshers
+        Fairs"},{"id":222750035,"value":"GITIS - On-campus - Social media"},{"id":222750036,"value":"GITIS
+        - On-campus - Commercial emails"},{"id":222750037,"value":"GITIS - On-campus
+        - Careers Services activity"},{"id":222750038,"value":"GITIS - On-campus -
+        Students Union Media"},{"id":222750039,"value":"GITIS - On-campus - Grad Fairs
+        (face-to-face)"},{"id":222750040,"value":"GITIS - On-campus - Pop-up events
+        (face-to-face)"},{"id":222750041,"value":"Within Dynamics - Website"},{"id":222750042,"value":"Highfliers"},{"id":222750043,"value":"Get
+        into Teaching Callback"},{"id":222750044,"value":"GITIS - On-campus - DfE2021
+        - Ways to train flyer"},{"id":222750045,"value":"GITIS - TTA Service - On
+        Campus"},{"id":222750046,"value":"GITIS - TTA Service - Service Leaver"},{"id":222750047,"value":"GITIS
+        - TTA Service - Engineers Teach Physics"},{"id":222750048,"value":"GITIS -
+        On-campus - Refreshers Fairs"},{"id":222750049,"value":"GITIS - TTA Service
+        - Apply Quick Sign-up"},{"id":222750050,"value":"GITIS - On-campus - Onsite
+        activation days"},{"id":222750051,"value":"GITIS - On-campus - Russell Group
+        6"},{"id":222750052,"value":"GITIS - On-campus - GIT Events"},{"id":222750053,"value":"GITIS
+        - On-campus - Mailing list"},{"id":222750054,"value":"GITIS - On-campus -
+        Adviser service"},{"id":222750055,"value":"GITIS - Pipeline - Debate Mate"},{"id":222750056,"value":"GITIS
+        - Pipeline - CTP"},{"id":222750057,"value":"GITIS - Pipeline - BRFS"},{"id":222750058,"value":"GITIS
+        - Pipeline - Careers Event"},{"id":222750059,"value":"GITIS - Pipeline - British
+        Council"},{"id":222750060,"value":"GITIS - Pipeline - Institute of Physics"},{"id":222750061,"value":"GITIS
+        - Pipeline - IMECHE"},{"id":222750062,"value":"GITIS - Pipeline - NTP"},{"id":222750063,"value":"GITIS
+        - Pipeline - RCS"},{"id":222750064,"value":"GITIS - Pipeline - F2F"},{"id":222750065,"value":"GITIS
+        - Pipeline - Webinar"}]'
+  recorded_at: Wed, 29 Apr 2026 09:33:41 GMT
+recorded_with: VCR 6.4.0

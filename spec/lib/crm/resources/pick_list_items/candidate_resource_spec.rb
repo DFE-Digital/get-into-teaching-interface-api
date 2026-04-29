@@ -14,4 +14,10 @@ RSpec.describe CRM::Resources::PickListItems::CandidateResource do
       expect { resource.preferred_education_phases }.to raise_error(NotImplementedError)
     end
   end
+
+  describe "#channels" do
+    it "raises NotImplementedError" do
+      expect { resource.channels }.to raise_error(NotImplementedError)
+    end
+  end
 end

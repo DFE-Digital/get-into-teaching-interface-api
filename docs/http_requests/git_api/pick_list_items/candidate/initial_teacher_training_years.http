@@ -1,0 +1,5 @@
+### GET request to example server
+GET {{apiUrl}}/api/pick_list_items/candidate/initial_teacher_training_years
+Authorization: Bearer {{apiKey}}
+
+###

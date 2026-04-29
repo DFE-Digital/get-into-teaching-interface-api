@@ -11,6 +11,8 @@ module CRM
             def initial_teacher_training_years = Candidate::InitialTeacherTrainingYearsResource.new(@client)
 
             def preferred_education_phases = Candidate::PreferredEducationPhasesResource.new(@client)
+
+            def channels = Candidate::ChannelsResource.new(@client)
           end
         end
       end

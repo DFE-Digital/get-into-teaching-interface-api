@@ -16,4 +16,10 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::PickListItems::Candida
       expect(resource.preferred_education_phases).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::Candidate::PreferredEducationPhasesResource)
     end
   end
+
+  describe "#channels" do
+    it "returns a GIT PickListItems::Candidate::ChannelsResource" do
+      expect(resource.channels).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::Candidate::ChannelsResource)
+    end
+  end
 end
