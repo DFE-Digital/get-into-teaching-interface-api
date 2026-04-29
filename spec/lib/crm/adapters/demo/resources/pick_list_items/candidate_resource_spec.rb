@@ -20,4 +20,10 @@ RSpec.describe CRM::Adapters::Demo::Resources::PickListItems::CandidateResource 
       expect(resource.channels).to be_a(CRM::Adapters::Demo::Resources::PickListItems::Candidate::ChannelsResource)
     end
   end
+
+  describe "#mailing_list_subscription_channels" do
+    it "returns a Demo PickListItems::Candidate::MailingListSubscriptionChannelsResource" do
+      expect(resource.mailing_list_subscription_channels).to be_a(CRM::Adapters::Demo::Resources::PickListItems::Candidate::MailingListSubscriptionChannelsResource)
+    end
+  end
 end

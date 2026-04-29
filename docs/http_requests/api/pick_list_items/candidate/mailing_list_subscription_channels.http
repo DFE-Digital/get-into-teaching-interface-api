@@ -1,0 +1,5 @@
+### Candidate Mailing list subscription channels
+GET http://localhost:3000/api/pick_list_items/candidate/mailing_list_subscription_channels
+
+### Candidate Mailing list subscription channels with forced cache miss
+GET http://localhost:3000/api/pick_list_items/candidate/mailing_list_subscription_channels?force_cache_miss=true

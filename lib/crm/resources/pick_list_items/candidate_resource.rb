@@ -7,6 +7,8 @@ module CRM
         def preferred_education_phases(*) = raise NotImplementedError
 
         def channels(*) = raise NotImplementedError
+
+        def mailing_list_subscription_channels(*) = raise NotImplementedError
       end
     end
   end

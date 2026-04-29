@@ -1,0 +1,63 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://getintoteachingapi-development.test.teacherservices.cloud/api/pick_list_items/candidate/mailing_list_subscription_channels
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.14.1
+      Authorization:
+      - "<AUTH>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 29 Apr 2026 10:05:18 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - private,max-age=300
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '[{"id":222750000,"value":"GITIS Mailing List Service"},{"id":222750001,"value":"Within
+        Dynamics"},{"id":222750030,"value":"GITIS - On-campus - Brand Ambassador activity"},{"id":222750031,"value":"GITIS
+        - On-campus - Hybrid Careers Tour"},{"id":222750032,"value":"GITIS - On-campus
+        - Online events (students)"},{"id":222750033,"value":"GITIS - On-campus -
+        Webinar"},{"id":222750034,"value":"GITIS - On-campus - Freshers Fairs"},{"id":222750035,"value":"GITIS
+        - On-campus - Social media"},{"id":222750036,"value":"GITIS - On-campus -
+        Commercial emails"},{"id":222750037,"value":"GITIS - On-campus - Careers Services
+        activity"},{"id":222750038,"value":"GITIS - On-campus - Students Union Media"},{"id":222750039,"value":"GITIS
+        - On-campus - Grad Fairs (face-to-face)"},{"id":222750040,"value":"GITIS -
+        On-campus - Pop-up events (face-to-face)"},{"id":222750044,"value":"GITIS
+        - On-campus - DfE2021 - Ways to train flyer"},{"id":222750045,"value":"GITIS
+        - TTA Service - On Campus"},{"id":222750048,"value":"GITIS - On-campus - Refreshers
+        Fairs"},{"id":222750050,"value":"GITIS - On-campus - Onsite activation days"},{"id":222750051,"value":"GITIS
+        - On-campus - Russell Group 6"},{"id":222750053,"value":"GITIS - On-campus
+        - Mailing list"},{"id":222750054,"value":"GITIS - On-campus - Adviser service"},{"id":222750058,"value":"GITIS
+        - Pipeline - Careers Event"},{"id":222750064,"value":"GITIS - Pipeline - F2F"},{"id":222750065,"value":"GITIS
+        - Pipeline - Webinar"}]'
+  recorded_at: Wed, 29 Apr 2026 10:05:18 GMT
+recorded_with: VCR 6.4.0

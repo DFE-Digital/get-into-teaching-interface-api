@@ -20,4 +20,10 @@ RSpec.describe CRM::Resources::PickListItems::CandidateResource do
       expect { resource.channels }.to raise_error(NotImplementedError)
     end
   end
+
+  describe "#mailing_list_subscription_channels" do
+    it "raises NotImplementedError" do
+      expect { resource.mailing_list_subscription_channels }.to raise_error(NotImplementedError)
+    end
+  end
 end
