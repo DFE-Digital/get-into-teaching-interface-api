@@ -21,6 +21,8 @@ module CRM
             def teacher_training_adviser_subscription_channels = Candidate::TeacherTrainingAdviserSubscriptionChannelsResource.new(@client)
 
             def gcse_statuses = Candidate::GcseStatusesResource.new(@client)
+
+            def retake_gcse_statuses = Candidate::RetakeGcseStatusesResource.new(@client)
           end
         end
       end

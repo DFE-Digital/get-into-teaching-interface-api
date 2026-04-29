@@ -31,6 +31,10 @@ module CRM
             def gcse_statuses
               Candidate::GcseStatusesResource.new
             end
+
+            def retake_gcse_statuses
+              Candidate::RetakeGcseStatusesResource.new
+            end
           end
         end
       end

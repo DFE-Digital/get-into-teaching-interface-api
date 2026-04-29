@@ -1,0 +1,20 @@
+module CRM
+  module Adapters
+    module Demo
+      module Resources
+        module PickListItems
+          module Candidate
+            class RetakeGcseStatusesResource < CRM::Resources::PickListItems::Candidate::RetakeGcseStatusesResource
+              def all(*)
+                [
+                  CRM::Resources::PickListItems::Candidate::RetakeGcseStatusResource.new(id: "3fa85f64-5717-4562-b3fc-2c963f66afa6", value: "Example 1"),
+                  CRM::Resources::PickListItems::Candidate::RetakeGcseStatusResource.new(id: "3fa85f64-5717-4562-b3fc-2c963f66afa7", value: "Example 2"),
+                ]
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+end

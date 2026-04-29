@@ -17,6 +17,8 @@ module CRM
         def gcse_status(*) = raise NotImplementedError
 
         def gcse_statuses(*) = raise NotImplementedError
+
+        def retake_gcse_statuses(*) = raise NotImplementedError
       end
     end
   end

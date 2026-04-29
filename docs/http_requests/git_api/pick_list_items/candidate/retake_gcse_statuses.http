@@ -1,0 +1,5 @@
+### GET request to example server
+GET {{apiUrl}}/api/pick_list_items/candidate/retake_gcse_status
+Authorization: Bearer {{apiKey}}
+
+###

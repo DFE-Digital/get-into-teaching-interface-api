@@ -50,4 +50,10 @@ RSpec.describe CRM::Resources::PickListItems::CandidateResource do
       expect { resource.gcse_statuses }.to raise_error(NotImplementedError)
     end
   end
+
+  describe "#retake_gcse_statuses" do
+    it "raises NotImplementedError" do
+      expect { resource.retake_gcse_statuses }.to raise_error(NotImplementedError)
+    end
+  end
 end

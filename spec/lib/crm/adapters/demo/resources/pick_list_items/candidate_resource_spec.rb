@@ -44,4 +44,10 @@ RSpec.describe CRM::Adapters::Demo::Resources::PickListItems::CandidateResource 
       expect(resource.gcse_statuses).to be_a(CRM::Adapters::Demo::Resources::PickListItems::Candidate::GcseStatusesResource)
     end
   end
+
+  describe "#retake_gcse_statuses" do
+    it "returns a Demo PickListItems::Candidate::RetakeGcseStatusesResource" do
+      expect(resource.retake_gcse_statuses).to be_a(CRM::Adapters::Demo::Resources::PickListItems::Candidate::RetakeGcseStatusesResource)
+    end
+  end
 end
