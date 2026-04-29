@@ -22,4 +22,10 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::PickListItemsResource 
       expect(resource.past_teaching_position).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::PastTeachingPositionResource)
     end
   end
+
+  describe "#teaching_event" do
+    it "returns a GIT PickListItems::TeachingEventResource" do
+      expect(resource.teaching_event).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::TeachingEventResource)
+    end
+  end
 end

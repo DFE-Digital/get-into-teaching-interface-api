@@ -20,4 +20,10 @@ RSpec.describe CRM::Resources::PickListItemsResource do
       expect { resource.past_teaching_position }.to raise_error(NotImplementedError)
     end
   end
+
+  describe "#teaching_event" do
+    it "raises NotImplementedError" do
+      expect { resource.teaching_event }.to raise_error(NotImplementedError)
+    end
+  end
 end

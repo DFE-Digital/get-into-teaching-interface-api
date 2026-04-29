@@ -20,4 +20,10 @@ RSpec.describe CRM::Adapters::Demo::Resources::PickListItemsResource do
       expect(resource.past_teaching_position).to be_a(CRM::Adapters::Demo::Resources::PickListItems::PastTeachingPositionResource)
     end
   end
+
+  describe "#teaching_event" do
+    it "returns a Demo PickListItems::TeachingEventResource" do
+      expect(resource.teaching_event).to be_a(CRM::Adapters::Demo::Resources::PickListItems::TeachingEventResource)
+    end
+  end
 end

@@ -6,6 +6,8 @@ module CRM
       def qualification(*) = raise NotImplementedError
 
       def past_teaching_position(*) = raise NotImplementedError
+
+      def teaching_event(*) = raise NotImplementedError
     end
   end
 end

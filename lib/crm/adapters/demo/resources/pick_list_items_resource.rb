@@ -14,6 +14,10 @@ module CRM
           def past_teaching_position
             PickListItems::PastTeachingPositionResource.new
           end
+
+          def teaching_event
+            PickListItems::TeachingEventResource.new
+          end
         end
       end
     end
