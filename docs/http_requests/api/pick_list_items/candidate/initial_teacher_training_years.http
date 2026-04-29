@@ -1,0 +1,5 @@
+### Candidate ITT Years lookup items
+GET http://localhost:3000/api/pick_list_items/candidate/initial_teacher_training_years
+
+### Candidate ITT Years lookup items with forced cache miss
+GET http://localhost:3000/api/pick_list_items/candidate/initial_teacher_training_years?force_cache_miss=true

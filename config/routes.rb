@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   namespace :api, defaults: { format: :json } do
+    namespace :pick_list_items do
+      namespace :candidate do
+        resources :initial_teacher_training_years, only: :index
+      end
+    end
     namespace :lookup_items do
       resources :countries, only: :index
       resources :degree_countries, only: :index

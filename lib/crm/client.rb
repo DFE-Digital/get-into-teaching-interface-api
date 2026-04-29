@@ -9,5 +9,9 @@ module CRM
     def lookup_items
       @adapter.lookup_items
     end
+
+    def pick_list_items
+      @adapter.pick_list_items
+    end
   end
 end
