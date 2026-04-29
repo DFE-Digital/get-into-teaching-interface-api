@@ -18,6 +18,8 @@ module CRM
           def phone_call = PickListItems::PhoneCallResource.new(@client)
 
           def service_subscription = PickListItems::ServiceSubscriptionResource.new(@client)
+
+          def contact_creation_channel = PickListItems::ContactCreationChannelResource.new(@client)
         end
       end
     end

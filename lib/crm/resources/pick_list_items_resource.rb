@@ -12,6 +12,8 @@ module CRM
       def phone_call(*) = raise NotImplementedError
 
       def service_subscription(*) = raise NotImplementedError
+
+      def contact_creation_channel(*) = raise NotImplementedError
     end
   end
 end

@@ -26,6 +26,10 @@ module CRM
           def service_subscription
             PickListItems::ServiceSubscriptionResource.new
           end
+
+          def contact_creation_channel
+            PickListItems::ContactCreationChannelResource.new
+          end
         end
       end
     end

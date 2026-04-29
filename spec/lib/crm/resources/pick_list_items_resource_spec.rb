@@ -38,4 +38,10 @@ RSpec.describe CRM::Resources::PickListItemsResource do
       expect { resource.service_subscription }.to raise_error(NotImplementedError)
     end
   end
+
+  describe "#contact_creation_channel" do
+    it "raises NotImplementedError" do
+      expect { resource.contact_creation_channel }.to raise_error(NotImplementedError)
+    end
+  end
 end

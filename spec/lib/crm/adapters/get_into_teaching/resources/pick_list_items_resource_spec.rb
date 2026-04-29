@@ -40,4 +40,10 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::PickListItemsResource 
       expect(resource.service_subscription).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::ServiceSubscriptionResource)
     end
   end
+
+  describe "#contact_creation_channel" do
+    it "returns a GIT PickListItems::ContactCreationChannelResource" do
+      expect(resource.contact_creation_channel).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::ContactCreationChannelResource)
+    end
+  end
 end

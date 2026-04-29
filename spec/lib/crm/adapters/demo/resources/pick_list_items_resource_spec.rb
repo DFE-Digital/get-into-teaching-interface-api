@@ -38,4 +38,10 @@ RSpec.describe CRM::Adapters::Demo::Resources::PickListItemsResource do
       expect(resource.service_subscription).to be_a(CRM::Adapters::Demo::Resources::PickListItems::ServiceSubscriptionResource)
     end
   end
+
+  describe "#contact_creation_channel" do
+    it "returns a Demo PickListItems::ContactCreationChannelResource" do
+      expect(resource.contact_creation_channel).to be_a(CRM::Adapters::Demo::Resources::PickListItems::ContactCreationChannelResource)
+    end
+  end
 end

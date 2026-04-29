@@ -552,4 +552,21 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
       )
     end
   end
+
+  describe "#pick_list_items.contact_creation_channel.sources", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/pick_list_items/contact_creation_channel/sources" } do
+    subject(:result) { adapter.pick_list_items.contact_creation_channel.sources.all }
+
+    it "returns SourceResource instances" do
+      expect(result).to all(be_a(CRM::Resources::PickListItems::ContactCreationChannel::SourceResource))
+    end
+
+    it "deserializes the first entry correctly" do
+      expect(result.first).to eq(
+        CRM::Resources::PickListItems::ContactCreationChannel::SourceResource.new(
+          id: 222750000,
+          value: "Apply",
+        )
+      )
+    end
+  end
 end
