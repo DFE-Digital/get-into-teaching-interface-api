@@ -1,7 +1,7 @@
 ---
 title: CRM Adapter Pattern — LookUpItems Architecture
 date: "2026-04-27"
-last_updated: "2026-04-28"
+last_updated: "2026-04-29"
 category: docs/solutions/best-practices
 module: CRM Adapter
 problem_type: best_practice
@@ -365,6 +365,15 @@ end
 ```
 
 ### Adding a new lookup resource: subjects
+
+> **Use the generator.** As of 2026-04-29, a Rails generator automates all of the steps below:
+> ```bash
+> rails generate crm_endpoint lookup_items/subjects
+> bundle exec rails zeitwerk:check
+> ```
+> See [`docs/solutions/developer-experience/crm-endpoint-generator-rails-scaffolding-2026-04-29.md`](../developer-experience/crm-endpoint-generator-rails-scaffolding-2026-04-29.md) for full usage details including depth-3 paths, idempotency, and the VCR cassette recording step.
+>
+> The manual steps below remain useful for understanding the architecture, but should not be followed when adding a new endpoint.
 
 Follow these steps in order. Each step adds exactly one file or one method.
 
