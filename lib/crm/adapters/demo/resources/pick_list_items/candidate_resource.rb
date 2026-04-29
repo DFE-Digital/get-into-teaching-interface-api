@@ -23,6 +23,10 @@ module CRM
             def event_subscription_channels
               Candidate::EventSubscriptionChannelsResource.new
             end
+
+            def teacher_training_adviser_subscription_channels
+              Candidate::TeacherTrainingAdviserSubscriptionChannelsResource.new
+            end
           end
         end
       end

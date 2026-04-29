@@ -1,0 +1,5 @@
+### Candidate Teacher training adviser subscription channels
+GET http://localhost:3000/api/pick_list_items/candidate/teacher_training_adviser_subscription_channels
+
+### Candidate Teacher training adviser subscription channels with forced cache miss
+GET http://localhost:3000/api/pick_list_items/candidate/teacher_training_adviser_subscription_channels?force_cache_miss=true

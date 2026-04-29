@@ -161,4 +161,21 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
       )
     end
   end
+
+  describe "#pick_list_items.candidate.teacher_training_adviser_subscription_channels", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/teacher_training_adviser_subscription_channels" } do
+    subject(:result) { adapter.pick_list_items.candidate.teacher_training_adviser_subscription_channels.all }
+
+    it "returns TeacherTrainingAdviserSubscriptionChannelResource instances" do
+      expect(result).to all(be_a(CRM::Resources::PickListItems::Candidate::TeacherTrainingAdviserSubscriptionChannelResource))
+    end
+
+    it "deserializes the first entry correctly" do
+      expect(result.first).to eq(
+        CRM::Resources::PickListItems::Candidate::TeacherTrainingAdviserSubscriptionChannelResource.new(
+          id: 222750000,
+          value: "GITIS - TTA Service",
+        )
+      )
+    end
+  end
 end

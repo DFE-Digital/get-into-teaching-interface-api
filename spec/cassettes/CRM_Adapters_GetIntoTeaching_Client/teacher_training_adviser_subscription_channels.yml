@@ -1,0 +1,57 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://getintoteachingapi-development.test.teacherservices.cloud/api/pick_list_items/candidate/teacher_training_adviser_subscription_channels
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.14.1
+      Authorization:
+      - "<AUTH>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 29 Apr 2026 10:11:32 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - private,max-age=300
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '[{"id":222750000,"value":"GITIS - TTA Service"},{"id":222750001,"value":"Within
+        Dynamics"},{"id":222750033,"value":"GITIS - On-campus - Webinar"},{"id":222750045,"value":"GITIS
+        - TTA Service - On-campus"},{"id":222750046,"value":"GITIS - TTA Service -
+        Service Leaver"},{"id":222750047,"value":"GITIS - TTA Service - Engineers
+        Teach Physics"},{"id":222750049,"value":"GITIS - TTA Service - Apply Quick
+        Sign-up"},{"id":222750054,"value":"GITIS - On-campus - Adviser service"},{"id":222750055,"value":"GITIS
+        - Pipeline - Debate Mate"},{"id":222750056,"value":"GITIS - Pipeline - CTP"},{"id":222750057,"value":"GITIS
+        - Pipeline - BRFS"},{"id":222750059,"value":"GITIS - Pipeline - British Council"},{"id":222750060,"value":"GITIS
+        - Pipeline - Institute of Physics"},{"id":222750061,"value":"GITIS - Pipeline
+        - IMECHE"},{"id":222750062,"value":"GITIS - Pipeline - NTP"},{"id":222750063,"value":"GITIS
+        - Pipeline - RCS"}]'
+  recorded_at: Wed, 29 Apr 2026 10:11:32 GMT
+recorded_with: VCR 6.4.0
