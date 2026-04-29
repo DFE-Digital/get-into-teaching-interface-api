@@ -56,4 +56,10 @@ RSpec.describe CRM::Resources::PickListItems::CandidateResource do
       expect { resource.retake_gcse_statuses }.to raise_error(NotImplementedError)
     end
   end
+
+  describe "#consideration_journey_stages" do
+    it "raises NotImplementedError" do
+      expect { resource.consideration_journey_stages }.to raise_error(NotImplementedError)
+    end
+  end
 end

@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://getintoteachingapi-development.test.teacherservices.cloud/api/pick_list_items/candidate/consideration_journey_stages
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.14.1
+      Authorization:
+      - "<AUTH>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 29 Apr 2026 10:25:48 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - private,max-age=300
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        W3siaWQiOjIyMjc1MDAwMCwidmFsdWUiOiJJdOKAmXMganVzdCBhbiBpZGVhIn0seyJpZCI6MjIyNzUwMDAxLCJ2YWx1ZSI6IknigJltIG5vdCBzdXJlIGFuZCBmaW5kaW5nIG91dCBtb3JlIn0seyJpZCI6MjIyNzUwMDAyLCJ2YWx1ZSI6IknigJltIGZhaXJseSBzdXJlIGFuZCBleHBsb3JpbmcgbXkgb3B0aW9ucyJ9LHsiaWQiOjIyMjc1MDAwMywidmFsdWUiOiJJ4oCZbSB2ZXJ5IHN1cmUgYW5kIHRoaW5rIEnigJlsbCBhcHBseSJ9XQ==
+  recorded_at: Wed, 29 Apr 2026 10:25:48 GMT
+recorded_with: VCR 6.4.0

@@ -23,6 +23,8 @@ module CRM
             def gcse_statuses = Candidate::GcseStatusesResource.new(@client)
 
             def retake_gcse_statuses = Candidate::RetakeGcseStatusesResource.new(@client)
+
+            def consideration_journey_stages = Candidate::ConsiderationJourneyStagesResource.new(@client)
           end
         end
       end

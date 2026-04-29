@@ -35,6 +35,10 @@ module CRM
             def retake_gcse_statuses
               Candidate::RetakeGcseStatusesResource.new
             end
+
+            def consideration_journey_stages
+              Candidate::ConsiderationJourneyStagesResource.new
+            end
           end
         end
       end

@@ -212,4 +212,21 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
       )
     end
   end
+
+  describe "#pick_list_items.candidate.consideration_journey_stages", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/consideration_journey_stages" } do
+    subject(:result) { adapter.pick_list_items.candidate.consideration_journey_stages.all }
+
+    it "returns ConsiderationJourneyStageResource instances" do
+      expect(result).to all(be_a(CRM::Resources::PickListItems::Candidate::ConsiderationJourneyStageResource))
+    end
+
+    it "deserializes the first entry correctly" do
+      expect(result.first).to eq(
+        CRM::Resources::PickListItems::Candidate::ConsiderationJourneyStageResource.new(
+          id: 222750000,
+          value: "It’s just an idea",
+        )
+      )
+    end
+  end
 end
