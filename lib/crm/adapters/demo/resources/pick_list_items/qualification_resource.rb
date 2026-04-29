@@ -11,6 +11,10 @@ module CRM
             def types
               Qualification::TypesResource.new
             end
+
+            def uk_degree_grades
+              Qualification::UkDegreeGradesResource.new
+            end
           end
         end
       end

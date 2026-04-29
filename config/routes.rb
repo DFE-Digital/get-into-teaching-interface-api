@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :pick_list_items do
       namespace :qualification do
+        resources :uk_degree_grades, only: :index
         resources :degree_statuses, only: :index
         resources :types, only: :index
       end

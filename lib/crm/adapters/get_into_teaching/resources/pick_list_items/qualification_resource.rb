@@ -11,6 +11,8 @@ module CRM
             def degree_statuses = Qualification::DegreeStatusesResource.new(@client)
 
             def types = Qualification::TypesResource.new(@client)
+
+            def uk_degree_grades = Qualification::UkDegreeGradesResource.new(@client)
           end
         end
       end

@@ -416,4 +416,21 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
       )
     end
   end
+
+  describe "#pick_list_items.qualification.uk_degree_grades", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/uk_degree_grades" } do
+    subject(:result) { adapter.pick_list_items.qualification.uk_degree_grades.all }
+
+    it "returns UkDegreeGradeResource instances" do
+      expect(result).to all(be_a(CRM::Resources::PickListItems::Qualification::UkDegreeGradeResource))
+    end
+
+    it "deserializes the first entry correctly" do
+      expect(result.first).to eq(
+        CRM::Resources::PickListItems::Qualification::UkDegreeGradeResource.new(
+          id: 222750000,
+          value: "Not applicable",
+        )
+      )
+    end
+  end
 end

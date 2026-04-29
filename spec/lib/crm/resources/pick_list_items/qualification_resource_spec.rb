@@ -14,4 +14,10 @@ RSpec.describe CRM::Resources::PickListItems::QualificationResource do
       expect { resource.types }.to raise_error(NotImplementedError)
     end
   end
+
+  describe "#uk_degree_grades" do
+    it "raises NotImplementedError" do
+      expect { resource.uk_degree_grades }.to raise_error(NotImplementedError)
+    end
+  end
 end
