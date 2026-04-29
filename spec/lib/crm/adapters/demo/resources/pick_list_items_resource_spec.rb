@@ -26,4 +26,10 @@ RSpec.describe CRM::Adapters::Demo::Resources::PickListItemsResource do
       expect(resource.teaching_event).to be_a(CRM::Adapters::Demo::Resources::PickListItems::TeachingEventResource)
     end
   end
+
+  describe "#phone_call" do
+    it "returns a Demo PickListItems::PhoneCallResource" do
+      expect(resource.phone_call).to be_a(CRM::Adapters::Demo::Resources::PickListItems::PhoneCallResource)
+    end
+  end
 end

@@ -518,4 +518,21 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
       )
     end
   end
+
+  describe "#pick_list_items.phone_call.channels", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/pick_list_items/phone_call/channels" } do
+    subject(:result) { adapter.pick_list_items.phone_call.channels.all }
+
+    it "returns ChannelResource instances" do
+      expect(result).to all(be_a(CRM::Resources::PickListItems::PhoneCall::ChannelResource))
+    end
+
+    it "deserializes the first entry correctly" do
+      expect(result.first).to eq(
+        CRM::Resources::PickListItems::PhoneCall::ChannelResource.new(
+          id: 222750000,
+          value: "Callback request",
+        )
+      )
+    end
+  end
 end

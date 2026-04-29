@@ -28,4 +28,10 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::PickListItemsResource 
       expect(resource.teaching_event).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::TeachingEventResource)
     end
   end
+
+  describe "#phone_call" do
+    it "returns a GIT PickListItems::PhoneCallResource" do
+      expect(resource.phone_call).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::PhoneCallResource)
+    end
+  end
 end

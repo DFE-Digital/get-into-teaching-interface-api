@@ -1,0 +1,5 @@
+### Phone call Channels
+GET http://localhost:3000/api/pick_list_items/phone_call/channels
+
+### Phone call Channels with forced cache miss
+GET http://localhost:3000/api/pick_list_items/phone_call/channels?force_cache_miss=true

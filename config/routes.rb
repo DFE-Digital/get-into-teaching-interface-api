@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   namespace :api, defaults: { format: :json } do
     namespace :pick_list_items do
+      namespace :phone_call do
+        resources :channels, only: :index
+      end
       namespace :teaching_event do
         resources :registration_channels, only: :index
         resources :statuses, only: :index

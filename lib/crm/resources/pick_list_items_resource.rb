@@ -8,6 +8,8 @@ module CRM
       def past_teaching_position(*) = raise NotImplementedError
 
       def teaching_event(*) = raise NotImplementedError
+
+      def phone_call(*) = raise NotImplementedError
     end
   end
 end

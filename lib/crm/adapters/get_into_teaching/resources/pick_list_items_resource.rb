@@ -14,6 +14,8 @@ module CRM
           def past_teaching_position = PickListItems::PastTeachingPositionResource.new(@client)
 
           def teaching_event = PickListItems::TeachingEventResource.new(@client)
+
+          def phone_call = PickListItems::PhoneCallResource.new(@client)
         end
       end
     end

@@ -18,6 +18,10 @@ module CRM
           def teaching_event
             PickListItems::TeachingEventResource.new
           end
+
+          def phone_call
+            PickListItems::PhoneCallResource.new
+          end
         end
       end
     end
