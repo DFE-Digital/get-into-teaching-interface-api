@@ -29,6 +29,8 @@ module CRM
         def types(*) = raise NotImplementedError
 
         def assignment_statuses(*) = raise NotImplementedError
+
+        def situations(*) = raise NotImplementedError
       end
     end
   end

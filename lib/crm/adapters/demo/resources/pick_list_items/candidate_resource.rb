@@ -55,6 +55,10 @@ module CRM
             def assignment_statuses
               Candidate::AssignmentStatusesResource.new
             end
+
+            def situations
+              Candidate::SituationsResource.new
+            end
           end
         end
       end

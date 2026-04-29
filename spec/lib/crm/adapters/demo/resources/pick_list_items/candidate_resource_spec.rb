@@ -80,4 +80,10 @@ RSpec.describe CRM::Adapters::Demo::Resources::PickListItems::CandidateResource 
       expect(resource.assignment_statuses).to be_a(CRM::Adapters::Demo::Resources::PickListItems::Candidate::AssignmentStatusesResource)
     end
   end
+
+  describe "#situations" do
+    it "returns a Demo PickListItems::Candidate::SituationsResource" do
+      expect(resource.situations).to be_a(CRM::Adapters::Demo::Resources::PickListItems::Candidate::SituationsResource)
+    end
+  end
 end

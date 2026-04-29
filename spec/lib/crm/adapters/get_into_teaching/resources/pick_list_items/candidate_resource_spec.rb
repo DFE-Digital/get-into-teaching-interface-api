@@ -82,4 +82,10 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::PickListItems::Candida
       expect(resource.assignment_statuses).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::Candidate::AssignmentStatusesResource)
     end
   end
+
+  describe "#situations" do
+    it "returns a GIT PickListItems::Candidate::SituationsResource" do
+      expect(resource.situations).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::Candidate::SituationsResource)
+    end
+  end
 end

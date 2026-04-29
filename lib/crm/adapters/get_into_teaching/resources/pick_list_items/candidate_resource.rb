@@ -33,6 +33,8 @@ module CRM
             def types = Candidate::TypesResource.new(@client)
 
             def assignment_statuses = Candidate::AssignmentStatusesResource.new(@client)
+
+            def situations = Candidate::SituationsResource.new(@client)
           end
         end
       end

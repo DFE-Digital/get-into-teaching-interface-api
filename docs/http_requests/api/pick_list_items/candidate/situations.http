@@ -1,0 +1,5 @@
+### Candidate Situations
+GET http://localhost:3000/api/pick_list_items/candidate/situations
+
+### Candidate Situations with forced cache miss
+GET http://localhost:3000/api/pick_list_items/candidate/situations?force_cache_miss=true
