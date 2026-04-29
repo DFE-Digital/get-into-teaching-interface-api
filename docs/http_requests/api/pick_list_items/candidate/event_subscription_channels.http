@@ -1,0 +1,5 @@
+### Candidate Event subscription channels
+GET http://localhost:3000/api/pick_list_items/candidate/event_subscription_channels
+
+### Candidate Event subscription channels with forced cache miss
+GET http://localhost:3000/api/pick_list_items/candidate/event_subscription_channels?force_cache_miss=true

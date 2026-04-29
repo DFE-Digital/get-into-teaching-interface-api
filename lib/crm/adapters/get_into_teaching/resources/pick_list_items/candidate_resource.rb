@@ -15,6 +15,8 @@ module CRM
             def channels = Candidate::ChannelsResource.new(@client)
 
             def mailing_list_subscription_channels = Candidate::MailingListSubscriptionChannelsResource.new(@client)
+
+            def event_subscription_channels = Candidate::EventSubscriptionChannelsResource.new(@client)
           end
         end
       end

@@ -9,6 +9,8 @@ module CRM
         def channels(*) = raise NotImplementedError
 
         def mailing_list_subscription_channels(*) = raise NotImplementedError
+
+        def event_subscription_channels(*) = raise NotImplementedError
       end
     end
   end

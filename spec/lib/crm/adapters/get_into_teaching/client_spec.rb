@@ -144,4 +144,21 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
       )
     end
   end
+
+  describe "#pick_list_items.candidate.event_subscription_channels", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/event_subscription_channels" } do
+    subject(:result) { adapter.pick_list_items.candidate.event_subscription_channels.all }
+
+    it "returns EventSubscriptionChannelResource instances" do
+      expect(result).to all(be_a(CRM::Resources::PickListItems::Candidate::EventSubscriptionChannelResource))
+    end
+
+    it "deserializes the first entry correctly" do
+      expect(result.first).to eq(
+        CRM::Resources::PickListItems::Candidate::EventSubscriptionChannelResource.new(
+          id: 222750000,
+          value: "GITIS Events Service",
+        )
+      )
+    end
+  end
 end

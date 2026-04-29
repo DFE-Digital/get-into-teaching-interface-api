@@ -19,6 +19,10 @@ module CRM
             def mailing_list_subscription_channels
               Candidate::MailingListSubscriptionChannelsResource.new
             end
+
+            def event_subscription_channels
+              Candidate::EventSubscriptionChannelsResource.new
+            end
           end
         end
       end
