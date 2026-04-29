@@ -11,6 +11,8 @@ module CRM
             def sources = ContactCreationChannel::SourcesResource.new(@client)
 
             def services = ContactCreationChannel::ServicesResource.new(@client)
+
+            def activities = ContactCreationChannel::ActivitiesResource.new(@client)
           end
         end
       end

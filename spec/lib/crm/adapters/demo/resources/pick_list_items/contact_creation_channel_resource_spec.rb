@@ -14,4 +14,10 @@ RSpec.describe CRM::Adapters::Demo::Resources::PickListItems::ContactCreationCha
       expect(resource.services).to be_a(CRM::Adapters::Demo::Resources::PickListItems::ContactCreationChannel::ServicesResource)
     end
   end
+
+  describe "#activities" do
+    it "returns a Demo PickListItems::ContactCreationChannel::ActivitiesResource" do
+      expect(resource.activities).to be_a(CRM::Adapters::Demo::Resources::PickListItems::ContactCreationChannel::ActivitiesResource)
+    end
+  end
 end

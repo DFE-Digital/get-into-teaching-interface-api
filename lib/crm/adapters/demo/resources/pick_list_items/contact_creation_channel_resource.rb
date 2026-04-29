@@ -11,6 +11,10 @@ module CRM
             def services
               ContactCreationChannel::ServicesResource.new
             end
+
+            def activities
+              ContactCreationChannel::ActivitiesResource.new
+            end
           end
         end
       end

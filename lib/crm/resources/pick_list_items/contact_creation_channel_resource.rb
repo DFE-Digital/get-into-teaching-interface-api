@@ -5,6 +5,8 @@ module CRM
         def sources(*) = raise NotImplementedError
 
         def services(*) = raise NotImplementedError
+
+        def activities(*) = raise NotImplementedError
       end
     end
   end

@@ -16,4 +16,10 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::PickListItems::Contact
       expect(resource.services).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::ContactCreationChannel::ServicesResource)
     end
   end
+
+  describe "#activities" do
+    it "returns a GIT PickListItems::ContactCreationChannel::ActivitiesResource" do
+      expect(resource.activities).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::ContactCreationChannel::ActivitiesResource)
+    end
+  end
 end

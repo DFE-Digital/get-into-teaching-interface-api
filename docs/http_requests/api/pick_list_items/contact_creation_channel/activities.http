@@ -1,0 +1,5 @@
+### Contact creation channel Activities
+GET http://localhost:3000/api/pick_list_items/contact_creation_channel/activities
+
+### Contact creation channel Activities with forced cache miss
+GET http://localhost:3000/api/pick_list_items/contact_creation_channel/activities?force_cache_miss=true
