@@ -7,6 +7,10 @@ module CRM
             def types
               TeachingEvent::TypesResource.new
             end
+
+            def regions
+              TeachingEvent::RegionsResource.new
+            end
           end
         end
       end

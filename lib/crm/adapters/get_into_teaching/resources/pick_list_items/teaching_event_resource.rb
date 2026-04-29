@@ -9,6 +9,8 @@ module CRM
             end
 
             def types = TeachingEvent::TypesResource.new(@client)
+
+            def regions = TeachingEvent::RegionsResource.new(@client)
           end
         end
       end

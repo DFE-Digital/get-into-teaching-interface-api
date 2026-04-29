@@ -467,4 +467,21 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
       )
     end
   end
+
+  describe "#pick_list_items.teaching_event.regions", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/pick_list_items/teaching_event/regions" } do
+    subject(:result) { adapter.pick_list_items.teaching_event.regions.all }
+
+    it "returns RegionResource instances" do
+      expect(result).to all(be_a(CRM::Resources::PickListItems::TeachingEvent::RegionResource))
+    end
+
+    it "deserializes the first entry correctly" do
+      expect(result.first).to eq(
+        CRM::Resources::PickListItems::TeachingEvent::RegionResource.new(
+          id: 222750000,
+          value: "East Midlands",
+        )
+      )
+    end
+  end
 end
