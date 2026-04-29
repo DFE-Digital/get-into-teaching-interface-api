@@ -16,6 +16,8 @@ module CRM
           def teaching_event = PickListItems::TeachingEventResource.new(@client)
 
           def phone_call = PickListItems::PhoneCallResource.new(@client)
+
+          def service_subscription = PickListItems::ServiceSubscriptionResource.new(@client)
         end
       end
     end

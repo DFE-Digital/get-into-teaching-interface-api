@@ -22,6 +22,10 @@ module CRM
           def phone_call
             PickListItems::PhoneCallResource.new
           end
+
+          def service_subscription
+            PickListItems::ServiceSubscriptionResource.new
+          end
         end
       end
     end

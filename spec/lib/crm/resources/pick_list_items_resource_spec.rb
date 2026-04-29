@@ -32,4 +32,10 @@ RSpec.describe CRM::Resources::PickListItemsResource do
       expect { resource.phone_call }.to raise_error(NotImplementedError)
     end
   end
+
+  describe "#service_subscription" do
+    it "raises NotImplementedError" do
+      expect { resource.service_subscription }.to raise_error(NotImplementedError)
+    end
+  end
 end

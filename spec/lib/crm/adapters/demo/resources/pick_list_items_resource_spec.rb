@@ -32,4 +32,10 @@ RSpec.describe CRM::Adapters::Demo::Resources::PickListItemsResource do
       expect(resource.phone_call).to be_a(CRM::Adapters::Demo::Resources::PickListItems::PhoneCallResource)
     end
   end
+
+  describe "#service_subscription" do
+    it "returns a Demo PickListItems::ServiceSubscriptionResource" do
+      expect(resource.service_subscription).to be_a(CRM::Adapters::Demo::Resources::PickListItems::ServiceSubscriptionResource)
+    end
+  end
 end

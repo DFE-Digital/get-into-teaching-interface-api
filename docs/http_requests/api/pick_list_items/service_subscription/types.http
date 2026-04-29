@@ -1,0 +1,5 @@
+### Service subscription Types
+GET http://localhost:3000/api/pick_list_items/service_subscription/types
+
+### Service subscription Types with forced cache miss
+GET http://localhost:3000/api/pick_list_items/service_subscription/types?force_cache_miss=true

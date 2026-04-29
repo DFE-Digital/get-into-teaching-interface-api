@@ -34,4 +34,10 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::PickListItemsResource 
       expect(resource.phone_call).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::PhoneCallResource)
     end
   end
+
+  describe "#service_subscription" do
+    it "returns a GIT PickListItems::ServiceSubscriptionResource" do
+      expect(resource.service_subscription).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::ServiceSubscriptionResource)
+    end
+  end
 end
