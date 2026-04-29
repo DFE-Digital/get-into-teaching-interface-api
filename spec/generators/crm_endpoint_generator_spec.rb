@@ -248,7 +248,7 @@ RSpec.describe CrmEndpointGenerator do
       it "inserts a VCR describe block into the GIT client spec" do
         content = content_of("spec/lib/crm/adapters/get_into_teaching/client_spec.rb")
         expect(content).to include("describe \"#new_list_type.subjects\"")
-        expect(content).to include("vcr: { cassette_name: \"CRM_Adapters_GetIntoTeaching_Client/subjects\" }")
+        expect(content).to include("vcr: { cassette_name: \"CRM_Adapters_GetIntoTeaching_Client/new_list_type/subjects\" }")
         expect(content).to include("adapter.new_list_type.subjects.all")
       end
 
@@ -321,7 +321,7 @@ RSpec.describe CrmEndpointGenerator do
       it "inserts a VCR describe block into the GIT client spec" do
         content = content_of("spec/lib/crm/adapters/get_into_teaching/client_spec.rb")
         expect(content).to include("describe \"#pick_list_items.candidate.initial_teacher_training_years\"")
-        expect(content).to include("vcr: { cassette_name: \"CRM_Adapters_GetIntoTeaching_Client/initial_teacher_training_years\" }")
+        expect(content).to include("vcr: { cassette_name: \"CRM_Adapters_GetIntoTeaching_Client/pick_list_items/candidate/initial_teacher_training_years\" }")
         expect(content).to include("adapter.pick_list_items.candidate.initial_teacher_training_years.all")
       end
 

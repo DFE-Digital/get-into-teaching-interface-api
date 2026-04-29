@@ -361,7 +361,7 @@ class CrmEndpointGenerator < Rails::Generators::Base
     return unless dest_exist?(spec_path)
     return if dest_read(spec_path).include?(describe_key)
 
-    cassette = "CRM_Adapters_GetIntoTeaching_Client/#{collection}"
+    cassette = "CRM_Adapters_GetIntoTeaching_Client/#{[list_type, category, collection].compact_blank.join('/')}"
     chain    = "adapter.#{segments.join('.')}.all"
     fqn      = "#{crm_resource_ns}::#{singular_class}"
 
