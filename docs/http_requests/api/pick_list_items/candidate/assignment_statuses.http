@@ -1,0 +1,5 @@
+### Candidate Assignment statuses
+GET http://localhost:3000/api/pick_list_items/candidate/assignment_statuses
+
+### Candidate Assignment statuses with forced cache miss
+GET http://localhost:3000/api/pick_list_items/candidate/assignment_statuses?force_cache_miss=true

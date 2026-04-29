@@ -31,6 +31,8 @@ module CRM
             def adviser_requirements = Candidate::AdviserRequirementsResource.new(@client)
 
             def types = Candidate::TypesResource.new(@client)
+
+            def assignment_statuses = Candidate::AssignmentStatusesResource.new(@client)
           end
         end
       end

@@ -51,6 +51,10 @@ module CRM
             def types
               Candidate::TypesResource.new
             end
+
+            def assignment_statuses
+              Candidate::AssignmentStatusesResource.new
+            end
           end
         end
       end

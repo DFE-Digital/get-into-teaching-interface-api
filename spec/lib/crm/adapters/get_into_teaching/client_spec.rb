@@ -280,4 +280,21 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
       )
     end
   end
+
+  describe "#pick_list_items.candidate.assignment_statuses", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/assignment_statuses" } do
+    subject(:result) { adapter.pick_list_items.candidate.assignment_statuses.all }
+
+    it "returns AssignmentStatusResource instances" do
+      expect(result).to all(be_a(CRM::Resources::PickListItems::Candidate::AssignmentStatusResource))
+    end
+
+    it "deserializes the first entry correctly" do
+      expect(result.first).to eq(
+        CRM::Resources::PickListItems::Candidate::AssignmentStatusResource.new(
+          id: 222750000,
+          value: "Unassigned",
+        )
+      )
+    end
+  end
 end

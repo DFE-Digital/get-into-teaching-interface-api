@@ -80,4 +80,10 @@ RSpec.describe CRM::Resources::PickListItems::CandidateResource do
       expect { resource.types }.to raise_error(NotImplementedError)
     end
   end
+
+  describe "#assignment_statuses" do
+    it "raises NotImplementedError" do
+      expect { resource.assignment_statuses }.to raise_error(NotImplementedError)
+    end
+  end
 end
