@@ -1,0 +1,5 @@
+### Past teaching position Education phases
+GET http://localhost:3000/api/pick_list_items/past_teaching_position/education_phases
+
+### Past teaching position Education phases with forced cache miss
+GET http://localhost:3000/api/pick_list_items/past_teaching_position/education_phases?force_cache_miss=true

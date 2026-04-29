@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   namespace :api, defaults: { format: :json } do
     namespace :pick_list_items do
+      namespace :past_teaching_position do
+        resources :education_phases, only: :index
+      end
       namespace :qualification do
         resources :uk_degree_grades, only: :index
         resources :degree_statuses, only: :index

@@ -14,4 +14,10 @@ RSpec.describe CRM::Adapters::Demo::Resources::PickListItemsResource do
       expect(resource.qualification).to be_a(CRM::Adapters::Demo::Resources::PickListItems::QualificationResource)
     end
   end
+
+  describe "#past_teaching_position" do
+    it "returns a Demo PickListItems::PastTeachingPositionResource" do
+      expect(resource.past_teaching_position).to be_a(CRM::Adapters::Demo::Resources::PickListItems::PastTeachingPositionResource)
+    end
+  end
 end

@@ -10,6 +10,8 @@ module CRM
           def candidate = PickListItems::CandidateResource.new(@client)
 
           def qualification = PickListItems::QualificationResource.new(@client)
+
+          def past_teaching_position = PickListItems::PastTeachingPositionResource.new(@client)
         end
       end
     end

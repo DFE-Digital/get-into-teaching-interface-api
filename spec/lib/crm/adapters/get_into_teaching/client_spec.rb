@@ -433,4 +433,21 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
       )
     end
   end
+
+  describe "#pick_list_items.past_teaching_position.education_phases", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/education_phases" } do
+    subject(:result) { adapter.pick_list_items.past_teaching_position.education_phases.all }
+
+    it "returns EducationPhaseResource instances" do
+      expect(result).to all(be_a(CRM::Resources::PickListItems::PastTeachingPosition::EducationPhaseResource))
+    end
+
+    it "deserializes the first entry correctly" do
+      expect(result.first).to eq(
+        CRM::Resources::PickListItems::PastTeachingPosition::EducationPhaseResource.new(
+          id: 222750000,
+          value: "Primary",
+        )
+      )
+    end
+  end
 end

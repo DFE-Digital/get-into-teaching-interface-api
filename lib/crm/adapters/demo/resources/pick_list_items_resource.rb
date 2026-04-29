@@ -10,6 +10,10 @@ module CRM
           def qualification
             PickListItems::QualificationResource.new
           end
+
+          def past_teaching_position
+            PickListItems::PastTeachingPositionResource.new
+          end
         end
       end
     end
