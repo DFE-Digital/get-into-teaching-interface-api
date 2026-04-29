@@ -90,4 +90,295 @@ RSpec.describe CrmEndpointGenerator do
         .to raise_error(ArgumentError, /path must have 2 or 3 segments/)
     end
   end
+
+  # ── Integration tests ────────────────────────────────────────────────────────
+
+  describe "integration: file generation" do
+    let(:tmp_dir) { Dir.mktmpdir("crm_endpoint_generator_") }
+
+    after { FileUtils.remove_entry(tmp_dir) }
+
+    def run_generator(path)
+      gen = CrmEndpointGenerator.new([path], {}, destination_root: tmp_dir)
+      gen.invoke_all
+      gen
+    end
+
+    def file_at(*parts)
+      File.join(tmp_dir, *parts)
+    end
+
+    def content_of(*parts)
+      File.read(file_at(*parts))
+    end
+
+    def exists?(*parts)
+      File.exist?(file_at(*parts))
+    end
+
+    before do
+      # Seed fixture files that the generator modifies (routes + clients)
+      FileUtils.mkdir_p(File.join(tmp_dir, "config"))
+      File.write(File.join(tmp_dir, "config/routes.rb"), <<~RUBY)
+        Rails.application.routes.draw do
+          namespace :api, defaults: { format: :json } do
+            namespace :lookup_items do
+              resources :countries, only: :index
+            end
+          end
+        end
+      RUBY
+
+      FileUtils.mkdir_p(File.join(tmp_dir, "lib/crm"))
+      File.write(File.join(tmp_dir, "lib/crm/client.rb"), <<~RUBY)
+        # frozen_string_literal: true
+
+        module CRM
+          class Client
+            def initialize(adapter: CRM::Adapters::Demo::Client.new)
+              @adapter = adapter
+            end
+
+            def lookup_items
+              @adapter.lookup_items
+            end
+          end
+        end
+      RUBY
+
+      FileUtils.mkdir_p(File.join(tmp_dir, "lib/crm/adapters/demo"))
+      File.write(File.join(tmp_dir, "lib/crm/adapters/demo/client.rb"), <<~RUBY)
+        # frozen_string_literal: true
+
+        module CRM
+          module Adapters
+            module Demo
+              class Client
+                def lookup_items
+                  Resources::LookUpItemsResource.new
+                end
+              end
+            end
+          end
+        end
+      RUBY
+
+      FileUtils.mkdir_p(File.join(tmp_dir, "lib/crm/adapters/get_into_teaching"))
+      File.write(File.join(tmp_dir, "lib/crm/adapters/get_into_teaching/client.rb"), <<~RUBY)
+        # frozen_string_literal: true
+
+        module CRM
+          module Adapters
+            module GetIntoTeaching
+              class Client
+                def lookup_items
+                  Resources::LookUpItemsResource.new(self)
+                end
+              end
+            end
+          end
+        end
+      RUBY
+    end
+
+    describe "depth-2 path: new_list_type/subjects" do
+      before { run_generator("new_list_type/subjects") }
+
+      it "creates the abstract list_type resource" do
+        expect(exists?("lib/crm/resources/new_list_type_resource.rb")).to be true
+        expect(content_of("lib/crm/resources/new_list_type_resource.rb"))
+          .to include("def subjects(*) = raise NotImplementedError")
+      end
+
+      it "creates the abstract collection resource" do
+        expect(exists?("lib/crm/resources/new_list_type/subjects_resource.rb")).to be true
+        expect(content_of("lib/crm/resources/new_list_type/subjects_resource.rb"))
+          .to include("def all(*)")
+          .and include("raise NotImplementedError")
+      end
+
+      it "creates the value object with Data.define(:id, :value)" do
+        expect(exists?("lib/crm/resources/new_list_type/subject_resource.rb")).to be true
+        content = content_of("lib/crm/resources/new_list_type/subject_resource.rb")
+        expect(content).to include("Data.define(:id, :value)")
+        expect(content).not_to include("iso_code")
+      end
+
+      it "creates the demo collection resource with stub entries" do
+        expect(exists?("lib/crm/adapters/demo/resources/new_list_type/subjects_resource.rb")).to be true
+        expect(content_of("lib/crm/adapters/demo/resources/new_list_type/subjects_resource.rb"))
+          .to include("Example 1")
+      end
+
+      it "creates the GIT collection resource referencing the correct API path" do
+        expect(exists?("lib/crm/adapters/get_into_teaching/resources/new_list_type/subjects_resource.rb")).to be true
+        expect(content_of("lib/crm/adapters/get_into_teaching/resources/new_list_type/subjects_resource.rb"))
+          .to include("/api/new_list_type/subjects")
+      end
+
+      it "creates the controller" do
+        expect(exists?("app/controllers/api/new_list_type/subjects_controller.rb")).to be true
+      end
+
+      it "adds the route inside the api namespace" do
+        routes = content_of("config/routes.rb")
+        expect(routes).to include("namespace :new_list_type do")
+        expect(routes).to include("resources :subjects, only: :index")
+      end
+
+      it "inserts a list_type method into CRM::Client" do
+        expect(content_of("lib/crm/client.rb")).to include("def new_list_type")
+      end
+
+      it "inserts a list_type method into Demo::Client" do
+        expect(content_of("lib/crm/adapters/demo/client.rb")).to include("def new_list_type")
+      end
+
+      it "inserts a list_type method into GIT::Client" do
+        expect(content_of("lib/crm/adapters/get_into_teaching/client.rb")).to include("def new_list_type")
+      end
+
+      it "creates spec files for all generated files" do
+        expect(exists?("spec/lib/crm/resources/new_list_type_resource_spec.rb")).to be true
+        expect(exists?("spec/lib/crm/resources/new_list_type/subjects_resource_spec.rb")).to be true
+        expect(exists?("spec/lib/crm/resources/new_list_type/subject_resource_spec.rb")).to be true
+        expect(exists?("spec/lib/crm/adapters/demo/resources/new_list_type/subjects_resource_spec.rb")).to be true
+        expect(exists?("spec/lib/crm/adapters/get_into_teaching/resources/new_list_type/subjects_resource_spec.rb")).to be true
+        expect(exists?("spec/requests/api/new_list_type/subjects_spec.rb")).to be true
+      end
+    end
+
+    describe "depth-3 path: pick_list_items/candidate/initial_teacher_training_years" do
+      before { run_generator("pick_list_items/candidate/initial_teacher_training_years") }
+
+      it "creates the abstract list_type resource with category method" do
+        expect(exists?("lib/crm/resources/pick_list_items_resource.rb")).to be true
+        expect(content_of("lib/crm/resources/pick_list_items_resource.rb"))
+          .to include("def candidate(*) = raise NotImplementedError")
+      end
+
+      it "creates the abstract category resource with collection method" do
+        expect(exists?("lib/crm/resources/pick_list_items/candidate_resource.rb")).to be true
+        expect(content_of("lib/crm/resources/pick_list_items/candidate_resource.rb"))
+          .to include("def initial_teacher_training_years(*) = raise NotImplementedError")
+      end
+
+      it "creates the abstract collection resource" do
+        expect(exists?("lib/crm/resources/pick_list_items/candidate/initial_teacher_training_years_resource.rb")).to be true
+      end
+
+      it "creates the value object" do
+        expect(exists?("lib/crm/resources/pick_list_items/candidate/initial_teacher_training_year_resource.rb")).to be true
+        expect(content_of("lib/crm/resources/pick_list_items/candidate/initial_teacher_training_year_resource.rb"))
+          .to include("Data.define(:id, :value)")
+      end
+
+      it "creates the demo adapter files" do
+        expect(exists?("lib/crm/adapters/demo/resources/pick_list_items_resource.rb")).to be true
+        expect(exists?("lib/crm/adapters/demo/resources/pick_list_items/candidate_resource.rb")).to be true
+        expect(exists?("lib/crm/adapters/demo/resources/pick_list_items/candidate/initial_teacher_training_years_resource.rb")).to be true
+      end
+
+      it "creates the GIT adapter files with correct API path" do
+        expect(exists?("lib/crm/adapters/get_into_teaching/resources/pick_list_items/candidate/initial_teacher_training_years_resource.rb")).to be true
+        expect(content_of("lib/crm/adapters/get_into_teaching/resources/pick_list_items/candidate/initial_teacher_training_years_resource.rb"))
+          .to include("/api/pick_list_items/candidate/initial_teacher_training_years")
+      end
+
+      it "generates a controller with the correct fluent chain" do
+        expect(exists?("app/controllers/api/pick_list_items/candidate/initial_teacher_training_years_controller.rb")).to be true
+        expect(content_of("app/controllers/api/pick_list_items/candidate/initial_teacher_training_years_controller.rb"))
+          .to include("CRM::Client.new.pick_list_items.candidate.initial_teacher_training_years.all")
+      end
+
+      it "adds nested namespaces to routes" do
+        routes = content_of("config/routes.rb")
+        expect(routes).to include("namespace :pick_list_items do")
+        expect(routes).to include("namespace :candidate do")
+        expect(routes).to include("resources :initial_teacher_training_years, only: :index")
+      end
+
+      it "inserts methods into all three clients" do
+        expect(content_of("lib/crm/client.rb")).to include("def pick_list_items")
+        expect(content_of("lib/crm/adapters/demo/client.rb")).to include("def pick_list_items")
+        expect(content_of("lib/crm/adapters/get_into_teaching/client.rb")).to include("def pick_list_items")
+      end
+
+      it "creates spec files for all generated files" do
+        [
+          "spec/lib/crm/resources/pick_list_items_resource_spec.rb",
+          "spec/lib/crm/resources/pick_list_items/candidate_resource_spec.rb",
+          "spec/lib/crm/resources/pick_list_items/candidate/initial_teacher_training_years_resource_spec.rb",
+          "spec/lib/crm/resources/pick_list_items/candidate/initial_teacher_training_year_resource_spec.rb",
+          "spec/lib/crm/adapters/demo/resources/pick_list_items_resource_spec.rb",
+          "spec/lib/crm/adapters/demo/resources/pick_list_items/candidate_resource_spec.rb",
+          "spec/lib/crm/adapters/demo/resources/pick_list_items/candidate/initial_teacher_training_years_resource_spec.rb",
+          "spec/lib/crm/adapters/get_into_teaching/resources/pick_list_items_resource_spec.rb",
+          "spec/lib/crm/adapters/get_into_teaching/resources/pick_list_items/candidate_resource_spec.rb",
+          "spec/lib/crm/adapters/get_into_teaching/resources/pick_list_items/candidate/initial_teacher_training_years_resource_spec.rb",
+          "spec/requests/api/pick_list_items/candidate/initial_teacher_training_years_spec.rb"
+        ].each { |path| expect(exists?(path)).to be(true), "expected #{path} to exist" }
+      end
+    end
+
+    describe "idempotency: second endpoint under same parent" do
+      before do
+        run_generator("pick_list_items/candidate/initial_teacher_training_years")
+        run_generator("pick_list_items/candidate/preferred_education_phases")
+      end
+
+      it "does not duplicate the category method in the list_type resource" do
+        content = content_of("lib/crm/resources/pick_list_items_resource.rb")
+        expect(content.scan("def candidate").length).to eq(1)
+      end
+
+      it "adds the new collection method to the category resource" do
+        content = content_of("lib/crm/resources/pick_list_items/candidate_resource.rb")
+        expect(content).to include("def initial_teacher_training_years")
+        expect(content).to include("def preferred_education_phases")
+      end
+
+      it "does not duplicate the list_type method in any client" do
+        %w[
+          lib/crm/client.rb
+          lib/crm/adapters/demo/client.rb
+          lib/crm/adapters/get_into_teaching/client.rb
+        ].each do |path|
+          content = content_of(path)
+          expect(content.scan("def pick_list_items").length).to eq(1), "duplicate method in #{path}"
+        end
+      end
+
+      it "creates separate collection resource files for each sibling" do
+        expect(exists?("lib/crm/resources/pick_list_items/candidate/initial_teacher_training_years_resource.rb")).to be true
+        expect(exists?("lib/crm/resources/pick_list_items/candidate/preferred_education_phases_resource.rb")).to be true
+      end
+
+      it "does not duplicate describe blocks in the list_type resource spec" do
+        content = content_of("spec/lib/crm/resources/pick_list_items_resource_spec.rb")
+        expect(content.scan("\"#candidate\"").length).to eq(1)
+      end
+    end
+
+    describe "idempotency: running the exact same generator twice" do
+      before do
+        run_generator("new_list_type/subjects")
+        run_generator("new_list_type/subjects")
+      end
+
+      it "does not duplicate the collection method in the list_type resource" do
+        content = content_of("lib/crm/resources/new_list_type_resource.rb")
+        expect(content.scan("def subjects").length).to eq(1)
+      end
+
+      it "does not duplicate routes" do
+        content = content_of("config/routes.rb")
+        expect(content.scan("resources :subjects, only: :index").length).to eq(1)
+      end
+
+      it "does not duplicate list_type methods in clients" do
+        expect(content_of("lib/crm/client.rb").scan("def new_list_type").length).to eq(1)
+      end
+    end
+  end
 end
