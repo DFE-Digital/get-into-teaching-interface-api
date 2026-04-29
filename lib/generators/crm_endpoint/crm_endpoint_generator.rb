@@ -56,7 +56,7 @@ class CrmEndpointGenerator < Rails::Generators::Base
     end
 
     def api_path     = "/api/#{segments.join('/')}"
-    def fluent_chain = "CRM::Client.new.#{segments.join('.')}.all"
+    def fluent_chain = "crm_client.#{segments.join('.')}.all"
 
     def controller_class = "API::#{segments.map(&:camelize).join('::')}Controller"
     def route_helper     = "api_#{segments.join('_')}_path"

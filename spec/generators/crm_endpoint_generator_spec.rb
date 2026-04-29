@@ -6,7 +6,7 @@ require "generators/crm_endpoint/crm_endpoint_generator"
 
 RSpec.describe CrmEndpointGenerator do
   def generator(path)
-    described_class.new([path], {}, destination_root: Rails.root.to_s)
+    described_class.new([ path ], {}, destination_root: Rails.root.to_s)
   end
 
   describe "path parsing with a 2-level path" do
@@ -56,7 +56,7 @@ RSpec.describe CrmEndpointGenerator do
     it { expect(gen.list_type_first_method).to eq("countries") }
     it { expect(gen.list_type_first_method_return).to eq("LookupItems::CountriesResource") }
     it { expect(gen.api_path).to eq("/api/lookup_items/countries") }
-    it { expect(gen.fluent_chain).to eq("CRM::Client.new.lookup_items.countries.all") }
+    it { expect(gen.fluent_chain).to eq("crm_client.lookup_items.countries.all") }
     it { expect(gen.controller_class).to eq("API::LookupItems::CountriesController") }
     it { expect(gen.route_helper).to eq("api_lookup_items_countries_path") }
   end
@@ -74,7 +74,7 @@ RSpec.describe CrmEndpointGenerator do
     it { expect(gen.list_type_first_method).to eq("candidate") }
     it { expect(gen.list_type_first_method_return).to eq("PickListItems::CandidateResource") }
     it { expect(gen.api_path).to eq("/api/pick_list_items/candidate/initial_teacher_training_years") }
-    it { expect(gen.fluent_chain).to eq("CRM::Client.new.pick_list_items.candidate.initial_teacher_training_years.all") }
+    it { expect(gen.fluent_chain).to eq("crm_client.pick_list_items.candidate.initial_teacher_training_years.all") }
     it { expect(gen.controller_class).to eq("API::PickListItems::Candidate::InitialTeacherTrainingYearsController") }
     it { expect(gen.route_helper).to eq("api_pick_list_items_candidate_initial_teacher_training_years_path") }
   end
@@ -99,7 +99,7 @@ RSpec.describe CrmEndpointGenerator do
     after { FileUtils.remove_entry(tmp_dir) }
 
     def run_generator(path)
-      gen = CrmEndpointGenerator.new([path], {}, destination_root: tmp_dir)
+      gen = CrmEndpointGenerator.new([ path ], {}, destination_root: tmp_dir)
       gen.invoke_all
       gen
     end
@@ -312,7 +312,7 @@ RSpec.describe CrmEndpointGenerator do
       it "generates a controller with the correct fluent chain" do
         expect(exists?("app/controllers/api/pick_list_items/candidate/initial_teacher_training_years_controller.rb")).to be true
         expect(content_of("app/controllers/api/pick_list_items/candidate/initial_teacher_training_years_controller.rb"))
-          .to include("CRM::Client.new.pick_list_items.candidate.initial_teacher_training_years.all")
+          .to include("crm_client.pick_list_items.candidate.initial_teacher_training_years.all")
       end
 
       it "adds nested namespaces to routes" do
@@ -347,7 +347,7 @@ RSpec.describe CrmEndpointGenerator do
           "spec/lib/crm/adapters/get_into_teaching/resources/pick_list_items_resource_spec.rb",
           "spec/lib/crm/adapters/get_into_teaching/resources/pick_list_items/candidate_resource_spec.rb",
           "spec/lib/crm/adapters/get_into_teaching/resources/pick_list_items/candidate/initial_teacher_training_years_resource_spec.rb",
-          "spec/requests/api/pick_list_items/candidate/initial_teacher_training_years_spec.rb"
+          "spec/requests/api/pick_list_items/candidate/initial_teacher_training_years_spec.rb",
         ].each { |path| expect(exists?(path)).to be(true), "expected #{path} to exist" }
       end
     end

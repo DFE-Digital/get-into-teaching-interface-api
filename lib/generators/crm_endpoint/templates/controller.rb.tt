@@ -5,4 +5,10 @@ class <%= controller_class %> < API::ApplicationController
     end
     render json: { data: data }
   end
+
+  private
+
+  def crm_client
+    CRM::Client.new
+  end
 end
