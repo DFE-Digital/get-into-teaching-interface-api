@@ -7,6 +7,10 @@ module CRM
             def initial_teacher_training_years
               Candidate::InitialTeacherTrainingYearsResource.new
             end
+
+            def preferred_education_phases
+              Candidate::PreferredEducationPhasesResource.new
+            end
           end
         end
       end

@@ -10,4 +10,10 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::PickListItems::Candida
       expect(resource.initial_teacher_training_years).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::Candidate::InitialTeacherTrainingYearsResource)
     end
   end
+
+  describe "#preferred_education_phases" do
+    it "returns a GIT PickListItems::Candidate::PreferredEducationPhasesResource" do
+      expect(resource.preferred_education_phases).to be_a(CRM::Adapters::GetIntoTeaching::Resources::PickListItems::Candidate::PreferredEducationPhasesResource)
+    end
+  end
 end

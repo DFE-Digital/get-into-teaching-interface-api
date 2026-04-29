@@ -18,6 +18,7 @@ class CrmEndpointGenerator < Rails::Generators::Base
     generate_controller_layer
     generate_routes
     generate_request_spec
+    generate_http_requests
     say "\n  Run: bundle exec rails zeitwerk:check", :green
   end
 
@@ -55,6 +56,10 @@ class CrmEndpointGenerator < Rails::Generators::Base
 
     def api_path     = "/api/#{segments.join('/')}"
     def fluent_chain = "crm_client.#{segments.join('.')}.all"
+
+    def human_title
+      depth == 3 ? "#{category.humanize} #{collection.humanize}" : collection.humanize
+    end
 
     def controller_class = "API::#{segments.map(&:camelize).join('::')}Controller"
     def route_helper     = "api_#{segments.join('_')}_path"
@@ -285,6 +290,13 @@ class CrmEndpointGenerator < Rails::Generators::Base
 
   def generate_request_spec
     template "spec_request.rb.tt", "spec/requests/api/#{segments.join('/')}_spec.rb"
+  end
+
+  # ── HTTP request files ────────────────────────────────────────────────────────
+
+  def generate_http_requests
+    template "http_request_api.http.tt",     "docs/http_requests/api/#{segments.join('/')}.http"
+    template "http_request_git_api.http.tt", "docs/http_requests/git_api/#{segments.join('/')}.http"
   end
 
   # ── Shared helpers ───────────────────────────────────────────────────────────

@@ -8,4 +8,10 @@ RSpec.describe CRM::Adapters::Demo::Resources::PickListItems::CandidateResource 
       expect(resource.initial_teacher_training_years).to be_a(CRM::Adapters::Demo::Resources::PickListItems::Candidate::InitialTeacherTrainingYearsResource)
     end
   end
+
+  describe "#preferred_education_phases" do
+    it "returns a Demo PickListItems::Candidate::PreferredEducationPhasesResource" do
+      expect(resource.preferred_education_phases).to be_a(CRM::Adapters::Demo::Resources::PickListItems::Candidate::PreferredEducationPhasesResource)
+    end
+  end
 end
