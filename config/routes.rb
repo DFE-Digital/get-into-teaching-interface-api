@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   namespace :api, defaults: { format: :json } do
-    resources :teaching_event_buildings, only: :index
     resources :callback_booking_quotas, only: :index
     namespace :lookup_items do
       resources :countries, only: :index
@@ -56,6 +55,7 @@ Rails.application.routes.draw do
         resources :types, only: :index
       end
     end
+    resources :teaching_event_buildings, only: :index
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
