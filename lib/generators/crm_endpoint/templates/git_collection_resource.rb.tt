@@ -2,25 +2,18 @@ module CRM
   module Adapters
     module GetIntoTeaching
       module Resources
-        module <%= list_type_module %>
-<% if depth == 3 -%>
-          module <%= category_module %>
-            class <%= collection_class %> < CRM::Adapters::GetIntoTeaching::Resource
-              def all(**params)
-                response = get_request("<%= api_path %>", params: params)
-                response_to_collection(response, type: CRM::Resources::<%= list_type_module %>::<%= category_module %>::<%= singular_class %>)
-              end
-            end
-          end
-<% else -%>
-          class <%= collection_class %> < CRM::Adapters::GetIntoTeaching::Resource
-            def all(**params)
-              response = get_request("<%= api_path %>", params: params)
-              response_to_collection(response, type: CRM::Resources::<%= list_type_module %>::<%= singular_class %>)
-            end
-          end
+<% intermediate_modules.each_with_index do |mod, i| -%>
+<%= "  " * (i + 4) %>module <%= mod %>
 <% end -%>
-        end
+<%= "  " * (intermediates.length + 4) %>class <%= collection_class %> < CRM::Adapters::GetIntoTeaching::Resource
+<%= "  " * (intermediates.length + 5) %>def all(**params)
+<%= "  " * (intermediates.length + 6) %>response = get_request("<%= api_path %>", params: params)
+<%= "  " * (intermediates.length + 6) %>response_to_collection(response, type: <%= crm_resource_ns %>::<%= singular_class %>)
+<%= "  " * (intermediates.length + 5) %>end
+<%= "  " * (intermediates.length + 4) %>end
+<% intermediate_modules.length.downto(1) do |k| -%>
+<%= "  " * (k + 3) %>end
+<% end -%>
       end
     end
   end

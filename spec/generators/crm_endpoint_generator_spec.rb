@@ -7,6 +7,16 @@ RSpec.describe CrmEndpointGenerator do
     described_class.new([ path ], {}, destination_root: Rails.root.to_s)
   end
 
+  describe "path parsing with a 1-level path" do
+    subject(:gen) { generator("callback_booking_quotas") }
+
+    it "sets depth to 1"          do expect(gen.depth).to eq(1) end
+    it "sets list_type to nil"    do expect(gen.list_type).to be_nil end
+    it "sets category to nil"     do expect(gen.category).to be_nil end
+    it "sets collection"          do expect(gen.collection).to eq("callback_booking_quotas") end
+    it "sets singular"            do expect(gen.singular).to eq("callback_booking_quota") end
+  end
+
   describe "path parsing with a 2-level path" do
     subject(:gen) { generator("lookup_items/countries") }
 
@@ -37,6 +47,23 @@ RSpec.describe CrmEndpointGenerator do
     it "camelizes and appends Resource for a multi-word segment" do
       expect(gen.class_name_for("initial_teacher_training_years")).to eq("InitialTeacherTrainingYearsResource")
     end
+  end
+
+  describe "derived name helpers (depth-1)" do
+    subject(:gen) { generator("callback_booking_quotas") }
+
+    it { expect(gen.list_type_class).to be_nil }
+    it { expect(gen.collection_class).to eq("CallbackBookingQuotasResource") }
+    it { expect(gen.singular_class).to eq("CallbackBookingQuotaResource") }
+    it { expect(gen.list_type_module).to be_nil }
+    it { expect(gen.category_module).to be_nil }
+    it { expect(gen.crm_resource_ns).to eq("CRM::Resources") }
+    it { expect(gen.list_type_first_method).to be_nil }
+    it { expect(gen.list_type_first_method_return).to be_nil }
+    it { expect(gen.api_path).to eq("/api/callback_booking_quotas") }
+    it { expect(gen.fluent_chain).to eq("crm_client.callback_booking_quotas.all") }
+    it { expect(gen.controller_class).to eq("API::CallbackBookingQuotasController") }
+    it { expect(gen.route_helper).to eq("api_callback_booking_quotas_path") }
   end
 
   describe "derived name helpers (depth-2)" do
@@ -78,14 +105,9 @@ RSpec.describe CrmEndpointGenerator do
   end
 
   describe "argument validation" do
-    it "raises ArgumentError for a 1-segment path" do
-      expect { generator("only_one_segment") }
-        .to raise_error(ArgumentError, /path must have 2 or 3 segments/)
-    end
-
-    it "raises ArgumentError for a 4-segment path" do
-      expect { generator("a/b/c/d") }
-        .to raise_error(ArgumentError, /path must have 2 or 3 segments/)
+    it "raises ArgumentError for an empty path" do
+      expect { generator("") }
+        .to raise_error(ArgumentError, /at least 1 segment/)
     end
   end
 
@@ -186,6 +208,84 @@ RSpec.describe CrmEndpointGenerator do
           end
         end
       RUBY
+    end
+
+    describe "depth-1 path: callback_booking_quotas" do
+      before { run_generator("callback_booking_quotas") }
+
+      it "creates the abstract collection resource directly under CRM::Resources (no module wrapper)" do
+        path    = "lib/crm/resources/callback_booking_quotas_resource.rb"
+        content = content_of(path)
+        expect(exists?(path)).to be true
+        expect(content).to include("class CallbackBookingQuotasResource")
+        expect(content).to include("def all(*)")
+        expect(content).to include("raise NotImplementedError")
+        expect(content).not_to include("module LookupItems")
+      end
+
+      it "creates the value object directly under CRM::Resources" do
+        expect(exists?("lib/crm/resources/callback_booking_quota_resource.rb")).to be true
+        expect(content_of("lib/crm/resources/callback_booking_quota_resource.rb"))
+          .to include("Data.define(:id, :value)")
+      end
+
+      it "creates the demo collection resource with stub entries" do
+        path = "lib/crm/adapters/demo/resources/callback_booking_quotas_resource.rb"
+        expect(exists?(path)).to be true
+        expect(content_of(path)).to include("Example 1")
+      end
+
+      it "creates the GIT collection resource referencing the correct API path" do
+        path = "lib/crm/adapters/get_into_teaching/resources/callback_booking_quotas_resource.rb"
+        expect(exists?(path)).to be true
+        expect(content_of(path)).to include("/api/callback_booking_quotas")
+      end
+
+      it "creates the controller" do
+        expect(exists?("app/controllers/api/callback_booking_quotas_controller.rb")).to be true
+      end
+
+      it "adds the resource directly inside the api namespace (no extra namespace wrapper)" do
+        routes = content_of("config/routes.rb")
+        expect(routes).to include("resources :callback_booking_quotas, only: :index")
+      end
+
+      it "inserts a callback_booking_quotas method into CRM::Client" do
+        expect(content_of("lib/crm/client.rb")).to include("def callback_booking_quotas")
+      end
+
+      it "inserts a callback_booking_quotas method into Demo::Client" do
+        expect(content_of("lib/crm/adapters/demo/client.rb")).to include("def callback_booking_quotas")
+      end
+
+      it "inserts a callback_booking_quotas method into GIT::Client" do
+        expect(content_of("lib/crm/adapters/get_into_teaching/client.rb")).to include("def callback_booking_quotas")
+      end
+
+      it "inserts a VCR describe block into the GIT client spec" do
+        content = content_of("spec/lib/crm/adapters/get_into_teaching/client_spec.rb")
+        expect(content).to include("describe \"#callback_booking_quotas\"")
+        expect(content).to include("vcr: { cassette_name: \"CRM_Adapters_GetIntoTeaching_Client/callback_booking_quotas\" }")
+        expect(content).to include("adapter.callback_booking_quotas.all")
+      end
+
+      it "creates spec files for all generated files" do
+        expect(exists?("spec/lib/crm/resources/callback_booking_quotas_resource_spec.rb")).to be true
+        expect(exists?("spec/lib/crm/resources/callback_booking_quota_resource_spec.rb")).to be true
+        expect(exists?("spec/lib/crm/adapters/demo/resources/callback_booking_quotas_resource_spec.rb")).to be true
+        expect(exists?("spec/lib/crm/adapters/get_into_teaching/resources/callback_booking_quotas_resource_spec.rb")).to be true
+        expect(exists?("spec/requests/api/callback_booking_quotas_spec.rb")).to be true
+      end
+
+      it "creates HTTP request files with correct content" do
+        expect(exists?("docs/http_requests/api/callback_booking_quotas.http")).to be true
+        expect(exists?("docs/http_requests/git_api/callback_booking_quotas.http")).to be true
+
+        api_content = content_of("docs/http_requests/api/callback_booking_quotas.http")
+        expect(api_content).to include("### Callback booking quotas")
+        expect(api_content).to include("GET http://localhost:3000/api/callback_booking_quotas")
+        expect(api_content).to include("?force_cache_miss=true")
+      end
     end
 
     describe "depth-2 path: new_list_type/subjects" do

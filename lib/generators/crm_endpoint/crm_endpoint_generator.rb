@@ -2,9 +2,9 @@ class CrmEndpointGenerator < Rails::Generators::Base
   source_root File.expand_path("templates", __dir__)
 
   argument :endpoint_path, type: :string,
-           desc: "Endpoint path: 2 segments (list_type/collection) or " \
-                 "3 segments (list_type/category/collection). " \
-                 "Example: lookup_items/countries or pick_list_items/candidate/initial_teacher_training_years"
+           desc: "Endpoint path with 1+ segments. " \
+                 "Example: callback_booking_quotas, lookup_items/countries, or " \
+                 "pick_list_items/candidate/initial_teacher_training_years"
 
   def initialize(args, opts, config)
     super
@@ -25,60 +25,58 @@ class CrmEndpointGenerator < Rails::Generators::Base
   no_tasks do
     attr_reader :segments
 
-    def depth        = segments.length
-    def list_type    = segments[0]
-    def category     = depth == 3 ? segments[1] : nil
-    def collection   = segments[-1]
-    def singular     = collection.singularize
+    def depth               = segments.length
+    def intermediates       = segments[0..-2]
+    def intermediate_modules = intermediates.map(&:camelize)
+    def collection          = segments[-1]
+    def singular            = collection.singularize
+
+    # Backward-compat aliases retained for tests and route logic
+    def list_type           = intermediates[0]
+    def category            = intermediates[1]
+    def list_type_module    = list_type&.camelize
+    def category_module     = category&.camelize
 
     def class_name_for(segment)
       "#{segment.camelize}Resource"
     end
 
-    def list_type_class    = class_name_for(list_type)
-    def category_class     = category ? class_name_for(category) : nil
-    def collection_class   = class_name_for(collection)
-    def singular_class     = class_name_for(singular)
-    def list_type_module   = list_type.camelize
-    def category_module    = category&.camelize
+    def list_type_class   = list_type ? class_name_for(list_type) : nil
+    def category_class    = category ? class_name_for(category) : nil
+    def collection_class  = class_name_for(collection)
+    def singular_class    = class_name_for(singular)
+
+    # The method exposed on the top-level list_type resource (nil for depth 1)
+    def list_type_first_method = segments[1]
+
+    # The return type of list_type_first_method (nil for depth 1)
+    def list_type_first_method_return
+      return nil if depth < 2
+
+      "#{intermediate_modules[0]}::#{segments[1].camelize}Resource"
+    end
 
     def crm_resource_ns
-      depth == 3 ? "CRM::Resources::#{list_type_module}::#{category_module}" : "CRM::Resources::#{list_type_module}"
+      (["CRM", "Resources"] + intermediate_modules).join("::")
     end
 
-    def list_type_first_method
-      depth == 3 ? category : collection
+    def demo_collection_fqn
+      (["CRM", "Adapters", "Demo", "Resources"] + intermediate_modules + [collection_class]).join("::")
     end
 
-    def list_type_first_method_return
-      depth == 3 ? "#{list_type_module}::#{category_class}" : "#{list_type_module}::#{collection_class}"
+    def git_collection_fqn
+      (["CRM", "Adapters", "GetIntoTeaching", "Resources"] + intermediate_modules + [collection_class]).join("::")
     end
 
     def api_path     = "/api/#{segments.join('/')}"
     def fluent_chain = "crm_client.#{segments.join('.')}.all"
 
     def human_title
-      depth == 3 ? "#{category.humanize} #{collection.humanize}" : collection.humanize
+      depth >= 3 ? "#{intermediates[-1].humanize} #{collection.humanize}" : collection.humanize
     end
 
     def controller_class = "API::#{segments.map(&:camelize).join('::')}Controller"
     def route_helper     = "api_#{segments.join('_')}_path"
-
-    def demo_collection_fqn
-      if depth == 3
-        "CRM::Adapters::Demo::Resources::#{list_type_module}::#{category_module}::#{collection_class}"
-      else
-        "CRM::Adapters::Demo::Resources::#{list_type_module}::#{collection_class}"
-      end
-    end
-
-    def git_collection_fqn
-      if depth == 3
-        "CRM::Adapters::GetIntoTeaching::Resources::#{list_type_module}::#{category_module}::#{collection_class}"
-      else
-        "CRM::Adapters::GetIntoTeaching::Resources::#{list_type_module}::#{collection_class}"
-      end
-    end
   end
 
   private
@@ -86,43 +84,7 @@ class CrmEndpointGenerator < Rails::Generators::Base
   # ── Abstract base layer ──────────────────────────────────────────────────────
 
   def generate_abstract_layer
-    abs_lt_path = "lib/crm/resources/#{list_type}_resource.rb"
-    create_or_insert_resource(
-      abs_lt_path, "abstract_list_type_resource.rb.tt",
-      list_type_first_method,
-      "\n\n      def #{list_type_first_method}(*) = raise NotImplementedError",
-      "\n    end\n  end\nend\n"
-    )
-
-    spec_lt_path = "spec/lib/crm/resources/#{list_type}_resource_spec.rb"
-    create_or_insert_spec(
-      spec_lt_path, "spec_abstract_list_type_resource.rb.tt",
-      list_type_first_method,
-      describe_block(list_type_first_method,
-        "    it \"raises NotImplementedError\" do\n" \
-        "      expect { resource.#{list_type_first_method} }.to raise_error(NotImplementedError)\n" \
-        "    end\n")
-    )
-
-    if depth == 3
-      abs_cat_path = "lib/crm/resources/#{list_type}/#{category}_resource.rb"
-      create_or_insert_resource(
-        abs_cat_path, "abstract_category_resource.rb.tt",
-        collection,
-        "\n\n        def #{collection}(*) = raise NotImplementedError",
-        "\n      end\n    end\n  end\nend\n"
-      )
-
-      spec_cat_path = "spec/lib/crm/resources/#{list_type}/#{category}_resource_spec.rb"
-      create_or_insert_spec(
-        spec_cat_path, "spec_abstract_category_resource.rb.tt",
-        collection,
-        describe_block(collection,
-          "    it \"raises NotImplementedError\" do\n" \
-          "      expect { resource.#{collection} }.to raise_error(NotImplementedError)\n" \
-          "    end\n")
-      )
-    end
+    intermediates.each_with_index { |_, i| generate_abstract_intermediate(i) }
 
     template "abstract_collection_resource.rb.tt",      collection_path("lib/crm/resources")
     template "value_object.rb.tt",                       singular_path("lib/crm/resources")
@@ -130,112 +92,153 @@ class CrmEndpointGenerator < Rails::Generators::Base
     template "spec_value_object.rb.tt",                 spec_singular_path("spec/lib/crm/resources")
   end
 
+  def generate_abstract_intermediate(i)
+    seg      = intermediates[i]
+    next_seg = intermediates[i + 1] || collection
+    path      = "lib/crm/resources/#{intermediates[0..i].join('/')}_resource.rb"
+    spec_path = "spec/lib/crm/resources/#{intermediates[0..i].join('/')}_resource_spec.rb"
+    nesting   = i + 3  # CRM(1) + Resources(1) + i parent modules + class = i+3
+
+    if dest_exist?(path)
+      unless file_has_method?(path, next_seg)
+        insert_into_file path,
+          "\n\n#{"  " * nesting}def #{next_seg}(*) = raise NotImplementedError",
+          before: closing_anchor(nesting)
+      end
+    else
+      create_file path, abstract_intermediate_content(i, seg, next_seg)
+    end
+
+    if dest_exist?(spec_path)
+      unless spec_has_describe?(spec_path, next_seg)
+        insert_into_file spec_path,
+          describe_block(next_seg,
+            "    it \"raises NotImplementedError\" do\n" \
+            "      expect { resource.#{next_seg} }.to raise_error(NotImplementedError)\n" \
+            "    end\n"),
+          before: "\nend\n"
+      end
+    else
+      create_file spec_path, abstract_intermediate_spec_content(i, seg, next_seg)
+    end
+  end
+
   # ── Demo adapter layer ───────────────────────────────────────────────────────
 
   def generate_demo_layer
-    demo_lt_path = "lib/crm/adapters/demo/resources/#{list_type}_resource.rb"
-    create_or_insert_resource(
-      demo_lt_path, "demo_list_type_resource.rb.tt",
-      list_type_first_method,
-      "\n\n          def #{list_type_first_method}\n            #{list_type_first_method_return}.new\n          end",
-      "\n        end\n      end\n    end\n  end\nend\n"
-    )
-
-    spec_demo_lt_path = "spec/lib/crm/adapters/demo/resources/#{list_type}_resource_spec.rb"
-    create_or_insert_spec(
-      spec_demo_lt_path, "spec_demo_list_type_resource.rb.tt",
-      list_type_first_method,
-      describe_block(list_type_first_method,
-        "    it \"returns a Demo #{list_type_first_method_return}\" do\n" \
-        "      expect(resource.#{list_type_first_method}).to be_a(CRM::Adapters::Demo::Resources::#{list_type_first_method_return})\n" \
-        "    end\n")
-    )
-
-    if depth == 3
-      demo_cat_path = "lib/crm/adapters/demo/resources/#{list_type}/#{category}_resource.rb"
-      create_or_insert_resource(
-        demo_cat_path, "demo_category_resource.rb.tt",
-        collection,
-        "\n\n            def #{collection}\n              #{category_module}::#{collection_class}.new\n            end",
-        "\n          end\n        end\n      end\n    end\n  end\nend\n"
-      )
-
-      spec_demo_cat_path = "spec/lib/crm/adapters/demo/resources/#{list_type}/#{category}_resource_spec.rb"
-      create_or_insert_spec(
-        spec_demo_cat_path, "spec_demo_category_resource.rb.tt",
-        collection,
-        describe_block(collection,
-          "    it \"returns a Demo #{list_type_module}::#{category_module}::#{collection_class}\" do\n" \
-          "      expect(resource.#{collection}).to be_a(CRM::Adapters::Demo::Resources::#{list_type_module}::#{category_module}::#{collection_class})\n" \
-          "    end\n")
-      )
-    end
+    intermediates.each_with_index { |_, i| generate_demo_intermediate(i) }
 
     template "demo_collection_resource.rb.tt",      collection_path("lib/crm/adapters/demo/resources")
     template "spec_demo_collection_resource.rb.tt", spec_collection_path("spec/lib/crm/adapters/demo/resources")
   end
 
+  def generate_demo_intermediate(i)
+    seg      = intermediates[i]
+    next_seg = intermediates[i + 1] || collection
+    path      = "lib/crm/adapters/demo/resources/#{intermediates[0..i].join('/')}_resource.rb"
+    spec_path = "spec/lib/crm/adapters/demo/resources/#{intermediates[0..i].join('/')}_resource_spec.rb"
+    # Return type is relative to CRM::Adapters::Demo::Resources (e.g. LookupItems::CountriesResource)
+    ret_type  = "#{seg.camelize}::#{segments[i + 1].camelize}Resource"
+    method_sp = "  " * (5 + i)
+    body_sp   = "  " * (6 + i)
+    nesting   = 5 + i  # CRM, Adapters, Demo, Resources, i parents, class
+
+    if dest_exist?(path)
+      unless file_has_method?(path, next_seg)
+        insert_into_file path,
+          "\n\n#{method_sp}def #{next_seg}\n#{body_sp}#{ret_type}.new\n#{method_sp}end",
+          before: closing_anchor(nesting)
+      end
+    else
+      create_file path, demo_intermediate_content(i, seg, next_seg, ret_type)
+    end
+
+    if dest_exist?(spec_path)
+      unless spec_has_describe?(spec_path, next_seg)
+        ret_fqn = (["CRM", "Adapters", "Demo", "Resources"] +
+                   intermediates[0..i].map(&:camelize) +
+                   ["#{segments[i + 1].camelize}Resource"]).join("::")
+        insert_into_file spec_path,
+          describe_block(next_seg,
+            "    it \"returns a Demo #{ret_type}\" do\n" \
+            "      expect(resource.#{next_seg}).to be_a(#{ret_fqn})\n" \
+            "    end\n"),
+          before: "\nend\n"
+      end
+    else
+      create_file spec_path, demo_intermediate_spec_content(i, seg, next_seg, ret_type)
+    end
+  end
+
   # ── GetIntoTeaching adapter layer ────────────────────────────────────────────
 
   def generate_git_layer
-    git_lt_path = "lib/crm/adapters/get_into_teaching/resources/#{list_type}_resource.rb"
-    create_or_insert_resource(
-      git_lt_path, "git_list_type_resource.rb.tt",
-      list_type_first_method,
-      "\n\n          def #{list_type_first_method} = #{list_type_first_method_return}.new(@client)",
-      "\n        end\n      end\n    end\n  end\nend\n"
-    )
-
-    spec_git_lt_path = "spec/lib/crm/adapters/get_into_teaching/resources/#{list_type}_resource_spec.rb"
-    create_or_insert_spec(
-      spec_git_lt_path, "spec_git_list_type_resource.rb.tt",
-      list_type_first_method,
-      describe_block(list_type_first_method,
-        "    it \"returns a GIT #{list_type_first_method_return}\" do\n" \
-        "      expect(resource.#{list_type_first_method}).to be_a(CRM::Adapters::GetIntoTeaching::Resources::#{list_type_first_method_return})\n" \
-        "    end\n")
-    )
-
-    if depth == 3
-      git_cat_path = "lib/crm/adapters/get_into_teaching/resources/#{list_type}/#{category}_resource.rb"
-      create_or_insert_resource(
-        git_cat_path, "git_category_resource.rb.tt",
-        collection,
-        "\n\n            def #{collection} = #{category_module}::#{collection_class}.new(@client)",
-        "\n          end\n        end\n      end\n    end\n  end\nend\n"
-      )
-
-      spec_git_cat_path = "spec/lib/crm/adapters/get_into_teaching/resources/#{list_type}/#{category}_resource_spec.rb"
-      create_or_insert_spec(
-        spec_git_cat_path, "spec_git_category_resource.rb.tt",
-        collection,
-        describe_block(collection,
-          "    it \"returns a GIT #{list_type_module}::#{category_module}::#{collection_class}\" do\n" \
-          "      expect(resource.#{collection}).to be_a(CRM::Adapters::GetIntoTeaching::Resources::#{list_type_module}::#{category_module}::#{collection_class})\n" \
-          "    end\n")
-      )
-    end
+    intermediates.each_with_index { |_, i| generate_git_intermediate(i) }
 
     template "git_collection_resource.rb.tt",      collection_path("lib/crm/adapters/get_into_teaching/resources")
     template "spec_git_collection_resource.rb.tt", spec_collection_path("spec/lib/crm/adapters/get_into_teaching/resources")
 
+    # The top-level client method name: for depth 1 it's the collection itself,
+    # for depth >= 2 it's the first intermediate (list_type).
+    client_name = depth >= 2 ? list_type : collection
+
     insert_client_method(
-      "lib/crm/client.rb", list_type,
-      "    def #{list_type}\n      @adapter.#{list_type}\n    end",
+      "lib/crm/client.rb", client_name,
+      "    def #{client_name}\n      @adapter.#{client_name}\n    end",
       "\n  end\nend\n"
     )
+
+    demo_return = depth >= 2 ? "Resources::#{list_type_class}.new" : "Resources::#{collection_class}.new"
     insert_client_method(
-      "lib/crm/adapters/demo/client.rb", list_type,
-      "        def #{list_type}\n          Resources::#{list_type_class}.new\n        end",
+      "lib/crm/adapters/demo/client.rb", client_name,
+      "        def #{client_name}\n          #{demo_return}\n        end",
       "\n      end\n    end\n  end\nend\n"
     )
+
+    git_return = depth >= 2 ? "Resources::#{list_type_class}.new(self)" : "Resources::#{collection_class}.new(self)"
     insert_client_method(
-      "lib/crm/adapters/get_into_teaching/client.rb", list_type,
-      "        def #{list_type}\n          Resources::#{list_type_class}.new(self)\n        end",
+      "lib/crm/adapters/get_into_teaching/client.rb", client_name,
+      "        def #{client_name}\n          #{git_return}\n        end",
       "\n      end\n    end\n  end\nend\n"
     )
 
     insert_git_client_spec
+  end
+
+  def generate_git_intermediate(i)
+    seg      = intermediates[i]
+    next_seg = intermediates[i + 1] || collection
+    path      = "lib/crm/adapters/get_into_teaching/resources/#{intermediates[0..i].join('/')}_resource.rb"
+    spec_path = "spec/lib/crm/adapters/get_into_teaching/resources/#{intermediates[0..i].join('/')}_resource_spec.rb"
+    ret_type  = "#{seg.camelize}::#{segments[i + 1].camelize}Resource"
+    method_sp = "  " * (5 + i)
+    nesting   = 5 + i
+
+    if dest_exist?(path)
+      unless file_has_method?(path, next_seg)
+        insert_into_file path,
+          "\n\n#{method_sp}def #{next_seg} = #{ret_type}.new(@client)",
+          before: closing_anchor(nesting)
+      end
+    else
+      create_file path, git_intermediate_content(i, seg, next_seg, ret_type)
+    end
+
+    if dest_exist?(spec_path)
+      unless spec_has_describe?(spec_path, next_seg)
+        ret_fqn = (["CRM", "Adapters", "GetIntoTeaching", "Resources"] +
+                   intermediates[0..i].map(&:camelize) +
+                   ["#{segments[i + 1].camelize}Resource"]).join("::")
+        insert_into_file spec_path,
+          describe_block(next_seg,
+            "    it \"returns a GIT #{ret_type}\" do\n" \
+            "      expect(resource.#{next_seg}).to be_a(#{ret_fqn})\n" \
+            "    end\n"),
+          before: "\nend\n"
+      end
+    else
+      create_file spec_path, git_intermediate_spec_content(i, seg, next_seg, ret_type)
+    end
   end
 
   # ── Controller layer ─────────────────────────────────────────────────────────
@@ -253,36 +256,52 @@ class CrmEndpointGenerator < Rails::Generators::Base
     content = dest_read(routes_path)
     return if content.include?("resources :#{collection}, only: :index")
 
-    if depth == 2
-      if content.match?(/namespace :#{list_type} do/)
-        insert_into_file routes_path,
-          "      resources :#{collection}, only: :index\n",
-          after: /namespace :#{list_type} do\n/
-      else
-        insert_into_file routes_path,
-          "\n    namespace :#{list_type} do\n      resources :#{collection}, only: :index\n    end",
-          after: /namespace :api.*\n/
-      end
-    else
-      lt_exists  = content.match?(/namespace :#{list_type} do/)
-      cat_exists = content.match?(/namespace :#{category} do/)
+    if intermediates.empty?
+      # depth 1: insert directly inside the api namespace
+      insert_into_file routes_path,
+        "\n    resources :#{collection}, only: :index",
+        after: /namespace :api.*\n/
+      return
+    end
 
-      if lt_exists && cat_exists
-        insert_into_file routes_path,
-          "        resources :#{collection}, only: :index\n",
-          after: /namespace :#{category} do\n/
-      elsif lt_exists
-        insert_into_file routes_path,
-          "      namespace :#{category} do\n        resources :#{collection}, only: :index\n      end\n",
-          after: /namespace :#{list_type} do\n/
-      else
-        insert_into_file routes_path,
-          "\n    namespace :#{list_type} do\n" \
-          "      namespace :#{category} do\n" \
-          "        resources :#{collection}, only: :index\n" \
-          "      end\n    end",
-          after: /namespace :api.*\n/
+    # Count how many of the leading intermediate namespaces already exist
+    existing_count = 0
+    intermediates.each do |seg|
+      break unless content.match?(/namespace :#{seg} do/)
+
+      existing_count += 1
+    end
+
+    if existing_count == intermediates.length
+      # All intermediate namespaces exist — add collection inside the innermost
+      inner        = intermediates.last
+      inner_indent = "  " * (intermediates.length + 2)
+      insert_into_file routes_path,
+        "#{inner_indent}resources :#{collection}, only: :index\n",
+        after: /namespace :#{inner} do\n/
+    elsif existing_count > 0
+      # Some prefix namespaces exist — attach remaining chain after the last existing one
+      anchor_seg = intermediates[existing_count - 1]
+      new_segs   = intermediates[existing_count..]
+
+      inner_content = "#{"  " * (intermediates.length + 2)}resources :#{collection}, only: :index\n"
+      new_segs.reverse.each_with_index do |seg, ri|
+        level         = existing_count + new_segs.length - 1 - ri
+        indent        = "  " * (level + 2)
+        inner_content = "#{indent}namespace :#{seg} do\n#{inner_content}#{indent}end\n"
       end
+
+      insert_into_file routes_path, inner_content, after: /namespace :#{anchor_seg} do\n/
+    else
+      # No intermediate namespaces exist yet — build the full chain inside the api namespace
+      inner_content = "#{"  " * (intermediates.length + 2)}resources :#{collection}, only: :index\n"
+      intermediates.reverse.each_with_index do |seg, ri|
+        level         = intermediates.length - 1 - ri
+        indent        = "  " * (level + 2)
+        inner_content = "#{indent}namespace :#{seg} do\n#{inner_content}#{indent}end\n"
+      end
+
+      insert_into_file routes_path, "\n#{inner_content.rstrip}", after: /namespace :api.*\n/
     end
   end
 
@@ -299,16 +318,14 @@ class CrmEndpointGenerator < Rails::Generators::Base
     template "http_request_git_api.http.tt", "docs/http_requests/git_api/#{segments.join('/')}.http"
   end
 
-  # ── Shared helpers ───────────────────────────────────────────────────────────
+  # ── Shared path helpers ──────────────────────────────────────────────────────
 
   def collection_path(base)
-    depth == 3 ? "#{base}/#{list_type}/#{category}/#{collection}_resource.rb"
-               : "#{base}/#{list_type}/#{collection}_resource.rb"
+    [base, *intermediates, "#{collection}_resource.rb"].join("/")
   end
 
   def singular_path(base)
-    depth == 3 ? "#{base}/#{list_type}/#{category}/#{singular}_resource.rb"
-               : "#{base}/#{list_type}/#{singular}_resource.rb"
+    [base, *intermediates, "#{singular}_resource.rb"].join("/")
   end
 
   def spec_collection_path(base)
@@ -318,6 +335,8 @@ class CrmEndpointGenerator < Rails::Generators::Base
   def spec_singular_path(base)
     singular_path(base).sub("_resource.rb", "_resource_spec.rb")
   end
+
+  # ── File access helpers ──────────────────────────────────────────────────────
 
   def dest_exist?(path)
     File.exist?(File.expand_path(path, destination_root))
@@ -339,20 +358,17 @@ class CrmEndpointGenerator < Rails::Generators::Base
     "\n\n  describe \"##{method_name}\" do\n#{body}  end"
   end
 
-  def create_or_insert_resource(path, tmpl, method_name, snippet, anchor)
-    if dest_exist?(path)
-      insert_into_file(path, snippet, before: anchor) unless file_has_method?(path, method_name)
-    else
-      template tmpl, path
-    end
+  # Builds the closing-end sequence for a class nested `n` levels deep.
+  # E.g. closing_anchor(3) => "\n    end\n  end\nend\n"
+  def closing_anchor(total_nesting)
+    "\n" + total_nesting.downto(1).map { |n| "  " * (n - 1) + "end" }.join("\n") + "\n"
   end
 
-  def create_or_insert_spec(path, tmpl, method_name, snippet)
-    if dest_exist?(path)
-      insert_into_file(path, snippet, before: "\nend\n") unless spec_has_describe?(path, method_name)
-    else
-      template tmpl, path
-    end
+  def insert_client_method(path, method_name, snippet, anchor)
+    return unless dest_exist?(path)
+    return if file_has_method?(path, method_name)
+
+    insert_into_file path, "\n\n#{snippet}", before: anchor
   end
 
   def insert_git_client_spec
@@ -361,7 +377,7 @@ class CrmEndpointGenerator < Rails::Generators::Base
     return unless dest_exist?(spec_path)
     return if dest_read(spec_path).include?(describe_key)
 
-    cassette = "CRM_Adapters_GetIntoTeaching_Client/#{[ list_type, category, collection ].compact_blank.join('/')}"
+    cassette = "CRM_Adapters_GetIntoTeaching_Client/#{segments.join('/')}"
     chain    = "adapter.#{segments.join('.')}.all"
     fqn      = "#{crm_resource_ns}::#{singular_class}"
 
@@ -384,19 +400,150 @@ class CrmEndpointGenerator < Rails::Generators::Base
     insert_into_file spec_path, snippet, before: "\nend\n"
   end
 
-  def insert_client_method(path, method_name, snippet, anchor)
-    return unless dest_exist?(path)
-    return if file_has_method?(path, method_name)
+  # ── Content builders for intermediate resources ──────────────────────────────
+  # These replace template files for the chain of intermediate namespace resources,
+  # since their structure varies with arbitrary nesting depth.
 
-    insert_into_file path, "\n\n#{snippet}", before: anchor
+  def abstract_intermediate_content(i, seg, next_seg)
+    parents = intermediates[0...i].map(&:camelize)
+    klass   = "#{seg.camelize}Resource"
+    ki      = i + 2  # indent level for class (2 outer modules + i parent modules)
+    mi      = i + 3  # indent level for method
+
+    lines = ["module CRM", "  module Resources"]
+    parents.each_with_index { |mod, j| lines << "#{"  " * (j + 2)}module #{mod}" }
+    lines << "#{"  " * ki}class #{klass}"
+    lines << "#{"  " * mi}def #{next_seg}(*) = raise NotImplementedError"
+    lines << "#{"  " * ki}end"
+    parents.length.downto(1) { |k| lines << "#{"  " * (k + 1)}end" }
+    lines << "  end"
+    lines << "end"
+    lines.join("\n") + "\n"
+  end
+
+  def abstract_intermediate_spec_content(i, seg, next_seg)
+    parents = intermediates[0...i].map(&:camelize)
+    klass   = "#{seg.camelize}Resource"
+    fqn     = (["CRM", "Resources"] + parents + [klass]).join("::")
+
+    <<~RUBY
+      require "rails_helper"
+
+      RSpec.describe #{fqn} do
+        subject(:resource) { described_class.new }
+
+        describe "##{next_seg}" do
+          it "raises NotImplementedError" do
+            expect { resource.#{next_seg} }.to raise_error(NotImplementedError)
+          end
+        end
+      end
+    RUBY
+  end
+
+  def demo_intermediate_content(i, seg, next_seg, ret_type)
+    parents   = intermediates[0...i].map(&:camelize)
+    klass     = "#{seg.camelize}Resource"
+    parent_ns = (["CRM", "Resources"] + parents + [klass]).join("::")
+    base      = 4  # CRM, Adapters, Demo, Resources
+    ki        = base + i
+    mi        = base + i + 1
+    bi        = base + i + 2
+
+    lines = ["module CRM", "  module Adapters", "    module Demo", "      module Resources"]
+    parents.each_with_index { |mod, j| lines << "#{"  " * (base + j)}module #{mod}" }
+    lines << "#{"  " * ki}class #{klass} < #{parent_ns}"
+    lines << "#{"  " * mi}def #{next_seg}"
+    lines << "#{"  " * bi}#{ret_type}.new"
+    lines << "#{"  " * mi}end"
+    lines << "#{"  " * ki}end"
+    parents.length.downto(1) { |k| lines << "#{"  " * (base + k - 1)}end" }
+    lines << "      end"
+    lines << "    end"
+    lines << "  end"
+    lines << "end"
+    lines.join("\n") + "\n"
+  end
+
+  def demo_intermediate_spec_content(i, seg, next_seg, ret_type)
+    parents = intermediates[0...i].map(&:camelize)
+    klass   = "#{seg.camelize}Resource"
+    fqn     = (["CRM", "Adapters", "Demo", "Resources"] + parents + [klass]).join("::")
+    ret_fqn = (["CRM", "Adapters", "Demo", "Resources"] +
+               intermediates[0..i].map(&:camelize) +
+               ["#{segments[i + 1].camelize}Resource"]).join("::")
+
+    <<~RUBY
+      require "rails_helper"
+
+      RSpec.describe #{fqn} do
+        subject(:resource) { described_class.new }
+
+        describe "##{next_seg}" do
+          it "returns a Demo #{ret_type}" do
+            expect(resource.#{next_seg}).to be_a(#{ret_fqn})
+          end
+        end
+      end
+    RUBY
+  end
+
+  def git_intermediate_content(i, seg, next_seg, ret_type)
+    parents   = intermediates[0...i].map(&:camelize)
+    klass     = "#{seg.camelize}Resource"
+    parent_ns = (["CRM", "Resources"] + parents + [klass]).join("::")
+    base      = 4
+    ki        = base + i
+    mi        = base + i + 1
+
+    lines = ["module CRM", "  module Adapters", "    module GetIntoTeaching", "      module Resources"]
+    parents.each_with_index { |mod, j| lines << "#{"  " * (base + j)}module #{mod}" }
+    lines << "#{"  " * ki}class #{klass} < #{parent_ns}"
+    lines << "#{"  " * mi}def initialize(client)"
+    lines << "#{"  " * (mi + 1)}@client = client"
+    lines << "#{"  " * mi}end"
+    lines << ""
+    lines << "#{"  " * mi}def #{next_seg} = #{ret_type}.new(@client)"
+    lines << "#{"  " * ki}end"
+    parents.length.downto(1) { |k| lines << "#{"  " * (base + k - 1)}end" }
+    lines << "      end"
+    lines << "    end"
+    lines << "  end"
+    lines << "end"
+    lines.join("\n") + "\n"
+  end
+
+  def git_intermediate_spec_content(i, seg, next_seg, ret_type)
+    parents = intermediates[0...i].map(&:camelize)
+    klass   = "#{seg.camelize}Resource"
+    fqn     = (["CRM", "Adapters", "GetIntoTeaching", "Resources"] + parents + [klass]).join("::")
+    ret_fqn = (["CRM", "Adapters", "GetIntoTeaching", "Resources"] +
+               intermediates[0..i].map(&:camelize) +
+               ["#{segments[i + 1].camelize}Resource"]).join("::")
+
+    <<~RUBY
+      require "rails_helper"
+
+      RSpec.describe #{fqn} do
+        let(:client) { instance_double(CRM::Adapters::GetIntoTeaching::Client) }
+
+        subject(:resource) { described_class.new(client) }
+
+        describe "##{next_seg}" do
+          it "returns a GIT #{ret_type}" do
+            expect(resource.#{next_seg}).to be_a(#{ret_fqn})
+          end
+        end
+      end
+    RUBY
   end
 
   def parse_segments
     segs = endpoint_path.split("/").map(&:strip).reject(&:empty?)
-    unless segs.length.between?(2, 3)
+    if segs.empty?
       raise ArgumentError,
-            "path must have 2 or 3 segments, got #{segs.length} in #{endpoint_path.inspect}. " \
-            "Example: rails generate crm_endpoint list_type/collection"
+            "path must have at least 1 segment, got empty path #{endpoint_path.inspect}. " \
+            "Example: rails generate crm_endpoint callback_booking_quotas"
     end
 
     segs

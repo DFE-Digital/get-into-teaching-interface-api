@@ -1,13 +1,11 @@
 module CRM
   module Resources
-    module <%= list_type_module %>
-<% if depth == 3 -%>
-      module <%= category_module %>
-        <%= singular_class %> = Data.define(:id, :value)
-      end
-<% else -%>
-      <%= singular_class %> = Data.define(:id, :value)
+<% intermediate_modules.each_with_index do |mod, i| -%>
+<%= "  " * (i + 2) %>module <%= mod %>
 <% end -%>
-    end
+<%= "  " * (intermediates.length + 2) %><%= singular_class %> = Data.define(:id, :value)
+<% intermediate_modules.length.downto(1) do |k| -%>
+<%= "  " * (k + 1) %>end
+<% end -%>
   end
 end
