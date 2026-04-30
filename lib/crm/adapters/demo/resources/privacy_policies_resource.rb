@@ -3,7 +3,6 @@ module CRM
     module Demo
       module Resources
         class PrivacyPoliciesResource < CRM::Resources::PrivacyPoliciesResource
-
           def find(id)
             CRM::Resources::PrivacyPolicyResource.new(
               id: id,

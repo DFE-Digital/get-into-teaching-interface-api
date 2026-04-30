@@ -11,7 +11,7 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::PrivacyPoliciesResourc
       stub_request(:get, "#{base_url}/api/privacy_policies/some-id")
         .to_return(
           status: 200,
-          body: 
+          body:
             { "Id" => "abc-123", "Text" => "Example 1", "CreatedAt" => '2026-03-26T11:00:01' }
           .to_json,
           headers: { "Content-Type" => "application/json" }
