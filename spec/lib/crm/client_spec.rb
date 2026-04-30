@@ -63,4 +63,25 @@ RSpec.describe CRM::Client do
       end
     end
   end
+
+  describe "#privacy_policies" do
+    context "with the default adapter" do
+      it "returns a Demo PrivacyPoliciesResource" do
+        expect(described_class.new.privacy_policies).to be_a(CRM::Adapters::Demo::Resources::PrivacyPoliciesResource)
+      end
+    end
+
+    context "with an injected adapter" do
+      let(:adapter) { instance_double(CRM::Adapters::Demo::Client) }
+      let(:privacy_policies_resource) { instance_double(CRM::Adapters::Demo::Resources::PrivacyPoliciesResource) }
+
+      before { allow(adapter).to receive(:privacy_policies).and_return(privacy_policies_resource) }
+
+      it "delegates to the injected adapter" do
+        result = described_class.new(adapter: adapter).privacy_policies
+
+        expect(result).to eq(privacy_policies_resource)
+      end
+    end
+  end
 end

@@ -1,0 +1,8 @@
+### GET request to example server
+GET {{apiUrl}}/api/privacy_policies/latest
+Authorization: Bearer {{apiKey}}
+
+###
+
+GET {{apiUrl}}/api/privacy_policies/4872c8ed-0229-f111-8342-7c1e5285e3ab
+Authorization: Bearer {{apiKey}}

@@ -1,0 +1,11 @@
+### Privacy policy
+GET http://localhost:3000/api/privacy_policies/4872c8ed-0229-f111-8342-7c1e5285e3ab
+
+### Privacy policy with forced cache miss
+GET http://localhost:3000/api/privacy_policies/4872c8ed-0229-f111-8342-7c1e5285e3ab?force_cache_miss=true
+
+### Latest privacy policy
+GET http://localhost:3000/api/privacy_policies/latest
+
+### Latest privacy policy with forced cache miss
+GET http://localhost:3000/api/privacy_policies/latest?force_cache_miss=true

@@ -17,6 +17,11 @@ module CRM
           end
         end
 
+        def response_to_type(response, type:)
+          body = response.body || {}
+            type.new(**underscore_and_sym_keys(body))
+        end
+
         def get_request(url, params: {}, headers: {})
           handle_response client.connection.get(url, params, headers)
         end

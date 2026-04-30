@@ -17,6 +17,10 @@ module CRM
         def teaching_event_buildings
           Resources::TeachingEventBuildingsResource.new
         end
+
+        def privacy_policies
+          Resources::PrivacyPoliciesResource.new
+        end
       end
     end
   end

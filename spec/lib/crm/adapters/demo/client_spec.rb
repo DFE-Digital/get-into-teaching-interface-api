@@ -20,4 +20,10 @@ RSpec.describe CRM::Adapters::Demo::Client do
       expect(client.callback_booking_quotas).to be_a(CRM::Adapters::Demo::Resources::CallbackBookingQuotasResource)
     end
   end
+
+  describe "#privacy_policies" do
+    it "returns a Demo PrivacyPoliciesResource" do
+      expect(client.privacy_policies).to be_a(CRM::Adapters::Demo::Resources::PrivacyPoliciesResource)
+    end
+  end
 end

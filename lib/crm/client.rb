@@ -19,5 +19,9 @@ module CRM
     def teaching_event_buildings
       @adapter.teaching_event_buildings
     end
+
+    def privacy_policies
+      @adapter.privacy_policies
+    end
   end
 end
