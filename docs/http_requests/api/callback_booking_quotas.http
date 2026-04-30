@@ -1,0 +1,5 @@
+### Callback booking quotas
+GET http://localhost:3000/api/callback_booking_quotas
+
+### Callback booking quotas with forced cache miss
+GET http://localhost:3000/api/callback_booking_quotas?force_cache_miss=true

@@ -620,4 +620,27 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
       )
     end
   end
+
+  describe "#callback_booking_quotas", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/callback_booking_quotas" } do
+    subject(:result) { adapter.callback_booking_quotas.all }
+
+    it "returns CallbackBookingQuotaResource instances" do
+      expect(result).to all(be_a(CRM::Resources::CallbackBookingQuotaResource))
+    end
+
+    it "deserializes the first entry correctly" do
+      expect(result.first).to eq(
+        CRM::Resources::CallbackBookingQuotaResource.new(
+          time_slot: "9am - 9:30am",
+          day: "Thursday 30 April",
+          start_at: "2026-04-30T08:00:00Z",
+          end_at: "2026-04-30T08:30:00Z",
+          number_of_bookings: 0,
+          quota: 20,
+          is_available: true,
+          id: "73bdc2c6-7fa3-f011-bbd3-6045bd9399eb"
+        )
+      )
+    end
+  end
 end

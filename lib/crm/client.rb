@@ -11,5 +11,9 @@ module CRM
     def pick_list_items
       @adapter.pick_list_items
     end
+
+    def callback_booking_quotas
+      @adapter.callback_booking_quotas
+    end
   end
 end

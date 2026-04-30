@@ -26,6 +26,10 @@ module CRM
             conn.response :json, content_type: "application/json"
           end
         end
+
+        def callback_booking_quotas
+          Resources::CallbackBookingQuotasResource.new(self)
+        end
       end
     end
   end

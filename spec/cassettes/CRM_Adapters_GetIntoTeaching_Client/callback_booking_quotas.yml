@@ -1,0 +1,197 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://getintoteachingapi-development.test.teacherservices.cloud/api/callback_booking_quotas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.14.1
+      Authorization:
+      - "<AUTH>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 29 Apr 2026 16:03:50 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '[{"timeSlot":"9am - 9:30am","day":"Thursday 30 April","startAt":"2026-04-30T08:00:00Z","endAt":"2026-04-30T08:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"73bdc2c6-7fa3-f011-bbd3-6045bd9399eb"},{"timeSlot":"9:30am
+        - 10am","day":"Thursday 30 April","startAt":"2026-04-30T08:30:00Z","endAt":"2026-04-30T09:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"27d74cc7-7fa3-f011-bbd3-000d3a384b51"},{"timeSlot":"10am
+        - 10:30am","day":"Thursday 30 April","startAt":"2026-04-30T09:00:00Z","endAt":"2026-04-30T09:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"29d74cc7-7fa3-f011-bbd3-000d3a384b51"},{"timeSlot":"10:30am
+        - 11am","day":"Thursday 30 April","startAt":"2026-04-30T09:30:00Z","endAt":"2026-04-30T10:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"9be42cc5-7fa3-f011-bbd3-000d3a465f8d"},{"timeSlot":"11am
+        - 11:30am","day":"Thursday 30 April","startAt":"2026-04-30T10:00:00Z","endAt":"2026-04-30T10:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"a0e42cc5-7fa3-f011-bbd3-000d3a465f8d"},{"timeSlot":"11:30am
+        - Midday","day":"Thursday 30 April","startAt":"2026-04-30T10:30:00Z","endAt":"2026-04-30T11:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"56ade6c6-7fa3-f011-bbd3-000d3a2854af"},{"timeSlot":"Midday
+        - 12:30pm","day":"Thursday 30 April","startAt":"2026-04-30T11:00:00Z","endAt":"2026-04-30T11:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"58ade6c6-7fa3-f011-bbd3-000d3a2854af"},{"timeSlot":"12:30pm
+        - 1pm","day":"Thursday 30 April","startAt":"2026-04-30T11:30:00Z","endAt":"2026-04-30T12:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"1d15fac4-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"1pm
+        - 1:30pm","day":"Thursday 30 April","startAt":"2026-04-30T12:00:00Z","endAt":"2026-04-30T12:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"1f15fac4-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"1:30pm
+        - 2pm","day":"Thursday 30 April","startAt":"2026-04-30T12:30:00Z","endAt":"2026-04-30T13:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"2bd74cc7-7fa3-f011-bbd3-000d3a384b51"},{"timeSlot":"2pm
+        - 2:30pm","day":"Thursday 30 April","startAt":"2026-04-30T13:00:00Z","endAt":"2026-04-30T13:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"2dd74cc7-7fa3-f011-bbd3-000d3a384b51"},{"timeSlot":"2:30pm
+        - 3pm","day":"Thursday 30 April","startAt":"2026-04-30T13:30:00Z","endAt":"2026-04-30T14:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"aee42cc5-7fa3-f011-bbd3-000d3a465f8d"},{"timeSlot":"3pm
+        - 3:30pm","day":"Thursday 30 April","startAt":"2026-04-30T14:00:00Z","endAt":"2026-04-30T14:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"b3e42cc5-7fa3-f011-bbd3-000d3a465f8d"},{"timeSlot":"3:30pm
+        - 4pm","day":"Thursday 30 April","startAt":"2026-04-30T14:30:00Z","endAt":"2026-04-30T15:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"b7e42cc5-7fa3-f011-bbd3-000d3a465f8d"},{"timeSlot":"4pm
+        - 4:30pm","day":"Thursday 30 April","startAt":"2026-04-30T15:00:00Z","endAt":"2026-04-30T15:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"bae42cc5-7fa3-f011-bbd3-000d3a465f8d"},{"timeSlot":"4:30pm
+        - 5pm","day":"Thursday 30 April","startAt":"2026-04-30T15:30:00Z","endAt":"2026-04-30T16:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"2115fac4-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"5pm
+        - 5:30pm","day":"Thursday 30 April","startAt":"2026-04-30T16:00:00Z","endAt":"2026-04-30T16:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"2315fac4-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"9am
+        - 9:30am","day":"Friday 01 May","startAt":"2026-05-01T08:00:00Z","endAt":"2026-05-01T08:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"32d74cc7-7fa3-f011-bbd3-000d3a384b51"},{"timeSlot":"9:30am
+        - 10am","day":"Friday 01 May","startAt":"2026-05-01T08:30:00Z","endAt":"2026-05-01T09:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"34d74cc7-7fa3-f011-bbd3-000d3a384b51"},{"timeSlot":"10am
+        - 10:30am","day":"Friday 01 May","startAt":"2026-05-01T09:00:00Z","endAt":"2026-05-01T09:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"36d74cc7-7fa3-f011-bbd3-000d3a384b51"},{"timeSlot":"10:30am
+        - 11am","day":"Friday 01 May","startAt":"2026-05-01T09:30:00Z","endAt":"2026-05-01T10:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"5b1558c7-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"11am
+        - 11:30am","day":"Friday 01 May","startAt":"2026-05-01T10:00:00Z","endAt":"2026-05-01T10:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"5d1558c7-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"11:30am
+        - Midday","day":"Friday 01 May","startAt":"2026-05-01T10:30:00Z","endAt":"2026-05-01T11:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"7dbdc2c6-7fa3-f011-bbd3-6045bd9399eb"},{"timeSlot":"Midday
+        - 12:30pm","day":"Friday 01 May","startAt":"2026-05-01T11:00:00Z","endAt":"2026-05-01T11:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"7fbdc2c6-7fa3-f011-bbd3-6045bd9399eb"},{"timeSlot":"12:30pm
+        - 1pm","day":"Friday 01 May","startAt":"2026-05-01T11:30:00Z","endAt":"2026-05-01T12:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"81bdc2c6-7fa3-f011-bbd3-6045bd9399eb"},{"timeSlot":"1pm
+        - 1:30pm","day":"Friday 01 May","startAt":"2026-05-01T12:00:00Z","endAt":"2026-05-01T12:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"83bdc2c6-7fa3-f011-bbd3-6045bd9399eb"},{"timeSlot":"1:30pm
+        - 2pm","day":"Friday 01 May","startAt":"2026-05-01T12:30:00Z","endAt":"2026-05-01T13:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"5f1558c7-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"2pm
+        - 2:30pm","day":"Friday 01 May","startAt":"2026-05-01T13:00:00Z","endAt":"2026-05-01T13:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"611558c7-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"2:30pm
+        - 3pm","day":"Friday 01 May","startAt":"2026-05-01T13:30:00Z","endAt":"2026-05-01T14:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"631558c7-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"3pm
+        - 3:30pm","day":"Friday 01 May","startAt":"2026-05-01T14:00:00Z","endAt":"2026-05-01T14:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"651558c7-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"3:30pm
+        - 4pm","day":"Friday 01 May","startAt":"2026-05-01T14:30:00Z","endAt":"2026-05-01T15:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"880e87c8-7fa3-f011-bbd3-000d3a39c677"},{"timeSlot":"4pm
+        - 4:30pm","day":"Friday 01 May","startAt":"2026-05-01T15:00:00Z","endAt":"2026-05-01T15:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"8b0e87c8-7fa3-f011-bbd3-000d3a39c677"},{"timeSlot":"4:30pm
+        - 5pm","day":"Friday 01 May","startAt":"2026-05-01T15:30:00Z","endAt":"2026-05-01T16:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"671558c7-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"5pm
+        - 5:30pm","day":"Friday 01 May","startAt":"2026-05-01T16:00:00Z","endAt":"2026-05-01T16:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"691558c7-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"9am
+        - 9:30am","day":"Tuesday 05 May","startAt":"2026-05-05T08:00:00Z","endAt":"2026-05-05T08:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"87bdc2c6-7fa3-f011-bbd3-6045bd9399eb"},{"timeSlot":"9:30am
+        - 10am","day":"Tuesday 05 May","startAt":"2026-05-05T08:30:00Z","endAt":"2026-05-05T09:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"67dff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"10am
+        - 10:30am","day":"Tuesday 05 May","startAt":"2026-05-05T09:00:00Z","endAt":"2026-05-05T09:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"6adff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"10:30am
+        - 11am","day":"Tuesday 05 May","startAt":"2026-05-05T09:30:00Z","endAt":"2026-05-05T10:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"3ad74cc7-7fa3-f011-bbd3-000d3a384b51"},{"timeSlot":"11am
+        - 11:30am","day":"Tuesday 05 May","startAt":"2026-05-05T10:00:00Z","endAt":"2026-05-05T10:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"3cd74cc7-7fa3-f011-bbd3-000d3a384b51"},{"timeSlot":"11:30am
+        - Midday","day":"Tuesday 05 May","startAt":"2026-05-05T10:30:00Z","endAt":"2026-05-05T11:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"3ed74cc7-7fa3-f011-bbd3-000d3a384b51"},{"timeSlot":"Midday
+        - 12:30pm","day":"Tuesday 05 May","startAt":"2026-05-05T11:00:00Z","endAt":"2026-05-05T11:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"40d74cc7-7fa3-f011-bbd3-000d3a384b51"},{"timeSlot":"12:30pm
+        - 1pm","day":"Tuesday 05 May","startAt":"2026-05-05T11:30:00Z","endAt":"2026-05-05T12:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"811558c7-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"1pm
+        - 1:30pm","day":"Tuesday 05 May","startAt":"2026-05-05T12:00:00Z","endAt":"2026-05-05T12:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"831558c7-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"1:30pm
+        - 2pm","day":"Tuesday 05 May","startAt":"2026-05-05T12:30:00Z","endAt":"2026-05-05T13:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"6cdff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"2pm
+        - 2:30pm","day":"Tuesday 05 May","startAt":"2026-05-05T13:00:00Z","endAt":"2026-05-05T13:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"6fdff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"2:30pm
+        - 3pm","day":"Tuesday 05 May","startAt":"2026-05-05T13:30:00Z","endAt":"2026-05-05T14:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"8abdc2c6-7fa3-f011-bbd3-6045bd9399eb"},{"timeSlot":"3pm
+        - 3:30pm","day":"Tuesday 05 May","startAt":"2026-05-05T14:00:00Z","endAt":"2026-05-05T14:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"8cbdc2c6-7fa3-f011-bbd3-6045bd9399eb"},{"timeSlot":"3:30pm
+        - 4pm","day":"Tuesday 05 May","startAt":"2026-05-05T14:30:00Z","endAt":"2026-05-05T15:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"8f0e87c8-7fa3-f011-bbd3-000d3a39c677"},{"timeSlot":"4pm
+        - 4:30pm","day":"Tuesday 05 May","startAt":"2026-05-05T15:00:00Z","endAt":"2026-05-05T15:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"910e87c8-7fa3-f011-bbd3-000d3a39c677"},{"timeSlot":"4:30pm
+        - 5pm","day":"Tuesday 05 May","startAt":"2026-05-05T15:30:00Z","endAt":"2026-05-05T16:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"77dff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"5pm
+        - 5:30pm","day":"Tuesday 05 May","startAt":"2026-05-05T16:00:00Z","endAt":"2026-05-05T16:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"79dff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"9am
+        - 9:30am","day":"Wednesday 06 May","startAt":"2026-05-06T08:00:00Z","endAt":"2026-05-06T08:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"950e87c8-7fa3-f011-bbd3-000d3a39c677"},{"timeSlot":"9:30am
+        - 10am","day":"Wednesday 06 May","startAt":"2026-05-06T08:30:00Z","endAt":"2026-05-06T09:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"fe2d36cb-7fa3-f011-bbd3-000d3a465f8d"},{"timeSlot":"10am
+        - 10:30am","day":"Wednesday 06 May","startAt":"2026-05-06T09:00:00Z","endAt":"2026-05-06T09:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"002e36cb-7fa3-f011-bbd3-000d3a465f8d"},{"timeSlot":"10:30am
+        - 11am","day":"Wednesday 06 May","startAt":"2026-05-06T09:30:00Z","endAt":"2026-05-06T10:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"45d74cc7-7fa3-f011-bbd3-000d3a384b51"},{"timeSlot":"11am
+        - 11:30am","day":"Wednesday 06 May","startAt":"2026-05-06T10:00:00Z","endAt":"2026-05-06T10:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"48d74cc7-7fa3-f011-bbd3-000d3a384b51"},{"timeSlot":"11:30am
+        - Midday","day":"Wednesday 06 May","startAt":"2026-05-06T10:30:00Z","endAt":"2026-05-06T11:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"81dff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"Midday
+        - 12:30pm","day":"Wednesday 06 May","startAt":"2026-05-06T11:00:00Z","endAt":"2026-05-06T11:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"84dff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"12:30pm
+        - 1pm","day":"Wednesday 06 May","startAt":"2026-05-06T11:30:00Z","endAt":"2026-05-06T12:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"9b1558c7-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"1pm
+        - 1:30pm","day":"Wednesday 06 May","startAt":"2026-05-06T12:00:00Z","endAt":"2026-05-06T12:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"9d1558c7-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"1:30pm
+        - 2pm","day":"Wednesday 06 May","startAt":"2026-05-06T12:30:00Z","endAt":"2026-05-06T13:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"9fbdc2c6-7fa3-f011-bbd3-6045bd9399eb"},{"timeSlot":"2pm
+        - 2:30pm","day":"Wednesday 06 May","startAt":"2026-05-06T13:00:00Z","endAt":"2026-05-06T13:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"a2bdc2c6-7fa3-f011-bbd3-6045bd9399eb"},{"timeSlot":"2:30pm
+        - 3pm","day":"Wednesday 06 May","startAt":"2026-05-06T13:30:00Z","endAt":"2026-05-06T14:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"9f1558c7-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"3pm
+        - 3:30pm","day":"Wednesday 06 May","startAt":"2026-05-06T14:00:00Z","endAt":"2026-05-06T14:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"a11558c7-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"3:30pm
+        - 4pm","day":"Wednesday 06 May","startAt":"2026-05-06T14:30:00Z","endAt":"2026-05-06T15:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"a31558c7-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"4pm
+        - 4:30pm","day":"Wednesday 06 May","startAt":"2026-05-06T15:00:00Z","endAt":"2026-05-06T15:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"a51558c7-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"4:30pm
+        - 5pm","day":"Wednesday 06 May","startAt":"2026-05-06T15:30:00Z","endAt":"2026-05-06T16:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"9d0e87c8-7fa3-f011-bbd3-000d3a39c677"},{"timeSlot":"5pm
+        - 5:30pm","day":"Wednesday 06 May","startAt":"2026-05-06T16:00:00Z","endAt":"2026-05-06T16:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"9f0e87c8-7fa3-f011-bbd3-000d3a39c677"},{"timeSlot":"9am
+        - 9:30am","day":"Thursday 07 May","startAt":"2026-05-07T08:00:00Z","endAt":"2026-05-07T08:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"052e36cb-7fa3-f011-bbd3-000d3a465f8d"},{"timeSlot":"9:30am
+        - 10am","day":"Thursday 07 May","startAt":"2026-05-07T08:30:00Z","endAt":"2026-05-07T09:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"b21558c7-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"10am
+        - 10:30am","day":"Thursday 07 May","startAt":"2026-05-07T09:00:00Z","endAt":"2026-05-07T09:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"b41558c7-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"10:30am
+        - 11am","day":"Thursday 07 May","startAt":"2026-05-07T09:30:00Z","endAt":"2026-05-07T10:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"072e36cb-7fa3-f011-bbd3-000d3a465f8d"},{"timeSlot":"11am
+        - 11:30am","day":"Thursday 07 May","startAt":"2026-05-07T10:00:00Z","endAt":"2026-05-07T10:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"092e36cb-7fa3-f011-bbd3-000d3a465f8d"},{"timeSlot":"11:30am
+        - Midday","day":"Thursday 07 May","startAt":"2026-05-07T10:30:00Z","endAt":"2026-05-07T11:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"6cade6c6-7fa3-f011-bbd3-000d3a2854af"},{"timeSlot":"Midday
+        - 12:30pm","day":"Thursday 07 May","startAt":"2026-05-07T11:00:00Z","endAt":"2026-05-07T11:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"4069e1cc-7fa3-f011-bbd3-000d3a2854af"},{"timeSlot":"12:30pm
+        - 1pm","day":"Thursday 07 May","startAt":"2026-05-07T11:30:00Z","endAt":"2026-05-07T12:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"0b2e36cb-7fa3-f011-bbd3-000d3a465f8d"},{"timeSlot":"1pm
+        - 1:30pm","day":"Thursday 07 May","startAt":"2026-05-07T12:00:00Z","endAt":"2026-05-07T12:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"0d2e36cb-7fa3-f011-bbd3-000d3a465f8d"},{"timeSlot":"1:30pm
+        - 2pm","day":"Thursday 07 May","startAt":"2026-05-07T12:30:00Z","endAt":"2026-05-07T13:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"b71558c7-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"2pm
+        - 2:30pm","day":"Thursday 07 May","startAt":"2026-05-07T13:00:00Z","endAt":"2026-05-07T13:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"b91558c7-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"2:30pm
+        - 3pm","day":"Thursday 07 May","startAt":"2026-05-07T13:30:00Z","endAt":"2026-05-07T14:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"2817bbcc-7fa3-f011-bbd3-6045bd9399eb"},{"timeSlot":"3pm
+        - 3:30pm","day":"Thursday 07 May","startAt":"2026-05-07T14:00:00Z","endAt":"2026-05-07T14:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"2b17bbcc-7fa3-f011-bbd3-6045bd9399eb"},{"timeSlot":"3:30pm
+        - 4pm","day":"Thursday 07 May","startAt":"2026-05-07T14:30:00Z","endAt":"2026-05-07T15:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"98dff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"4pm
+        - 4:30pm","day":"Thursday 07 May","startAt":"2026-05-07T15:00:00Z","endAt":"2026-05-07T15:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"9adff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"4:30pm
+        - 5pm","day":"Thursday 07 May","startAt":"2026-05-07T15:30:00Z","endAt":"2026-05-07T16:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"4dd74cc7-7fa3-f011-bbd3-000d3a384b51"},{"timeSlot":"5pm
+        - 5:30pm","day":"Thursday 07 May","startAt":"2026-05-07T16:00:00Z","endAt":"2026-05-07T16:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"50d74cc7-7fa3-f011-bbd3-000d3a384b51"},{"timeSlot":"9am
+        - 9:30am","day":"Friday 08 May","startAt":"2026-05-08T08:00:00Z","endAt":"2026-05-08T08:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"b60e87c8-7fa3-f011-bbd3-000d3a39c677"},{"timeSlot":"9:30am
+        - 10am","day":"Friday 08 May","startAt":"2026-05-08T08:30:00Z","endAt":"2026-05-08T09:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"3d17bbcc-7fa3-f011-bbd3-6045bd9399eb"},{"timeSlot":"10am
+        - 10:30am","day":"Friday 08 May","startAt":"2026-05-08T09:00:00Z","endAt":"2026-05-08T09:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"4017bbcc-7fa3-f011-bbd3-6045bd9399eb"},{"timeSlot":"10:30am
+        - 11am","day":"Friday 08 May","startAt":"2026-05-08T09:30:00Z","endAt":"2026-05-08T10:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"ba0e87c8-7fa3-f011-bbd3-000d3a39c677"},{"timeSlot":"11am
+        - 11:30am","day":"Friday 08 May","startAt":"2026-05-08T10:00:00Z","endAt":"2026-05-08T10:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"bc0e87c8-7fa3-f011-bbd3-000d3a39c677"},{"timeSlot":"11:30am
+        - Midday","day":"Friday 08 May","startAt":"2026-05-08T10:30:00Z","endAt":"2026-05-08T11:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"4617bbcc-7fa3-f011-bbd3-6045bd9399eb"},{"timeSlot":"Midday
+        - 12:30pm","day":"Friday 08 May","startAt":"2026-05-08T11:00:00Z","endAt":"2026-05-08T11:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"4a17bbcc-7fa3-f011-bbd3-6045bd9399eb"},{"timeSlot":"12:30pm
+        - 1pm","day":"Friday 08 May","startAt":"2026-05-08T11:30:00Z","endAt":"2026-05-08T12:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"338b50cd-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"1pm
+        - 1:30pm","day":"Friday 08 May","startAt":"2026-05-08T12:00:00Z","endAt":"2026-05-08T12:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"358b50cd-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"1:30pm
+        - 2pm","day":"Friday 08 May","startAt":"2026-05-08T12:30:00Z","endAt":"2026-05-08T13:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"378b50cd-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"2pm
+        - 2:30pm","day":"Friday 08 May","startAt":"2026-05-08T13:00:00Z","endAt":"2026-05-08T13:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"398b50cd-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"2:30pm
+        - 3pm","day":"Friday 08 May","startAt":"2026-05-08T13:30:00Z","endAt":"2026-05-08T14:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"c60e87c8-7fa3-f011-bbd3-000d3a39c677"},{"timeSlot":"3pm
+        - 3:30pm","day":"Friday 08 May","startAt":"2026-05-08T14:00:00Z","endAt":"2026-05-08T14:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"c80e87c8-7fa3-f011-bbd3-000d3a39c677"},{"timeSlot":"3:30pm
+        - 4pm","day":"Friday 08 May","startAt":"2026-05-08T14:30:00Z","endAt":"2026-05-08T15:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"a7dff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"4pm
+        - 4:30pm","day":"Friday 08 May","startAt":"2026-05-08T15:00:00Z","endAt":"2026-05-08T15:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"a9dff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"4:30pm
+        - 5pm","day":"Friday 08 May","startAt":"2026-05-08T15:30:00Z","endAt":"2026-05-08T16:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"91d44ccd-7fa3-f011-bbd3-000d3a384b51"},{"timeSlot":"5pm
+        - 5:30pm","day":"Friday 08 May","startAt":"2026-05-08T16:00:00Z","endAt":"2026-05-08T16:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"94d44ccd-7fa3-f011-bbd3-000d3a384b51"},{"timeSlot":"9am
+        - 9:30am","day":"Monday 11 May","startAt":"2026-05-11T08:00:00Z","endAt":"2026-05-11T08:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"418b50cd-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"9:30am
+        - 10am","day":"Monday 11 May","startAt":"2026-05-11T08:30:00Z","endAt":"2026-05-11T09:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"1d2e36cb-7fa3-f011-bbd3-000d3a465f8d"},{"timeSlot":"10am
+        - 10:30am","day":"Monday 11 May","startAt":"2026-05-11T09:00:00Z","endAt":"2026-05-11T09:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"202e36cb-7fa3-f011-bbd3-000d3a465f8d"},{"timeSlot":"10:30am
+        - 11am","day":"Monday 11 May","startAt":"2026-05-11T09:30:00Z","endAt":"2026-05-11T10:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"96d44ccd-7fa3-f011-bbd3-000d3a384b51"},{"timeSlot":"11am
+        - 11:30am","day":"Monday 11 May","startAt":"2026-05-11T10:00:00Z","endAt":"2026-05-11T10:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"98d44ccd-7fa3-f011-bbd3-000d3a384b51"},{"timeSlot":"11:30am
+        - Midday","day":"Monday 11 May","startAt":"2026-05-11T10:30:00Z","endAt":"2026-05-11T11:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"9ad44ccd-7fa3-f011-bbd3-000d3a384b51"},{"timeSlot":"Midday
+        - 12:30pm","day":"Monday 11 May","startAt":"2026-05-11T11:00:00Z","endAt":"2026-05-11T11:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"9cd44ccd-7fa3-f011-bbd3-000d3a384b51"},{"timeSlot":"12:30pm
+        - 1pm","day":"Monday 11 May","startAt":"2026-05-11T11:30:00Z","endAt":"2026-05-11T12:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"9ed44ccd-7fa3-f011-bbd3-000d3a384b51"},{"timeSlot":"1pm
+        - 1:30pm","day":"Monday 11 May","startAt":"2026-05-11T12:00:00Z","endAt":"2026-05-11T12:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"a0d44ccd-7fa3-f011-bbd3-000d3a384b51"},{"timeSlot":"1:30pm
+        - 2pm","day":"Monday 11 May","startAt":"2026-05-11T12:30:00Z","endAt":"2026-05-11T13:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"aedff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"2pm
+        - 2:30pm","day":"Monday 11 May","startAt":"2026-05-11T13:00:00Z","endAt":"2026-05-11T13:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"b0dff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"2:30pm
+        - 3pm","day":"Monday 11 May","startAt":"2026-05-11T13:30:00Z","endAt":"2026-05-11T14:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"222e36cb-7fa3-f011-bbd3-000d3a465f8d"},{"timeSlot":"3pm
+        - 3:30pm","day":"Monday 11 May","startAt":"2026-05-11T14:00:00Z","endAt":"2026-05-11T14:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"242e36cb-7fa3-f011-bbd3-000d3a465f8d"},{"timeSlot":"3:30pm
+        - 4pm","day":"Monday 11 May","startAt":"2026-05-11T14:30:00Z","endAt":"2026-05-11T15:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"4e8b50cd-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"4pm
+        - 4:30pm","day":"Monday 11 May","startAt":"2026-05-11T15:00:00Z","endAt":"2026-05-11T15:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"508b50cd-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"4:30pm
+        - 5pm","day":"Monday 11 May","startAt":"2026-05-11T15:30:00Z","endAt":"2026-05-11T16:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"528b50cd-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"5pm
+        - 5:30pm","day":"Monday 11 May","startAt":"2026-05-11T16:00:00Z","endAt":"2026-05-11T16:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"548b50cd-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"9am
+        - 9:30am","day":"Tuesday 12 May","startAt":"2026-05-12T08:00:00Z","endAt":"2026-05-12T08:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"8017bbcc-7fa3-f011-bbd3-6045bd9399eb"},{"timeSlot":"9:30am
+        - 10am","day":"Tuesday 12 May","startAt":"2026-05-12T08:30:00Z","endAt":"2026-05-12T09:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"6a8b50cd-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"10am
+        - 10:30am","day":"Tuesday 12 May","startAt":"2026-05-12T09:00:00Z","endAt":"2026-05-12T09:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"6c8b50cd-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"10:30am
+        - 11am","day":"Tuesday 12 May","startAt":"2026-05-12T09:30:00Z","endAt":"2026-05-12T10:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"6e8b50cd-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"11am
+        - 11:30am","day":"Tuesday 12 May","startAt":"2026-05-12T10:00:00Z","endAt":"2026-05-12T10:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"718b50cd-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"11:30am
+        - Midday","day":"Tuesday 12 May","startAt":"2026-05-12T10:30:00Z","endAt":"2026-05-12T11:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"748b50cd-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"Midday
+        - 12:30pm","day":"Tuesday 12 May","startAt":"2026-05-12T11:00:00Z","endAt":"2026-05-12T11:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"768b50cd-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"12:30pm
+        - 1pm","day":"Tuesday 12 May","startAt":"2026-05-12T11:30:00Z","endAt":"2026-05-12T12:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"b7dff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"1pm
+        - 1:30pm","day":"Tuesday 12 May","startAt":"2026-05-12T12:00:00Z","endAt":"2026-05-12T12:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"b9dff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"1:30pm
+        - 2pm","day":"Tuesday 12 May","startAt":"2026-05-12T12:30:00Z","endAt":"2026-05-12T13:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"bddff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"2pm
+        - 2:30pm","day":"Tuesday 12 May","startAt":"2026-05-12T13:00:00Z","endAt":"2026-05-12T13:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"c0dff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"2:30pm
+        - 3pm","day":"Tuesday 12 May","startAt":"2026-05-12T13:30:00Z","endAt":"2026-05-12T14:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"9b69e1cc-7fa3-f011-bbd3-000d3a2854af"},{"timeSlot":"3pm
+        - 3:30pm","day":"Tuesday 12 May","startAt":"2026-05-12T14:00:00Z","endAt":"2026-05-12T14:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"9d69e1cc-7fa3-f011-bbd3-000d3a2854af"},{"timeSlot":"3:30pm
+        - 4pm","day":"Tuesday 12 May","startAt":"2026-05-12T14:30:00Z","endAt":"2026-05-12T15:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"c2dff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"4pm
+        - 4:30pm","day":"Tuesday 12 May","startAt":"2026-05-12T15:00:00Z","endAt":"2026-05-12T15:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"c4dff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"4:30pm
+        - 5pm","day":"Tuesday 12 May","startAt":"2026-05-12T15:30:00Z","endAt":"2026-05-12T16:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"c7dff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"5pm
+        - 5:30pm","day":"Tuesday 12 May","startAt":"2026-05-12T16:00:00Z","endAt":"2026-05-12T16:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"cadff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"9am
+        - 9:30am","day":"Wednesday 13 May","startAt":"2026-05-13T08:00:00Z","endAt":"2026-05-13T08:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"0cdd81ce-7fa3-f011-bbd3-000d3a39c677"},{"timeSlot":"9:30am
+        - 10am","day":"Wednesday 13 May","startAt":"2026-05-13T08:30:00Z","endAt":"2026-05-13T09:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"a169e1cc-7fa3-f011-bbd3-000d3a2854af"},{"timeSlot":"10am
+        - 10:30am","day":"Wednesday 13 May","startAt":"2026-05-13T09:00:00Z","endAt":"2026-05-13T09:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"a369e1cc-7fa3-f011-bbd3-000d3a2854af"},{"timeSlot":"10:30am
+        - 11am","day":"Wednesday 13 May","startAt":"2026-05-13T09:30:00Z","endAt":"2026-05-13T10:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"9d17bbcc-7fa3-f011-bbd3-6045bd9399eb"},{"timeSlot":"11am
+        - 11:30am","day":"Wednesday 13 May","startAt":"2026-05-13T10:00:00Z","endAt":"2026-05-13T10:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"9f17bbcc-7fa3-f011-bbd3-6045bd9399eb"},{"timeSlot":"11:30am
+        - Midday","day":"Wednesday 13 May","startAt":"2026-05-13T10:30:00Z","endAt":"2026-05-13T11:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"10dd81ce-7fa3-f011-bbd3-000d3a39c677"},{"timeSlot":"Midday
+        - 12:30pm","day":"Wednesday 13 May","startAt":"2026-05-13T11:00:00Z","endAt":"2026-05-13T11:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"13dd81ce-7fa3-f011-bbd3-000d3a39c677"},{"timeSlot":"12:30pm
+        - 1pm","day":"Wednesday 13 May","startAt":"2026-05-13T11:30:00Z","endAt":"2026-05-13T12:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"8f8b50cd-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"1pm
+        - 1:30pm","day":"Wednesday 13 May","startAt":"2026-05-13T12:00:00Z","endAt":"2026-05-13T12:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"918b50cd-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"1:30pm
+        - 2pm","day":"Wednesday 13 May","startAt":"2026-05-13T12:30:00Z","endAt":"2026-05-13T13:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"dcdff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"2pm
+        - 2:30pm","day":"Wednesday 13 May","startAt":"2026-05-13T13:00:00Z","endAt":"2026-05-13T13:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"dedff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"2:30pm
+        - 3pm","day":"Wednesday 13 May","startAt":"2026-05-13T13:30:00Z","endAt":"2026-05-13T14:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"aa69e1cc-7fa3-f011-bbd3-000d3a2854af"},{"timeSlot":"3pm
+        - 3:30pm","day":"Wednesday 13 May","startAt":"2026-05-13T14:00:00Z","endAt":"2026-05-13T14:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"ac69e1cc-7fa3-f011-bbd3-000d3a2854af"},{"timeSlot":"3:30pm
+        - 4pm","day":"Wednesday 13 May","startAt":"2026-05-13T14:30:00Z","endAt":"2026-05-13T15:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"e2dff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"4pm
+        - 4:30pm","day":"Wednesday 13 May","startAt":"2026-05-13T15:00:00Z","endAt":"2026-05-13T15:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"e8dff4ca-7fa3-f011-bbd3-0022488bbf04"},{"timeSlot":"4:30pm
+        - 5pm","day":"Wednesday 13 May","startAt":"2026-05-13T15:30:00Z","endAt":"2026-05-13T16:00:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"938b50cd-7fa3-f011-bbd3-000d3a44b0fa"},{"timeSlot":"5pm
+        - 5:30pm","day":"Wednesday 13 May","startAt":"2026-05-13T16:00:00Z","endAt":"2026-05-13T16:30:00Z","numberOfBookings":0,"quota":20,"isAvailable":true,"id":"958b50cd-7fa3-f011-bbd3-000d3a44b0fa"}]'
+  recorded_at: Wed, 29 Apr 2026 16:03:50 GMT
+recorded_with: VCR 6.4.0
