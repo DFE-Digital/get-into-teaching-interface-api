@@ -57,15 +57,15 @@ class CrmEndpointGenerator < Rails::Generators::Base
     end
 
     def crm_resource_ns
-      (["CRM", "Resources"] + intermediate_modules).join("::")
+      ([ "CRM", "Resources" ] + intermediate_modules).join("::")
     end
 
     def demo_collection_fqn
-      (["CRM", "Adapters", "Demo", "Resources"] + intermediate_modules + [collection_class]).join("::")
+      ([ "CRM", "Adapters", "Demo", "Resources" ] + intermediate_modules + [ collection_class ]).join("::")
     end
 
     def git_collection_fqn
-      (["CRM", "Adapters", "GetIntoTeaching", "Resources"] + intermediate_modules + [collection_class]).join("::")
+      ([ "CRM", "Adapters", "GetIntoTeaching", "Resources" ] + intermediate_modules + [ collection_class ]).join("::")
     end
 
     def api_path     = "/api/#{segments.join('/')}"
@@ -155,9 +155,9 @@ class CrmEndpointGenerator < Rails::Generators::Base
 
     if dest_exist?(spec_path)
       unless spec_has_describe?(spec_path, next_seg)
-        ret_fqn = (["CRM", "Adapters", "Demo", "Resources"] +
+        ret_fqn = ([ "CRM", "Adapters", "Demo", "Resources" ] +
                    intermediates[0..i].map(&:camelize) +
-                   ["#{segments[i + 1].camelize}Resource"]).join("::")
+                   [ "#{segments[i + 1].camelize}Resource" ]).join("::")
         insert_into_file spec_path,
           describe_block(next_seg,
             "    it \"returns a Demo #{ret_type}\" do\n" \
@@ -226,9 +226,9 @@ class CrmEndpointGenerator < Rails::Generators::Base
 
     if dest_exist?(spec_path)
       unless spec_has_describe?(spec_path, next_seg)
-        ret_fqn = (["CRM", "Adapters", "GetIntoTeaching", "Resources"] +
+        ret_fqn = ([ "CRM", "Adapters", "GetIntoTeaching", "Resources" ] +
                    intermediates[0..i].map(&:camelize) +
-                   ["#{segments[i + 1].camelize}Resource"]).join("::")
+                   [ "#{segments[i + 1].camelize}Resource" ]).join("::")
         insert_into_file spec_path,
           describe_block(next_seg,
             "    it \"returns a GIT #{ret_type}\" do\n" \
@@ -321,11 +321,11 @@ class CrmEndpointGenerator < Rails::Generators::Base
   # ── Shared path helpers ──────────────────────────────────────────────────────
 
   def collection_path(base)
-    [base, *intermediates, "#{collection}_resource.rb"].join("/")
+    [ base, *intermediates, "#{collection}_resource.rb" ].join("/")
   end
 
   def singular_path(base)
-    [base, *intermediates, "#{singular}_resource.rb"].join("/")
+    [ base, *intermediates, "#{singular}_resource.rb" ].join("/")
   end
 
   def spec_collection_path(base)
@@ -410,7 +410,7 @@ class CrmEndpointGenerator < Rails::Generators::Base
     ki      = i + 2  # indent level for class (2 outer modules + i parent modules)
     mi      = i + 3  # indent level for method
 
-    lines = ["module CRM", "  module Resources"]
+    lines = [ "module CRM", "  module Resources" ]
     parents.each_with_index { |mod, j| lines << "#{"  " * (j + 2)}module #{mod}" }
     lines << "#{"  " * ki}class #{klass}"
     lines << "#{"  " * mi}def #{next_seg}(*) = raise NotImplementedError"
@@ -424,7 +424,7 @@ class CrmEndpointGenerator < Rails::Generators::Base
   def abstract_intermediate_spec_content(i, seg, next_seg)
     parents = intermediates[0...i].map(&:camelize)
     klass   = "#{seg.camelize}Resource"
-    fqn     = (["CRM", "Resources"] + parents + [klass]).join("::")
+    fqn     = ([ "CRM", "Resources" ] + parents + [ klass ]).join("::")
 
     <<~RUBY
       require "rails_helper"
@@ -444,13 +444,13 @@ class CrmEndpointGenerator < Rails::Generators::Base
   def demo_intermediate_content(i, seg, next_seg, ret_type)
     parents   = intermediates[0...i].map(&:camelize)
     klass     = "#{seg.camelize}Resource"
-    parent_ns = (["CRM", "Resources"] + parents + [klass]).join("::")
+    parent_ns = ([ "CRM", "Resources" ] + parents + [ klass ]).join("::")
     base      = 4  # CRM, Adapters, Demo, Resources
     ki        = base + i
     mi        = base + i + 1
     bi        = base + i + 2
 
-    lines = ["module CRM", "  module Adapters", "    module Demo", "      module Resources"]
+    lines = [ "module CRM", "  module Adapters", "    module Demo", "      module Resources" ]
     parents.each_with_index { |mod, j| lines << "#{"  " * (base + j)}module #{mod}" }
     lines << "#{"  " * ki}class #{klass} < #{parent_ns}"
     lines << "#{"  " * mi}def #{next_seg}"
@@ -468,10 +468,10 @@ class CrmEndpointGenerator < Rails::Generators::Base
   def demo_intermediate_spec_content(i, seg, next_seg, ret_type)
     parents = intermediates[0...i].map(&:camelize)
     klass   = "#{seg.camelize}Resource"
-    fqn     = (["CRM", "Adapters", "Demo", "Resources"] + parents + [klass]).join("::")
-    ret_fqn = (["CRM", "Adapters", "Demo", "Resources"] +
+    fqn     = ([ "CRM", "Adapters", "Demo", "Resources" ] + parents + [ klass ]).join("::")
+    ret_fqn = ([ "CRM", "Adapters", "Demo", "Resources" ] +
                intermediates[0..i].map(&:camelize) +
-               ["#{segments[i + 1].camelize}Resource"]).join("::")
+               [ "#{segments[i + 1].camelize}Resource" ]).join("::")
 
     <<~RUBY
       require "rails_helper"
@@ -491,12 +491,12 @@ class CrmEndpointGenerator < Rails::Generators::Base
   def git_intermediate_content(i, seg, next_seg, ret_type)
     parents   = intermediates[0...i].map(&:camelize)
     klass     = "#{seg.camelize}Resource"
-    parent_ns = (["CRM", "Resources"] + parents + [klass]).join("::")
+    parent_ns = ([ "CRM", "Resources" ] + parents + [ klass ]).join("::")
     base      = 4
     ki        = base + i
     mi        = base + i + 1
 
-    lines = ["module CRM", "  module Adapters", "    module GetIntoTeaching", "      module Resources"]
+    lines = [ "module CRM", "  module Adapters", "    module GetIntoTeaching", "      module Resources" ]
     parents.each_with_index { |mod, j| lines << "#{"  " * (base + j)}module #{mod}" }
     lines << "#{"  " * ki}class #{klass} < #{parent_ns}"
     lines << "#{"  " * mi}def initialize(client)"
@@ -516,10 +516,10 @@ class CrmEndpointGenerator < Rails::Generators::Base
   def git_intermediate_spec_content(i, seg, next_seg, ret_type)
     parents = intermediates[0...i].map(&:camelize)
     klass   = "#{seg.camelize}Resource"
-    fqn     = (["CRM", "Adapters", "GetIntoTeaching", "Resources"] + parents + [klass]).join("::")
-    ret_fqn = (["CRM", "Adapters", "GetIntoTeaching", "Resources"] +
+    fqn     = ([ "CRM", "Adapters", "GetIntoTeaching", "Resources" ] + parents + [ klass ]).join("::")
+    ret_fqn = ([ "CRM", "Adapters", "GetIntoTeaching", "Resources" ] +
                intermediates[0..i].map(&:camelize) +
-               ["#{segments[i + 1].camelize}Resource"]).join("::")
+               [ "#{segments[i + 1].camelize}Resource" ]).join("::")
 
     <<~RUBY
       require "rails_helper"

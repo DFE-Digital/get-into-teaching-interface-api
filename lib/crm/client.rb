@@ -15,5 +15,9 @@ module CRM
     def callback_booking_quotas
       @adapter.callback_booking_quotas
     end
+
+    def teaching_event_buildings
+      @adapter.teaching_event_buildings
+    end
   end
 end

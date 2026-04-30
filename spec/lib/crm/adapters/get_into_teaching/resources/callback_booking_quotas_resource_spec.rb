@@ -20,7 +20,7 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::CallbackBookingQuotasR
               "numberOfBookings": 0,
               "quota": 20,
               "isAvailable": true,
-              "id": "411558c7-7fa3-f011-bbd3-000d3a44b0fa"
+              "id": "411558c7-7fa3-f011-bbd3-000d3a44b0fa",
             },
             {
               "timeSlot": "9am - 9:30am",
@@ -30,7 +30,7 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::CallbackBookingQuotasR
               "numberOfBookings": 0,
               "quota": 20,
               "isAvailable": true,
-              "id": "73bdc2c6-7fa3-f011-bbd3-6045bd9399eb"
+              "id": "73bdc2c6-7fa3-f011-bbd3-6045bd9399eb",
             },
           ].to_json,
           headers: { "Content-Type" => "application/json" }

@@ -30,6 +30,10 @@ module CRM
         def callback_booking_quotas
           Resources::CallbackBookingQuotasResource.new(self)
         end
+
+        def teaching_event_buildings
+          Resources::TeachingEventBuildingsResource.new(self)
+        end
       end
     end
   end

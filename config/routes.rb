@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   namespace :api, defaults: { format: :json } do
+    resources :teaching_event_buildings, only: :index
     resources :callback_booking_quotas, only: :index
     namespace :lookup_items do
       resources :countries, only: :index

@@ -7,7 +7,7 @@ module CRM
               response = get_request("/api/callback_booking_quotas", params: params)
               response_to_collection(response, type: CRM::Resources::CallbackBookingQuotaResource)
             end
-        end
+          end
       end
     end
   end

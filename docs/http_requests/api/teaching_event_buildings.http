@@ -1,0 +1,5 @@
+### Teaching event buildings
+GET http://localhost:3000/api/teaching_event_buildings
+
+### Teaching event buildings with forced cache miss
+GET http://localhost:3000/api/teaching_event_buildings?force_cache_miss=true

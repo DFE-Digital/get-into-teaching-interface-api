@@ -6,7 +6,7 @@ module CRM
             def all(*)
               [
                 CRM::Resources::CallbackBookingQuotaResource.new(
-                  id: '27d74cc7-7fa3-f011-bbd3-000d3a384b51',
+                  id: "27d74cc7-7fa3-f011-bbd3-000d3a384b51",
                   time_slot: "9:30am - 10am",
                   day: "Thursday 30 April",
                   start_at: "2026-04-30T08:30:00Z",
@@ -27,7 +27,7 @@ module CRM
                 ),
               ]
             end
-        end
+          end
       end
     end
   end
