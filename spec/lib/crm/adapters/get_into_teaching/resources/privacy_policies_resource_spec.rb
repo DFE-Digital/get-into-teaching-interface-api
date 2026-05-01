@@ -42,5 +42,18 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::PrivacyPoliciesResourc
           .to raise_error(CRM::Adapters::GetIntoTeaching::Resource::Error, /valid authentication credentials/)
       end
     end
+
+    context "when the API returns 404" do
+      before do
+        stub_request(:get, "#{base_url}/api/privacy_policies/some-id")
+          .to_return(status: 404, body: { "error" => "Not found" }.to_json,
+                     headers: { "Content-Type" => "application/json" })
+      end
+
+      it "raises Resource::NotFoundError" do
+        expect { resource.find("some-id") }
+          .to raise_error(CRM::Adapters::GetIntoTeaching::Resource::NotFoundError)
+      end
+    end
   end
 end

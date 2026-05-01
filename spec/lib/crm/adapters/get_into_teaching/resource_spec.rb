@@ -18,7 +18,6 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resource do
       400 => "Your request was malformed",
       401 => "You did not supply valid authentication credentials",
       403 => "You are not allowed to perform that action",
-      404 => "No results were found for your request",
       500 => "We were unable to perform the request due to server-side problems",
       503 => "We were unable to perform the request, due to ongoing maintenance",
     }.each do |status, message|
@@ -29,6 +28,15 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resource do
           expect { concrete_resource.handle_response(response) }
             .to raise_error(described_class::Error, /#{Regexp.escape(message)}/)
         end
+      end
+    end
+
+    context "when status is 404" do
+      let(:response) { double(status: 404, body: { "error" => "details" }) }
+
+      it "raises Resource::NotFoundError specifically" do
+        expect { concrete_resource.handle_response(response) }
+          .to raise_error(described_class::NotFoundError, /No results were found/)
       end
     end
 

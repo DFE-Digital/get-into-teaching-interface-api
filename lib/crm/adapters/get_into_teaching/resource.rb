@@ -3,6 +3,7 @@ module CRM
     module GetIntoTeaching
       class Resource
         class Error < StandardError; end
+        class NotFoundError < Error; end
 
         attr_reader :client
 
@@ -53,7 +54,7 @@ module CRM
           when 422
             raise Error, "Your request was well-formed but contained invalid data. #{response.body["errors"]}"
           when 404
-            raise Error, "No results were found for your request. #{response.body["error"]}"
+            raise NotFoundError, "No results were found for your request. #{response.body["error"]}"
           when 500
             raise Error, "We were unable to perform the request due to server-side problems. #{response.body["error"]}"
           when 503

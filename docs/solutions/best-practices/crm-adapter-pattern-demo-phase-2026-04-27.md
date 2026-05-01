@@ -151,7 +151,9 @@ class Resource
     body.map { |attrs| type.new(**underscore_and_sym_keys(attrs)) }
   end
 
-  # Raises Resource::Error for 400/401/403/404/422/500/503; returns response on success
+  # Raises Resource::NotFoundError (< Resource::Error) for 404; Resource::Error for all other failures.
+  # Returns response on 200. See docs/solutions/integration-issues/crm-404-and-error-propagation-in-privacy-policies-api-2026-05-01.md
+  # for how API::ApplicationController rescues these and renders structured JSON error responses.
   def handle_response(response) = ...
 
   private

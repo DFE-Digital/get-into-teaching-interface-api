@@ -2,3 +2,7 @@ en:
   service:
     name: GOV.UK Frontend on Rails
     email: my-service@email
+  api:
+    errors:
+      not_found: "We could not find a %{resource} with a matching id of `%{id}`. Please check the ID and try again."
+      service_unavailable: "The upstream service is currently unavailable. Please try again later."

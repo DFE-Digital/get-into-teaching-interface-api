@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   namespace :api, defaults: { format: :json } do
     resource :privacy_policies, only: [] do
-      resource :latest, only: :show, controller: :privacy_policies
+      resource :latest, only: :show, module: :privacy_policies, controller: :latest
     end
     resources :privacy_policies, only: :show
 
