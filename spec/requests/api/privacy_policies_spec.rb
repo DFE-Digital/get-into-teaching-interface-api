@@ -1,4 +1,5 @@
 require "rails_helper"
+require 'swagger_helper'
 
 RSpec.describe "GET /api/privacy_policies/:id", type: :request do
   before { Rails.cache.clear }
@@ -39,7 +40,7 @@ RSpec.describe "GET /api/privacy_policies/:id", type: :request do
 
       before do
         allow(privacy_policies_resource).to receive(:find)
-          .and_raise(CRM::Adapters::GetIntoTeaching::Resource::NotFoundError)
+                                              .and_raise(CRM::Adapters::GetIntoTeaching::Resource::NotFoundError)
         allow(CRM::Client).to receive(:new).and_return(crm_client)
       end
 
@@ -65,8 +66,8 @@ RSpec.describe "GET /api/privacy_policies/:id", type: :request do
         get api_privacy_policy_path('unknown-id')
 
         expect(response.parsed_body.dig("error", "message")).to eq(
-          "We could not find a privacy policy with a matching id of `unknown-id`. Please check the ID and try again."
-        )
+                                                                  "We could not find a privacy policy with a matching id of `unknown-id`. Please check the ID and try again."
+                                                                )
       end
 
       it "returns the route resource name" do
@@ -88,7 +89,7 @@ RSpec.describe "GET /api/privacy_policies/:id", type: :request do
 
       before do
         allow(privacy_policies_resource).to receive(:find)
-          .and_raise(CRM::Adapters::GetIntoTeaching::Resource::Error)
+                                              .and_raise(CRM::Adapters::GetIntoTeaching::Resource::Error)
         allow(CRM::Client).to receive(:new).and_return(crm_client)
       end
 
@@ -108,8 +109,64 @@ RSpec.describe "GET /api/privacy_policies/:id", type: :request do
         get api_privacy_policy_path('example-id')
 
         expect(response.parsed_body.dig("error", "message")).to eq(
-          "The upstream service is currently unavailable. Please try again later."
-        )
+                                                                  "The upstream service is currently unavailable. Please try again later."
+                                                                )
+      end
+    end
+  end
+
+  path '/api/privacy_policies/{id}' do
+    parameter name: 'id', in: :path, type: :string, description: 'id'
+
+    get('show privacy_policy') do
+      response(200, 'successful') do
+        let(:id) { '4872c8ed-0229-f111-8342-7c1e5285e3ab' }
+
+        schema type: :object,
+               properties: {
+                 data: {
+                   type: :object,
+                   properties: {
+                     id: { type: :string },
+                     text: { type: :string },
+                     created_at: { type: :string },
+
+                   },
+                   required: [:id, :text, :created_at],
+                 },
+               }
+
+        example 'application/json', "4872c8ed-0229-f111-8342-7c1e5285e3ab", {
+          data: {
+            id: "4872c8ed-0229-f111-8342-7c1e5285e3ab",
+            text: "This is a demo privacy policy for testing purposes.",
+            created_at: "2026-04-30T09:36:47.357Z"
+          }
+        }
+
+        run_test!
+      end
+
+      response(404, 'not found') do
+        let(:id) { 'unknown-id' }
+        before do
+          privacy_policies_resource = instance_double(CRM::Resources::PrivacyPoliciesResource)
+          crm_client = instance_double(CRM::Client, privacy_policies: privacy_policies_resource)
+
+          allow(privacy_policies_resource).to receive(:find)
+                                                .and_raise(CRM::Adapters::GetIntoTeaching::Resource::NotFoundError)
+          allow(CRM::Client).to receive(:new).and_return(crm_client)
+        end
+
+        example 'application/json', "4872c8ed-0229-f111-8342-7c1e5285e3ab", {
+          error: {
+            message: "We could not find a privacy policy with a matching id of `4872c8ed-0229-f111-8342-7c1e5285e3ab`. Please check the ID and try again.",
+            resource: "privacy_policy",
+            id: "4872c8ed-0229-f111-8342-7c1e5285e3ab",
+          }
+        }
+
+        run_test!
       end
     end
   end

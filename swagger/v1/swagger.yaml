@@ -1,0 +1,43 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/privacy_policies/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show privacy_policy
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              examples:
+                4872c8ed-0229-f111-8342-7c1e5285e3ab:
+                  value:
+                    data:
+                      id: 4872c8ed-0229-f111-8342-7c1e5285e3ab
+                      text: This is a demo privacy policy for testing purposes.
+                      created_at: '2026-04-30T09:36:47.357Z'
+        '404':
+          description: not found
+          content:
+            application/json:
+              examples:
+                4872c8ed-0229-f111-8342-7c1e5285e3ab:
+                  value:
+                    error:
+                      message: We could not find a privacy policy with a matching
+                        id of `4872c8ed-0229-f111-8342-7c1e5285e3ab`. Please check
+                        the ID and try again.
+                      resource: privacy_policy
+                      id: 4872c8ed-0229-f111-8342-7c1e5285e3ab
+servers:
+- url: http://localhost:3000

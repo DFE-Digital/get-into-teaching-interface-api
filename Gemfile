@@ -73,3 +73,5 @@ gem "faraday", "~> 2.14"
 gem "vcr", "~> 6.4"
 
 gem "webmock", "~> 3.26", group: :test
+
+gem "rswag", "~> 2.17"
