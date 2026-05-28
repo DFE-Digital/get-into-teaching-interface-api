@@ -11,6 +11,15 @@ module CRM
           @api_key = api_key
         end
 
+        def connection
+          @connection ||= Faraday.new(base_url) do |conn|
+            conn.request :authorization, :Bearer, api_key
+            conn.request :json
+            conn.response :json, content_type: "application/json"
+          end
+        end
+
+
         def lookup_items
           Resources::LookUpItemsResource.new(self)
         end
@@ -19,13 +28,7 @@ module CRM
           Resources::PickListItemsResource.new(self)
         end
 
-        def connection
-          @connection ||= Faraday.new(base_url) do |conn|
-            conn.request :authorization, :Bearer, api_key
-            conn.request :json
-            conn.response :json, content_type: "application/json"
-          end
-        end
+
 
         def callback_booking_quotas
           Resources::CallbackBookingQuotasResource.new(self)
