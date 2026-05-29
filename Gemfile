@@ -42,6 +42,7 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 
+  gem "byebug"
   gem "rspec"
   gem "rspec-rails"
   gem "capybara"
@@ -75,3 +76,4 @@ gem "vcr", "~> 6.4"
 gem "webmock", "~> 3.26", group: :test
 
 gem "rswag", "~> 2.17"
+gem "awesome_print"

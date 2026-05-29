@@ -19,6 +19,23 @@ paths:
           description: successful
           content:
             application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      text:
+                        type: string
+                      created_at:
+                        type: string
+                        format: date-time
+                    required:
+                    - id
+                    - text
+                    - created_at
               examples:
                 4872c8ed-0229-f111-8342-7c1e5285e3ab:
                   value:
@@ -30,14 +47,1082 @@ paths:
           description: not found
           content:
             application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                      resource:
+                        type: string
+                      id:
+                        type: string
+                    required:
+                    - message
+                    - resource
+                    - id
               examples:
                 4872c8ed-0229-f111-8342-7c1e5285e3ab:
                   value:
                     error:
-                      message: We could not find a privacy policy with a matching
-                        id of `4872c8ed-0229-f111-8342-7c1e5285e3ab`. Please check
-                        the ID and try again.
+                      message: "We could not find a privacy policy with a matching id of `4872c8ed-0229-f111-8342-7c1e5285e3ab`. Please check the ID and try again."
                       resource: privacy_policy
                       id: 4872c8ed-0229-f111-8342-7c1e5285e3ab
+  "/api/privacy_policies/latest":
+    get:
+      summary: show latest privacy_policy
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      text:
+                        type: string
+                      created_at:
+                        type: string
+                        format: date-time
+                    required:
+                    - id
+                    - text
+                    - created_at
+              examples:
+                latest:
+                  value:
+                    data:
+                      id: 4872c8ed-0229-f111-8342-7c1e5285e3ab
+                      text: This is a demo privacy policy for testing purposes.
+                      created_at: '2026-04-30T09:36:47.357Z'
+        '404':
+          description: not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                      resource:
+                        type: string
+                      id:
+                        type: string
+                    required:
+                    - message
+                    - resource
+                    - id
+              examples:
+                latest:
+                  value:
+                    error:
+                      message: "We could not find a privacy policy with a matching id of `latest`. Please check the ID and try again."
+                      resource: privacy_policies
+                      id: latest
+  "/api/callback_booking_quotas":
+    get:
+      summary: list callback booking quotas
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        time_slot:
+                          type: string
+                        day:
+                          type: string
+                        start_at:
+                          type: string
+                          format: date-time
+                        end_at:
+                          type: string
+                          format: date-time
+                        number_of_bookings:
+                          type: integer
+                        quota:
+                          type: integer
+                        is_available:
+                          type: boolean
+                      required:
+                      - id
+                      - time_slot
+                      - day
+                      - start_at
+                      - end_at
+                      - number_of_bookings
+                      - quota
+                      - is_available
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 27d74cc7-7fa3-f011-bbd3-000d3a384b51
+                      time_slot: 9:30am - 10am
+                      day: Thursday 30 April
+                      start_at: '2026-04-30T08:30:00Z'
+                      end_at: '2026-04-30T09:00:00Z'
+                      number_of_bookings: 0
+                      quota: 20
+                      is_available: true
+                    - id: 29d74cc7-7fa3-f011-bbd3-000d3a384b51
+                      time_slot: 10am - 10:30am
+                      day: Thursday 30 April
+                      start_at: '2026-04-30T09:00:00Z'
+                      end_at: '2026-04-30T09:30:00Z'
+                      number_of_bookings: 0
+                      quota: 20
+                      is_available: true
+  "/api/teaching_event_buildings":
+    get:
+      summary: list teaching event buildings
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        venue:
+                          type: string
+                        address_line1:
+                          type: string
+                        address_line2:
+                          type: string
+                          nullable: true
+                        address_line3:
+                          type: string
+                          nullable: true
+                        address_city:
+                          type: string
+                        address_postcode:
+                          type: string
+                        image_url:
+                          type: string
+                          nullable: true
+                      required:
+                      - id
+                      - venue
+                      - address_line1
+                      - address_city
+                      - address_postcode
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3290fb7f-93b4-eb11-8236-000d3a26ba1b
+                      venue: The Open University in Wales
+                      address_line1: Custom House Street
+                      address_line2: null
+                      address_line3: null
+                      address_city: Cardiff
+                      address_postcode: CF10 1AP
+                      image_url: null
+                    - id: 3ef13d86-9b62-ee11-8df0-6045bd8c543c
+                      venue: World Trade Centre -Delhi
+                      address_line1: '1'
+                      address_line2: '2'
+                      address_line3: '3'
+                      address_city: Delhi
+                      address_postcode: se28 8pt
+                      image_url: null
+  "/api/lookup_items/countries":
+    get:
+      summary: list countries
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        value:
+                          type: string
+                        iso_code:
+                          type: string
+                      required:
+                      - id
+                      - value
+                      - iso_code
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: United States
+                      iso_code: US
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Canada
+                      iso_code: CA
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: United Kingdom
+                      iso_code: GB
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Australia
+                      iso_code: AU
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Germany
+                      iso_code: DE
+  "/api/lookup_items/degree_countries":
+    get:
+      summary: list degree countries
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        value:
+                          type: string
+                        iso_code:
+                          type: string
+                      required:
+                      - id
+                      - value
+                      - iso_code
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: United States
+                      iso_code: US
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Canada
+                      iso_code: CA
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: United Kingdom
+                      iso_code: GB
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Australia
+                      iso_code: AU
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Germany
+                      iso_code: DE
+  "/api/lookup_items/teaching_subjects":
+    get:
+      summary: list teaching subjects
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        value:
+                          type: string
+                      required:
+                      - id
+                      - value
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: some-id
+                      value: Art
+                    - id: some-id
+                      value: Art & Design
+                    - id: some-id
+                      value: Chemistry
+  "/api/pick_list_items/candidate/adviser_eligibilities":
+    get:
+      summary: list adviser eligibilities
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/candidate/adviser_requirements":
+    get:
+      summary: list adviser requirements
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/candidate/assignment_statuses":
+    get:
+      summary: list assignment statuses
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/candidate/channels":
+    get:
+      summary: list channels
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/candidate/citizenships":
+    get:
+      summary: list citizenships
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/candidate/consideration_journey_stages":
+    get:
+      summary: list consideration journey stages
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/candidate/event_subscription_channels":
+    get:
+      summary: list event subscription channels
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/candidate/gcse_statuses":
+    get:
+      summary: list gcse statuses
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/candidate/has_qualified_teacher_statuses":
+    get:
+      summary: list has qualified teacher statuses
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/candidate/initial_teacher_training_years":
+    get:
+      summary: list initial teacher training years
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/candidate/locations":
+    get:
+      summary: list locations
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/candidate/mailing_list_subscription_channels":
+    get:
+      summary: list mailing list subscription channels
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/candidate/preferred_education_phases":
+    get:
+      summary: list preferred education phases
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/candidate/retake_gcse_statuses":
+    get:
+      summary: list retake gcse statuses
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/candidate/situations":
+    get:
+      summary: list situations
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/candidate/teacher_training_adviser_subscription_channels":
+    get:
+      summary: list teacher training adviser subscription channels
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/candidate/types":
+    get:
+      summary: list types
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/candidate/visa_statuses":
+    get:
+      summary: list visa statuses
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/contact_creation_channel/activities":
+    get:
+      summary: list activities
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/contact_creation_channel/services":
+    get:
+      summary: list services
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/contact_creation_channel/sources":
+    get:
+      summary: list sources
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/past_teaching_position/education_phases":
+    get:
+      summary: list education phases
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/phone_call/channels":
+    get:
+      summary: list channels
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/qualification/degree_statuses":
+    get:
+      summary: list degree statuses
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/qualification/types":
+    get:
+      summary: list types
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/qualification/uk_degree_grades":
+    get:
+      summary: list uk degree grades
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/service_subscription/types":
+    get:
+      summary: list types
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/teaching_event/accessibility_items":
+    get:
+      summary: list accessibility items
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/teaching_event/regions":
+    get:
+      summary: list regions
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/teaching_event/registration_channels":
+    get:
+      summary: list registration channels
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/teaching_event/statuses":
+    get:
+      summary: list statuses
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+  "/api/pick_list_items/teaching_event/types":
+    get:
+      summary: list types
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PickListItem'
+              examples:
+                default:
+                  value:
+                    data:
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      value: Example 1
+                    - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
+                      value: Example 2
+components:
+  schemas:
+    PickListItem:
+      type: object
+      properties:
+        id:
+          type: string
+        value:
+          type: string
+      required:
+      - id
+      - value
 servers:
 - url: http://localhost:3000
