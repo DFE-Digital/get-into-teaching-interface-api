@@ -1,23 +1,24 @@
 require 'rails_helper'
 
 RSpec.describe "GET /api/privacy_policies/latest", type: :request do
+  include APIHelper
   before { Rails.cache.clear }
 
   describe "response format" do
     it "returns JSON" do
-      get api_privacy_policies_latest_path
+      get(api_privacy_policies_latest_path, headers:)
 
       expect(response.content_type).to match(%r{application/json})
     end
 
     it "returns JSON even when the client requests HTML" do
-      get api_privacy_policies_latest_path, headers: { "Accept" => "text/html" }
+      get api_privacy_policies_latest_path, headers: headers.merge({ "Accept" => "text/html" })
 
       expect(response.content_type).to match(%r{application/json})
     end
 
     it "returns a data envelope containing the object data" do
-      get api_privacy_policies_latest_path
+      get(api_privacy_policies_latest_path, headers:)
 
       body = response.parsed_body
       expect(body).to have_key("data")
@@ -25,7 +26,7 @@ RSpec.describe "GET /api/privacy_policies/latest", type: :request do
     end
 
     it "returns items with id and value fields" do
-      get api_privacy_policies_latest_path
+      get(api_privacy_policies_latest_path, headers:)
 
       item = response.parsed_body["data"]
       expect(item).to include("id", "text", "created_at")
@@ -43,31 +44,31 @@ RSpec.describe "GET /api/privacy_policies/latest", type: :request do
     end
 
     it "returns 404" do
-      get api_privacy_policies_latest_path
+      get(api_privacy_policies_latest_path, headers:)
 
       expect(response).to have_http_status(:not_found)
     end
 
     it "returns JSON" do
-      get api_privacy_policies_latest_path
+      get(api_privacy_policies_latest_path, headers:)
 
       expect(response.content_type).to match(%r{application/json})
     end
 
     it "returns the privacy_policies resource name" do
-      get api_privacy_policies_latest_path
+      get(api_privacy_policies_latest_path, headers:)
 
       expect(response.parsed_body.dig("error", "resource")).to eq("privacy_policies")
     end
 
     it "returns latest as the id" do
-      get api_privacy_policies_latest_path
+      get(api_privacy_policies_latest_path, headers:)
 
       expect(response.parsed_body.dig("error", "id")).to eq("latest")
     end
 
     it "returns a human-readable message" do
-      get api_privacy_policies_latest_path
+      get(api_privacy_policies_latest_path, headers:)
 
       expect(response.parsed_body.dig("error", "message")).to eq(
         "We could not find a privacy policy with a matching id of `latest`. Please check the ID and try again."
