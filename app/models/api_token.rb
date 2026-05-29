@@ -15,6 +15,4 @@ class APIToken < ApplicationRecord
     hashed_token = Devise.token_generator.digest(APIToken, :hashed_token, unhashed_token)
     find_by(hashed_token:)
   end
-
-  # -r_t6Yy7Rpzf37z4ZSFi
 end

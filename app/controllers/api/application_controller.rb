@@ -2,7 +2,6 @@ class API::ApplicationController < ::ApplicationController
   class NotAuthorisedError < StandardError; end
   include Cacheable
   include ErrorHandling
-  # 'does apply rescue from wrong urls?'
 
   before_action :require_valid_api_token!
 

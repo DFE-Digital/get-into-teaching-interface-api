@@ -33,6 +33,22 @@ RSpec.describe "GET /api/privacy_policies/latest", type: :request do
     end
   end
 
+  describe "when no auth token is provided" do
+    it "returns 401" do
+      get api_privacy_policies_latest_path
+
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it "returns a human-readable message" do
+      get api_privacy_policies_latest_path
+
+      expect(response.parsed_body.dig("errors", 0, "message")).to eq(
+        "Please provide a valid authentication token"
+      )
+    end
+  end
+
   describe "when the latest policy is not found" do
     let(:privacy_policies_resource) { instance_double(CRM::Resources::PrivacyPoliciesResource) }
     let(:crm_client) { instance_double(CRM::Client, privacy_policies: privacy_policies_resource) }
