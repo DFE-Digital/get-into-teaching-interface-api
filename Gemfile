@@ -77,3 +77,5 @@ gem "webmock", "~> 3.26", group: :test
 
 gem "rswag", "~> 2.17"
 gem "awesome_print"
+
+gem "devise"

@@ -10,9 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_28_154925) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_29_135630) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "api_tokens", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "hashed_token", null: false
+    t.bigint "integration_id", null: false
+    t.datetime "last_used_at", precision: nil
+    t.datetime "updated_at", null: false
+    t.index ["hashed_token"], name: "index_api_tokens_on_hashed_token", unique: true
+    t.index ["integration_id"], name: "index_api_tokens_on_integration_id"
+  end
+
+  create_table "integrations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_integrations_on_name", unique: true
+  end
 
   create_table "solid_cache_entries", force: :cascade do |t|
     t.integer "byte_size", null: false
@@ -145,4 +162,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_28_154925) do
     t.index ["key", "value"], name: "index_solid_queue_semaphores_on_key_and_value"
     t.index ["key"], name: "index_solid_queue_semaphores_on_key", unique: true
   end
+
+  add_foreign_key "api_tokens", "integrations"
 end
