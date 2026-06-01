@@ -44,21 +44,23 @@ module CRM
         end
 
         def handle_response(response)
+          body = response.body.is_a?(String) ? JSON.parse(response.body) : response.body
+
           case response.status
           when 400
-            raise Error, "Your request was malformed. #{response.body["error"]}"
+            raise Error, "Your request was malformed. #{body["errors"].values.flatten}"
           when 401
-            raise Error, "You did not supply valid authentication credentials. #{response.body["error"]}"
+            raise Error, "You did not supply valid authentication credentials. #{body["errors"].values.flatten}"
           when 403
-            raise Error, "You are not allowed to perform that action. #{response.body["error"]}"
+            raise Error, "You are not allowed to perform that action. #{body["errors"].values.flatten}"
           when 422
-            raise Error, "Your request was well-formed but contained invalid data. #{response.body["errors"]}"
+            raise Error, "Your request was well-formed but contained invalid data. #{body["errors"].values.flatten}"
           when 404
-            raise NotFoundError, "No results were found for your request. #{response.body["error"]}"
+            raise NotFoundError, "No results were found for your request. #{body["errors"].values.flatten}"
           when 500
-            raise Error, "We were unable to perform the request due to server-side problems. #{response.body["error"]}"
+            raise Error, "We were unable to perform the request due to server-side problems. #{body["errors"].values.flatten}"
           when 503
-            raise Error, "We were unable to perform the request, due to ongoing maintenance. #{response.body["error"]}"
+            raise Error, "We were unable to perform the request, due to ongoing maintenance. #{body["errors"].values.flatten}"
           else
             nil
           end

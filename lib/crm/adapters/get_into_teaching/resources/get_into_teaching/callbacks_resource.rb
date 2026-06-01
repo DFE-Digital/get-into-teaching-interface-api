@@ -4,9 +4,8 @@ module CRM
       module Resources
         module GetIntoTeaching
           class CallbacksResource < CRM::Adapters::GetIntoTeaching::Resource
-            def create(**body)
-              response = post_request("/api/get_into_teaching/callbacks", body: body)
-              response_to_type(response, type: CRM::Resources::GetIntoTeaching::CallbackResource)
+            def create(body)
+              post_request("/api/teacher_training_adviser/candidates", body:)
             end
           end
         end
