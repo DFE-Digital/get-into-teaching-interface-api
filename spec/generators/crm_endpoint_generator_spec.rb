@@ -104,6 +104,41 @@ RSpec.describe CrmEndpointGenerator do
     it { expect(gen.route_helper).to eq("api_pick_list_items_candidate_initial_teacher_training_years_path") }
   end
 
+  describe "method-aware helpers" do
+    describe "defaults to GET" do
+      subject(:gen) { generator("lookup_items/countries") }
+
+      it { expect(gen.http_method).to eq("GET") }
+      it { expect(gen.action_name).to eq("index") }
+      it { expect(gen.resource_method_name).to eq("all") }
+      it { expect(gen.resource_method_args).to eq("**params") }
+      it { expect(gen.route_entry).to eq("resources :countries, only: :index") }
+      it { expect(gen.use_cache?).to be true }
+    end
+
+    describe "POST method" do
+      subject(:gen) { described_class.new([ "lookup_items/registrations" ], { method: "POST" }, destination_root: Rails.root.to_s) }
+
+      it { expect(gen.http_method).to eq("POST") }
+      it { expect(gen.action_name).to eq("create") }
+      it { expect(gen.resource_method_name).to eq("create") }
+      it { expect(gen.resource_method_args).to eq("**body") }
+      it { expect(gen.route_entry).to eq("resources :registrations, only: :create") }
+      it { expect(gen.use_cache?).to be false }
+    end
+
+    describe "PUT method" do
+      subject(:gen) { described_class.new([ "lookup_items/registrations" ], { method: "PUT" }, destination_root: Rails.root.to_s) }
+
+      it { expect(gen.http_method).to eq("PUT") }
+      it { expect(gen.action_name).to eq("update") }
+      it { expect(gen.resource_method_name).to eq("update") }
+      it { expect(gen.resource_method_args).to eq("id, **body") }
+      it { expect(gen.route_entry).to eq("resources :registrations, only: :update") }
+      it { expect(gen.use_cache?).to be false }
+    end
+  end
+
   describe "argument validation" do
     it "raises ArgumentError for an empty path" do
       expect { generator("") }
@@ -118,8 +153,8 @@ RSpec.describe CrmEndpointGenerator do
 
     after { FileUtils.remove_entry(tmp_dir) }
 
-    def run_generator(path)
-      gen = CrmEndpointGenerator.new([ path ], {}, destination_root: tmp_dir)
+    def run_generator(path, method: "GET")
+      gen = CrmEndpointGenerator.new([ path ], { method: method }, destination_root: tmp_dir)
       gen.invoke_all
       gen
     end
@@ -218,7 +253,7 @@ RSpec.describe CrmEndpointGenerator do
         content = content_of(path)
         expect(exists?(path)).to be true
         expect(content).to include("class CallbackBookingQuotasResource")
-        expect(content).to include("def all(*)")
+        expect(content).to include("def all(**params)")
         expect(content).to include("raise NotImplementedError")
         expect(content).not_to include("module LookupItems")
       end
@@ -288,6 +323,98 @@ RSpec.describe CrmEndpointGenerator do
       end
     end
 
+    describe "depth-1 path with POST method: registrations" do
+      before { run_generator("registrations", method: "POST") }
+
+      it "creates the abstract collection resource with create method" do
+        path    = "lib/crm/resources/registrations_resource.rb"
+        content = content_of(path)
+        expect(exists?(path)).to be true
+        expect(content).to include("class RegistrationsResource")
+        expect(content).to include("def create(**body)")
+        expect(content).to include("raise NotImplementedError")
+      end
+
+      it "creates the demo collection resource returning a single stub" do
+        path = "lib/crm/adapters/demo/resources/registrations_resource.rb"
+        expect(exists?(path)).to be true
+        expect(content_of(path)).to include("def create(**body)")
+      end
+
+      it "creates the GIT collection resource with post_request" do
+        path = "lib/crm/adapters/get_into_teaching/resources/registrations_resource.rb"
+        expect(exists?(path)).to be true
+        expect(content_of(path)).to include("def create(**body)")
+        expect(content_of(path)).to include('post_request("/api/registrations"')
+        expect(content_of(path)).to include("response_to_type")
+      end
+
+      it "creates the controller with create action" do
+        expect(exists?("app/controllers/api/registrations_controller.rb")).to be true
+        expect(content_of("app/controllers/api/registrations_controller.rb"))
+          .to include("def create")
+      end
+
+      it "adds the resource route with only: :create" do
+        routes = content_of("config/routes.rb")
+        expect(routes).to include("resources :registrations, only: :create")
+      end
+
+      it "creates the request spec with POST verb" do
+        expect(exists?("spec/requests/api/registrations_spec.rb")).to be true
+        expect(content_of("spec/requests/api/registrations_spec.rb"))
+          .to include('"POST /api/registrations"')
+      end
+
+      it "creates HTTP request files with POST" do
+        api_content = content_of("docs/http_requests/api/registrations.http")
+        expect(api_content).to include("POST http://localhost:3000/api/registrations")
+      end
+    end
+
+    describe "depth-2 path with PUT method: accounts/transfers" do
+      before { run_generator("accounts/transfers", method: "PUT") }
+
+      it "creates the abstract collection resource with update method" do
+        path    = "lib/crm/resources/accounts/transfers_resource.rb"
+        content = content_of(path)
+        expect(exists?(path)).to be true
+        expect(content).to include("class TransfersResource")
+        expect(content).to include("def update(id, **body)")
+        expect(content).to include("raise NotImplementedError")
+      end
+
+      it "creates the GIT collection resource with put_request and id in URL" do
+        path = "lib/crm/adapters/get_into_teaching/resources/accounts/transfers_resource.rb"
+        expect(exists?(path)).to be true
+        expect(content_of(path)).to include("def update(id, **body)")
+        expect(content_of(path)).to include('put_request("/api/accounts/transfers/#{id}"')
+        expect(content_of(path)).to include("response_to_type")
+      end
+
+      it "creates the controller with update action" do
+        expect(exists?("app/controllers/api/accounts/transfers_controller.rb")).to be true
+        expect(content_of("app/controllers/api/accounts/transfers_controller.rb"))
+          .to include("def update")
+      end
+
+      it "adds the resource route with only: :update" do
+        routes = content_of("config/routes.rb")
+        expect(routes).to include("resources :transfers, only: :update")
+      end
+
+      it "creates the request spec with PUT verb" do
+        expect(exists?("spec/requests/api/accounts/transfers_spec.rb")).to be true
+        expect(content_of("spec/requests/api/accounts/transfers_spec.rb"))
+          .to include('"PUT /api/accounts/transfers"')
+      end
+
+      it "creates HTTP request files with PUT" do
+        api_content = content_of("docs/http_requests/api/accounts/transfers.http")
+        expect(api_content).to include("PUT http://localhost:3000/api/accounts/transfers")
+      end
+    end
+
     describe "depth-2 path: new_list_type/subjects" do
       before { run_generator("new_list_type/subjects") }
 
@@ -300,7 +427,7 @@ RSpec.describe CrmEndpointGenerator do
       it "creates the abstract collection resource" do
         expect(exists?("lib/crm/resources/new_list_type/subjects_resource.rb")).to be true
         expect(content_of("lib/crm/resources/new_list_type/subjects_resource.rb"))
-          .to include("def all(*)")
+          .to include("def all(**params)")
           .and include("raise NotImplementedError")
       end
 
@@ -413,10 +540,10 @@ RSpec.describe CrmEndpointGenerator do
           .to include("/api/pick_list_items/candidate/initial_teacher_training_years")
       end
 
-      it "generates a controller with the correct fluent chain" do
+      it "generates a controller with the index action" do
         expect(exists?("app/controllers/api/pick_list_items/candidate/initial_teacher_training_years_controller.rb")).to be true
         expect(content_of("app/controllers/api/pick_list_items/candidate/initial_teacher_training_years_controller.rb"))
-          .to include("crm_client.pick_list_items.candidate.initial_teacher_training_years.all")
+          .to include("def index")
       end
 
       it "adds nested namespaces to routes" do

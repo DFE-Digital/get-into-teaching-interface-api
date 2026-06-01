@@ -1,5 +1,5 @@
-### GET request to example server
-GET {{apiUrl}}<%= api_path %>
+### <%= http_method %> request to example server
+<%= http_method %> {{apiUrl}}<%= api_path %>
 Authorization: Bearer {{apiKey}}
 
 ###

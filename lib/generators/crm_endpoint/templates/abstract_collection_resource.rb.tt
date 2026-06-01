@@ -5,7 +5,7 @@ module CRM
 <% end -%>
 <%= "  " * (intermediates.length + 2) %>class <%= collection_class %>
 <%= "  " * (intermediates.length + 3) %># @return [Array<<%= crm_resource_ns %>::<%= singular_class %>]
-<%= "  " * (intermediates.length + 3) %>def all(*)
+<%= "  " * (intermediates.length + 3) %>def <%= resource_method_name %>(<%= resource_method_args %>)
 <%= "  " * (intermediates.length + 4) %>raise NotImplementedError
 <%= "  " * (intermediates.length + 3) %>end
 <%= "  " * (intermediates.length + 2) %>end

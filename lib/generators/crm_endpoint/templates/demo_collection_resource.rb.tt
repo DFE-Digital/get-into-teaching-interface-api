@@ -6,11 +6,11 @@ module CRM
 <%= "  " * (i + 4) %>module <%= mod %>
 <% end -%>
 <%= "  " * (intermediates.length + 4) %>class <%= collection_class %> < <%= crm_resource_ns %>::<%= collection_class %>
-<%= "  " * (intermediates.length + 5) %>def all(*)
-<%= "  " * (intermediates.length + 6) %>[
-<%= "  " * (intermediates.length + 7) %><%= crm_resource_ns %>::<%= singular_class %>.new(id: "3fa85f64-5717-4562-b3fc-2c963f66afa6", value: "Example 1"),
-<%= "  " * (intermediates.length + 7) %><%= crm_resource_ns %>::<%= singular_class %>.new(id: "3fa85f64-5717-4562-b3fc-2c963f66afa7", value: "Example 2"),
-<%= "  " * (intermediates.length + 6) %>]
+<%= "  " * (intermediates.length + 5) %>def <%= resource_method_name %>(<%= resource_method_args %>)
+<%= "  " * (intermediates.length + 6) %><%= crm_resource_ns %>::<%= singular_class %>.new(
+<%= "  " * (intermediates.length + 7) %>id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+<%= "  " * (intermediates.length + 7) %>value: "Example 1",
+<%= "  " * (intermediates.length + 6) %>)
 <%= "  " * (intermediates.length + 5) %>end
 <%= "  " * (intermediates.length + 4) %>end
 <% intermediate_modules.length.downto(1) do |k| -%>

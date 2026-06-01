@@ -3,9 +3,9 @@ require "rails_helper"
 RSpec.describe <%= crm_resource_ns %>::<%= collection_class %> do
   subject(:resource) { described_class.new }
 
-  describe "#all" do
+  describe "#<%= resource_method_name %>" do
     it "raises NotImplementedError" do
-      expect { resource.all }.to raise_error(NotImplementedError)
+      expect { resource.<%= resource_method_name %> }.to raise_error(NotImplementedError)
     end
   end
 end

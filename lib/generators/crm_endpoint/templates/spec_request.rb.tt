@@ -1,26 +1,33 @@
 require "rails_helper"
 
-RSpec.describe "GET <%= api_path %>", type: :request do
+RSpec.describe "<%= http_method %> <%= api_path %>", type: :request do
   before { Rails.cache.clear }
 
   describe "response format" do
     it "returns JSON" do
-      get <%= route_helper %>
+      <%= http_method.downcase %> <%= route_helper %>
 
       expect(response.content_type).to match(%r{application/json})
     end
 
     it "returns JSON even when the client requests HTML" do
-      get <%= route_helper %>, headers: { "Accept" => "text/html" }
+      <%= http_method.downcase %> <%= route_helper %>, headers: { "Accept" => "text/html" }
 
       expect(response.content_type).to match(%r{application/json})
     end
+
+    it "returns a data envelope" do
+      <%= http_method.downcase %> <%= route_helper %>
+
+      body = response.parsed_body
+      expect(body).to have_key("data")
+    end
+<% if http_method == "GET" -%>
 
     it "returns a data envelope containing an array" do
       get <%= route_helper %>
 
       body = response.parsed_body
-      expect(body).to have_key("data")
       expect(body["data"]).to be_an(Array)
     end
 
@@ -30,5 +37,6 @@ RSpec.describe "GET <%= api_path %>", type: :request do
       item = response.parsed_body["data"].first
       expect(item).to include("id", "value")
     end
+<% end -%>
   end
 end

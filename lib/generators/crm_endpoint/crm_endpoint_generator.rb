@@ -6,6 +6,9 @@ class CrmEndpointGenerator < Rails::Generators::Base
                  "Example: callback_booking_quotas, lookup_items/countries, or " \
                  "pick_list_items/candidate/initial_teacher_training_years"
 
+  class_option :method, type: :string, default: "GET",
+               desc: "HTTP method (GET, POST, PUT)"
+
   def initialize(args, opts, config)
     super
     @segments = parse_segments
@@ -69,7 +72,7 @@ class CrmEndpointGenerator < Rails::Generators::Base
     end
 
     def api_path     = "/api/#{segments.join('/')}"
-    def fluent_chain = "crm_client.#{segments.join('.')}.all"
+    def fluent_chain = "crm_client.#{segments.join('.')}.#{resource_method_name}"
 
     def human_title
       depth >= 3 ? "#{intermediates[-1].humanize} #{collection.humanize}" : collection.humanize
@@ -77,6 +80,73 @@ class CrmEndpointGenerator < Rails::Generators::Base
 
     def controller_class = "API::#{segments.map(&:camelize).join('::')}Controller"
     def route_helper     = "api_#{segments.join('_')}_path"
+
+    def http_method
+      (options[:method] || "GET").upcase
+    end
+
+    def action_name
+      case http_method
+      when "GET"  then "index"
+      when "POST" then "create"
+      when "PUT"  then "update"
+      else "index"
+      end
+    end
+
+    def resource_method_name
+      case http_method
+      when "GET"  then "all"
+      when "POST" then "create"
+      when "PUT"  then "update"
+      else "all"
+      end
+    end
+
+    def resource_method_args
+      case http_method
+      when "GET"  then "**params"
+      when "POST" then "**body"
+      when "PUT"  then "id, **body"
+      else "**params"
+      end
+    end
+
+    def git_request_method
+      case http_method
+      when "GET"  then "get_request"
+      when "POST" then "post_request"
+      when "PUT"  then "put_request"
+      end
+    end
+
+    def git_request_args
+      case http_method
+      when "GET"  then "params: params"
+      when "POST" then "body: body"
+      when "PUT"  then "body: body"
+      end
+    end
+
+    def git_api_url
+      if http_method == "PUT"
+        "\"#{api_path}/\#{id}\""
+      else
+        api_path.inspect
+      end
+    end
+
+    def git_response_method
+      http_method == "GET" ? "response_to_collection" : "response_to_type"
+    end
+
+    def route_entry
+      "resources :#{collection}, only: :#{action_name}"
+    end
+
+    def use_cache?
+      http_method == "GET"
+    end
   end
 
   private
@@ -254,12 +324,12 @@ class CrmEndpointGenerator < Rails::Generators::Base
     return unless dest_exist?(routes_path)
 
     content = dest_read(routes_path)
-    return if content.include?("resources :#{collection}, only: :index")
+    return if content.include?(route_entry)
 
     if intermediates.empty?
       # depth 1: insert directly inside the api namespace
       insert_into_file routes_path,
-        "\n    resources :#{collection}, only: :index",
+        "\n    #{route_entry}",
         after: /namespace :api.*\n/
       return
     end
@@ -277,14 +347,14 @@ class CrmEndpointGenerator < Rails::Generators::Base
       inner        = intermediates.last
       inner_indent = "  " * (intermediates.length + 2)
       insert_into_file routes_path,
-        "#{inner_indent}resources :#{collection}, only: :index\n",
+        "#{inner_indent}#{route_entry}\n",
         after: /namespace :#{inner} do\n/
     elsif existing_count > 0
       # Some prefix namespaces exist — attach remaining chain after the last existing one
       anchor_seg = intermediates[existing_count - 1]
       new_segs   = intermediates[existing_count..]
 
-      inner_content = "#{"  " * (intermediates.length + 2)}resources :#{collection}, only: :index\n"
+      inner_content = "#{"  " * (intermediates.length + 2)}#{route_entry}\n"
       new_segs.reverse.each_with_index do |seg, ri|
         level         = existing_count + new_segs.length - 1 - ri
         indent        = "  " * (level + 2)
@@ -294,7 +364,7 @@ class CrmEndpointGenerator < Rails::Generators::Base
       insert_into_file routes_path, inner_content, after: /namespace :#{anchor_seg} do\n/
     else
       # No intermediate namespaces exist yet — build the full chain inside the api namespace
-      inner_content = "#{"  " * (intermediates.length + 2)}resources :#{collection}, only: :index\n"
+      inner_content = "#{"  " * (intermediates.length + 2)}#{route_entry}\n"
       intermediates.reverse.each_with_index do |seg, ri|
         level         = intermediates.length - 1 - ri
         indent        = "  " * (level + 2)
@@ -378,24 +448,42 @@ class CrmEndpointGenerator < Rails::Generators::Base
     return if dest_read(spec_path).include?(describe_key)
 
     cassette = "CRM_Adapters_GetIntoTeaching_Client/#{segments.join('/')}"
-    chain    = "adapter.#{segments.join('.')}.all"
+    chain    = "adapter.#{segments.join('.')}.#{resource_method_name}"
     fqn      = "#{crm_resource_ns}::#{singular_class}"
 
-    snippet = "\n\n  describe \"##{segments.join('.')}\", " \
-              "vcr: { cassette_name: \"#{cassette}\" } do\n" \
-              "    subject(:result) { #{chain} }\n\n" \
-              "    it \"returns #{singular_class} instances\" do\n" \
-              "      expect(result).to all(be_a(#{fqn}))\n" \
-              "    end\n\n" \
-              "    it \"deserializes the first entry correctly\" do\n" \
-              "      expect(result.first).to eq(\n" \
-              "        #{fqn}.new(\n" \
-              "          id: \"TODO\",\n" \
-              "          value: \"TODO\",\n" \
-              "        )\n" \
-              "      )\n" \
-              "    end\n" \
-              "  end"
+    snippet = if http_method == "GET"
+      "\n\n  describe \"##{segments.join('.')}\", " \
+        "vcr: { cassette_name: \"#{cassette}\" } do\n" \
+        "    subject(:result) { #{chain} }\n\n" \
+        "    it \"returns #{singular_class} instances\" do\n" \
+        "      expect(result).to all(be_a(#{fqn}))\n" \
+        "    end\n\n" \
+        "    it \"deserializes the first entry correctly\" do\n" \
+        "      expect(result.first).to eq(\n" \
+        "        #{fqn}.new(\n" \
+        "          id: \"TODO\",\n" \
+        "          value: \"TODO\",\n" \
+        "        )\n" \
+        "      )\n" \
+        "    end\n" \
+        "  end"
+    else
+      "\n\n  describe \"##{segments.join('.')}\", " \
+        "vcr: { cassette_name: \"#{cassette}\" } do\n" \
+        "    subject(:result) { #{chain} }\n\n" \
+        "    it \"returns a #{singular_class} instance\" do\n" \
+        "      expect(result).to be_a(#{fqn})\n" \
+        "    end\n\n" \
+        "    it \"deserializes the response correctly\" do\n" \
+        "      expect(result).to eq(\n" \
+        "        #{fqn}.new(\n" \
+        "          id: \"TODO\",\n" \
+        "          value: \"TODO\",\n" \
+        "        )\n" \
+        "      )\n" \
+        "    end\n" \
+        "  end"
+    end
 
     insert_into_file spec_path, snippet, before: "\nend\n"
   end

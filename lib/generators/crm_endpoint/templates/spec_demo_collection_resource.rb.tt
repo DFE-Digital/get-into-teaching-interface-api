@@ -3,19 +3,29 @@ require "rails_helper"
 RSpec.describe <%= demo_collection_fqn %> do
   subject(:resource) { described_class.new }
 
-  describe "#all" do
+  describe "#<%= resource_method_name %>" do
+<% if http_method == "GET" -%>
     it "returns an array" do
-      expect(resource.all).to be_an(Array)
+      expect(resource.<%= resource_method_name %>).to be_an(Array)
     end
 
     it "returns <%= singular_class %> instances" do
-      expect(resource.all).to all(be_a(<%= crm_resource_ns %>::<%= singular_class %>))
+      expect(resource.<%= resource_method_name %>).to all(be_a(<%= crm_resource_ns %>::<%= singular_class %>))
     end
 
     it "returns entries with id and value readers" do
-      item = resource.all.first
+      item = resource.<%= resource_method_name %>.first
 
       expect(item).to respond_to(:id, :value)
     end
+<% else -%>
+    it "returns a <%= singular_class %> instance" do
+      expect(resource.<%= resource_method_name %>).to be_a(<%= crm_resource_ns %>::<%= singular_class %>)
+    end
+
+    it "returns an entry with id and value readers" do
+      expect(resource.<%= resource_method_name %>).to respond_to(:id, :value)
+    end
+<% end -%>
   end
 end
