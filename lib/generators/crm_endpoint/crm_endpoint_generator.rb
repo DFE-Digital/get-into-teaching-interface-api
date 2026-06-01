@@ -329,7 +329,7 @@ class CrmEndpointGenerator < Rails::Generators::Base
     if intermediates.empty?
       # depth 1: insert directly inside the api namespace
       insert_into_file routes_path,
-        "\n    #{route_entry}",
+        "    #{route_entry}\n",
         after: /namespace :api.*\n/
       return
     end
@@ -371,7 +371,7 @@ class CrmEndpointGenerator < Rails::Generators::Base
         inner_content = "#{indent}namespace :#{seg} do\n#{inner_content}#{indent}end\n"
       end
 
-      insert_into_file routes_path, "\n#{inner_content.rstrip}", after: /namespace :api.*\n/
+      insert_into_file routes_path, inner_content, after: /namespace :api.*\n/
     end
   end
 
