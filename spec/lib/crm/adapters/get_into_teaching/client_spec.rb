@@ -693,4 +693,21 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
     TEXT
     text.chomp
   end
+
+  describe "#get_into_teaching.callbacks", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/get_into_teaching/callbacks" } do
+    subject(:result) { adapter.get_into_teaching.callbacks.create }
+
+    it "returns a CallbackResource instance" do
+      expect(result).to be_a(CRM::Resources::GetIntoTeaching::CallbackResource)
+    end
+
+    it "deserializes the response correctly" do
+      expect(result).to eq(
+        CRM::Resources::GetIntoTeaching::CallbackResource.new(
+          id: "TODO",
+          value: "TODO",
+        )
+      )
+    end
+  end
 end

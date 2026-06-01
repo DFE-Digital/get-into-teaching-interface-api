@@ -21,6 +21,10 @@ module CRM
         def privacy_policies
           Resources::PrivacyPoliciesResource.new
         end
+
+        def get_into_teaching
+          Resources::GetIntoTeachingResource.new
+        end
       end
     end
   end

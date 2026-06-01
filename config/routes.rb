@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   mount Rswag::Api::Engine => '/api-docs'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   namespace :api, defaults: { format: :json } do
+    namespace :get_into_teaching do
+      resources :callbacks, only: :create
+    end
+
     resource :privacy_policies, only: [] do
       resource :latest, only: :show, module: :privacy_policies, controller: :latest
     end

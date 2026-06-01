@@ -23,5 +23,9 @@ module CRM
     def privacy_policies
       @adapter.privacy_policies
     end
+
+    def get_into_teaching
+      @adapter.get_into_teaching
+    end
   end
 end

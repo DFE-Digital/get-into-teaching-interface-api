@@ -3,6 +3,9 @@ openapi: 3.0.1
 info:
   title: API V1
   version: v1
+tags:
+- name: Get into Teaching
+  description: Get into Teaching endpoints
 paths:
   "/api/privacy_policies/{id}":
     parameters:
@@ -192,6 +195,36 @@ paths:
                       number_of_bookings: 0
                       quota: 20
                       is_available: true
+  "/api/get_into_teaching/callbacks":
+    post:
+      tags:
+      - Get into Teaching
+      summary: create a callback
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone_number:
+                  type: string
+                  description: The phone number to call back on
+                consent:
+                  type: boolean
+                  description: Whether the candidate has given consent
+              required:
+              - phone_number
+              - consent
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  OK:
+                    type: boolean
   "/api/teaching_event_buildings":
     get:
       summary: list teaching event buildings

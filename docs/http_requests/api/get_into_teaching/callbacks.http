@@ -1,0 +1,5 @@
+### Callbacks
+POST http://localhost:3000/api/get_into_teaching/callbacks
+
+### Callbacks with forced cache miss
+GET http://localhost:3000/api/get_into_teaching/callbacks?force_cache_miss=true

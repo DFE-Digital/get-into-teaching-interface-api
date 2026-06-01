@@ -1,0 +1,5 @@
+### POST request to example server
+POST {{apiUrl}}/api/get_into_teaching/callbacks
+Authorization: Bearer {{apiKey}}
+
+###
