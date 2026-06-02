@@ -27,5 +27,9 @@ module CRM
     def get_into_teaching
       @adapter.get_into_teaching
     end
+
+    def teacher_training_adviser
+      @adapter.teacher_training_adviser
+    end
   end
 end

@@ -710,4 +710,21 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
       )
     end
   end
+
+  describe "#teacher_training_adviser.candidates", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/teacher_training_adviser/candidates" } do
+    subject(:result) { adapter.teacher_training_adviser.candidates.create }
+
+    it "returns a CandidateResource instance" do
+      expect(result).to be_a(CRM::Resources::TeacherTrainingAdviser::CandidateResource)
+    end
+
+    it "deserializes the response correctly" do
+      expect(result).to eq(
+        CRM::Resources::TeacherTrainingAdviser::CandidateResource.new(
+          id: "TODO",
+          value: "TODO",
+        )
+      )
+    end
+  end
 end
