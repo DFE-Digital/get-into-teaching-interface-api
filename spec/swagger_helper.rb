@@ -19,15 +19,24 @@ RSpec.configure do |config|
       openapi: '3.0.1',
       info: {
         title: 'API V1',
-        version: 'v1'
+        version: 'v1',
       },
+      security: [ { bearerAuth: [] } ],
       paths: {},
       servers: [
         {
           url: 'http://localhost:3000',
-        }
-      ]
-    }
+        },
+      ],
+      components: {
+        securitySchemes: {
+          bearerAuth: {
+            type: :http,
+            scheme: :bearer,
+          },
+        },
+      },
+    },
   }
 
   # Specify the format of the output Swagger file when running 'rswag:specs:swaggerize'.
@@ -46,7 +55,7 @@ RSpec.configure do |config|
     example = {
       value: JSON.parse(request.body.string, symbolize_names: true),
       name: 'request_example_1',
-      summary: 'A request example'
+      summary: 'A request example',
     }
 
     spec.metadata[:operation][:request_examples] << example

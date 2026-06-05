@@ -3,6 +3,8 @@ openapi: 3.0.1
 info:
   title: API V1
   version: v1
+security:
+- bearerAuth: []
 paths:
   "/api/privacy_policies/{id}":
     parameters:
@@ -67,9 +69,13 @@ paths:
                 4872c8ed-0229-f111-8342-7c1e5285e3ab:
                   value:
                     error:
-                      message: "We could not find a privacy policy with a matching id of `4872c8ed-0229-f111-8342-7c1e5285e3ab`. Please check the ID and try again."
+                      message: We could not find a privacy policy with a matching
+                        id of `4872c8ed-0229-f111-8342-7c1e5285e3ab`. Please check
+                        the ID and try again.
                       resource: privacy_policy
                       id: 4872c8ed-0229-f111-8342-7c1e5285e3ab
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/privacy_policies/latest":
     get:
       summary: show latest privacy_policy
@@ -126,9 +132,12 @@ paths:
                 latest:
                   value:
                     error:
-                      message: "We could not find a privacy policy with a matching id of `latest`. Please check the ID and try again."
+                      message: We could not find a privacy policy with a matching
+                        id of `latest`. Please check the ID and try again.
                       resource: privacy_policies
                       id: latest
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/callback_booking_quotas":
     get:
       summary: list callback booking quotas
@@ -192,6 +201,8 @@ paths:
                       number_of_bookings: 0
                       quota: 20
                       is_available: true
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/teaching_event_buildings":
     get:
       summary: list teaching event buildings
@@ -240,11 +251,11 @@ paths:
                     - id: 3290fb7f-93b4-eb11-8236-000d3a26ba1b
                       venue: The Open University in Wales
                       address_line1: Custom House Street
-                      address_line2: null
-                      address_line3: null
+                      address_line2:
+                      address_line3:
                       address_city: Cardiff
                       address_postcode: CF10 1AP
-                      image_url: null
+                      image_url:
                     - id: 3ef13d86-9b62-ee11-8df0-6045bd8c543c
                       venue: World Trade Centre -Delhi
                       address_line1: '1'
@@ -252,7 +263,9 @@ paths:
                       address_line3: '3'
                       address_city: Delhi
                       address_postcode: se28 8pt
-                      image_url: null
+                      image_url:
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/lookup_items/countries":
     get:
       summary: list countries
@@ -298,6 +311,8 @@ paths:
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
                       value: Germany
                       iso_code: DE
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/lookup_items/degree_countries":
     get:
       summary: list degree countries
@@ -343,6 +358,8 @@ paths:
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
                       value: Germany
                       iso_code: DE
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/lookup_items/teaching_subjects":
     get:
       summary: list teaching subjects
@@ -376,6 +393,8 @@ paths:
                       value: Art & Design
                     - id: some-id
                       value: Chemistry
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/adviser_eligibilities":
     get:
       summary: list adviser eligibilities
@@ -390,7 +409,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -399,6 +418,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/adviser_requirements":
     get:
       summary: list adviser requirements
@@ -413,7 +434,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -422,6 +443,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/assignment_statuses":
     get:
       summary: list assignment statuses
@@ -436,7 +459,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -445,6 +468,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/channels":
     get:
       summary: list channels
@@ -459,7 +484,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -468,6 +493,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/citizenships":
     get:
       summary: list citizenships
@@ -482,7 +509,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -491,6 +518,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/consideration_journey_stages":
     get:
       summary: list consideration journey stages
@@ -505,7 +534,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -514,6 +543,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/event_subscription_channels":
     get:
       summary: list event subscription channels
@@ -528,7 +559,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -537,6 +568,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/gcse_statuses":
     get:
       summary: list gcse statuses
@@ -551,7 +584,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -560,6 +593,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/has_qualified_teacher_statuses":
     get:
       summary: list has qualified teacher statuses
@@ -574,7 +609,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -583,6 +618,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/initial_teacher_training_years":
     get:
       summary: list initial teacher training years
@@ -597,7 +634,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -606,6 +643,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/locations":
     get:
       summary: list locations
@@ -620,7 +659,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -629,6 +668,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/mailing_list_subscription_channels":
     get:
       summary: list mailing list subscription channels
@@ -643,7 +684,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -652,6 +693,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/preferred_education_phases":
     get:
       summary: list preferred education phases
@@ -666,7 +709,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -675,6 +718,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/retake_gcse_statuses":
     get:
       summary: list retake gcse statuses
@@ -689,7 +734,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -698,6 +743,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/situations":
     get:
       summary: list situations
@@ -712,7 +759,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -721,6 +768,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/teacher_training_adviser_subscription_channels":
     get:
       summary: list teacher training adviser subscription channels
@@ -735,7 +784,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -744,6 +793,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/types":
     get:
       summary: list types
@@ -758,7 +809,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -767,6 +818,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/visa_statuses":
     get:
       summary: list visa statuses
@@ -781,7 +834,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -790,6 +843,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/contact_creation_channel/activities":
     get:
       summary: list activities
@@ -804,7 +859,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -813,6 +868,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/contact_creation_channel/services":
     get:
       summary: list services
@@ -827,7 +884,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -836,6 +893,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/contact_creation_channel/sources":
     get:
       summary: list sources
@@ -850,7 +909,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -859,6 +918,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/past_teaching_position/education_phases":
     get:
       summary: list education phases
@@ -873,7 +934,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -882,6 +943,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/phone_call/channels":
     get:
       summary: list channels
@@ -896,7 +959,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -905,6 +968,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/qualification/degree_statuses":
     get:
       summary: list degree statuses
@@ -919,7 +984,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -928,6 +993,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/qualification/types":
     get:
       summary: list types
@@ -942,7 +1009,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -951,6 +1018,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/qualification/uk_degree_grades":
     get:
       summary: list uk degree grades
@@ -965,7 +1034,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -974,6 +1043,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/service_subscription/types":
     get:
       summary: list types
@@ -988,7 +1059,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -997,6 +1068,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/teaching_event/accessibility_items":
     get:
       summary: list accessibility items
@@ -1011,7 +1084,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -1020,6 +1093,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/teaching_event/regions":
     get:
       summary: list regions
@@ -1034,7 +1109,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -1043,6 +1118,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/teaching_event/registration_channels":
     get:
       summary: list registration channels
@@ -1057,7 +1134,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -1066,6 +1143,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/teaching_event/statuses":
     get:
       summary: list statuses
@@ -1080,7 +1159,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -1089,6 +1168,8 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
   "/api/pick_list_items/teaching_event/types":
     get:
       summary: list types
@@ -1103,7 +1184,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PickListItem'
+                      "$ref": "#/components/schemas/PickListItem"
               examples:
                 default:
                   value:
@@ -1112,8 +1193,25 @@ paths:
                       value: Example 1
                     - id: 3fa85f64-5717-4562-b3fc-2c963f66afa7
                       value: Example 2
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'API token passed as `Authorization: Bearer <token>`'
   schemas:
+    UnauthorizedError:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+      required:
+      - error
+      - message
     PickListItem:
       type: object
       properties:
@@ -1124,5 +1222,23 @@ components:
       required:
       - id
       - value
+  responses:
+    Unauthorized:
+      description: unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/UnauthorizedError"
+          examples:
+            unauthorized:
+              value:
+                errors:
+                - error: Unauthorized
+                  message: Please provide a valid authentication token
 servers:
 - url: http://localhost:3000

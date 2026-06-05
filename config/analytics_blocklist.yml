@@ -1,4 +1,16 @@
 shared: 
+  :integrations:
+    - id
+    - name
+    - created_at
+    - updated_at
+  :api_tokens:
+    - id
+    - hashed_token
+    - last_used_at
+    - integration_id
+    - created_at
+    - updated_at
   :solid_cache_entries:
     - id
     - key
