@@ -13,7 +13,7 @@ class API::TeacherTrainingAdviser::CandidatesController < API::ApplicationContro
       render status: 200, json: { response: "OK" }
     else
       errors = candidate.errors.map { |error| "#{error.attribute} #{error.message}" }
-      render status: 500, json: { errors: }
+      render status: 400, json: { errors: }
     end
   end
 
