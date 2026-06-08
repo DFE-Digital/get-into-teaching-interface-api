@@ -276,6 +276,38 @@ paths:
       summary: create a teacher training adviser candidate
       security:
       - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              first_name: "First Name"
+              last_name: "Last name"
+              date_of_birth: "2000-01-01"
+              email: "test@example.com"
+              address_telephone: "07735 111111"
+              address_postcode: " BN1 1AA"
+              country_id: "38ce2d0f-0b1f-ee11-9967-6045bd8c5762"
+              degree_subject: "Mathematics"
+              uk_degree_grade_id: 222750001
+              degree_status_id: 222750000
+              degree_type_id: 222750000
+              has_gcse_maths_and_english_id: 222750000
+              planning_to_retake_gcse_maths_and_english_id: 222750001
+              has_gcse_science_id: 222750000
+              planning_to_retake_gcse_science_id: 222750001
+              preferred_teaching_subject_id: "b02655a1-2afa-e811-a981-000d3a276620"
+              preferred_education_phase_id: 222750000
+              initial_teacher_training_year_id: 222750001
+              accepted_policy_id: "4872c8ed-0229-f111-8342-7c1e5285e3ab"
+              type_id: 222750000
+              channel_id: 222750049
+              candidate_id: "d85a2f0b-290f-4931-98e2-e7d817ac38f3"
+              qualification_id: "13da3277-c8ba-4b64-a79e-b0a3960c26be"
+              creation_channel_source_id: 222750000
+              creation_channel_service_id: 222750010
+              creation_channel_activity_id: 222750017
       responses:
         '200':
           description: successful
@@ -283,10 +315,13 @@ paths:
             application/json:
               schema:
                 type: object
-                properties: {}
+                properties:
+                  response:
+                    type: string
               examples:
                 default:
-                  value: {}
+                  value:
+                    response: "OK"
         '401':
           "$ref": "#/components/responses/Unauthorized"
         '500':
