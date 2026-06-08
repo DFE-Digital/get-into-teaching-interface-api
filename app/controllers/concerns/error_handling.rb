@@ -11,6 +11,8 @@ module ErrorHandling
       render json: { error: { message: I18n.t("api.errors.service_unavailable") } }, status: :service_unavailable
     end
 
+    # Need to update the error messages to only have one format. Can we create a method?
+
     rescue_from CRM::Adapters::GetIntoTeaching::Resource::NotFoundError do
       resource_name = not_found_resource_name
       render json: {

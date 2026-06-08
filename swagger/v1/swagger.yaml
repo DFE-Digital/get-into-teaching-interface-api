@@ -3,6 +3,9 @@ openapi: 3.0.1
 info:
   title: API V1
   version: v1
+tags:
+- name: Teacher training adviser
+  description: Endpoints for the teacher training adviser service
 security:
 - bearerAuth: []
 paths:
@@ -266,6 +269,39 @@ paths:
                       image_url:
         '401':
           "$ref": "#/components/responses/Unauthorized"
+  "/api/teacher_training_adviser/candidates":
+    post:
+      tags:
+      - Teacher training adviser
+      summary: create a teacher training adviser candidate
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                default:
+                  value: {}
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
+        '500':
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              examples:
+                default:
+                  value:
+                    error: error message
   "/api/lookup_items/countries":
     get:
       summary: list countries
