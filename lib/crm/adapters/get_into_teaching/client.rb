@@ -42,10 +42,6 @@ module CRM
         def teacher_training_adviser
           Resources::TeacherTrainingAdviser::Resource.new(self)
         end
-
-        def matchback
-          Resources::TeacherTrainingAdviser::Resource.new(self)
-        end
       end
     end
   end
