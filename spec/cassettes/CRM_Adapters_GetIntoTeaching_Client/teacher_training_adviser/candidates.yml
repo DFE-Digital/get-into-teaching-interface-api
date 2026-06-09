@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://getintoteachingapi-development.test.teacherservices.cloud/api/teacher_training_adviser/candidates
+    body:
+      encoding: UTF-8
+      string: '{"email":"test@example.com","firstName":"First Name","lastName":"Last name","dateOfBirth":"2000-01-01","addressTelephone":"07735 111111","addressPostcode":" BN1 1AA","countryId":"38ce2d0f-0b1f-ee11-9967-6045bd8c5762","degreeSubject":"Mathematics","ukDegreeGradeId":"222750001","degreeStatusId":"222750000","degreeTypeId":"222750000","hasGcseMathsAndEnglishId":"222750000","planningToRetakeGcseMathsAndEnglishId":"222750001","hasGcseScienceId":"222750000","planningToRetakeGcseScienceId":"222750001","preferredTeachingSubjectId":"b02655a1-2afa-e811-a981-000d3a276620","preferredEducationPhaseId":"222750000","initialTeacherTrainingYearId":"222750001","acceptedPolicyId":"4872c8ed-0229-f111-8342-7c1e5285e3ab","typeId":"222750000","channelId":"222750049","candidateId":"d85a2f0b-290f-4931-98e2-e7d817ac38f3","qualificationId":"13da3277-c8ba-4b64-a79e-b0a3960c26be","creationChannelSourceId":"222750000","creationChannelServiceId":"222750010","creationChannelActivityId":"222750017"}'
+    headers:
+      User-Agent:
+      - Faraday v2.14.1
+      Authorization:
+      - "<AUTH>"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Tue, 09 Jun 2026 09:52:00 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      x-frame-options:
+      - deny
+      x-xss-protection:
+      - 1; mode=block
+      x-content-type-options:
+      - nosniff
+      content-security-policy:
+      - default-src 'self'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"degreeStatusId":222750000}'
+    http_version:
+  recorded_at: Tue, 09 Jun 2026 09:52:00 GMT
+recorded_with: VCR 6.4.0

@@ -19,7 +19,6 @@ module CRM
           end
         end
 
-
         def lookup_items
           Resources::LookUpItemsResource.new(self)
         end
@@ -27,8 +26,6 @@ module CRM
         def pick_list_items
           Resources::PickListItemsResource.new(self)
         end
-
-
 
         def callback_booking_quotas
           Resources::CallbackBookingQuotasResource.new(self)
@@ -40,6 +37,10 @@ module CRM
 
         def privacy_policies
           Resources::PrivacyPoliciesResource.new(self)
+        end
+
+        def teacher_training_adviser
+          Resources::TeacherTrainingAdviser::Resource.new(self)
         end
       end
     end
