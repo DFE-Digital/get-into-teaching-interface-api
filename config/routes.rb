@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
     namespace :teacher_training_adviser do
       resources :candidates, only: :create
+      resources :matchbacks, only: :create
     end
 
     resources :callback_booking_quotas, only: :index
