@@ -282,10 +282,10 @@ paths:
             schema:
               type: object
             example:
-              first_name: "First Name"
-              last_name: "Last name"
+              email: "johndoe@example.com"
+              first_name: "John"
+              last_name: "Doe"
               date_of_birth: "2000-01-01"
-              email: "test@example.com"
               address_telephone: "07735 111111"
               address_postcode: " BN1 1AA"
               country_id: "38ce2d0f-0b1f-ee11-9967-6045bd8c5762"
@@ -1266,6 +1266,86 @@ paths:
                       value: Example 2
         '401':
           "$ref": "#/components/responses/Unauthorized"
+  "/api/teacher_training_adviser/matchbacks":
+    post:
+      tags:
+      - Teacher training adviser
+      summary: matchback a teacher training adviser candidate
+      security:
+      - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                candidate:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      format: email
+                    first_name:
+                      type: string
+                    last_name:
+                      type: string
+                    date_of_birth:
+                      type: string
+                      format: date
+                    reference:
+                      type: string
+                  required:
+                  - email
+            example:
+              email: "johndoe@example.com"
+              first_name: "John"
+              last_name: "Doe"
+              date_of_birth: "2000-01-01"
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+              examples:
+                default:
+                  value:
+                    response: "OK"
+        '400':
+          description: validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+              examples:
+                default:
+                  value:
+                    errors:
+                    - "email is invalid"
+        '401':
+          "$ref": "#/components/responses/Unauthorized"
+        '500':
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              examples:
+                default:
+                  value:
+                    error: error message
 components:
   securitySchemes:
     bearerAuth:
