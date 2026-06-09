@@ -1,19 +1,26 @@
 module TeacherTrainingAdviser
   class Matchback
     include ActiveModel::Model
-    attr_reader :client, :request_params
+    include ActiveModel::Attributes
+
+    attr_reader :client
+
     ATTRIBUTES = [
-      :email, :first_name, :last_name, :date_of_birth, :reference
-    ]
-    attr_accessor *ATTRIBUTES
+      { name: :email },
+      { name: :first_name },
+      { name: :last_name },
+      { name: :date_of_birth, type: :date },
+      { name: :reference },
+    ].freeze
+    ATTRIBUTES.each do |attribute_hash|
+      attribute attribute_hash[:name], attribute_hash.fetch(:type, :string)
+    end
 
     validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
     def initialize(client:, request_params:)
       @client = client
-      ATTRIBUTES.each do |attr|
-        public_send("#{attr}=", request_params[attr])
-      end
+      super(request_params)
     end
 
     def create
@@ -23,7 +30,7 @@ module TeacherTrainingAdviser
     private
 
     def body
-      ATTRIBUTES.to_h { |attr| [ attr.to_s.camelize(:lower), public_send(attr) ] }
+      attributes.compact.transform_keys { |key| key.camelize(:lower) }
     end
   end
 end

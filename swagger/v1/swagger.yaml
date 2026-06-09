@@ -282,10 +282,10 @@ paths:
             schema:
               type: object
             example:
-              first_name: "First Name"
-              last_name: "Last name"
+              email: "johndoe@example.com"
+              first_name: "John"
+              last_name: "Doe"
               date_of_birth: "2000-01-01"
-              email: "test@example.com"
               address_telephone: "07735 111111"
               address_postcode: " BN1 1AA"
               country_id: "38ce2d0f-0b1f-ee11-9967-6045bd8c5762"
@@ -1297,12 +1297,10 @@ paths:
                   required:
                   - email
             example:
-              candidate:
-                email: "test@example.com"
-                first_name: "First Name"
-                last_name: "Last name"
-                date_of_birth: "2000-01-01"
-                reference: "ref"
+              email: "johndoe@example.com"
+              first_name: "John"
+              last_name: "Doe"
+              date_of_birth: "2000-01-01"
       responses:
         '200':
           description: successful
