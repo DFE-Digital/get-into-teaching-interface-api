@@ -10,7 +10,10 @@ module TeacherTrainingAdviser
       :planning_to_retake_gcse_science_id, :preferred_teaching_subject_id,
       :preferred_education_phase_id, :initial_teacher_training_year_id, :accepted_policy_id,
       :type_id, :channel_id, :candidate_id, :adviser_status_id, :qualification_id,
-      :creation_channel_source_id, :creation_channel_service_id, :creation_channel_activity_id
+      :creation_channel_source_id, :creation_channel_service_id, :creation_channel_activity_id,
+      :subject_taught_id, :past_teaching_position_id, :stage_taught_id, :degree_country,
+      :phone_call_scheduled_at, :situation, :citizenship, :visa_status, :location,
+      :graduation_year
     ]
     attr_accessor *ATTRIBUTES
 
