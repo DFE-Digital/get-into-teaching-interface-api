@@ -1,9 +1,5 @@
 class API::TeacherTrainingAdviser::CandidatesController < API::ApplicationController
   def create
-    client = CRM::Client.new(
-      adapter: CRM::Adapters::GetIntoTeaching::Client.new,
-    )
-
     candidate = TeacherTrainingAdviser::Candidate.new(
       client:,
       request_params:
@@ -21,7 +17,15 @@ class API::TeacherTrainingAdviser::CandidatesController < API::ApplicationContro
 
   def request_params
     params.expect(
-      candidate: TeacherTrainingAdviser::Candidate::ATTRIBUTES
+      candidate: TeacherTrainingAdviser::Candidate::ATTRIBUTES.map { |attr| attr[:name] }
+    )
+  end
+
+private
+
+  def client
+    @client ||= CRM::Client.new(
+      adapter: CRM::Adapters::GetIntoTeaching::Client.new,
     )
   end
 end

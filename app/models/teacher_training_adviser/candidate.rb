@@ -1,21 +1,52 @@
 module TeacherTrainingAdviser
   class Candidate
     include ActiveModel::Model
-    attr_reader :client, :request_params
+    include ActiveModel::Attributes
+    attr_reader :client
+
     ATTRIBUTES = [
-      :email, :first_name, :last_name, :date_of_birth, :address_telephone,
-      :address_postcode, :country_id, :degree_subject, :uk_degree_grade_id,
-      :degree_status_id, :degree_type_id, :has_gcse_maths_and_english_id,
-      :planning_to_retake_gcse_maths_and_english_id, :has_gcse_science_id,
-      :planning_to_retake_gcse_science_id, :preferred_teaching_subject_id,
-      :preferred_education_phase_id, :initial_teacher_training_year_id, :accepted_policy_id,
-      :type_id, :channel_id, :candidate_id, :adviser_status_id, :qualification_id,
-      :creation_channel_source_id, :creation_channel_service_id, :creation_channel_activity_id,
-      :subject_taught_id, :past_teaching_position_id, :stage_taught_id, :degree_country,
-      :phone_call_scheduled_at, :situation, :citizenship, :visa_status, :location,
-      :graduation_year
-    ]
-    attr_accessor *ATTRIBUTES
+      { name: :email },
+      { name: :first_name },
+      { name: :last_name },
+      { name: :date_of_birth, type: :date },
+      { name: :address_telephone },
+      { name: :address_postcode },
+      { name: :country_id },
+      { name: :degree_subject },
+      { name: :uk_degree_grade_id },
+      { name: :degree_status_id },
+      { name: :degree_type_id },
+      { name: :has_gcse_maths_and_english_id },
+      { name: :planning_to_retake_gcse_maths_and_english_id },
+      { name: :has_gcse_science_id },
+      { name: :planning_to_retake_gcse_science_id },
+      { name: :preferred_teaching_subject_id },
+      { name: :preferred_education_phase_id },
+      { name: :initial_teacher_training_year_id },
+      { name: :accepted_policy_id },
+      { name: :type_id },
+      { name: :channel_id },
+      { name: :candidate_id },
+      { name: :adviser_status_id },
+      { name: :qualification_id },
+      { name: :creation_channel_source_id },
+      { name: :creation_channel_service_id },
+      { name: :creation_channel_activity_id },
+      { name: :subject_taught_id },
+      { name: :past_teaching_position_id },
+      { name: :stage_taught_id },
+      { name: :degree_country },
+      { name: :phone_call_scheduled_at, type: :datetime },
+      { name: :situation },
+      { name: :citizenship },
+      { name: :visa_status },
+      { name: :location },
+      { name: :graduation_year },
+    ].freeze
+
+    ATTRIBUTES.each do |attribute_hash|
+      attribute attribute_hash[:name], attribute_hash.fetch(:type, :string)
+    end
 
     validates :first_name, presence: true
     validates :last_name, presence: true
@@ -27,19 +58,17 @@ module TeacherTrainingAdviser
 
     def initialize(client:, request_params:)
       @client = client
-      ATTRIBUTES.each do |attr|
-        public_send("#{attr}=", request_params[attr])
-      end
+      super(request_params)
     end
 
     def create
-      valid? && client.teacher_training_adviser.candidates(body)
+      valid? && client.teacher_training_adviser.create_candidate(body)
     end
 
     private
 
     def body
-      ATTRIBUTES.to_h { |attr| [ attr.to_s.camelize(:lower), public_send(attr) ] }
+      attributes.compact.transform_keys { |key| key.camelize(:lower) }
     end
   end
 end

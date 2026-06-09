@@ -25,7 +25,7 @@ RSpec.describe "POST /api/teacher_training_adviser/candidates", type: :request d
     let(:crm_client) { instance_double(CRM::Client, teacher_training_adviser: candidate_resource) }
 
     before do
-      allow(candidate_resource).to receive(:candidates).and_return(true)
+      allow(candidate_resource).to receive(:create_candidate).and_return(true)
       allow(CRM::Client).to receive(:new).and_return(crm_client)
     end
 
@@ -59,7 +59,7 @@ RSpec.describe "POST /api/teacher_training_adviser/candidates", type: :request d
     let(:crm_client) { instance_double(CRM::Client, teacher_training_adviser: candidate_resource) }
 
     before do
-      allow(candidate_resource).to receive(:candidates)
+      allow(candidate_resource).to receive(:create_candidate)
                                     .and_raise(CRM::Adapters::GetIntoTeaching::Resource::Error)
       allow(CRM::Client).to receive(:new).and_return(crm_client)
     end

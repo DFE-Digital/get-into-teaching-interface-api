@@ -34,22 +34,22 @@ RSpec.describe TeacherTrainingAdviser::Candidate do
   describe "#create" do
     before do
       allow(crm_client).to receive(:teacher_training_adviser).and_return(candidate_resource)
-      allow(candidate_resource).to receive(:candidates).and_return(true)
+      allow(candidate_resource).to receive(:create_candidate).and_return(true)
     end
 
     context "when valid" do
       it "calls the CRM client with the camelized body" do
         subject.create
-        expect(candidate_resource).to have_received(:candidates) do |body|
+        expect(candidate_resource).to have_received(:create_candidate) do |body|
           expect(body).to include(
             "email" => "test@example.com",
             "firstName" => "John",
             "lastName" => "Doe",
-            "dateOfBirth" => "1990-01-01",
+            "dateOfBirth" => Date.new(1990, 1, 1)
           )
         end
 
-        allow(candidate_resource).to receive(:candidates).and_return(true)
+        allow(candidate_resource).to receive(:create_candidate).and_return(true)
         expect(subject.create).to be(true)
       end
     end
@@ -59,7 +59,7 @@ RSpec.describe TeacherTrainingAdviser::Candidate do
 
       it "returns false without calling the CRM client" do
         subject.create
-        expect(candidate_resource).not_to have_received(:candidates)
+        expect(candidate_resource).not_to have_received(:create_candidate)
       end
 
       it "populates errors" do
@@ -77,7 +77,7 @@ RSpec.describe TeacherTrainingAdviser::Candidate do
         "email" => "test@example.com",
         "firstName" => "John",
         "lastName" => "Doe",
-        "dateOfBirth" => "1990-01-01",
+        "dateOfBirth" => Date.new(1990, 1, 1),
         "acceptedPolicyId" => "abc-123",
         "countryId" => "uk",
         "typeId" => "type-1",

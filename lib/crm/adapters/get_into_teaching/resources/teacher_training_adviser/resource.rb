@@ -4,7 +4,7 @@ module CRM
       module Resources
         module TeacherTrainingAdviser
           class Resource < CRM::Adapters::GetIntoTeaching::Resource
-            def candidates(body)
+            def create_candidate(body)
               post_request("/api/teacher_training_adviser/candidates", body:)
             end
           end
