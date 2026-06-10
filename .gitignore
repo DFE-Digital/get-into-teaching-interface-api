@@ -57,3 +57,5 @@
 # Ignore key files for decrypting credentials and more.
 /config/credentials/*.key
 /docs/http_requests/git_api/http-client.private.env.json
+
+.byebug_history
