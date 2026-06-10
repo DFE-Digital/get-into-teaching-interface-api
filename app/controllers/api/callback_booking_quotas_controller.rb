@@ -3,7 +3,7 @@ class API::CallbackBookingQuotasController < API::ApplicationController
     data = Rails.cache.fetch(**cache_options.to_h) do
       crm_client.callback_booking_quotas.all
     end
-    render json: { data: data }
+    render json: data
   end
 
   private

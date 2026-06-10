@@ -21,13 +21,12 @@ RSpec.describe "GET /api/privacy_policies/:id", type: :request do
       it "returns a data envelope containing the object data" do
         get(api_privacy_policy_path('example-id'), headers:)
         body = response.parsed_body
-        expect(body).to have_key("data")
-        expect(body["data"]).to be_an(Hash)
+        expect(body).to be_an(Hash)
       end
 
       it "returns items with id and value fields" do
         get(api_privacy_policy_path('example-id'), headers:)
-        item = response.parsed_body["data"]
+        item = response.parsed_body
         expect(item).to include("id", "text", "created_at")
       end
     end
@@ -116,24 +115,16 @@ RSpec.describe "GET /api/privacy_policies/:id", type: :request do
 
         schema type: :object,
                properties: {
-                 data: {
-                   type: :object,
-                   properties: {
-                     id: { type: :string },
-                     text: { type: :string },
-                     created_at: { type: :string },
-
-                   },
-                   required: [ :id, :text, :created_at ],
-                 },
-               }
+                 id: { type: :string },
+                 text: { type: :string },
+                 created_at: { type: :string },
+               },
+               required: [ :id, :text, :created_at ]
 
         example 'application/json', "4872c8ed-0229-f111-8342-7c1e5285e3ab", {
-          data: {
-            id: "4872c8ed-0229-f111-8342-7c1e5285e3ab",
-            text: "This is a demo privacy policy for testing purposes.",
-            created_at: "2026-04-30T09:36:47.357Z",
-          },
+          id: "4872c8ed-0229-f111-8342-7c1e5285e3ab",
+          text: "This is a demo privacy policy for testing purposes.",
+          created_at: "2026-04-30T09:36:47.357Z",
         }
 
         run_test!

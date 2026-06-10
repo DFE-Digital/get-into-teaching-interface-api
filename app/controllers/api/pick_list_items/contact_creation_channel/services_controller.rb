@@ -3,7 +3,7 @@ class API::PickListItems::ContactCreationChannel::ServicesController < API::Appl
     data = Rails.cache.fetch(**cache_options.to_h) do
       crm_client.pick_list_items.contact_creation_channel.services.all
     end
-    render json: { data: data }
+    render json: data
   end
 
   private
