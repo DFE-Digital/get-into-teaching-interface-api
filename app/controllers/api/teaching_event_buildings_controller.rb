@@ -3,7 +3,7 @@ class API::TeachingEventBuildingsController < API::ApplicationController
     data = Rails.cache.fetch(**cache_options.to_h) do
       crm_client.teaching_event_buildings.all
     end
-    render json: { data: data }
+    render json: data
   end
 
   private

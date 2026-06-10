@@ -3,7 +3,7 @@ class API::PrivacyPoliciesController < API::ApplicationController
     data = Rails.cache.fetch(**cache_options.to_h) do
       crm_client.privacy_policies.find(params[:id])
     end
-    render json: { data: data }
+    render json: data
   end
 
   private

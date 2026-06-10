@@ -3,7 +3,7 @@ class API::PickListItems::PastTeachingPosition::EducationPhasesController < API:
     data = Rails.cache.fetch(**cache_options.to_h) do
       crm_client.pick_list_items.past_teaching_position.education_phases.all
     end
-    render json: { data: data }
+    render json: data
   end
 
   private

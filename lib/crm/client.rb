@@ -1,6 +1,6 @@
 module CRM
   class Client
-    def initialize(adapter: CRM::Adapters::Demo::Client.new)
+    def initialize(adapter: Adapters::GetIntoTeaching::Client.new)
       @adapter = adapter
     end
 

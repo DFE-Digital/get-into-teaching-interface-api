@@ -3,7 +3,7 @@ class API::PickListItems::Candidate::HasQualifiedTeacherStatusesController < API
     data = Rails.cache.fetch(**cache_options.to_h) do
       crm_client.pick_list_items.candidate.has_qualified_teacher_statuses.all
     end
-    render json: { data: data }
+    render json: data
   end
 
   private

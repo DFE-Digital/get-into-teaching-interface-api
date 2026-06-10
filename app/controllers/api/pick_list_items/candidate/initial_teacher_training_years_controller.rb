@@ -3,7 +3,7 @@ class API::PickListItems::Candidate::InitialTeacherTrainingYearsController < API
     data = Rails.cache.fetch(**cache_options.to_h) do
       crm_client.pick_list_items.candidate.initial_teacher_training_years.all
     end
-    render json: { data: data }
+    render json: data
   end
 
   private

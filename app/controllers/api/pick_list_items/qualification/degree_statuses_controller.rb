@@ -3,7 +3,7 @@ class API::PickListItems::Qualification::DegreeStatusesController < API::Applica
     data = Rails.cache.fetch(**cache_options.to_h) do
       crm_client.pick_list_items.qualification.degree_statuses.all
     end
-    render json: { data: data }
+    render json: data
   end
 
   private
