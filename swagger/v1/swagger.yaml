@@ -13,6 +13,8 @@ tags:
   description: Endpoints for privacy policies
 - name: Teaching Event Buildings
   description: Endpoints for teaching event buildings
+- name: Teacher Training Adviser
+  description: Endpoints for the teacher training adviser service
 security:
 - bearerAuth: []
 paths:
@@ -887,6 +889,98 @@ paths:
                 image_url: null
         401:
           $ref: "#/components/responses/Unauthorized"
+  "/api/teacher_training_adviser/candidates":
+    post:
+      tags:
+      - Teacher Training Adviser
+      summary: Sign up a candidate for the Teacher Training Adviser service.
+      operationId: SignUpTeacherTrainingAdviserCandidate
+      requestBody:
+        description: Candidate to sign up for the Teacher Training Adviser service.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TeacherTrainingAdviserSignUp"
+            example:
+              first_name: "John"
+              last_name: "Doe"
+              date_of_birth: "2000-01-01"
+              email: "johndoe@example.com"
+              address_telephone: "07735 111111"
+              address_postcode: " BN1 1AA"
+              country_id: "38ce2d0f-0b1f-ee11-9967-6045bd8c5762"
+              degree_subject: "Mathematics"
+              uk_degree_grade_id: 222750001
+              degree_status_id: 222750000
+              degree_type_id: 222750000
+              has_gcse_maths_and_english_id: 222750000
+              planning_to_retake_gcse_maths_and_english_id: 222750001
+              has_gcse_science_id: 222750000
+              planning_to_retake_gcse_science_id: 222750001
+              preferred_teaching_subject_id: "b02655a1-2afa-e811-a981-000d3a276620"
+              preferred_education_phase_id: 222750000
+              initial_teacher_training_year_id: 222750001
+              accepted_policy_id: "4872c8ed-0229-f111-8342-7c1e5285e3ab"
+              type_id: 222750000
+              channel_id: 222750049
+              candidate_id: "d85a2f0b-290f-4931-98e2-e7d817ac38f3"
+              qualification_id: "13da3277-c8ba-4b64-a79e-b0a3960c26be"
+              creation_channel_source_id: 222750000
+              creation_channel_service_id: 222750010
+              creation_channel_activity_id: 222750017
+      responses:
+        200:
+          description: successful
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                errors:
+                - "Email has already been taken"
+                - "First name can't be blank"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+  "/api/teacher_training_adviser/matchbacks":
+    post:
+      tags:
+      - Teacher Training Adviser
+      summary: Perform a matchback operation to retrieve a pre-populated sign up for the candidate.
+      operationId: MatchbackCandidate
+      requestBody:
+        description: Candidate details to matchback.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExistingCandidateRequest"
+            example:
+              email: "johndoe@example.com"
+              first_name: "John"
+              last_name: "Doe"
+              date_of_birth: "2000-01-01"
+              reference: "ABC123"
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TeacherTrainingAdviserSignUp"
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                errors:
+                - "Matchback failed: candidate not found"
+        401:
+          $ref: "#/components/responses/Unauthorized"
 components:
   securitySchemes:
     bearerAuth:
@@ -980,6 +1074,106 @@ components:
       required:
       - id
       - venue
+    TeacherTrainingAdviserSignUp:
+      type: object
+      properties:
+        email:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        date_of_birth:
+          type: string
+        address_telephone:
+          type: string
+        address_postcode:
+          type: string
+        country_id:
+          type: string
+        degree_subject:
+          type: string
+        uk_degree_grade_id:
+          type: integer
+        degree_status_id:
+          type: integer
+        degree_type_id:
+          type: integer
+        has_gcse_maths_and_english_id:
+          type: integer
+        planning_to_retake_gcse_maths_and_english_id:
+          type: integer
+        has_gcse_science_id:
+          type: integer
+        planning_to_retake_gcse_science_id:
+          type: integer
+        preferred_teaching_subject_id:
+          type: string
+        preferred_education_phase_id:
+          type: integer
+        initial_teacher_training_year_id:
+          type: integer
+        accepted_policy_id:
+          type: string
+        type_id:
+          type: integer
+        channel_id:
+          type: integer
+        candidate_id:
+          type: string
+        adviser_status_id:
+          type: integer
+        qualification_id:
+          type: string
+        creation_channel_source_id:
+          type: integer
+        creation_channel_service_id:
+          type: integer
+        creation_channel_activity_id:
+          type: integer
+        subject_taught_id:
+          type: string
+        past_teaching_position_id:
+          type: string
+        stage_taught_id:
+          type: integer
+        degree_country:
+          type: string
+        phone_call_scheduled_at:
+          type: string
+        situation:
+          type: integer
+        citizenship:
+          type: integer
+        visa_status:
+          type: integer
+        location:
+          type: integer
+        graduation_year:
+          type: integer
+      required:
+      - first_name
+      - last_name
+      - email
+      - date_of_birth
+      - accepted_policy_id
+      - country_id
+      - type_id
+    ExistingCandidateRequest:
+      type: object
+      properties:
+        email:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        date_of_birth:
+          type: string
+        reference:
+          type: string
+      required:
+      - email
   responses:
     Unauthorized:
       description: unauthorized
