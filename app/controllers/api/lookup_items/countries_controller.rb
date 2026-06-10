@@ -3,7 +3,7 @@ class API::LookupItems::CountriesController < API::ApplicationController
     data = Rails.cache.fetch(**cache_options.to_h) do
       crm_client.lookup_items.countries.all
     end
-    render json: { data: data }
+    render json: data
   end
 
   private
