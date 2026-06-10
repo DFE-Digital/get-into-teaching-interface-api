@@ -19,13 +19,12 @@ RSpec.describe "GET /api/teaching_event_buildings", type: :request do
     it "returns a data envelope containing an array" do
       get(api_teaching_event_buildings_path, headers:)
       body = response.parsed_body
-      expect(body).to have_key("data")
-      expect(body["data"]).to be_an(Array)
+      expect(body).to be_an(Array)
     end
 
     it "returns items with id and value fields" do
       get(api_teaching_event_buildings_path, headers:)
-      item = response.parsed_body["data"].first
+      item = response.parsed_body.first
       expect(item).to include(
                         "venue",
                         "address_line1",

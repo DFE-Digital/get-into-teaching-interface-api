@@ -19,13 +19,12 @@ RSpec.describe "GET /api/lookup_items/degree_countries", type: :request do
     it "returns a data envelope containing an array of degree countries" do
       get(api_lookup_items_degree_countries_path, headers:)
       body = response.parsed_body
-      expect(body).to have_key("data")
-      expect(body["data"]).to be_an(Array)
+      expect(body).to be_an(Array)
     end
 
     it "returns degree countries with id, value, and iso_code fields" do
       get(api_lookup_items_degree_countries_path, headers:)
-      degree_country = response.parsed_body["data"].first
+      degree_country = response.parsed_body.first
       expect(degree_country).to include("id", "value", "iso_code")
     end
   end

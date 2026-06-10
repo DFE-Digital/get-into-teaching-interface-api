@@ -19,13 +19,12 @@ RSpec.describe "GET /api/lookup_items/teaching_subjects", type: :request do
     it "returns a data envelope containing an array of teaching subjects" do
       get(api_lookup_items_teaching_subjects_path, headers:)
       body = response.parsed_body
-      expect(body).to have_key("data")
-      expect(body["data"]).to be_an(Array)
+      expect(body).to be_an(Array)
     end
 
     it "returns teaching subjects with id, value, and iso_code fields" do
       get(api_lookup_items_teaching_subjects_path, headers:)
-      country = response.parsed_body["data"].first
+      country = response.parsed_body.first
       expect(country).to include("id", "value")
     end
   end

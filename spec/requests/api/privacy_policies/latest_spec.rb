@@ -21,14 +21,13 @@ RSpec.describe "GET /api/privacy_policies/latest", type: :request do
       get(api_privacy_policies_latest_path, headers:)
 
       body = response.parsed_body
-      expect(body).to have_key("data")
-      expect(body["data"]).to be_an(Hash)
+      expect(body).to be_a(Hash)
     end
 
     it "returns items with id and value fields" do
       get(api_privacy_policies_latest_path, headers:)
 
-      item = response.parsed_body["data"]
+      item = response.parsed_body
       expect(item).to include("id", "text", "created_at")
     end
   end
