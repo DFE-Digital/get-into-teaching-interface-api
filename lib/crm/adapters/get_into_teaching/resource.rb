@@ -4,6 +4,8 @@ module CRM
       class Resource
         class Error < StandardError; end
         class NotFoundError < Error; end
+        class BadRequestError < Error; end
+        class UnauthorizedError < Error; end
 
         attr_reader :client
 
@@ -46,9 +48,9 @@ module CRM
         def handle_response(response)
           case response.status
           when 400
-            raise Error, "Your request was malformed. #{response.body["error"]}"
+            raise BadRequestError, "Your request was malformed. #{response.body["error"]}"
           when 401
-            raise Error, "You did not supply valid authentication credentials. #{response.body["error"]}"
+            raise UnauthorizedError, "You did not supply valid authentication credentials. #{response.body["error"]}"
           when 403
             raise Error, "You are not allowed to perform that action. #{response.body["error"]}"
           when 422

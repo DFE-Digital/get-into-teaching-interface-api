@@ -979,6 +979,47 @@ paths:
                 - "First name can't be blank"
         401:
           $ref: "#/components/responses/Unauthorized"
+  "/api/teacher_training_adviser/exchange_access_tokens":
+    post:
+      tags:
+      - Teacher Training Adviser
+      summary: Exchange an access token for a full candidate sign-up.
+      operationId: ExchangeAccessToken
+      requestBody:
+        description: Access token and candidate details to exchange.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              access_token: "abc123"
+              email: "johndoe@example.com"
+              first_name: "John"
+              last_name: "Doe"
+              date_of_birth: "2000-01-01"
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                candidateId: "d85a2f0b-290f-4931-98e2-e7d817ac38f3"
+                email: "johndoe@example.com"
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                errors:
+                - "Access token can't be blank"
+                - "Email is invalid"
+        401:
+          $ref: "#/components/responses/Unauthorized"
   "/api/teacher_training_adviser/matchbacks":
     post:
       tags:

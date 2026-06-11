@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     namespace :teacher_training_adviser do
       resources :candidates, only: :create
       resources :matchbacks, only: :create
+      resources :exchange_access_tokens, only: :create
     end
 
     namespace :candidates do
