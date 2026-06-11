@@ -41,4 +41,22 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::TeacherTrainingAdviser
       expect(response.status).to eq(200)
     end
   end
+
+  describe "#exchange_access_token", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/teacher_training_adviser/exchange_access_token" } do
+    let(:token) { "abc123" }
+    let(:body) do
+      {
+        email: "johndoe@example.com",
+        first_name: "John",
+        last_name: "Doe",
+        date_of_birth: "1990-01-01",
+      }
+    end
+
+    it "returns a Faraday response" do
+      response = resource.exchange_access_token(token, body)
+      expect(response).to be_a(Faraday::Response)
+      expect(response.status).to eq(200)
+    end
+  end
 end
