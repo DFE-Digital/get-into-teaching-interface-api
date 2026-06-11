@@ -16,8 +16,8 @@ class API::TeacherTrainingAdviser::MatchbacksController < API::ApplicationContro
   private
 
   def request_params
-    params.expect(
-      matchback: TeacherTrainingAdviser::Matchback::ATTRIBUTES.map { |attr| attr[:name] }
+    params.permit(
+      TeacherTrainingAdviser::Matchback::ATTRIBUTES.map { |attr| attr[:name] }
     )
   end
 

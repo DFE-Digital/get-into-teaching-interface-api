@@ -16,8 +16,8 @@ class API::TeacherTrainingAdviser::CandidatesController < API::ApplicationContro
   private
 
   def request_params
-    params.expect(
-      candidate: TeacherTrainingAdviser::Candidate::ATTRIBUTES.map { |attr| attr[:name] }
+    params.permit(
+      TeacherTrainingAdviser::Candidate::ATTRIBUTES.map { |attr| attr[:name] }
     )
   end
 

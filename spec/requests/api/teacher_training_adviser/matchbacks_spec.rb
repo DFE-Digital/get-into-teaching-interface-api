@@ -6,13 +6,11 @@ RSpec.describe "POST /api/teacher_training_adviser/matchbacks", type: :request d
 
   let(:valid_attributes) do
     {
-      matchback: {
-        email: "test@example.com",
-        first_name: "First Name",
-        last_name: "Last name",
-        date_of_birth: "2000-01-01",
-        reference: "ref",
-      },
+      email: "test@example.com",
+      first_name: "First Name",
+      last_name: "Last name",
+      date_of_birth: "2000-01-01",
+      reference: "ref",
     }
   end
 
