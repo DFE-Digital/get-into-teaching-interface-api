@@ -6,15 +6,13 @@ RSpec.describe "POST /api/teacher_training_adviser/candidates", type: :request d
 
   let(:valid_attributes) do
     {
-      candidate: {
-        email: "test@example.com",
-        first_name: "John",
-        last_name: "Doe",
-        date_of_birth: "1990-01-01",
-        accepted_policy_id: "abc-123",
-        country_id: "uk",
-        type_id: "type-1",
-      },
+      email: "test@example.com",
+      first_name: "John",
+      last_name: "Doe",
+      date_of_birth: "1990-01-01",
+      accepted_policy_id: "abc-123",
+      country_id: "uk",
+      type_id: "type-1",
     }
   end
 
