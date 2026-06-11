@@ -42,6 +42,10 @@ module CRM
         def teacher_training_adviser
           Resources::TeacherTrainingAdviser::Resource.new(self)
         end
+
+        def candidates
+          Resources::CandidatesResource.new(self)
+        end
       end
     end
   end

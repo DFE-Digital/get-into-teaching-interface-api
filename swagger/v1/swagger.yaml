@@ -5,6 +5,8 @@ info:
 tags:
 - name: Callback Booking Quotas
   description: Endpoints for callback booking quotas
+- name: Candidates
+  description: Endpoints for candidate operations
 - name: Lookup Items
   description: Endpoints for lookup items
 - name: Pick List Items
@@ -42,6 +44,39 @@ paths:
                 number_of_bookings: 0
                 quota: 20
                 is_available: true
+        401:
+          $ref: "#/components/responses/Unauthorized"
+  "/api/candidates/access_tokens":
+    post:
+      tags:
+      - Candidates
+      summary: Create an access token for an existing candidate.
+      operationId: CreateCandidateAccessToken
+      requestBody:
+        description: Candidate details to create an access token.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AccessTokenRequest"
+            example:
+              email: "johndoe@example.com"
+              first_name: "John"
+              last_name: "Doe"
+              date_of_birth: "2000-01-01"
+      responses:
+        200:
+          description: successful
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                errors:
+                - "Email can't be blank"
+                - "Email is invalid"
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/lookup_items/countries":
@@ -1171,6 +1206,19 @@ components:
         date_of_birth:
           type: string
         reference:
+          type: string
+      required:
+      - email
+    AccessTokenRequest:
+      type: object
+      properties:
+        email:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        date_of_birth:
           type: string
       required:
       - email

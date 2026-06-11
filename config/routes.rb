@@ -13,6 +13,10 @@ Rails.application.routes.draw do
       resources :matchbacks, only: :create
     end
 
+    namespace :candidates do
+      resources :access_tokens, only: :create
+    end
+
     resources :callback_booking_quotas, only: :index
     namespace :lookup_items do
       resources :countries, only: :index

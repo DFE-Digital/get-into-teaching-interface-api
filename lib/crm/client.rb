@@ -27,5 +27,9 @@ module CRM
     def teacher_training_adviser
       @adapter.teacher_training_adviser
     end
+
+    def candidates
+      @adapter.candidates
+    end
   end
 end
