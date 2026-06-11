@@ -58,7 +58,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/AccessTokenRequest"
+              type: object
             example:
               email: "johndoe@example.com"
               first_name: "John"
@@ -1206,19 +1206,6 @@ components:
         date_of_birth:
           type: string
         reference:
-          type: string
-      required:
-      - email
-    AccessTokenRequest:
-      type: object
-      properties:
-        email:
-          type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-        date_of_birth:
           type: string
       required:
       - email
