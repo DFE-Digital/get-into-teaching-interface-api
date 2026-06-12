@@ -26,4 +26,16 @@ RSpec.describe CRM::Adapters::Demo::Client do
       expect(client.privacy_policies).to be_a(CRM::Adapters::Demo::Resources::PrivacyPoliciesResource)
     end
   end
+
+  describe "#teacher_training_adviser" do
+    it "returns a Demo TeacherTrainingAdviser Resource" do
+      expect(client.teacher_training_adviser).to be_a(CRM::Adapters::Demo::Resources::TeacherTrainingAdviser::Resource)
+    end
+  end
+
+  describe "#candidates" do
+    it "returns a Demo CandidatesResource" do
+      expect(client.candidates).to be_a(CRM::Adapters::Demo::Resources::CandidatesResource)
+    end
+  end
 end

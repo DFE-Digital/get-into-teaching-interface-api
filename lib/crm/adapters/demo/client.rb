@@ -21,6 +21,14 @@ module CRM
         def privacy_policies
           Resources::PrivacyPoliciesResource.new
         end
+
+        def teacher_training_adviser
+          Resources::TeacherTrainingAdviser::Resource.new
+        end
+
+        def candidates
+          Resources::CandidatesResource.new
+        end
       end
     end
   end
