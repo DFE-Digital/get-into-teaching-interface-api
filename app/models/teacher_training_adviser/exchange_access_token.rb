@@ -5,16 +5,11 @@ module TeacherTrainingAdviser
 
     attr_reader :client
 
-    ATTRIBUTES = [
-      { name: :access_token },
-      { name: :email },
-      { name: :first_name },
-      { name: :last_name },
-      { name: :date_of_birth, type: :date },
-    ].freeze
-    ATTRIBUTES.each do |attribute_hash|
-      attribute attribute_hash[:name], attribute_hash.fetch(:type, :string)
-    end
+    attribute :access_token, :string
+    attribute :email, :string
+    attribute :first_name, :string
+    attribute :last_name, :string
+    attribute :date_of_birth, :date
 
     validates :access_token, presence: true
     validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }

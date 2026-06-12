@@ -16,9 +16,8 @@ class API::TeacherTrainingAdviser::ExchangeAccessTokensController < API::Applica
   private
 
   def request_params
-    params.permit(
-      TeacherTrainingAdviser::ExchangeAccessToken::ATTRIBUTES.map { |attr| attr[:name] }
-    )
+    params.require([ :access_token, :email ])
+    params.permit(:access_token, :email, :first_name, :last_name, :date_of_birth)
   end
 
   def client

@@ -30,6 +30,10 @@ module ErrorHandling
       render json: { error: { message: exception.message } }, status: :unauthorized
     end
 
+    rescue_from ActionController::ParameterMissing do |exception|
+      render json: { errors: [ exception.message ] }, status: :bad_request
+    end
+
     private
 
     def not_found_resource_name
