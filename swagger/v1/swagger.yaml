@@ -967,6 +967,12 @@ paths:
       responses:
         200:
           description: successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DegreeStatusResponse"
+              example:
+                degreeStatusId: 222750000
         400:
           description: bad request
           content:
@@ -1238,6 +1244,13 @@ components:
       - accepted_policy_id
       - country_id
       - type_id
+    DegreeStatusResponse:
+      type: object
+      properties:
+        degreeStatusId:
+          type: integer
+      required:
+      - degreeStatusId
     ExistingCandidateRequest:
       type: object
       properties:

@@ -4,8 +4,18 @@ RSpec.describe CRM::Adapters::Demo::Resources::TeacherTrainingAdviser::Resource 
   subject(:resource) { described_class.new }
 
   describe "#create_candidate" do
-    it "returns true" do
-      expect(resource.create_candidate({})).to be(true)
+    let(:result) { resource.create_candidate({}) }
+
+    it "returns a Data object with a body" do
+      expect(result).to respond_to(:body)
+    end
+
+    it "returns a hash from body" do
+      expect(result.body).to be_a(Hash)
+    end
+
+    it "includes degreeStatusId" do
+      expect(result.body).to include("degreeStatusId")
     end
   end
 

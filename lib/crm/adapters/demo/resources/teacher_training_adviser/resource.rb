@@ -53,7 +53,7 @@ module CRM
             }.freeze
 
             def create_candidate(_body)
-              true
+              Data.define(:body).new(body: { "degreeStatusId" => 222750000 })
             end
 
             def exchange_access_token(_token, _body)
