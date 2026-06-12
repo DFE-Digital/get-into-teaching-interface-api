@@ -11,6 +11,10 @@ module CRM
             def matchback(body)
               post_request("api/teacher_training_adviser/candidates/matchback", body:)
             end
+
+            def exchange_access_token(token, body)
+              post_request("api/teacher_training_adviser/candidates/exchange_access_token/#{token}", body:)
+            end
           end
         end
       end

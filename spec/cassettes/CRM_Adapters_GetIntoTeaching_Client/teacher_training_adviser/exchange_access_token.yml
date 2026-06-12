@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://getintoteachingapi-development.test.teacherservices.cloud/api/teacher_training_adviser/candidates/exchange_access_token/abc123
+    body:
+      encoding: UTF-8
+      string: '{"email":"johndoe@example.com","firstName":"John","lastName":"Doe","dateOfBirth":"1990-01-01"}'
+    headers:
+      User-Agent:
+      - Faraday v2.14.1
+      Authorization:
+      - "<AUTH>"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Thu, 11 Jun 2026 09:30:06 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      x-frame-options:
+      - deny
+      x-xss-protection:
+      - 1; mode=block
+      x-content-type-options:
+      - nosniff
+      content-security-policy:
+      - default-src 'self'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"candidateId":"d85a2f0b-290f-4931-98e2-e7d817ac38f3","email":"johndoe@example.com","firstName":"John","lastName":"Doe","dateOfBirth":"1990-01-01"}'
+    http_version:
+  recorded_at: Thu, 11 Jun 2026 09:30:06 GMT
+recorded_with: VCR 6.4.0

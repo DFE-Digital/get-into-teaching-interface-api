@@ -11,6 +11,11 @@ Rails.application.routes.draw do
     namespace :teacher_training_adviser do
       resources :candidates, only: :create
       resources :matchbacks, only: :create
+      post(
+        "candidates/exchange_access_token/:access_token",
+        to: "exchange_access_tokens#create",
+        as: :exchange_access_token,
+      )
     end
 
     namespace :candidates do
