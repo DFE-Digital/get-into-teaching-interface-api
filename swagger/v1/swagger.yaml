@@ -1019,7 +1019,7 @@ paths:
                 type: object
               example:
                 errors:
-                - "Access token can't be blank"
+                - "Email can't be blank"
                 - "Email is invalid"
         401:
           $ref: "#/components/responses/Unauthorized"
