@@ -5,8 +5,8 @@ class API::TeacherTrainingAdviser::CandidatesController < API::ApplicationContro
       request_params:
     )
 
-    if candidate.create
-      render status: 200, json: { response: "OK" }
+    if response = candidate.create
+      render status: 200, json: response.body
     else
       errors = candidate.errors.map { |error| "#{error.attribute} #{error.message}" }
       render status: 400, json: { errors: }
