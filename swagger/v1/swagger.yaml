@@ -979,21 +979,27 @@ paths:
                 - "First name can't be blank"
         401:
           $ref: "#/components/responses/Unauthorized"
-  "/api/teacher_training_adviser/exchange_access_tokens":
+  "/api/teacher_training_adviser/candidates/exchange_access_token/{accessToken}":
     post:
       tags:
       - Teacher Training Adviser
       summary: Exchange an access token for a full candidate sign-up.
-      operationId: ExchangeAccessToken
+      operationId: ExchangeAccessTokenForTeacherTrainingAdviserSignUp
+      parameters:
+      - name: accessToken
+        in: path
+        required: true
+        description: The access token to exchange.
+        schema:
+          type: string
       requestBody:
-        description: Access token and candidate details to exchange.
+        description: Candidate details to exchange.
         required: true
         content:
           application/json:
             schema:
-              type: object
+              $ref: "#/components/schemas/ExistingCandidateRequest"
             example:
-              access_token: "abc123"
               email: "johndoe@example.com"
               first_name: "John"
               last_name: "Doe"
@@ -1004,10 +1010,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-              example:
-                candidateId: "d85a2f0b-290f-4931-98e2-e7d817ac38f3"
-                email: "johndoe@example.com"
+                $ref: "#/components/schemas/TeacherTrainingAdviserSignUp"
         400:
           description: bad request
           content:

@@ -6,7 +6,6 @@ RSpec.describe "POST /api/teacher_training_adviser/exchange_access_tokens", type
 
   let(:valid_attributes) do
     {
-      access_token: "123456",
       email: "test@example.com",
       first_name: "First Name",
       last_name: "Last name",
@@ -15,7 +14,7 @@ RSpec.describe "POST /api/teacher_training_adviser/exchange_access_tokens", type
   end
 
   describe "when the request is valid" do
-    let(:crm_response) { instance_double(Faraday::Response, body: { response: "OK" }) }
+    let(:crm_response) { instance_double(Faraday::Response, body: { "candidateId" => "abc-123", "email" => "test@example.com" }) }
     let(:tta_resource) do
       instance_double(CRM::Adapters::GetIntoTeaching::Resources::TeacherTrainingAdviser::Resource)
     end
@@ -27,7 +26,7 @@ RSpec.describe "POST /api/teacher_training_adviser/exchange_access_tokens", type
     end
 
     it "exchanges the access token and returns the CRM response" do
-      post(api_teacher_training_adviser_exchange_access_tokens_path,
+      post(api_teacher_training_adviser_exchange_access_token_path(access_token: "123456"),
            params: valid_attributes, headers:, as: :json)
       expect(response).to have_http_status(:ok)
       expect(response.content_type).to match(%r{application/json})
@@ -39,7 +38,7 @@ RSpec.describe "POST /api/teacher_training_adviser/exchange_access_tokens", type
     let(:invalid_attributes) { { email: "bad" } }
 
     it "returns validation errors" do
-      post(api_teacher_training_adviser_exchange_access_tokens_path,
+      post(api_teacher_training_adviser_exchange_access_token_path(access_token: "x"),
            params: invalid_attributes, headers:, as: :json)
       expect(response).to have_http_status(:bad_request)
       expect(response.content_type).to match(%r{application/json})
