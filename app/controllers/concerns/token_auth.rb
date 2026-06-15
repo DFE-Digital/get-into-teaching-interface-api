@@ -7,7 +7,7 @@ module TokenAuth
     before_action :require_valid_api_token!
 
     rescue_from NotAuthorisedError do |exception|
-      render_error(exception, :unauthorized)
+      render_errors([ exception.message ], :unauthorized)
     end
   end
 

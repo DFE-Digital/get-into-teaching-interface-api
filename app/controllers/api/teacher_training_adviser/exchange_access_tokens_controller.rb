@@ -8,13 +8,10 @@ class API::TeacherTrainingAdviser::ExchangeAccessTokensController < API::Applica
     if response = exchange.call
       render status: 200, json: response.body
     else
-      errors = exchange.errors.map do |error|
-        {
-          error: "BadRequest",
-          message: "#{error.attribute} #{error.message}",
-        }
+      messages = exchange.errors.map do |error|
+        "#{error.attribute} #{error.message}"
       end
-      render status: 400, json: { errors: }
+      render_errors(messages, :bad_request)
     end
   end
 

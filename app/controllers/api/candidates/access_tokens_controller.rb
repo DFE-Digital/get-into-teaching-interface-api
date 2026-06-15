@@ -8,13 +8,10 @@ class API::Candidates::AccessTokensController < API::ApplicationController
     if access_token.create
       render status: 200, json: { response: "OK" }
     else
-      errors = access_token.errors.map do |error|
-        {
-          error: "BadRequest",
-          message: "#{error.attribute} #{error.message}",
-        }
+      messages = access_token.errors.map do |error|
+        "#{error.attribute} #{error.message}"
       end
-      render status: 400, json: { errors: }
+      render_errors(messages, :bad_request)
     end
   end
 
