@@ -8,8 +8,10 @@ class API::TeacherTrainingAdviser::MatchbacksController < API::ApplicationContro
     if response = matchback.create
       render status: 200, json: response.body
     else
-      errors = matchback.errors.map { |error| "#{error.attribute} #{error.message}" }
-      render status: 400, json: { errors: }
+      messages = matchback.errors.map do |error|
+        "#{error.attribute} #{error.message}"
+      end
+      render_errors(messages, :bad_request)
     end
   end
 
