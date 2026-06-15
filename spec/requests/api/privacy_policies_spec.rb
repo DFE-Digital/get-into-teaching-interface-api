@@ -97,9 +97,11 @@ RSpec.describe "GET /api/privacy_policies/:id", type: :request do
 
       it "returns a human-readable message" do
         get(api_privacy_policy_path('example-id'), headers:)
-        expect(response.parsed_body.dig("error", "message")).to eq(
-                                                                  "The upstream service is currently unavailable. Please try again later."
-                                                                )
+
+        response_error = response.parsed_body["errors"].first["message"]
+        expect(response_error).to eq(
+          "The upstream service is currently unavailable. Please try again later."
+        )
       end
     end
   end

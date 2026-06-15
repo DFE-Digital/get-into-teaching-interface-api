@@ -6,7 +6,9 @@ module TokenAuth
   included do
     before_action :require_valid_api_token!
 
-    rescue_from NotAuthorisedError, with: :render_unauthorised_error
+    rescue_from NotAuthorisedError do |exception|
+      render_error(exception, :unauthorized)
+    end
   end
 
   private
@@ -21,16 +23,5 @@ module TokenAuth
     authenticate_with_http_token do |unhashed_token|
       @current_api_token = APIToken.find_by_unhashed_token(unhashed_token)
     end
-  end
-
-  def render_unauthorised_error(e)
-    render status: :unauthorized, json: {
-      errors: [
-        {
-          error: "Unauthorized",
-          message: e.message,
-        },
-      ],
-    }
   end
 end

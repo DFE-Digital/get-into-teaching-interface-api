@@ -4,4 +4,15 @@ class API::ApplicationController < ActionController::API
   include TokenAuth
   include Cacheable
   include ErrorHandling
+
+  def render_error(message, status)
+    render status:, json: {
+      errors: [
+        {
+          error: status.to_s.camelize,
+          message:,
+        },
+      ],
+    }
+  end
 end

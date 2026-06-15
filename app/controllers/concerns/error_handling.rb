@@ -8,7 +8,7 @@ module ErrorHandling
     # (last-declared wins). Since NotFoundError < Error, both handlers match a NotFoundError;
     # declaring Error first ensures the NotFoundError handler (declared last) takes priority.
     rescue_from CRM::Adapters::GetIntoTeaching::Resource::Error do
-      render json: { error: { message: I18n.t("api.errors.service_unavailable") } }, status: :service_unavailable
+      render_error(I18n.t("api.errors.service_unavailable"), :service_unavailable)
     end
 
     rescue_from CRM::Adapters::GetIntoTeaching::Resource::NotFoundError do
@@ -23,15 +23,15 @@ module ErrorHandling
     end
 
     rescue_from CRM::Adapters::GetIntoTeaching::Resource::BadRequestError do |exception|
-      render json: { error: { message: exception.message } }, status: :bad_request
+      render_error(exception.message, :bad_request)
     end
 
     rescue_from CRM::Adapters::GetIntoTeaching::Resource::UnauthorizedError do |exception|
-      render json: { error: { message: exception.message } }, status: :unauthorized
+      render_error(exception.message, :unauthorized)
     end
 
     rescue_from ActionController::ParameterMissing do |exception|
-      render json: { errors: [ exception.message ] }, status: :bad_request
+      render_error(exception.message, :bad_request)
     end
 
     private

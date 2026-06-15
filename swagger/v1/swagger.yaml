@@ -141,7 +141,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/PickListItem"
+                  $ref: "#/components/schemas/TeachingSubject"
               example:
               - id: "123e4567-e89b-12d3-a456-426614174000"
                 value: "Chemistry"
@@ -1118,12 +1118,19 @@ components:
       type: object
       properties:
         id:
-          type: string
+          type: integer
         value:
           type: string
       required:
       - id
       - value
+    TeachingSubject:
+      type: object
+      properties:
+        id:
+          type: string
+        value:
+          type: string
     PrivacyPolicy:
       type: object
       properties:
