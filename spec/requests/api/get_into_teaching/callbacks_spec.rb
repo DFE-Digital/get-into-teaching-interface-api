@@ -31,9 +31,8 @@ RSpec.describe "POST /api/get_into_teaching/callbacks", type: :request do
 
     it "sends the request and gets CRM response" do
       post(api_get_into_teaching_callbacks_path, params: valid_attributes, headers:, as: :json)
-      expect(response).to have_http_status(:ok)
-      expect(response.content_type).to match(%r{application/json})
-      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:no_content)
+      expect(response.status).to eq(204)
     end
   end
 

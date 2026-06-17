@@ -6,7 +6,7 @@ class API::GetIntoTeaching::CallbacksController < API::ApplicationController
     )
 
     if callback.create
-      render status: 200, json: { response: "OK" }
+      render status: :no_content
     else
       messages = callback.errors.map do |error|
         "#{error.attribute} #{error.message}"

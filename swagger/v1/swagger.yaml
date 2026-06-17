@@ -102,17 +102,8 @@ paths:
               accepted_policy_id: "4872c8ed-0229-f111-8342-7c1e5285e3ab"
               candidate_id: "d85a2f0b-290f-4931-98e2-e7d817ac38f3"
       responses:
-        200:
-          description: successful
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  response:
-                    type: string
-              example:
-                response: "OK"
+        204:
+          description: no content
         400:
           description: bad request
           content:

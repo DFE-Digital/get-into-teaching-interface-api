@@ -48,7 +48,9 @@ module CRM
         def handle_response(response)
           case response.status
           when 400
-            raise BadRequestError, "Your request was malformed. #{response.body["error"]}"
+            # Change this when the C# api returns errors in better format
+            errors = response.body["error"].presence || JSON.parse(response.body)["errors"].presence
+            raise BadRequestError, "Your request was malformed. #{errors}"
           when 401
             raise UnauthorizedError, "You did not supply valid authentication credentials. #{response.body["error"]}"
           when 403
