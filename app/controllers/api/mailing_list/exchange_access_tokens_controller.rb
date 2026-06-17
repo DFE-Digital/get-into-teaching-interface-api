@@ -19,7 +19,14 @@ class API::MailingList::ExchangeAccessTokensController < API::ApplicationControl
 
   def request_params
     params.require([ :access_token, :email ])
-    params.permit(:access_token, :email, :first_name, :last_name, :date_of_birth)
+    params.permit(
+      :access_token,
+      :email,
+      :first_name,
+      :last_name,
+      :date_of_birth,
+      :reference,
+    )
   end
 
   def client
