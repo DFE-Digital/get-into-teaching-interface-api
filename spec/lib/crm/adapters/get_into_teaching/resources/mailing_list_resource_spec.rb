@@ -1,0 +1,30 @@
+require "rails_helper"
+
+RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::MailingListResource do
+  let(:client) { CRM::Adapters::GetIntoTeaching::Client.new }
+
+  subject(:resource) { described_class.new(client) }
+
+  describe "#create_member", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/mailing_list/members" } do
+    let(:body) do
+      {
+        email: "johndoe@example.com",
+        firstName: "John",
+        lastName: "Doe",
+        acceptedPolicyId: "4872c8ed-0229-f111-8342-7c1e5285e3ab",
+        considerationJourneyStageId: 222750000,
+        preferredTeachingSubjectId: "b02655a1-2afa-e811-a981-000d3a276620",
+        addressPostcode: "BN1 1AA",
+        graduationYear: 2028,
+        degreeStatusId: 222750000,
+        candidateId: "d85a2f0b-290f-4931-98e2-e7d817ac38f3",
+      }
+    end
+
+    it "returns a Faraday response" do
+      response = resource.create_member(body)
+      expect(response).to be_a(Faraday::Response)
+      expect(response.status).to eq(200)
+    end
+  end
+end

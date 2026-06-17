@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://getintoteachingapi-development.test.teacherservices.cloud/api/mailing_list/members
+    body:
+      encoding: UTF-8
+      string: '{"email":"johndoe@example.com","firstName":"John","lastName":"Doe","acceptedPolicyId":"4872c8ed-0229-f111-8342-7c1e5285e3ab","considerationJourneyStageId":222750000,"preferredTeachingSubjectId":"b02655a1-2afa-e811-a981-000d3a276620","addressPostcode":"BN1
+        1AA","graduationYear":2028,"degreeStatusId":222750000,"candidateId":"d85a2f0b-290f-4931-98e2-e7d817ac38f3"}'
+    headers:
+      User-Agent:
+      - Faraday v2.14.2
+      Authorization:
+      - "<AUTH>"
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 17 Jun 2026 11:08:46 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"degreeStatusId":222750003}'
+  recorded_at: Wed, 17 Jun 2026 11:08:46 GMT
+recorded_with: VCR 6.4.0

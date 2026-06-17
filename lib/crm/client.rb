@@ -31,5 +31,9 @@ module CRM
     def candidates
       @adapter.candidates
     end
+
+    def mailing_list
+      @adapter.mailing_list
+    end
   end
 end
