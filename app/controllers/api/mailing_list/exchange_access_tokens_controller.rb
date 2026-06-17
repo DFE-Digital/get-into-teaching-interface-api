@@ -1,6 +1,6 @@
-class API::TeacherTrainingAdviser::ExchangeAccessTokensController < API::ApplicationController
+class API::MailingList::ExchangeAccessTokensController < API::ApplicationController
   def create
-    exchange = TeacherTrainingAdviser::ExchangeAccessToken.new(
+    exchange = MailingList::ExchangeAccessToken.new(
       client:,
       request_params:
     )
@@ -19,14 +19,7 @@ class API::TeacherTrainingAdviser::ExchangeAccessTokensController < API::Applica
 
   def request_params
     params.require([ :access_token, :email ])
-    params.permit(
-      :access_token,
-      :email,
-      :first_name,
-      :last_name,
-      :date_of_birth,
-      :reference,
-    )
+    params.permit(:access_token, :email, :first_name, :last_name, :date_of_birth)
   end
 
   def client

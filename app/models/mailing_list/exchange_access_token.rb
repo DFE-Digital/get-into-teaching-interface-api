@@ -1,4 +1,4 @@
-module TeacherTrainingAdviser
+module MailingList
   class ExchangeAccessToken
     include ActiveModel::Model
     include ActiveModel::Attributes
@@ -21,7 +21,7 @@ module TeacherTrainingAdviser
     end
 
     def call
-      valid? && client.teacher_training_adviser.exchange_access_token(access_token, body)
+      valid? && client.mailing_list.exchange_access_token(access_token, body)
     end
 
     private
