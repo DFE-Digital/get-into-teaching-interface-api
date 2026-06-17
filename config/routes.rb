@@ -20,6 +20,11 @@ Rails.application.routes.draw do
 
     namespace :mailing_list do
       resources :members, only: :create
+      post(
+        "members/exchange_access_token/:access_token",
+        to: "exchange_access_tokens#create",
+        as: :exchange_access_token,
+      )
     end
 
     namespace :candidates do

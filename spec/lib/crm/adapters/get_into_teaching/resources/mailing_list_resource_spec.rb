@@ -2,7 +2,6 @@ require "rails_helper"
 
 RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::MailingListResource do
   let(:client) { CRM::Adapters::GetIntoTeaching::Client.new }
-
   subject(:resource) { described_class.new(client) }
 
   describe "#create_member", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/mailing_list/members" } do
@@ -23,6 +22,24 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::MailingListResource do
 
     it "returns a Faraday response" do
       response = resource.create_member(body)
+      expect(response).to be_a(Faraday::Response)
+      expect(response.status).to eq(200)
+    end
+  end
+
+  describe "#exchange_access_token", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/mailing_list/exchange_access_token" } do
+    let(:token) { "abc123" }
+    let(:body) do
+      {
+        email: "johndoe@example.com",
+        firstName: "John",
+        lastName: "Doe",
+        dateOfBirth: "1990-01-01",
+      }
+    end
+
+    it "returns a Faraday response" do
+      response = resource.exchange_access_token(token, body)
       expect(response).to be_a(Faraday::Response)
       expect(response.status).to eq(200)
     end
