@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://getintoteachingapi-development.test.teacherservices.cloud/api/mailing_list/members/exchange_access_token/abc123
+    body:
+      encoding: UTF-8
+      string: '{"email":"johndoe@example.com","firstName":"John","lastName":"Doe","dateOfBirth":"1990-01-01"}'
+    headers:
+      User-Agent:
+      - Faraday v2.14.1
+      Authorization:
+      - "<AUTH>"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Thu, 11 Jun 2026 09:30:06 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      x-frame-options:
+      - deny
+      x-xss-protection:
+      - 1; mode=block
+      x-content-type-options:
+      - nosniff
+      content-security-policy:
+      - default-src 'self'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"candidateId":"551fee4b-9b6c-4cfc-a579-ed9bf9bcadbb","qualificationId":"72a05d00-60b5-49f3-b85e-f80f0d597c15","subjectTaughtId":null,"pastTeachingPositionId":null,"preferredTeachingSubjectId":"b02655a1-2afa-e811-a981-000d3a276620","countryId":"72f5c2e6-74f9-e811-a97a-000d3a2760f2","acceptedPolicyId":null,"typeId":222750000,"ukDegreeGradeId":222750002,"degreeTypeId":222750000,"initialTeacherTrainingYearId":22304,"stageTaughtId":null,"preferredEducationPhaseId":222750000,"hasGcseMathsAndEnglishId":222750000,"hasGcseScienceId":222750000,"planningToRetakeGcseMathsAndEnglishId":null,"planningToRetakeGcseScienceId":222750001,"adviserStatusId":null,"channelId":null,"degreeCountry":null,"creationChannelSourceId":null,"creationChannelServiceId":null,"creationChannelActivityId":null,"email":"johndoe@example.com","firstName":"john","lastName":"doe","dateOfBirth":"1980-06-06T00:00:00","teacherId":null,"degreeSubject":"Computing","addressTelephone":null,"addressPostcode":"W1 1ED","phoneCallScheduledAt":null,"canSubscribeToTeacherTrainingAdviser":false,"assignmentStatusId":222750001,"defaultContactCreationChannel":222750027,"defaultCreationChannelSourceId":222750003,"defaultCreationChannelServiceId":222750010,"defaultCreationChannelActivityId":null,"graduationYear":null,"inferredGraduationDate":null,"situation":null,"citizenship":null,"visaStatus":null,"location":null,"degreeStatusId":222750000}'
+    http_version:
+  recorded_at: Thu, 11 Jun 2026 09:30:06 GMT
+recorded_with: VCR 6.4.0
