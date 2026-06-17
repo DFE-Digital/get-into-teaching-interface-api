@@ -9,6 +9,8 @@ tags:
   description: Endpoints for candidate operations
 - name: Lookup Items
   description: Endpoints for lookup items
+- name: Mailing List
+  description: Endpoints for the mailing list service
 - name: Pick List Items
   description: Endpoints for pick list items
 - name: Privacy Policies
@@ -147,6 +149,54 @@ paths:
                 value: "Chemistry"
               - id: "223e4567-e89b-12d3-a456-426614174001"
                 value: "Physics"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+  "/api/mailing_list/members":
+    post:
+      tags:
+      - Mailing List
+      summary: Adds a new member to the mailing list.
+      description: |
+        If the candidate_id is specified then the existing candidate will be
+        added to the mailing list, otherwise a new candidate will be created.
+      operationId: AddMailingListMember
+      requestBody:
+        description: Member to add to the mailing list.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MailingListAddMember"
+            example:
+              candidate_id: "d85a2f0b-290f-4931-98e2-e7d817ac38f3"
+              first_name: "John"
+              last_name: "Doe"
+              email: "johndoe@example.com"
+              accepted_policy_id: "4872c8ed-0229-f111-8342-7c1e5285e3ab"
+              consideration_journey_stage_id: 222750000
+              preferred_teaching_subject_id: "b02655a1-2afa-e811-a981-000d3a276620"
+              degree_status_id: 222750000
+              address_postcode: "BN1 1AA"
+              graduation_year: 2028
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DegreeStatusResponse"
+              example:
+                degreeStatusId: 222750000
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                errors:
+                - error: BadRequest
+                  message: "Email can't be blank"
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/adviser_eligibilities":
@@ -1258,6 +1308,48 @@ components:
           type: integer
       required:
       - degreeStatusId
+    MailingListAddMember:
+      type: object
+      properties:
+        candidate_id:
+          type: string
+        accepted_policy_id:
+          type: string
+        consideration_journey_stage_id:
+          type: integer
+        preferred_teaching_subject_id:
+          type: string
+        email:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        address_postcode:
+          type: string
+        degree_status_id:
+          type: integer
+        graduation_year:
+          type: integer
+        welcome_guide_variant:
+          type: string
+        channel_id:
+          type: integer
+        situation:
+          type: integer
+        citizenship:
+          type: integer
+        visa_status:
+          type: integer
+        location:
+          type: integer
+      required:
+      - email
+      - first_name
+      - last_name
+      - accepted_policy_id
+      - consideration_journey_stage_id
+      - preferred_teaching_subject_id
     ExistingCandidateRequest:
       type: object
       properties:

@@ -18,6 +18,10 @@ Rails.application.routes.draw do
       )
     end
 
+    namespace :mailing_list do
+      resources :members, only: :create
+    end
+
     namespace :candidates do
       resources :access_tokens, only: :create
     end

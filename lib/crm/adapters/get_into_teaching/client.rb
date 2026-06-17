@@ -46,6 +46,10 @@ module CRM
         def candidates
           Resources::CandidatesResource.new(self)
         end
+
+        def mailing_list
+          Resources::MailingListResource.new(self)
+        end
       end
     end
   end
