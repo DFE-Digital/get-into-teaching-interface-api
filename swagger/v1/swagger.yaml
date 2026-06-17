@@ -204,7 +204,7 @@ paths:
       tags:
       - Mailing List
       summary: Exchange an access token for a mailing list member sign-up.
-      operationId: ExchangeAccessTokenForMailingListMember
+      operationId: ExchangeAccessTokenForMailingListAddMember
       parameters:
       - name: accessToken
         in: path
