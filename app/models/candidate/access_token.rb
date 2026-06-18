@@ -9,6 +9,7 @@ module Candidate
       { name: :first_name },
       { name: :last_name },
       { name: :date_of_birth, type: :date },
+      { name: :reference },
     ].freeze
 
     ATTRIBUTES.each do |attribute_hash|
