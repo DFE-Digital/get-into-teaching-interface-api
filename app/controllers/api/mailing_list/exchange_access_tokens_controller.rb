@@ -1,6 +1,6 @@
-class API::TeacherTrainingAdviser::ExchangeAccessTokensController < API::ApplicationController
+class API::MailingList::ExchangeAccessTokensController < API::ApplicationController
   def create
-    exchange = TeacherTrainingAdviser::ExchangeAccessToken.new(
+    exchange = MailingList::ExchangeAccessToken.new(
       client:,
       request_params:
     )
