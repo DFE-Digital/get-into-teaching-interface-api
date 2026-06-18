@@ -27,9 +27,7 @@ RSpec.describe "POST /api/candidates/access_tokens", type: :request do
 
     it "sends the request and gets CRM response" do
       post(api_candidates_access_tokens_path, params: valid_attributes, headers:, as: :json)
-      expect(response).to have_http_status(:ok)
-      expect(response.content_type).to match(%r{application/json})
-      expect(response.status).to eq(200)
+      expect(response.status).to eq(204)
     end
   end
 

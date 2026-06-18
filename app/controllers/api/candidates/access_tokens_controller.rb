@@ -6,7 +6,7 @@ class API::Candidates::AccessTokensController < API::ApplicationController
     )
 
     if access_token.create
-      render status: 200, json: { response: "OK" }
+      render status: :no_content
     else
       messages = access_token.errors.map do |error|
         "#{error.attribute} #{error.message}"

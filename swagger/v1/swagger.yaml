@@ -60,15 +60,10 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-            example:
-              email: "johndoe@example.com"
-              first_name: "John"
-              last_name: "Doe"
-              date_of_birth: "2000-01-01"
+              $ref: "#/components/schemas/ExistingCandidateRequest"
       responses:
-        200:
-          description: successful
+        204:
+          description: no content
         400:
           description: bad request
           content:
@@ -77,8 +72,8 @@ paths:
                 type: object
               example:
                 errors:
-                - "Email can't be blank"
-                - "Email is invalid"
+                - error: BadRequest
+                  message: "Email can't be blank"
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/lookup_items/countries":
@@ -167,17 +162,6 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/MailingListAddMember"
-            example:
-              candidate_id: "d85a2f0b-290f-4931-98e2-e7d817ac38f3"
-              first_name: "John"
-              last_name: "Doe"
-              email: "johndoe@example.com"
-              accepted_policy_id: "4872c8ed-0229-f111-8342-7c1e5285e3ab"
-              consideration_journey_stage_id: 222750000
-              preferred_teaching_subject_id: "b02655a1-2afa-e811-a981-000d3a276620"
-              degree_status_id: 222750000
-              address_postcode: "BN1 1AA"
-              graduation_year: 2028
       responses:
         200:
           description: successful
@@ -219,11 +203,6 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/ExistingCandidateRequest"
-            example:
-              email: "johndoe@example.com"
-              first_name: "John"
-              last_name: "Doe"
-              date_of_birth: "2000-01-01"
       responses:
         200:
           description: successful
@@ -241,8 +220,8 @@ paths:
                 type: object
               example:
                 errors:
-                - "Email can't be blank"
-                - "Email is invalid"
+                - error: BadRequest
+                  message: "Email can't be blank"
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/adviser_eligibilities":
@@ -1101,11 +1080,6 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/ExistingCandidateRequest"
-            example:
-              email: "johndoe@example.com"
-              first_name: "John"
-              last_name: "Doe"
-              date_of_birth: "2000-01-01"
       responses:
         200:
           description: successful
@@ -1121,8 +1095,8 @@ paths:
                 type: object
               example:
                 errors:
-                - "Email can't be blank"
-                - "Email is invalid"
+                - error: BadRequest
+                  message: "Email can't be blank"
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/teacher_training_adviser/matchbacks":
@@ -1138,12 +1112,6 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/ExistingCandidateRequest"
-            example:
-              email: "johndoe@example.com"
-              first_name: "John"
-              last_name: "Doe"
-              date_of_birth: "2000-01-01"
-              reference: "ABC123"
       responses:
         200:
           description: successful
@@ -1359,24 +1327,34 @@ components:
       properties:
         candidate_id:
           type: string
+          example: "d85a2f0b-290f-4931-98e2-e7d817ac38f3"
         accepted_policy_id:
           type: string
+          example: "4872c8ed-0229-f111-8342-7c1e5285e3ab"
         consideration_journey_stage_id:
           type: integer
+          example: 222750000
         preferred_teaching_subject_id:
           type: string
+          example: "b02655a1-2afa-e811-a981-000d3a276620"
         email:
           type: string
+          example: "johndoe@example.com"
         first_name:
           type: string
+          example: "John"
         last_name:
           type: string
+          example: "Doe"
         address_postcode:
           type: string
+          example: "BN1 1AA"
         degree_status_id:
           type: integer
+          example: 222750000
         graduation_year:
           type: integer
+          example: 2028
         welcome_guide_variant:
           type: string
         channel_id:
@@ -1401,14 +1379,19 @@ components:
       properties:
         email:
           type: string
+          example: "johndoe@example.com"
         first_name:
           type: string
+          example: "John"
         last_name:
           type: string
+          example: "Doe"
         date_of_birth:
           type: string
+          example: "2000-01-01"
         reference:
           type: string
+          example: "ABC123"
       required:
       - email
   responses:
