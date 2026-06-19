@@ -7,6 +7,8 @@ tags:
   description: Endpoints for callback booking quotas
 - name: Candidates
   description: Endpoints for candidate operations
+- name: Get into Teaching
+  description: Endpoints for the Get into Teaching service
 - name: Lookup Items
   description: Endpoints for lookup items
 - name: Mailing List
@@ -74,6 +76,51 @@ paths:
                 errors:
                 - error: BadRequest
                   message: "Email can't be blank"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+  "/api/get_into_teaching/callbacks":
+    post:
+      tags:
+      - Get into Teaching
+      summary: Schedule a callback for a candidate.
+      description: Queues a candidate upsert job.
+      operationId: BookGetIntoTeachingCallback
+      requestBody:
+        description: Candidate callback details.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GetIntoTeachingCallback"
+            example:
+              email: "johndoe@example.com"
+              first_name: "John"
+              last_name: "Doe"
+              address_telephone: "07735 111111"
+              phone_call_scheduled_at: "2026-06-16T14:00:00Z"
+              talking_points: "I would like to discuss teaching as a career."
+              accepted_policy_id: "4872c8ed-0229-f111-8342-7c1e5285e3ab"
+              candidate_id: "d85a2f0b-290f-4931-98e2-e7d817ac38f3"
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+              example:
+                response: "OK"
+        400:
+          description: bad request
+          content:
+            application/json:
+              example:
+                errors:
+                - "Email can't be blank"
+                - "First name can't be blank"
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/lookup_items/countries":
@@ -1410,6 +1457,33 @@ components:
           example: "ABC123"
       required:
       - email
+    GetIntoTeachingCallback:
+      type: object
+      properties:
+        candidate_id:
+          type: string
+        accepted_policy_id:
+          type: string
+        email:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        address_telephone:
+          type: string
+        phone_call_scheduled_at:
+          type: string
+        talking_points:
+          type: string
+      required:
+      - email
+      - first_name
+      - last_name
+      - address_telephone
+      - phone_call_scheduled_at
+      - talking_points
+      - accepted_policy_id
   responses:
     Unauthorized:
       description: unauthorized
