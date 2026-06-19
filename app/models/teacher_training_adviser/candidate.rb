@@ -36,7 +36,7 @@ module TeacherTrainingAdviser
       { name: :past_teaching_position_id },
       { name: :stage_taught_id },
       { name: :degree_country },
-      { name: :phone_call_scheduled_at, type: :datetime },
+      { name: :phone_call_scheduled_at },
       { name: :situation },
       { name: :citizenship },
       { name: :visa_status },
