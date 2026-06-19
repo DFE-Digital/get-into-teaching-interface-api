@@ -29,6 +29,12 @@ Rails.application.routes.draw do
 
     namespace :get_into_teaching do
       resources :callbacks, only: :create
+      resources :matchbacks, only: :create
+      post(
+        "candidates/exchange_access_token/:access_token",
+        to: "exchange_access_tokens#create",
+        as: :exchange_access_token,
+      )
     end
 
     namespace :candidates do

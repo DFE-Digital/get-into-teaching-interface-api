@@ -19,10 +19,54 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::GetIntoTeachingResourc
       }
     end
 
-    it "returns a Faraday response" do
+    it "returns a Faraday response with no content" do
       response = resource.create_callback(body)
       expect(response).to be_a(Faraday::Response)
       expect(response.status).to eq(204)
+      expect(response.body).to be_empty
+    end
+  end
+
+  describe "#matchback", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/get_into_teaching/matchback" } do
+    let(:body) do
+      {
+        email: "johndoe@example.com",
+        first_name: "John",
+        last_name: "Doe",
+        date_of_birth: "1990-01-01",
+      }
+    end
+
+    it "returns a Faraday response with the candidate body" do
+      response = resource.matchback(body)
+      expect(response).to be_a(Faraday::Response)
+      expect(response.status).to eq(200)
+      expect(response.body).to be_a(Hash)
+      expect(response.body).to include("candidateId", "email", "firstName", "lastName")
+      expect(response.body["email"]).to eq("johndoe@example.com")
+      expect(response.body["firstName"]).to eq("John")
+      expect(response.body["lastName"]).to eq("Doe")
+    end
+  end
+
+  describe "#exchange_access_token", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/get_into_teaching/exchange_access_token" } do
+    let(:token) { "abc123" }
+    let(:body) do
+      {
+        email: "johndoe@example.com",
+        first_name: "John",
+        last_name: "Doe",
+        date_of_birth: "1990-01-01",
+      }
+    end
+
+    it "returns a Faraday response with the candidate body" do
+      response = resource.exchange_access_token(token, body)
+      expect(response).to be_a(Faraday::Response)
+      expect(response.status).to eq(200)
+      expect(response.body).to be_a(Hash)
+      expect(response.body).to include("candidateId", "email", "firstName", "lastName")
+      expect(response.body["candidateId"]).to eq("551fee4b-9b6c-4cfc-a579-ed9bf9bcadbb")
     end
   end
 end
