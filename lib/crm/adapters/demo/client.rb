@@ -33,6 +33,10 @@ module CRM
         def mailing_list
           Resources::MailingListResource.new
         end
+
+        def get_into_teaching
+          Resources::GetIntoTeachingResource.new
+        end
       end
     end
   end

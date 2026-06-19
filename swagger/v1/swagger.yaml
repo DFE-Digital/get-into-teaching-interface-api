@@ -7,6 +7,8 @@ tags:
   description: Endpoints for callback booking quotas
 - name: Candidates
   description: Endpoints for candidate operations
+- name: Get into Teaching
+  description: Endpoints for the Get into Teaching service
 - name: Lookup Items
   description: Endpoints for lookup items
 - name: Mailing List
@@ -70,6 +72,33 @@ paths:
             application/json:
               schema:
                 type: object
+              example:
+                errors:
+                - error: BadRequest
+                  message: "Email can't be blank"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+  "/api/get_into_teaching/callbacks":
+    post:
+      tags:
+      - Get into Teaching
+      summary: Schedule a callback for a candidate.
+      description: Queues a candidate upsert job.
+      operationId: BookGetIntoTeachingCallback
+      requestBody:
+        description: Candidate callback details.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GetIntoTeachingCallback"
+      responses:
+        204:
+          description: no content
+        400:
+          description: bad request
+          content:
+            application/json:
               example:
                 errors:
                 - error: BadRequest
@@ -1029,8 +1058,8 @@ paths:
                 type: object
               example:
                 errors:
-                - "Email has already been taken"
-                - "First name can't be blank"
+                - error: "BadRequest"
+                  message: "Email can't be blank"
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/teacher_training_adviser/candidates/exchange_access_token/{accessToken}":
@@ -1068,7 +1097,7 @@ paths:
                 type: object
               example:
                 errors:
-                - error: BadRequest
+                - error: "BadRequest"
                   message: "Email can't be blank"
         401:
           $ref: "#/components/responses/Unauthorized"
@@ -1100,7 +1129,8 @@ paths:
                 type: object
               example:
                 errors:
-                - "Matchback failed: candidate not found"
+                - error: "BadRequest"
+                  message: "Matchback failed: candidate not found"
         401:
           $ref: "#/components/responses/Unauthorized"
 components:
@@ -1115,18 +1145,23 @@ components:
       properties:
         id:
           type: string
+          format: uuid
         time_slot:
           type: string
         day:
           type: string
         start_at:
           type: string
+          format: date-time
         end_at:
           type: string
+          format: date-time
         number_of_bookings:
           type: integer
+          format: int32
         quota:
           type: integer
+          format: int32
         is_available:
           type: boolean
       required:
@@ -1138,11 +1173,13 @@ components:
       - number_of_bookings
       - quota
       - is_available
+
     Country:
       type: object
       properties:
         id:
           type: string
+          format: uuid
         value:
           type: string
         iso_code:
@@ -1151,41 +1188,50 @@ components:
       - id
       - value
       - iso_code
+
     PickListItem:
       type: object
       properties:
         id:
           type: integer
+          format: int32
         value:
           type: string
       required:
       - id
       - value
+
     TeachingSubject:
       type: object
       properties:
         id:
           type: string
+          format: uuid
         value:
           type: string
+
     PrivacyPolicy:
       type: object
       properties:
         id:
           type: string
+          format: uuid
         text:
           type: string
         created_at:
           type: string
+          format: date-time
       required:
       - id
       - text
       - created_at
+
     TeachingEventBuilding:
       type: object
       properties:
         id:
           type: string
+          format: uuid
         venue:
           type: string
         address_line1:
@@ -1203,6 +1249,7 @@ components:
       required:
       - id
       - venue
+
     TeacherTrainingAdviserSignUp:
       type: object
       properties:
@@ -1217,6 +1264,7 @@ components:
           example: "Doe"
         date_of_birth:
           type: string
+          format: date
           example: "2000-01-01"
         address_telephone:
           type: string
@@ -1226,96 +1274,126 @@ components:
           example: " BN1 1AA"
         country_id:
           type: string
+          format: uuid
           example: "38ce2d0f-0b1f-ee11-9967-6045bd8c5762"
         degree_subject:
           type: string
           example: "Mathematics"
         uk_degree_grade_id:
           type: integer
+          format: int32
           example: 222750001
         degree_status_id:
           type: integer
+          format: int32
           example: 222750000
         degree_type_id:
           type: integer
+          format: int32
           example: 222750000
         has_gcse_maths_and_english_id:
           type: integer
+          format: int32
           example: 222750000
         planning_to_retake_gcse_maths_and_english_id:
           type: integer
+          format: int32
           example: 222750001
         has_gcse_science_id:
           type: integer
+          format: int32
           example: 222750000
         planning_to_retake_gcse_science_id:
           type: integer
+          format: int32
           example: 222750001
         preferred_teaching_subject_id:
           type: string
+          format: uuid
           example: "b02655a1-2afa-e811-a981-000d3a276620"
         preferred_education_phase_id:
           type: integer
+          format: int32
           example: 222750000
         initial_teacher_training_year_id:
           type: integer
+          format: int32
           example: 222750001
         accepted_policy_id:
           type: string
+          format: uuid
           example: "4872c8ed-0229-f111-8342-7c1e5285e3ab"
         type_id:
           type: integer
+          format: int32
           example: 222750000
         channel_id:
           type: integer
+          format: int32
           example: 222750049
         candidate_id:
           type: string
+          format: uuid
           example: "d85a2f0b-290f-4931-98e2-e7d817ac38f3"
         adviser_status_id:
           type: integer
+          format: int32
           example: 222750000
         qualification_id:
           type: string
+          format: uuid
           example: "13da3277-c8ba-4b64-a79e-b0a3960c26be"
         creation_channel_source_id:
           type: integer
+          format: int32
           example: 222750000
         creation_channel_service_id:
           type: integer
+          format: int32
           example: 222750010
         creation_channel_activity_id:
           type: integer
+          format: int32
           example: 222750017
         subject_taught_id:
           type: string
+          format: uuid
           example: "b02655a1-2afa-e811-a981-000d3a276620"
         past_teaching_position_id:
           type: string
+          format: uuid
           example: "13da3277-c8ba-4b64-a79e-b0a3960c26be"
         stage_taught_id:
           type: integer
+          format: int32
           example: 222750000
         degree_country:
           type: string
+          format: uuid
           example: "223e4567-e89b-12d3-a456-426614174001"
         phone_call_scheduled_at:
           type: string
+          format: date-time
           example: "2025-06-01T10:00:00Z"
         situation:
           type: integer
+          format: int32
           example: 222750000
         citizenship:
           type: integer
+          format: int32
           example: 222750000
         visa_status:
           type: integer
+          format: int32
           example: 222750000
         location:
           type: integer
+          format: int32
           example: 222750000
         graduation_year:
           type: integer
+          format: int32
           example: 2028
       required:
       - first_name
@@ -1325,27 +1403,34 @@ components:
       - accepted_policy_id
       - country_id
       - type_id
+
     DegreeStatusResponse:
       type: object
       properties:
         degreeStatusId:
           type: integer
+          format: int32
       required:
       - degreeStatusId
+
     MailingListAddMember:
       type: object
       properties:
         candidate_id:
           type: string
+          format: uuid
           example: "d85a2f0b-290f-4931-98e2-e7d817ac38f3"
         accepted_policy_id:
           type: string
+          format: uuid
           example: "4872c8ed-0229-f111-8342-7c1e5285e3ab"
         consideration_journey_stage_id:
           type: integer
+          format: int32
           example: 222750000
         preferred_teaching_subject_id:
           type: string
+          format: uuid
           example: "b02655a1-2afa-e811-a981-000d3a276620"
         email:
           type: string
@@ -1361,27 +1446,34 @@ components:
           example: "BN1 1AA"
         degree_status_id:
           type: integer
+          format: int32
           example: 222750000
         graduation_year:
           type: integer
+          format: int32
           example: 2028
         welcome_guide_variant:
           type: string
           example: "A"
         channel_id:
           type: integer
+          format: int32
           example: 222750049
         situation:
           type: integer
+          format: int32
           example: 222750000
         citizenship:
           type: integer
+          format: int32
           example: 222750000
         visa_status:
           type: integer
+          format: int32
           example: 222750000
         location:
           type: integer
+          format: int32
           example: 222750000
       required:
       - email
@@ -1390,11 +1482,13 @@ components:
       - accepted_policy_id
       - consideration_journey_stage_id
       - preferred_teaching_subject_id
+
     ExistingCandidateRequest:
       type: object
       properties:
         email:
           type: string
+          format: email
           example: "johndoe@example.com"
         first_name:
           type: string
@@ -1404,12 +1498,60 @@ components:
           example: "Doe"
         date_of_birth:
           type: string
+          format: date-time
           example: "2000-01-01"
         reference:
           type: string
           example: "ABC123"
       required:
       - email
+
+    GetIntoTeachingCallback:
+      type: object
+      properties:
+        candidate_id:
+          type: string
+          format: uuid
+          description: The candidate CRM identifier (optional).
+          example: "d85a2f0b-290f-4931-98e2-e7d817ac38f3"
+        accepted_policy_id:
+          type: string
+          format: uuid
+          description: The privacy policy identifier accepted by the candidate (required).
+          example: "4872c8ed-0229-f111-8342-7c1e5285e3ab"
+        email:
+          type: string
+          description: The candidate email address (required).
+          example: "johndoe@example.com"
+        first_name:
+          type: string
+          description: The candidate first name (required).
+          example: "John"
+        last_name:
+          type: string
+          description: The candidate last name (required).
+          example: "Doe"
+        address_telephone:
+          type: string
+          description: The candidate telephone number (required).
+          example: "07735 111111"
+        phone_call_scheduled_at:
+          type: string
+          format: date-time
+          description: The scheduled date and time for the callback (required).
+          example: "2026-06-16T14:00:00Z"
+        talking_points:
+          type: string
+          description: Notes on what the candidate would like to discuss (required).
+          example: "I would like to discuss teaching as a career."
+      required:
+      - email
+      - first_name
+      - last_name
+      - address_telephone
+      - phone_call_scheduled_at
+      - talking_points
+      - accepted_policy_id
   responses:
     Unauthorized:
       description: unauthorized

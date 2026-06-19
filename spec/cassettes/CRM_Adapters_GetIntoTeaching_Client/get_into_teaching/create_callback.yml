@@ -1,0 +1,40 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://getintoteachingapi-development.test.teacherservices.cloud/api/get_into_teaching/callbacks
+    body:
+      encoding: UTF-8
+      string: '{"email":"johndoe@example.com","firstName":"John","lastName":"Doe","addressTelephone":"07735 111111","phoneCallScheduledAt":"2026-06-16T14:00:00Z","talkingPoints":"I would like to discuss teaching as a career.","acceptedPolicyId":"4872c8ed-0229-f111-8342-7c1e5285e3ab","candidateId":"d85a2f0b-290f-4931-98e2-e7d817ac38f3"}'
+    headers:
+      User-Agent:
+      - Faraday v2.14.2
+      Authorization:
+      - "<AUTH>"
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 204
+      message: No Content
+    headers:
+      date:
+      - Tue, 16 Jun 2026 10:00:00 GMT
+      connection:
+      - keep-alive
+      x-frame-options:
+      - deny
+      x-xss-protection:
+      - 1; mode=block
+      x-content-type-options:
+      - nosniff
+      content-security-policy:
+      - default-src 'self'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version:
+  recorded_at: Tue, 16 Jun 2026 10:00:00 GMT
+recorded_with: VCR 6.4.0

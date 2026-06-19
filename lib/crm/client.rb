@@ -35,5 +35,9 @@ module CRM
     def mailing_list
       @adapter.mailing_list
     end
+
+    def get_into_teaching
+      @adapter.get_into_teaching
+    end
   end
 end

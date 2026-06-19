@@ -27,6 +27,10 @@ Rails.application.routes.draw do
       )
     end
 
+    namespace :get_into_teaching do
+      resources :callbacks, only: :create
+    end
+
     namespace :candidates do
       resources :access_tokens, only: :create
     end
