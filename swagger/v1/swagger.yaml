@@ -119,8 +119,8 @@ paths:
             application/json:
               example:
                 errors:
-                - "Email can't be blank"
-                - "First name can't be blank"
+                - error: BadRequest
+                  message: "Email can't be blank"
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/lookup_items/countries":
@@ -1076,8 +1076,8 @@ paths:
                 type: object
               example:
                 errors:
-                - "Email has already been taken"
-                - "First name can't be blank"
+                - error: "BadRequest"
+                  message: "Email can't be blank"
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/teacher_training_adviser/candidates/exchange_access_token/{accessToken}":
@@ -1115,7 +1115,7 @@ paths:
                 type: object
               example:
                 errors:
-                - error: BadRequest
+                - error: "BadRequest"
                   message: "Email can't be blank"
         401:
           $ref: "#/components/responses/Unauthorized"
@@ -1147,7 +1147,8 @@ paths:
                 type: object
               example:
                 errors:
-                - "Matchback failed: candidate not found"
+                - error: "BadRequest"
+                  message: "Matchback failed: candidate not found"
         401:
           $ref: "#/components/responses/Unauthorized"
 components:
@@ -1462,20 +1463,28 @@ components:
       properties:
         candidate_id:
           type: string
+          description: The candidate CRM identifier (optional).
         accepted_policy_id:
           type: string
+          description: The privacy policy identifier accepted by the candidate (required).
         email:
           type: string
+          description: The candidate email address (required).
         first_name:
           type: string
+          description: The candidate first name (required).
         last_name:
           type: string
+          description: The candidate last name (required).
         address_telephone:
           type: string
+          description: The candidate telephone number (required).
         phone_call_scheduled_at:
           type: string
+          description: The scheduled date and time for the callback (required).
         talking_points:
           type: string
+          description: Notes on what the candidate would like to discuss (required).
       required:
       - email
       - first_name

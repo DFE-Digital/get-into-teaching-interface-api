@@ -4,9 +4,6 @@ class API::GetIntoTeaching::CallbacksController < API::ApplicationController
       client:,
       request_params:
     )
-    # update error responses in swagger
-    # is there a way to show which params are optional and which ones are required?
-    # Add all params of each post request to swagger
 
     if callback.create
       render status: 200, json: { response: "OK" }
