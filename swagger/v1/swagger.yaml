@@ -39,15 +39,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/CallbackBookingQuota"
-              example:
-              - id: "27d74cc7-7fa3-f011-bbd3-000d3a384b51"
-                time_slot: "9:30am - 10am"
-                day: "Thursday 30 April"
-                start_at: "2026-04-30T08:30:00Z"
-                end_at: "2026-04-30T09:00:00Z"
-                number_of_bookings: 0
-                quota: 20
-                is_available: true
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/candidates/access_tokens":
@@ -105,6 +96,79 @@ paths:
                   message: "Email can't be blank"
         401:
           $ref: "#/components/responses/Unauthorized"
+  "/api/get_into_teaching/matchbacks":
+    post:
+      tags:
+      - Get into Teaching
+      summary: Perform a matchback operation to retrieve a pre-populated sign up for the candidate.
+      description: Retrieves an existing candidate record based on the provided details.
+      operationId: GetIntoTeachingMatchback
+      requestBody:
+        description: Candidate details to matchback.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExistingCandidateRequest"
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetIntoTeachingCallback"
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                errors:
+                - error: "BadRequest"
+                  message: "Matchback failed: candidate not found"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+  "/api/get_into_teaching/candidates/exchange_access_token/{accessToken}":
+    post:
+      tags:
+      - Get into Teaching
+      summary: Exchange an access token for a full candidate sign-up.
+      description: Exchanges an access token for a candidate's details to pre-populate a sign-up form.
+      operationId: ExchangeAccessTokenForGetIntoTeaching
+      parameters:
+      - name: accessToken
+        in: path
+        required: true
+        description: The access token to exchange.
+        schema:
+          type: string
+      requestBody:
+        description: Candidate details to exchange.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExistingCandidateRequest"
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetIntoTeachingCallback"
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                errors:
+                - error: "BadRequest"
+                  message: "Email can't be blank"
+        401:
+          $ref: "#/components/responses/Unauthorized"
   "/api/lookup_items/countries":
     get:
       tags:
@@ -120,13 +184,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Country"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "United Kingdom"
-                iso_code: "GB"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "France"
-                iso_code: "FR"
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/lookup_items/degree_countries":
@@ -144,13 +201,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Country"
-              example:
-              - id: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-                value: "United States"
-                iso_code: "US"
-              - id: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-                value: "Canada"
-                iso_code: "CA"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/lookup_items/teaching_subjects":
@@ -168,11 +219,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/TeachingSubject"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Chemistry"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Physics"
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/mailing_list/members":
@@ -198,8 +244,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DegreeStatusResponse"
-              example:
-                degreeStatusId: 222750000
         400:
           description: bad request
           content:
@@ -239,8 +283,6 @@ paths:
             application/json:
               schema:
                 type: object
-              example:
-                degreeStatusId: 222750000
         400:
           description: bad request
           content:
@@ -268,11 +310,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/adviser_requirements":
@@ -290,11 +328,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/assignment_statuses":
@@ -312,11 +346,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/channels":
@@ -334,11 +364,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/citizenships":
@@ -356,11 +382,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/consideration_journey_stages":
@@ -378,11 +400,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/event_subscription_channels":
@@ -400,11 +418,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/gcse_statuses":
@@ -422,11 +436,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/has_qualified_teacher_statuses":
@@ -444,11 +454,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/initial_teacher_training_years":
@@ -466,11 +472,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/locations":
@@ -488,11 +490,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/mailing_list_subscription_channels":
@@ -510,11 +508,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/preferred_education_phases":
@@ -532,11 +526,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/retake_gcse_statuses":
@@ -554,11 +544,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/situations":
@@ -576,11 +562,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/teacher_training_adviser_subscription_channels":
@@ -598,11 +580,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/types":
@@ -620,11 +598,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/visa_statuses":
@@ -642,11 +616,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/contact_creation_channel/activities":
@@ -664,11 +634,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/contact_creation_channel/services":
@@ -686,11 +652,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/contact_creation_channel/sources":
@@ -708,11 +670,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/past_teaching_position/education_phases":
@@ -730,11 +688,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/phone_call/channels":
@@ -752,11 +706,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/qualification/degree_statuses":
@@ -774,11 +724,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/qualification/types":
@@ -796,11 +742,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/qualification/uk_degree_grades":
@@ -818,11 +760,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/service_subscription/types":
@@ -840,11 +778,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/teaching_event/accessibility_items":
@@ -862,11 +796,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/teaching_event/regions":
@@ -884,11 +814,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/teaching_event/registration_channels":
@@ -906,11 +832,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/teaching_event/statuses":
@@ -928,11 +850,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/teaching_event/types":
@@ -950,11 +868,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PickListItem"
-              example:
-              - id: "123e4567-e89b-12d3-a456-426614174000"
-                value: "Example value 1"
-              - id: "223e4567-e89b-12d3-a456-426614174001"
-                value: "Example value 2"
+
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/privacy_policies/latest":
@@ -970,10 +884,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PrivacyPolicy"
-              example:
-                id: "latest"
-                text: "This is a demo privacy policy for testing purposes."
-                created_at: "2026-04-30T09:36:47.357Z"
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/privacy_policies/{id}":
@@ -996,10 +906,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PrivacyPolicy"
-              example:
-                id: "123e4567-e89b-12d3-a456-426614174000"
-                text: "This is a demo privacy policy for testing purposes."
-                created_at: "2026-04-30T09:36:47.357Z"
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/teaching_event_buildings":
@@ -1017,15 +923,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/TeachingEventBuilding"
-              example:
-              - id: "3290fb7f-93b4-eb11-8236-000d3a26ba1b"
-                venue: "The Open University in Wales"
-                address_line1: "Custom House Street"
-                address_line2: null
-                address_line3: null
-                address_city: "Cardiff"
-                address_postcode: "CF10 1AP"
-                image_url: null
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/teacher_training_adviser/candidates":
@@ -1048,8 +945,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DegreeStatusResponse"
-              example:
-                degreeStatusId: 222750000
         400:
           description: bad request
           content:
@@ -1146,24 +1041,32 @@ components:
         id:
           type: string
           format: uuid
+          example: "27d74cc7-7fa3-f011-bbd3-000d3a384b51"
         time_slot:
           type: string
+          example: "9:30am - 10am"
         day:
           type: string
+          example: "Thursday 30 April"
         start_at:
           type: string
           format: date-time
+          example: "2026-04-30T08:30:00Z"
         end_at:
           type: string
           format: date-time
+          example: "2026-04-30T09:00:00Z"
         number_of_bookings:
           type: integer
           format: int32
+          example: 0
         quota:
           type: integer
           format: int32
+          example: 20
         is_available:
           type: boolean
+          example: true
       required:
       - id
       - time_slot
@@ -1180,10 +1083,13 @@ components:
         id:
           type: string
           format: uuid
+          example: "123e4567-e89b-12d3-a456-426614174000"
         value:
           type: string
+          example: "United Kingdom"
         iso_code:
           type: string
+          example: "GB"
       required:
       - id
       - value
@@ -1195,8 +1101,10 @@ components:
         id:
           type: integer
           format: int32
+          example: 222750000
         value:
           type: string
+          example: "Example value"
       required:
       - id
       - value
@@ -1207,8 +1115,10 @@ components:
         id:
           type: string
           format: uuid
+          example: "123e4567-e89b-12d3-a456-426614174000"
         value:
           type: string
+          example: "Chemistry"
 
     PrivacyPolicy:
       type: object
@@ -1216,11 +1126,14 @@ components:
         id:
           type: string
           format: uuid
+          example: "123e4567-e89b-12d3-a456-426614174000"
         text:
           type: string
+          example: "This is a demo privacy policy for testing purposes."
         created_at:
           type: string
           format: date-time
+          example: "2026-04-30T09:36:47.357Z"
       required:
       - id
       - text
@@ -1232,18 +1145,23 @@ components:
         id:
           type: string
           format: uuid
+          example: "3290fb7f-93b4-eb11-8236-000d3a26ba1b"
         venue:
           type: string
+          example: "The Open University in Wales"
         address_line1:
           type: string
+          example: "Custom House Street"
         address_line2:
           type: string
         address_line3:
           type: string
         address_city:
           type: string
+          example: "Cardiff"
         address_postcode:
           type: string
+          example: "CF10 1AP"
         image_url:
           type: string
       required:
@@ -1410,6 +1328,7 @@ components:
         degreeStatusId:
           type: integer
           format: int32
+          example: 222750000
       required:
       - degreeStatusId
 
@@ -1517,33 +1436,68 @@ components:
         accepted_policy_id:
           type: string
           format: uuid
-          description: The privacy policy identifier accepted by the candidate (required).
+          description: The privacy policy identifier accepted by the candidate.
           example: "4872c8ed-0229-f111-8342-7c1e5285e3ab"
         email:
           type: string
-          description: The candidate email address (required).
+          description: The candidate email address.
           example: "johndoe@example.com"
         first_name:
           type: string
-          description: The candidate first name (required).
+          description: The candidate first name.
           example: "John"
         last_name:
           type: string
-          description: The candidate last name (required).
+          description: The candidate last name.
           example: "Doe"
         address_telephone:
           type: string
-          description: The candidate telephone number (required).
+          description: The candidate telephone number.
           example: "07735 111111"
         phone_call_scheduled_at:
           type: string
           format: date-time
-          description: The scheduled date and time for the callback (required).
+          description: The scheduled date and time for the callback.
           example: "2026-06-16T14:00:00Z"
         talking_points:
           type: string
-          description: Notes on what the candidate would like to discuss (required).
+          description: Notes on what the candidate would like to discuss.
           example: "I would like to discuss teaching as a career."
+        creation_channel_source_id:
+          type: integer
+          format: int32
+          description: The source of the creation channel.
+          example: 222750000
+        creation_channel_service_id:
+          type: integer
+          format: int32
+          description: The service of the creation channel.
+          example: 222750010
+        creation_channel_activity_id:
+          type: integer
+          format: int32
+          description: The activity of the creation channel.
+          example: 222750017
+        default_contact_creation_channel:
+          type: integer
+          format: int32
+          description: The default contact creation channel.
+          example: 222750027
+        default_creation_channel_source_id:
+          type: integer
+          format: int32
+          description: The default creation channel source.
+          example: 222750003
+        default_creation_channel_service_id:
+          type: integer
+          format: int32
+          description: The default creation channel service.
+          example: 222750010
+        default_creation_channel_activity_id:
+          type: integer
+          format: int32
+          description: The default creation channel activity.
+          example: 222750017
       required:
       - email
       - first_name
