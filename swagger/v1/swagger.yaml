@@ -102,7 +102,7 @@ paths:
       - Get into Teaching
       summary: Perform a matchback operation to retrieve a pre-populated sign up for the candidate.
       description: Retrieves an existing candidate record based on the provided details.
-      operationId: GetIntoTeachingMatchback
+      operationId: MatchbackGetIntoTeachingCallback
       requestBody:
         description: Candidate details to matchback.
         required: true
@@ -135,7 +135,7 @@ paths:
       - Get into Teaching
       summary: Exchange an access token for a full candidate sign-up.
       description: Exchanges an access token for a candidate's details to pre-populate a sign-up form.
-      operationId: ExchangeAccessTokenForGetIntoTeaching
+      operationId: ExchangeAccessTokenForGetIntoTeachingCallback
       parameters:
       - name: accessToken
         in: path
