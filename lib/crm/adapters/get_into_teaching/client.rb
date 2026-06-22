@@ -54,6 +54,10 @@ module CRM
         def get_into_teaching
           Resources::GetIntoTeachingResource.new(self)
         end
+
+        def schools_experience
+          Resources::SchoolsExperienceResource.new(self)
+        end
       end
     end
   end

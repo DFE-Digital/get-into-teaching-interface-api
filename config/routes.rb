@@ -37,6 +37,10 @@ Rails.application.routes.draw do
       )
     end
 
+    namespace :schools_experience do
+      resources :candidates, only: [ :index, :show, :create ]
+    end
+
     namespace :candidates do
       resources :access_tokens, only: :create
     end

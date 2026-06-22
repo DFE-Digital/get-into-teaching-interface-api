@@ -38,4 +38,10 @@ RSpec.describe CRM::Adapters::Demo::Client do
       expect(client.candidates).to be_a(CRM::Adapters::Demo::Resources::CandidatesResource)
     end
   end
+
+  describe "#schools_experience" do
+    it "returns a Demo SchoolsExperienceResource" do
+      expect(client.schools_experience).to be_a(CRM::Adapters::Demo::Resources::SchoolsExperienceResource)
+    end
+  end
 end

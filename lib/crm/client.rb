@@ -39,5 +39,9 @@ module CRM
     def get_into_teaching
       @adapter.get_into_teaching
     end
+
+    def schools_experience
+      @adapter.schools_experience
+    end
   end
 end
