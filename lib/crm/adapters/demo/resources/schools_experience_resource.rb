@@ -92,6 +92,10 @@ module CRM
             })
           end
 
+          def create_school_experience(_id, _body)
+            Data.define(:body).new(body: {})
+          end
+
           def exchange_access_token(_token, _body)
             Data.define(:body).new(body: {
               "candidateId" => "abc-123",

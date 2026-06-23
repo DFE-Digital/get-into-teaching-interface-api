@@ -31,6 +31,26 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::SchoolsExperienceResou
     end
   end
 
+  describe "#create_school_experience", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/schools_experience/create_school_experience" } do
+    let(:id) { "candidate-123" }
+    let(:body) do
+      {
+        schoolUrn: "123456",
+        durationOfPlacementInDays: 5,
+        dateOfSchoolExperience: "2026-09-15",
+        teachingSubjectId: "subject-1",
+        notes: "Student showed great interest.",
+        schoolName: "Example High School",
+      }
+    end
+
+    it "returns a Faraday response with 204" do
+      response = resource.create_school_experience(id, body)
+      expect(response).to be_a(Faraday::Response)
+      expect(response.status).to eq(204)
+    end
+  end
+
   describe "#exchange_access_token", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/schools_experience/exchange_access_token" } do
     let(:token) { "abc123" }
     let(:body) do

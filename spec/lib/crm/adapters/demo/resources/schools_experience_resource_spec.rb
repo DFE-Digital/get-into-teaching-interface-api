@@ -3,6 +3,18 @@ require "rails_helper"
 RSpec.describe CRM::Adapters::Demo::Resources::SchoolsExperienceResource do
   subject(:resource) { described_class.new }
 
+  describe "#create_school_experience" do
+    let(:result) { resource.create_school_experience("candidate-123", {}) }
+
+    it "returns a Data object with a body" do
+      expect(result).to respond_to(:body)
+    end
+
+    it "returns a hash from body" do
+      expect(result.body).to be_a(Hash)
+    end
+  end
+
   describe "#create_candidate" do
     let(:result) { resource.create_candidate({}) }
 
