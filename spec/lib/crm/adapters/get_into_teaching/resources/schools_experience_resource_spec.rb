@@ -30,4 +30,23 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::SchoolsExperienceResou
       expect(response.body).to include("candidateId", "email", "firstName", "lastName")
     end
   end
+
+  describe "#exchange_access_token", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/schools_experience/exchange_access_token" } do
+    let(:token) { "abc123" }
+    let(:body) do
+      {
+        email: "johndoe@example.com",
+        first_name: "John",
+        last_name: "Doe",
+      }
+    end
+
+    it "returns a Faraday response with the candidate body" do
+      response = resource.exchange_access_token(token, body)
+      expect(response).to be_a(Faraday::Response)
+      expect(response.status).to eq(200)
+      expect(response.body).to be_a(Hash)
+      expect(response.body).to include("candidateId", "email", "firstName", "lastName")
+    end
+  end
 end
