@@ -17,6 +17,8 @@ tags:
   description: Endpoints for pick list items
 - name: Privacy Policies
   description: Endpoints for privacy policies
+- name: Schools Experience
+  description: Endpoints for the schools experience service
 - name: Teaching Event Buildings
   description: Endpoints for teaching event buildings
 - name: Teacher Training Adviser
@@ -908,6 +910,164 @@ paths:
                 $ref: "#/components/schemas/PrivacyPolicy"
         401:
           $ref: "#/components/responses/Unauthorized"
+  "/api/schools_experience/candidates":
+    get:
+      tags:
+      - Schools Experience
+      summary: Retrieves existing SchoolsExperienceSignUps for the candidate ids.
+      operationId: GetSchoolsExperienceSignUps
+      parameters:
+      - name: ids[]
+        in: query
+        description: A collection of Candidate ids.
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+        style: form
+        explode: true
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SchoolsExperienceSignUp"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+    post:
+      tags:
+      - Schools Experience
+      summary: Creates a new candidate for the Schools Experience service.
+      operationId: SignUpSchoolsExperienceCandidate
+      requestBody:
+        description: Candidate to create for the Schools Experience service.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SchoolsExperienceSignUp"
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SchoolsExperienceSignUp"
+        400:
+          description: bad request
+          content:
+            application/json:
+              example:
+                errors:
+                - error: BadRequest
+                  message: "first_name can't be blank"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+  "/api/schools_experience/candidates/{id}":
+    get:
+      tags:
+      - Schools Experience
+      summary: Retrieves a candidate for the Schools Experience service.
+      operationId: GetSchoolsExperienceCandidate
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The id of the candidate.
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SchoolsExperienceSignUp"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        404:
+          description: not found
+  "/api/schools_experience/candidates/exchange_access_token/{accessToken}":
+    post:
+      tags:
+      - Schools Experience
+      summary: Exchange an access token for a full candidate sign-up.
+      description: Exchanges an access token for a candidate's details to pre-populate a sign-up form.
+      operationId: ExchangeAccessTokenForSchoolsExperienceSignUp
+      parameters:
+      - name: accessToken
+        in: path
+        required: true
+        description: The access token to exchange.
+        schema:
+          type: string
+      requestBody:
+        description: Candidate details to exchange.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExistingCandidateRequest"
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SchoolsExperienceSignUp"
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                errors:
+                - error: "BadRequest"
+                  message: "Email can't be blank"
+        401:
+           $ref: "#/components/responses/Unauthorized"
+  "/api/schools_experience/candidates/{id}/school_experience":
+    post:
+      tags:
+      - Schools Experience
+      summary: Adds a school experience to a candidate.
+      operationId: AddSchoolExperience
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The id of the candidate.
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: School experience details to add.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CandidateSchoolExperience"
+      responses:
+        204:
+          description: no content
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                errors:
+                - error: BadRequest
+                  message: "school_urn can't be blank"
+        401:
+          $ref: "#/components/responses/Unauthorized"
   "/api/teaching_event_buildings":
     get:
       tags:
@@ -1138,6 +1298,94 @@ components:
       - id
       - text
       - created_at
+
+    SchoolsExperienceSignUp:
+      type: object
+      properties:
+        email:
+          type: string
+          example: "johndoe@example.com"
+        first_name:
+          type: string
+          example: "John"
+        last_name:
+          type: string
+          example: "Doe"
+        preferred_teaching_subject_id:
+          type: string
+          example: "subject-1"
+        secondary_preferred_teaching_subject_id:
+          type: string
+          example: "subject-2"
+        address_line1:
+          type: string
+          example: "123 Main St"
+        address_line2:
+          type: string
+          example: "Apt 4B"
+        address_line3:
+          type: string
+          example: "Little Whinging"
+        address_city:
+          type: string
+          example: "London"
+        address_state_or_province:
+          type: string
+          example: "London"
+        address_postcode:
+          type: string
+          example: "SW1A 1AA"
+        telephone:
+          type: string
+          example: "01234567890"
+        has_dbs_certificate:
+          type: boolean
+          example: true
+        dbs_certificate_issued_at:
+          type: string
+          example: "2024-01-15"
+        qualification_id:
+          type: string
+          example: "qual-1"
+        degree_status_id:
+          type: string
+          example: "status-1"
+        degree_type_id:
+          type: string
+          example: "type-1"
+        degree_subject:
+          type: string
+          example: "Mathematics"
+        uk_degree_grade_id:
+          type: string
+          example: "grade-1"
+        candidate_id:
+          type: string
+          example: "candidate-1"
+        creation_channel_source_id:
+          type: string
+          example: "source-1"
+        creation_channel_service_id:
+          type: string
+          example: "service-1"
+        creation_channel_activity_id:
+          type: string
+          example: "activity-1"
+        accepted_policy_id:
+          type: string
+          example: "policy-1"
+      required:
+      - email
+      - first_name
+      - last_name
+      - preferred_teaching_subject_id
+      - address_line1
+      - address_city
+      - address_state_or_province
+      - address_postcode
+      - telephone
+      - has_dbs_certificate
+      - accepted_policy_id
 
     TeachingEventBuilding:
       type: object
@@ -1424,6 +1672,35 @@ components:
           example: "ABC123"
       required:
       - email
+
+    CandidateSchoolExperience:
+      type: object
+      properties:
+        school_urn:
+          type: string
+          example: "123456"
+        duration_of_placement_in_days:
+          type: integer
+          format: int32
+          example: 5
+        date_of_school_experience:
+          type: string
+          example: "2026-09-15"
+        teaching_subject_id:
+          type: string
+          example: "subject-1"
+        notes:
+          type: string
+          example: "Student showed great interest in mathematics."
+        school_name:
+          type: string
+          example: "Example High School"
+        status:
+          type: integer
+          format: int32
+          example: 222750000
+      required:
+      - school_urn
 
     GetIntoTeachingCallback:
       type: object

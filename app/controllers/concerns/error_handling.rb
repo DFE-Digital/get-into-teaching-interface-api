@@ -30,6 +30,10 @@ module ErrorHandling
       render_errors([ exception.message ], :unauthorized)
     end
 
+    rescue_from CRM::Adapters::GetIntoTeaching::Resource::Forbidden do |exception|
+      render_errors([ exception.message ], :forbidden)
+    end
+
     rescue_from ActionController::ParameterMissing do |exception|
       render_errors([ exception.message ], :bad_request)
     end

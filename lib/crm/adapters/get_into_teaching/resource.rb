@@ -6,6 +6,7 @@ module CRM
         class NotFoundError < Error; end
         class BadRequestError < Error; end
         class UnauthorizedError < Error; end
+        class Forbidden < Error; end
 
         attr_reader :client
 
@@ -54,7 +55,7 @@ module CRM
           when 401
             raise UnauthorizedError, "You did not supply valid authentication credentials. #{response.body["error"]}"
           when 403
-            raise Error, "You are not allowed to perform that action. #{response.body["error"]}"
+            raise Forbidden, "You are not allowed to perform that action. #{response.body["error"]}"
           when 422
             raise Error, "Your request was well-formed but contained invalid data. #{response.body["errors"]}"
           when 404

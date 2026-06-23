@@ -688,6 +688,13 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
     end
   end
 
+  describe "#schools_experience" do
+    it "returns a GIT SchoolsExperienceResource" do
+      expect(adapter.schools_experience)
+        .to be_a(CRM::Adapters::GetIntoTeaching::Resources::SchoolsExperienceResource)
+    end
+  end
+
   describe "#privacy_policies", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/privacy_policies" } do
     subject(:result) { adapter.privacy_policies.find("4872c8ed-0229-f111-8342-7c1e5285e3ab") }
 

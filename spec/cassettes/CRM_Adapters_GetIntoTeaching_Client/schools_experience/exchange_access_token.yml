@@ -1,0 +1,47 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://getintoteachingapi-development.test.teacherservices.cloud/api/schools_experience/candidates/exchange_access_token/abc123
+    body:
+      encoding: UTF-8
+      string: '{"email":"johndoe@example.com","first_name":"John","last_name":"Doe"}'
+    headers:
+      User-Agent:
+      - Faraday v2.14.2
+      Authorization:
+      - "<AUTH>"
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 22 Jun 2026 12:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"candidateId":"abc-123","email":"johndoe@example.com","firstName":"John","lastName":"Doe","preferredTeachingSubjectId":"subject-1","secondaryPreferredTeachingSubjectId":"subject-2","addressLine1":"123 Main St","addressLine2":"Apt 4B","addressLine3":"Little Whinging","addressCity":"London","addressStateOrProvince":"London","addressPostcode":"SW1A 1AA","telephone":"01234567890","hasDbsCertificate":true,"dbsCertificateIssuedAt":"2024-01-15","qualificationId":"qual-1","degreeStatusId":"status-1","degreeTypeId":"type-1","degreeSubject":"Mathematics","ukDegreeGradeId":"grade-1","creationChannelSourceId":"source-1","creationChannelServiceId":"service-1","creationChannelActivityId":"activity-1","acceptedPolicyId":"policy-1"}'
+  recorded_at: Mon, 22 Jun 2026 12:00:00 GMT
+recorded_with: VCR 6.4.0

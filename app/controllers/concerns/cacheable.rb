@@ -4,8 +4,12 @@ module Cacheable
   CacheOptions = Data.define(:key, :expires_in, :force)
 
   included do
-    def cache_options
-      CacheOptions.new(key: endpoint_cache_key, expires_in: cache_expires_in, force: force_cache_miss?)
+    def cache_options(key: nil)
+      CacheOptions.new(
+        key: key.presence || endpoint_cache_key,
+        expires_in: cache_expires_in,
+        force: force_cache_miss?,
+      )
     end
   end
 
