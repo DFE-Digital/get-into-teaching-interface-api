@@ -914,8 +914,20 @@ paths:
     get:
       tags:
       - Schools Experience
-      summary: Retrieves all candidates for the Schools Experience service.
-      operationId: GetSchoolsExperienceCandidates
+      summary: Retrieves existing SchoolsExperienceSignUps for the candidate ids.
+      operationId: GetSchoolsExperienceSignUps
+      parameters:
+      - name: ids[]
+        in: query
+        description: A collection of Candidate ids.
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+        style: form
+        explode: true
       responses:
         200:
           description: successful

@@ -22,7 +22,7 @@ RSpec.describe "API::SchoolsExperience::Candidates", type: :request do
 
   describe "GET /api/schools_experience/candidates" do
     it "returns a list of candidates" do
-      get(api_schools_experience_candidates_path, headers:)
+      get(api_schools_experience_candidates_path, params: { ids: %w[abc-123 def-456] }, headers:)
       expect(response).to have_http_status(:ok)
       expect(response.content_type).to match(%r{application/json})
       expect(response.parsed_body).to be_an(Array)

@@ -1,7 +1,7 @@
 class API::SchoolsExperience::CandidatesController < API::ApplicationController
   def index
-    data = Rails.cache.fetch(**cache_options.to_h) do
-      client.schools_experience.all
+    data = Rails.cache.fetch(**cache_options(key: request.fullpath).to_h) do
+      client.schools_experience.all(ids: index_params)
     end
     render json: data
   end
@@ -31,13 +31,15 @@ class API::SchoolsExperience::CandidatesController < API::ApplicationController
 
   private
 
+  def index_params
+    params.expect(ids: [])
+  end
+
   def request_params
     params.permit(
       SchoolsExperience::Candidate::ATTRIBUTES.map { |attr| attr[:name] }
     )
   end
-
-private
 
   def client
     @client ||= CRM::Client.new
