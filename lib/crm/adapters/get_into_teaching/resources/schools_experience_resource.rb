@@ -20,6 +20,10 @@ module CRM
           def exchange_access_token(token, body)
             post_request("/api/schools_experience/candidates/exchange_access_token/#{token}", body:)
           end
+
+          def create_school_experience(id, body)
+            post_request("/api/schools_experience/candidates/#{id}/school_experience", body:)
+          end
         end
       end
     end

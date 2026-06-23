@@ -1019,6 +1019,42 @@ paths:
                 - error: "BadRequest"
                   message: "Email can't be blank"
         401:
+           $ref: "#/components/responses/Unauthorized"
+  "/api/schools_experience/candidates/{id}/school_experience":
+    post:
+      tags:
+      - Schools Experience
+      summary: Adds a school experience to a candidate.
+      operationId: AddSchoolExperience
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The id of the candidate.
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: School experience details to add.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CandidateSchoolExperience"
+      responses:
+        204:
+          description: no content
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                errors:
+                - error: BadRequest
+                  message: "school_urn can't be blank"
+        401:
           $ref: "#/components/responses/Unauthorized"
   "/api/teaching_event_buildings":
     get:
@@ -1624,6 +1660,35 @@ components:
           example: "ABC123"
       required:
       - email
+
+    CandidateSchoolExperience:
+      type: object
+      properties:
+        school_urn:
+          type: string
+          example: "123456"
+        duration_of_placement_in_days:
+          type: integer
+          format: int32
+          example: 5
+        date_of_school_experience:
+          type: string
+          example: "2026-09-15"
+        teaching_subject_id:
+          type: string
+          example: "subject-1"
+        notes:
+          type: string
+          example: "Student showed great interest in mathematics."
+        school_name:
+          type: string
+          example: "Example High School"
+        status:
+          type: integer
+          format: int32
+          example: 222750000
+      required:
+      - school_urn
 
     GetIntoTeachingCallback:
       type: object
