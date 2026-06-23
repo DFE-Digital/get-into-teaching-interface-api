@@ -1,8 +1,16 @@
 class API::SchoolsExperience::CandidatesController < API::ApplicationController
   def index
+    data = Rails.cache.fetch(**cache_options.to_h) do
+      client.schools_experience.all
+    end
+    render json: data
   end
 
   def show
+    data = Rails.cache.fetch(**cache_options.to_h) do
+      client.schools_experience.find(params[:id])
+    end
+    render json: data
   end
 
   def create

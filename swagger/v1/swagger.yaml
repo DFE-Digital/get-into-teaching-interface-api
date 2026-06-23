@@ -911,6 +911,22 @@ paths:
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/schools_experience/candidates":
+    get:
+      tags:
+      - Schools Experience
+      summary: Retrieves all candidates for the Schools Experience service.
+      operationId: GetSchoolsExperienceCandidates
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SchoolsExperienceSignUp"
+        401:
+          $ref: "#/components/responses/Unauthorized"
     post:
       tags:
       - Schools Experience
@@ -938,6 +954,70 @@ paths:
                 errors:
                 - error: BadRequest
                   message: "first_name can't be blank"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+  "/api/schools_experience/candidates/{id}":
+    get:
+      tags:
+      - Schools Experience
+      summary: Retrieves a candidate for the Schools Experience service.
+      operationId: GetSchoolsExperienceCandidate
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The id of the candidate.
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SchoolsExperienceSignUp"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        404:
+          description: not found
+  "/api/schools_experience/candidates/exchange_access_token/{accessToken}":
+    post:
+      tags:
+      - Schools Experience
+      summary: Exchange an access token for a full candidate sign-up.
+      description: Exchanges an access token for a candidate's details to pre-populate a sign-up form.
+      operationId: ExchangeAccessTokenForSchoolsExperienceSignUp
+      parameters:
+      - name: accessToken
+        in: path
+        required: true
+        description: The access token to exchange.
+        schema:
+          type: string
+      requestBody:
+        description: Candidate details to exchange.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExistingCandidateRequest"
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SchoolsExperienceSignUp"
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                errors:
+                - error: "BadRequest"
+                  message: "Email can't be blank"
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/teaching_event_buildings":
@@ -1189,13 +1269,13 @@ components:
         secondary_preferred_teaching_subject_id:
           type: string
           example: "subject-2"
-        address_line_1:
+        address_line1:
           type: string
           example: "123 Main St"
-        address_line_2:
+        address_line2:
           type: string
           example: "Apt 4B"
-        address_line_3:
+        address_line3:
           type: string
           example: "Little Whinging"
         address_city:
@@ -1251,7 +1331,7 @@ components:
       - first_name
       - last_name
       - preferred_teaching_subject_id
-      - address_line_1
+      - address_line1
       - address_city
       - address_state_or_province
       - address_postcode

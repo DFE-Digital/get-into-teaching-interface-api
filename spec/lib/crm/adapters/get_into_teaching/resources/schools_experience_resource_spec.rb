@@ -13,7 +13,7 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::SchoolsExperienceResou
         last_name: "Doe",
         preferred_teaching_subject_id: "b02655a1-2afa-e811-a981-000d3a276620",
         accepted_policy_id: "4872c8ed-0229-f111-8342-7c1e5285e3ab",
-        address_line_1: "123 Main St",
+        address_line1: "123 Main St",
         address_city: "London",
         address_state_or_province: "London",
         address_postcode: "SW1A 1AA",

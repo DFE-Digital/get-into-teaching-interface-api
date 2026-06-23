@@ -8,7 +8,7 @@ RSpec.describe SchoolsExperience::Candidate do
       last_name: "Doe",
       preferred_teaching_subject_id: "subject-1",
       accepted_policy_id: "policy-1",
-      address_line_1: "123 Main St",
+      address_line1: "123 Main St",
       address_city: "London",
       address_state_or_province: "London",
       address_postcode: "SW1A 1AA",
@@ -31,7 +31,7 @@ RSpec.describe SchoolsExperience::Candidate do
     it { is_expected.to validate_presence_of(:email) }
     it { is_expected.to validate_presence_of(:preferred_teaching_subject_id) }
     it { is_expected.to validate_presence_of(:accepted_policy_id) }
-    it { is_expected.to validate_presence_of(:address_line_1) }
+    it { is_expected.to validate_presence_of(:address_line1) }
     it { is_expected.to validate_presence_of(:address_city) }
     it { is_expected.to validate_presence_of(:address_state_or_province) }
     it { is_expected.to validate_presence_of(:address_postcode) }

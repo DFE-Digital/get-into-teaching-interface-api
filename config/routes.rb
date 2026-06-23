@@ -39,6 +39,11 @@ Rails.application.routes.draw do
 
     namespace :schools_experience do
       resources :candidates, only: [ :index, :show, :create ]
+      post(
+        "candidates/exchange_access_token/:access_token",
+        to: "exchange_access_tokens#create",
+        as: :exchange_access_token,
+      )
     end
 
     namespace :candidates do

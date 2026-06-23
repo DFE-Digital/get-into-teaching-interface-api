@@ -10,9 +10,9 @@ module SchoolsExperience
       { name: :last_name },
       { name: :preferred_teaching_subject_id },
       { name: :secondary_preferred_teaching_subject_id },
-      { name: :address_line_1 },
-      { name: :address_line_2 },
-      { name: :address_line_3 },
+      { name: :address_line1 },
+      { name: :address_line2 },
+      { name: :address_line3 },
       { name: :address_city },
       { name: :address_state_or_province },
       { name: :address_postcode },
@@ -40,7 +40,7 @@ module SchoolsExperience
     validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
     validates :preferred_teaching_subject_id, presence: true
     validates :accepted_policy_id, presence: true
-    validates :address_line_1, presence: true
+    validates :address_line1, presence: true
     validates :address_city, presence: true
     validates :address_state_or_province, presence: true
     validates :address_postcode, presence: true
