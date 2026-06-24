@@ -15,7 +15,17 @@ RSpec.describe "POST /api/get_into_teaching/matchbacks", type: :request do
   end
 
   describe "when the request is valid" do
-    let(:crm_response) { instance_double(Faraday::Response, body: { "candidateId" => "abc-123" }) }
+    let(:crm_response) do
+      CRM::Resources::GetIntoTeaching::CandidateResource.new(
+        candidate_id: "abc-123", accepted_policy_id: nil, email: "test@example.com",
+        first_name: nil, last_name: nil, address_telephone: nil,
+        phone_call_scheduled_at: nil, talking_points: nil,
+        creation_channel_source_id: nil, creation_channel_service_id: nil,
+        creation_channel_activity_id: nil, default_contact_creation_channel: nil,
+        default_creation_channel_source_id: nil, default_creation_channel_service_id: nil,
+        default_creation_channel_activity_id: nil
+      )
+    end
     let(:get_into_teaching_resource) do
       instance_double(CRM::Adapters::GetIntoTeaching::Resources::GetIntoTeachingResource)
     end
@@ -31,7 +41,7 @@ RSpec.describe "POST /api/get_into_teaching/matchbacks", type: :request do
            params: valid_attributes, headers:, as: :json)
       expect(response).to have_http_status(:ok)
       expect(response.content_type).to match(%r{application/json})
-      expect(response.parsed_body).to eq({ "candidateId" => "abc-123" })
+      expect(response.parsed_body).to include("candidate_id" => "abc-123")
     end
   end
 
