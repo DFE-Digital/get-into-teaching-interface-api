@@ -22,7 +22,7 @@ RSpec.describe "POST /api/teacher_training_adviser/candidates", type: :request d
            params: valid_attributes, headers:, as: :json)
       expect(response).to have_http_status(:ok)
       expect(response.content_type).to match(%r{application/json})
-      expect(response.parsed_body).to include("degreeStatusId" => 222750000)
+      expect(response.parsed_body).to include("degree_status_id" => 222750000)
     end
   end
 
