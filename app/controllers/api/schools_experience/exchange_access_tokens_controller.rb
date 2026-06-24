@@ -5,8 +5,8 @@ class API::SchoolsExperience::ExchangeAccessTokensController < API::ApplicationC
       request_params:
     )
 
-    if response = exchange.call
-      render status: 200, json: response.body
+    if data = exchange.call
+      render status: 200, json: data
     else
       messages = exchange.errors.map do |error|
         "#{error.attribute} #{error.message}"

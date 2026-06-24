@@ -4,6 +4,9 @@ RSpec.describe "API::SchoolsExperience::CandidateSchoolExperiences", type: :requ
   before { Rails.cache.clear }
   include APIHelper
 
+  let(:demo_client) { CRM::Client.new(adapter: CRM::Adapters::Demo::Client.new) }
+  before { allow(CRM::Client).to receive(:new).and_return(demo_client) }
+
   let(:valid_attributes) do
     {
       school_urn: "123456",

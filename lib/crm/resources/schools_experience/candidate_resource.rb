@@ -3,11 +3,15 @@ module CRM
     module SchoolsExperience
       CandidateResource = Data.define(
         :candidate_id,
+        :preferred_teaching_subject_id,
+        :secondary_preferred_teaching_subject_id,
+        :accepted_policy_id,
+        :master_id,
+        :merged,
+        :full_name,
         :email,
         :first_name,
         :last_name,
-        :preferred_teaching_subject_id,
-        :secondary_preferred_teaching_subject_id,
         :address_line1,
         :address_line2,
         :address_line3,
@@ -25,7 +29,10 @@ module CRM
         :creation_channel_source_id,
         :creation_channel_service_id,
         :creation_channel_activity_id,
-        :accepted_policy_id,
+        :default_contact_creation_channel,
+        :default_creation_channel_source_id,
+        :default_creation_channel_service_id,
+        :default_creation_channel_activity_id
       )
     end
   end
