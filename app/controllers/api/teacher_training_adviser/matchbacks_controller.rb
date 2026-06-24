@@ -6,7 +6,7 @@ class API::TeacherTrainingAdviser::MatchbacksController < API::ApplicationContro
     )
 
     if response = matchback.create
-      render status: 200, json: response.body
+      render status: 200, json: response
     else
       messages = matchback.errors.map do |error|
         "#{error.attribute} #{error.message}"
