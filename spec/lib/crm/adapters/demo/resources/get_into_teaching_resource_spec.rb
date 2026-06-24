@@ -14,32 +14,25 @@ RSpec.describe CRM::Adapters::Demo::Resources::GetIntoTeachingResource do
   describe "#exchange_access_token" do
     let(:result) { resource.exchange_access_token("token", {}) }
 
-    it "returns a Data object with a body" do
-      expect(result).to respond_to(:body)
+    it "returns a CandidateResource" do
+      expect(result).to be_a(CRM::Resources::GetIntoTeaching::CandidateResource)
     end
 
-    it "returns a hash from body" do
-      expect(result.body).to be_a(Hash)
-    end
-
-    it "includes the candidateId" do
-      expect(result.body).to include("candidateId")
+    it "includes the candidate_id and email" do
+      expect(result.candidate_id).to be_present
+      expect(result.email).to be_present
     end
   end
 
   describe "#matchback" do
     let(:result) { resource.matchback({}) }
 
-    it "returns a Data object with a body" do
-      expect(result).to respond_to(:body)
+    it "returns a CandidateResource" do
+      expect(result).to be_a(CRM::Resources::GetIntoTeaching::CandidateResource)
     end
 
-    it "returns a hash from body" do
-      expect(result.body).to be_a(Hash)
-    end
-
-    it "includes the candidateId" do
-      expect(result.body).to include("candidateId")
+    it "includes the candidate_id" do
+      expect(result.candidate_id).to be_present
     end
   end
 end

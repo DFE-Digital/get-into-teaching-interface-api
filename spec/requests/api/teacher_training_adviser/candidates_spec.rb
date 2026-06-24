@@ -16,13 +16,28 @@ RSpec.describe "POST /api/teacher_training_adviser/candidates", type: :request d
     }
   end
 
+  let(:crm_response) do
+    CRM::Resources::TeacherTrainingAdviser::DegreeResource.new(
+      degree_status_id: 222750000
+    )
+  end
+  let(:candidate_resource) do
+    instance_double(CRM::Adapters::GetIntoTeaching::Resources::TeacherTrainingAdviser::Resource)
+  end
+  let(:crm_client) { instance_double(CRM::Client, teacher_training_adviser: candidate_resource) }
+
+  before do
+    allow(candidate_resource).to receive(:create_candidate).and_return(crm_response)
+    allow(CRM::Client).to receive(:new).and_return(crm_client)
+  end
+
   describe "when the request is valid" do
     it "creates the candidate and returns the response" do
       post(api_teacher_training_adviser_candidates_path,
            params: valid_attributes, headers:, as: :json)
       expect(response).to have_http_status(:ok)
       expect(response.content_type).to match(%r{application/json})
-      expect(response.parsed_body).to include("degreeStatusId" => 222750000)
+      expect(response.parsed_body).to include("degree_status_id" => 222750000)
     end
   end
 
@@ -41,15 +56,9 @@ RSpec.describe "POST /api/teacher_training_adviser/candidates", type: :request d
   end
 
   describe "when the CRM is unavailable" do
-    let(:candidate_resource) do
-      instance_double(CRM::Adapters::GetIntoTeaching::Resources::TeacherTrainingAdviser::Resource)
-    end
-    let(:crm_client) { instance_double(CRM::Client, teacher_training_adviser: candidate_resource) }
-
     before do
       allow(candidate_resource).to receive(:create_candidate)
                                     .and_raise(CRM::Adapters::GetIntoTeaching::Resource::Error)
-      allow(CRM::Client).to receive(:new).and_return(crm_client)
     end
 
     it "returns 503" do

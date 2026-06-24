@@ -20,10 +20,10 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::MailingListResource do
       }
     end
 
-    it "returns a Faraday response" do
-      response = resource.create_member(body)
-      expect(response).to be_a(Faraday::Response)
-      expect(response.status).to eq(200)
+    it "returns a DegreeResource" do
+      result = resource.create_member(body)
+      expect(result).to be_a(CRM::Resources::TeacherTrainingAdviser::DegreeResource)
+      expect(result.degree_status_id).to eq(222750003)
     end
   end
 
@@ -38,10 +38,10 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::MailingListResource do
       }
     end
 
-    it "returns a Faraday response" do
-      response = resource.exchange_access_token(token, body)
-      expect(response).to be_a(Faraday::Response)
-      expect(response.status).to eq(200)
+    it "returns a CandidateResource" do
+      result = resource.exchange_access_token(token, body)
+      expect(result).to be_a(CRM::Resources::MailingList::CandidateResource)
+      expect(result.candidate_id).to be_present
     end
   end
 end

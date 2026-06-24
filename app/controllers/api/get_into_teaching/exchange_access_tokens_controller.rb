@@ -6,7 +6,7 @@ class API::GetIntoTeaching::ExchangeAccessTokensController < API::ApplicationCon
     )
 
     if response = exchange.call
-      render status: 200, json: response.body
+      render status: 200, json: response
     else
       messages = exchange.errors.map do |error|
         "#{error.attribute} #{error.message}"
@@ -30,6 +30,8 @@ class API::GetIntoTeaching::ExchangeAccessTokensController < API::ApplicationCon
   end
 
   def client
-    @client ||= CRM::Client.new
+    @client ||= CRM::Client.new(
+      adapter: CRM::Adapters::GetIntoTeaching::Client.new,
+    )
   end
 end

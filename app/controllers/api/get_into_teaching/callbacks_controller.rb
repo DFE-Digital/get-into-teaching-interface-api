@@ -22,6 +22,8 @@ private
   end
 
   def client
-    @client ||= CRM::Client.new
+    @client ||= CRM::Client.new(
+      adapter: CRM::Adapters::GetIntoTeaching::Client.new,
+    )
   end
 end

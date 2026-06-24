@@ -5,8 +5,8 @@ class API::TeacherTrainingAdviser::CandidatesController < API::ApplicationContro
       request_params:
     )
 
-    if response = candidate.create
-      render status: 200, json: response.body
+    if data = candidate.create
+      render status: 200, json: data
     else
       messages = candidate.errors.map do |error|
         "#{error.attribute} #{error.message}"
@@ -26,6 +26,8 @@ class API::TeacherTrainingAdviser::CandidatesController < API::ApplicationContro
 private
 
   def client
-    @client ||= CRM::Client.new
+    @client ||= CRM::Client.new(
+      adapter: CRM::Adapters::GetIntoTeaching::Client.new,
+    )
   end
 end

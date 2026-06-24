@@ -6,48 +6,37 @@ RSpec.describe CRM::Adapters::Demo::Resources::TeacherTrainingAdviser::Resource 
   describe "#create_candidate" do
     let(:result) { resource.create_candidate({}) }
 
-    it "returns a Data object with a body" do
-      expect(result).to respond_to(:body)
+    it "returns a DegreeResource" do
+      expect(result).to be_a(CRM::Resources::TeacherTrainingAdviser::DegreeResource)
     end
 
-    it "returns a hash from body" do
-      expect(result.body).to be_a(Hash)
-    end
-
-    it "includes degreeStatusId" do
-      expect(result.body).to include("degreeStatusId")
+    it "includes degree_status_id" do
+      expect(result.degree_status_id).to eq(222750000)
     end
   end
 
   describe "#exchange_access_token" do
     let(:result) { resource.exchange_access_token("token", {}) }
 
-    it "returns a Data object with a body" do
-      expect(result).to respond_to(:body)
+    it "returns a CandidateResource" do
+      expect(result).to be_a(CRM::Resources::TeacherTrainingAdviser::CandidateResource)
     end
 
-    it "returns a hash from body" do
-      expect(result.body).to be_a(Hash)
-    end
-
-    it "includes the candidateId and email" do
-      expect(result.body).to include("candidateId", "email")
+    it "includes the candidate_id and email" do
+      expect(result.candidate_id).to be_present
+      expect(result.email).to be_present
     end
   end
 
   describe "#matchback" do
     let(:result) { resource.matchback({}) }
 
-    it "returns a Data object with a body" do
-      expect(result).to respond_to(:body)
+    it "returns a CandidateResource" do
+      expect(result).to be_a(CRM::Resources::TeacherTrainingAdviser::CandidateResource)
     end
 
-    it "returns a hash from body" do
-      expect(result.body).to be_a(Hash)
-    end
-
-    it "includes the candidateId" do
-      expect(result.body).to include("candidateId")
+    it "includes the candidate_id" do
+      expect(result.candidate_id).to be_present
     end
   end
 end

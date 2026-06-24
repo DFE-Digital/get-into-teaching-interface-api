@@ -18,10 +18,10 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::TeacherTrainingAdviser
       }
     end
 
-    it "returns a Faraday response" do
-      response = resource.create_candidate(body)
-      expect(response).to be_a(Faraday::Response)
-      expect(response.status).to eq(200)
+    it "returns a DegreeResource" do
+      result = resource.create_candidate(body)
+      expect(result).to be_a(CRM::Resources::TeacherTrainingAdviser::DegreeResource)
+      expect(result.degree_status_id).to eq(222750000)
     end
   end
 
@@ -35,10 +35,10 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::TeacherTrainingAdviser
       }
     end
 
-    it "returns a Faraday response" do
-      response = resource.matchback(body)
-      expect(response).to be_a(Faraday::Response)
-      expect(response.status).to eq(200)
+    it "returns a CandidateResource" do
+      result = resource.matchback(body)
+      expect(result).to be_a(CRM::Resources::TeacherTrainingAdviser::CandidateResource)
+      expect(result.candidate_id).to be_present
     end
   end
 
@@ -53,10 +53,10 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::TeacherTrainingAdviser
       }
     end
 
-    it "returns a Faraday response" do
-      response = resource.exchange_access_token(token, body)
-      expect(response).to be_a(Faraday::Response)
-      expect(response.status).to eq(200)
+    it "returns a CandidateResource" do
+      result = resource.exchange_access_token(token, body)
+      expect(result).to be_a(CRM::Resources::TeacherTrainingAdviser::CandidateResource)
+      expect(result.candidate_id).to be_present
     end
   end
 end
