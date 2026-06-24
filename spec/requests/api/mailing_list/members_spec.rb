@@ -27,7 +27,9 @@ RSpec.describe "POST /api/mailing_list/members", type: :request do
 
   describe "when the request is valid" do
     let(:response_double) do
-      instance_double(Faraday::Response, body: { "degreeStatusId" => 222750000 })
+      CRM::Resources::TeacherTrainingAdviser::DegreeResource.new(
+        degree_status_id: 222750000
+      )
     end
 
     before do
@@ -39,7 +41,7 @@ RSpec.describe "POST /api/mailing_list/members", type: :request do
            params: valid_attributes, headers:, as: :json)
       expect(response).to have_http_status(:ok)
       expect(response.content_type).to match(%r{application/json})
-      expect(response.parsed_body).to include("degreeStatusId" => 222750000)
+      expect(response.parsed_body).to include("degree_status_id" => 222750000)
     end
   end
 

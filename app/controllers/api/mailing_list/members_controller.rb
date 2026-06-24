@@ -6,7 +6,7 @@ class API::MailingList::MembersController < API::ApplicationController
     )
 
     if response = member.create
-      render status: 200, json: response.body
+      render status: 200, json: response
     else
       messages = member.errors.map do |error|
         "#{error.attribute} #{error.message}"
@@ -26,6 +26,8 @@ class API::MailingList::MembersController < API::ApplicationController
 private
 
   def client
-    @client ||= CRM::Client.new
+    @client ||= CRM::Client.new(
+      adapter: CRM::Adapters::GetIntoTeaching::Client.new,
+    )
   end
 end

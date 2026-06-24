@@ -1,4 +1,3 @@
-
 module CRM
   module Resources
     module GetIntoTeaching
