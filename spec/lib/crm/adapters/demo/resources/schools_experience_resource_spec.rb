@@ -18,28 +18,24 @@ RSpec.describe CRM::Adapters::Demo::Resources::SchoolsExperienceResource do
   describe "#create_candidate" do
     let(:result) { resource.create_candidate({}) }
 
-    it "returns a Data object with a body" do
-      expect(result).to respond_to(:body)
+    it "returns a CandidateResource instance" do
+      expect(result).to be_a(CRM::Resources::SchoolsExperience::CandidateResource)
     end
 
-    it "returns a hash from body" do
-      expect(result.body).to be_a(Hash)
-    end
-
-    it "includes all sign-up fields" do
-      expect(result.body).to include(
-        "email" => "johndoe@example.com",
-        "firstName" => "John",
-        "lastName" => "Doe",
-        "preferredTeachingSubjectId" => "subject-1",
-        "addressLine1" => "123 Main St",
-        "addressCity" => "London",
-        "addressStateOrProvince" => "London",
-        "addressPostcode" => "SW1A 1AA",
-        "telephone" => "01234567890",
-        "hasDbsCertificate" => true,
-        "acceptedPolicyId" => "policy-1",
-        "candidateId" => "abc-123",
+    it "includes all sign-up fields as members" do
+      expect(result.to_h).to include(
+        email: "johndoe@example.com",
+        first_name: "John",
+        last_name: "Doe",
+        preferred_teaching_subject_id: "subject-1",
+        address_line1: "123 Main St",
+        address_city: "London",
+        address_state_or_province: "London",
+        address_postcode: "SW1A 1AA",
+        telephone: "01234567890",
+        has_dbs_certificate: true,
+        accepted_policy_id: "policy-1",
+        candidate_id: "abc-123",
       )
     end
   end

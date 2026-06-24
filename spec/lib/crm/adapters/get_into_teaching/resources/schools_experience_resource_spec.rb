@@ -22,12 +22,13 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::SchoolsExperienceResou
       }
     end
 
-    it "returns a Faraday response with the candidate body" do
-      response = resource.create_candidate(body)
-      expect(response).to be_a(Faraday::Response)
-      expect(response.status).to eq(201)
-      expect(response.body).to be_a(Hash)
-      expect(response.body).to include("candidateId", "email", "firstName", "lastName")
+    it "returns a CandidateResource with the candidate data" do
+      candidate = resource.create_candidate(body)
+      expect(candidate).to be_a(CRM::Resources::SchoolsExperience::CandidateResource)
+      expect(candidate.candidate_id).to be_present
+      expect(candidate.email).to eq("johndoe@example.com")
+      expect(candidate.first_name).to eq("John")
+      expect(candidate.last_name).to eq("Doe")
     end
   end
 
@@ -61,12 +62,11 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::SchoolsExperienceResou
       }
     end
 
-    it "returns a Faraday response with the candidate body" do
-      response = resource.exchange_access_token(token, body)
-      expect(response).to be_a(Faraday::Response)
-      expect(response.status).to eq(200)
-      expect(response.body).to be_a(Hash)
-      expect(response.body).to include("candidateId", "email", "firstName", "lastName")
+    it "returns a CandidateResource with the candidate data" do
+      candidate = resource.exchange_access_token(token, body)
+      expect(candidate).to be_a(CRM::Resources::SchoolsExperience::CandidateResource)
+      expect(candidate.candidate_id).to be_present
+      expect(candidate.email).to be_present
     end
   end
 end

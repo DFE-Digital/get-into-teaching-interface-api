@@ -14,11 +14,13 @@ module CRM
           end
 
           def create_candidate(body)
-            post_request("/api/schools_experience/candidates", body:)
+            response = post_request("/api/schools_experience/candidates", body:)
+            response_to_type(response, type: CRM::Resources::SchoolsExperience::CandidateResource)
           end
 
           def exchange_access_token(token, body)
-            post_request("/api/schools_experience/candidates/exchange_access_token/#{token}", body:)
+            response = post_request("/api/schools_experience/candidates/exchange_access_token/#{token}", body:)
+            response_to_type(response, type: CRM::Resources::SchoolsExperience::CandidateResource)
           end
 
           def create_school_experience(id, body)

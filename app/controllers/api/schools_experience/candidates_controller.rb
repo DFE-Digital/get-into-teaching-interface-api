@@ -19,8 +19,8 @@ class API::SchoolsExperience::CandidatesController < API::ApplicationController
       request_params:
     )
 
-    if response = candidate.create
-      render status: 201, json: response.body
+    if data = candidate.create
+      render status: 201, json: data
     else
       messages = candidate.errors.map do |error|
         "#{error.attribute} #{error.message}"

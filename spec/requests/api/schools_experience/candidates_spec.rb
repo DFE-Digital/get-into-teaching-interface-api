@@ -4,6 +4,9 @@ RSpec.describe "API::SchoolsExperience::Candidates", type: :request do
   before { Rails.cache.clear }
   include APIHelper
 
+  let(:demo_client) { CRM::Client.new(adapter: CRM::Adapters::Demo::Client.new) }
+  before { allow(CRM::Client).to receive(:new).and_return(demo_client) }
+
   let(:valid_attributes) do
     {
       email: "test@example.com",
@@ -36,7 +39,7 @@ RSpec.describe "API::SchoolsExperience::Candidates", type: :request do
              params: valid_attributes, headers:, as: :json)
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(%r{application/json})
-        expect(response.parsed_body).to include("candidateId")
+        expect(response.parsed_body).to include("candidate_id")
       end
     end
 
