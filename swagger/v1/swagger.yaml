@@ -13,6 +13,8 @@ tags:
   description: Endpoints for lookup items
 - name: Mailing List
   description: Endpoints for the mailing list service
+- name: Operations
+  description: Endpoints for operations and health checks
 - name: Pick List Items
   description: Endpoints for pick list items
 - name: Privacy Policies
@@ -295,6 +297,116 @@ paths:
                 errors:
                 - error: BadRequest
                   message: "Email can't be blank"
+        401:
+           $ref: "#/components/responses/Unauthorized"
+  "/api/operations/backfill_apply_candidates":
+    post:
+      tags:
+      - Operations
+      summary: Triggers a backfill job to sync the CRM with the Apply candidates.
+      description: The backfill will query all candidate information from the Apply API and queue jobs to sync the data with the CRM.
+      operationId: BackfillApplyCandidates
+      parameters:
+      - name: updated_since
+        in: query
+        required: true
+        description: Only candidates updated since this date will be backfilled.
+        example: "2026-06-22T00:00:00Z"
+        schema:
+          type: string
+          format: date-time
+      responses:
+        204:
+          description: no content
+        400:
+          description: bad request
+          content:
+            application/json:
+              example:
+                errors:
+                - error: BadRequest
+                  message: "updated_since is required"
+        401:
+           $ref: "#/components/responses/Unauthorized"
+  "/api/operations/backfill_apply_candidates_from_ids":
+    post:
+      tags:
+      - Operations
+      summary: Triggers a backfill job to sync the CRM with the Apply candidates for specified candidate IDs.
+      description: The backfill will query all candidate information from the Apply API and queue jobs to sync the data with the CRM for the specified candidate IDs.
+      operationId: BackfillApplyCandidatesFromIds
+      requestBody:
+        description: Candidate IDs to backfill.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CandidateIdsRequest"
+      responses:
+        204:
+          description: no content
+        400:
+          description: bad request
+          content:
+            application/json:
+              example:
+                errors:
+                - error: BadRequest
+                  message: "candidate_ids is required"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+  "/api/operations/generate_mapping_info":
+    get:
+      tags:
+      - Operations
+      summary: Generates the mapping information.
+      description: Generates the mapping information describing how the models in the API map to the corresponding entities in Dynamics 365.
+      operationId: GenerateMappingInfo
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MappingInfo"
+  "/api/operations/health_check":
+    get:
+      tags:
+      - Operations
+      summary: Performs a health check.
+      description: Checks the health of the API and its dependencies.
+      operationId: HealthCheck
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                 $ref: "#/components/schemas/HealthCheckResponse"
+  "/api/operations/pause_crm_integration":
+    put:
+      tags:
+      - Operations
+      summary: Temporarily pauses the integration with the CRM.
+      description: The CRM is taken offline for updates occasionally; this can result in errors when the API attempts to call out to the CRM. The CRM can call this endpoint to pause the API -> CRM integration (if not manually resumed it will auto-resume in 6 hours).
+      operationId: PauseCrmIntegration
+      responses:
+        204:
+          description: no content
+        401:
+          $ref: "#/components/responses/Unauthorized"
+  "/api/operations/resume_crm_integration":
+    put:
+      tags:
+      - Operations
+      summary: Resumes the integration with the CRM (after being paused).
+      description: Resumes the API -> CRM integration after it has been paused.
+      operationId: ResumeCrmIntegration
+      responses:
+        204:
+          description: no content
         401:
           $ref: "#/components/responses/Unauthorized"
   "/api/pick_list_items/candidate/adviser_eligibilities":
@@ -1237,6 +1349,17 @@ components:
       - quota
       - is_available
 
+    CandidateIdsRequest:
+      type: object
+      properties:
+        candidate_ids:
+          type: array
+          description: The candidate IDs to backfill.
+          items:
+            type: integer
+            format: int32
+          example: [123, 456, 789]
+
     Country:
       type: object
       properties:
@@ -1783,6 +1906,74 @@ components:
       - phone_call_scheduled_at
       - talking_points
       - accepted_policy_id
+
+    MappingInfo:
+      type: object
+      properties:
+        class:
+          type: string
+          description: The entity class name.
+          example: "Candidate"
+        logical_name:
+          type: string
+          description: The Dynamics 365 logical name.
+          example: "contact"
+        fields:
+          type: object
+          description: The field mappings between the API model and the CRM entity.
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: string
+          example:
+            first_name: "dfe_Firstname"
+            last_name: "dfe_Lastname"
+            email: "emailaddress1"
+        relationships:
+          type: object
+          description: The relationship mappings between the API model and the CRM entity.
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: string
+          example:
+            preferred_teaching_subject_id: "dfe_PreferredTeachingSubjectId"
+
+    HealthCheckResponse:
+      type: object
+      properties:
+        git_commit_sha:
+          type: string
+          description: The Git commit SHA of the deployed version.
+          example: "abc123def456"
+        environment:
+          type: string
+          description: The deployment environment.
+          example: "production"
+        database:
+          type: string
+          description: The database connection status.
+          example: "ok"
+        hangfire:
+          type: string
+          description: The Hangfire job server status.
+          example: "ok"
+        crm:
+          type: string
+          description: The CRM connection status.
+          example: "ok"
+        redis:
+          type: string
+          description: The Redis connection status.
+          example: "ok"
+        notify:
+          type: string
+          description: The GOV.UK Notify service status.
+          example: "ok"
+        status:
+          type: string
+          description: The overall health status.
+          example: "healthy"
   responses:
     Unauthorized:
       description: unauthorized

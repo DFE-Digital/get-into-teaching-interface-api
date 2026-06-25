@@ -1,0 +1,972 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://test.example.com/api/operations/generate_mapping_info
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.14.1
+      Authorization:
+      - "<AUTH>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+    body:
+      encoding: UTF-8
+      string: |
+        [
+          {
+            "class": "GetIntoTeachingApi.Models.Crm.ApplicationChoice",
+            "logical_name": "dfe_applyapplicationchoice",
+            "fields": {
+              "application_form_id": {
+                "name": "dfe_applyapplicationform",
+                "type": "Microsoft.Xrm.Sdk.EntityReference",
+                "reference": "dfe_applyapplicationform"
+              },
+              "status_id": {
+                "name": "dfe_applicationchoicestatus",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "apply_id": {
+                "name": "dfe_applicationchoiceid"
+              },
+              "created_at": {
+                "name": "dfe_createdon"
+              },
+              "updated_at": {
+                "name": "dfe_modifiedon"
+              },
+              "course_name": {
+                "name": "dfe_applicationchoicecoursename"
+              },
+              "course_id": {
+                "name": "dfe_applicationchoicecourseuuid"
+              },
+              "provider": {
+                "name": "dfe_applicationchoiceprovider"
+              },
+              "name": {
+                "name": "dfe_name"
+              }
+            },
+            "relationships": {
+              "interviews": {
+                "name": "dfe_applyapplicationform_dfe_applyapplicationinterview_applyapplicationform",
+                "type": "GetIntoTeachingApi.Models.Crm.ApplicationInterview"
+              }
+            }
+          },
+          {
+            "class": "GetIntoTeachingApi.Models.Crm.ApplicationForm",
+            "logical_name": "dfe_applyapplicationform",
+            "fields": {
+              "candidate_id": {
+                "name": "dfe_contact",
+                "type": "Microsoft.Xrm.Sdk.EntityReference",
+                "reference": "contact"
+              },
+              "phase_id": {
+                "name": "dfe_applyphase",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "status_id": {
+                "name": "dfe_applystatus",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "recruitment_cycle_year_id": {
+                "name": "dfe_recruitmentyear",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "apply_id": {
+                "name": "dfe_applicationformid"
+              },
+              "created_at": {
+                "name": "dfe_createdon"
+              },
+              "updated_at": {
+                "name": "dfe_modifiedon"
+              },
+              "submitted_at": {
+                "name": "dfe_submittedatdate"
+              },
+              "qualifications_completed": {
+                "name": "dfe_qualificationscompleted"
+              },
+              "references_completed": {
+                "name": "dfe_referencescompleted"
+              },
+              "application_choices_completed": {
+                "name": "dfe_applicationchoicescompleted"
+              },
+              "personal_statement_completed": {
+                "name": "dfe_personalstatementcompleted"
+              },
+              "name": {
+                "name": "dfe_name"
+              }
+            },
+            "relationships": {
+              "choices": {
+                "name": "dfe_applyapplicationform_dfe_applyapplicationchoice_applyapplicationform",
+                "type": "GetIntoTeachingApi.Models.Crm.ApplicationChoice"
+              },
+              "references": {
+                "name": "dfe_applyapplicationform_dfe_applyreference_applyapplicationform",
+                "type": "GetIntoTeachingApi.Models.Crm.ApplicationReference"
+              }
+            }
+          },
+          {
+            "class": "GetIntoTeachingApi.Models.Crm.ApplicationInterview",
+            "logical_name": "dfe_applyinterview",
+            "fields": {
+              "application_choice_id": {
+                "name": "dfe_applyapplicationchoice",
+                "type": "Microsoft.Xrm.Sdk.EntityReference",
+                "reference": "dfe_applyapplicationchoice"
+              },
+              "apply_id": {
+                "name": "dfe_interviewid"
+              },
+              "created_at": {
+                "name": "dfe_createdon"
+              },
+              "updated_at": {
+                "name": "dfe_modifiedon"
+              },
+              "scheduled_at": {
+                "name": "dfe_interviewscheduledat"
+              },
+              "cancelled_at": {
+                "name": "dfe_interviewcancelledat"
+              },
+              "name": {
+                "name": "dfe_name"
+              }
+            },
+            "relationships": {}
+          },
+          {
+            "class": "GetIntoTeachingApi.Models.Crm.ApplicationReference",
+            "logical_name": "dfe_applyreference",
+            "fields": {
+              "application_form_id": {
+                "name": "dfe_applyapplicationform",
+                "type": "Microsoft.Xrm.Sdk.EntityReference",
+                "reference": "dfe_applyapplicationform"
+              },
+              "feedback_status_id": {
+                "name": "dfe_referencefeedbackstatus",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "apply_id": {
+                "name": "dfe_referenceid"
+              },
+              "requested_at": {
+                "name": "dfe_requestedat"
+              },
+              "created_at": {
+                "name": "dfe_createdon"
+              },
+              "updated_at": {
+                "name": "dfe_modifiedon"
+              },
+              "type": {
+                "name": "dfe_referencetype"
+              },
+              "name": {
+                "name": "dfe_name"
+              }
+            },
+            "relationships": {}
+          },
+          {
+            "class": "GetIntoTeachingApi.Models.Crm.CallbackBookingQuota",
+            "logical_name": "dfe_callbackbookingquota",
+            "fields": {
+              "time_slot": {
+                "name": "dfe_name"
+              },
+              "day": {
+                "name": "dfe_workingdayname"
+              },
+              "start_at": {
+                "name": "dfe_starttime"
+              },
+              "end_at": {
+                "name": "dfe_endtime"
+              },
+              "number_of_bookings": {
+                "name": "dfe_websitenumberofbookings"
+              },
+              "quota": {
+                "name": "dfe_websitequota"
+              }
+            },
+            "relationships": {}
+          },
+          {
+            "class": "GetIntoTeachingApi.Models.Crm.Candidate",
+            "logical_name": "contact",
+            "fields": {
+              "preferred_teaching_subject_id": {
+                "name": "dfe_preferredteachingsubject01",
+                "type": "Microsoft.Xrm.Sdk.EntityReference",
+                "reference": "dfe_teachingsubjectlist"
+              },
+              "secondary_preferred_teaching_subject_id": {
+                "name": "dfe_preferredteachingsubject02",
+                "type": "Microsoft.Xrm.Sdk.EntityReference",
+                "reference": "dfe_teachingsubjectlist"
+              },
+              "country_id": {
+                "name": "dfe_country",
+                "type": "Microsoft.Xrm.Sdk.EntityReference",
+                "reference": "dfe_country"
+              },
+              "owning_business_unit_id": {
+                "name": "owningbusinessunit",
+                "type": "Microsoft.Xrm.Sdk.EntityReference",
+                "reference": "businessunit"
+              },
+              "master_id": {
+                "name": "masterid",
+                "type": "Microsoft.Xrm.Sdk.EntityReference",
+                "reference": "contact"
+              },
+              "preferred_education_phase_id": {
+                "name": "dfe_preferrededucationphase01",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "initial_teacher_training_year_id": {
+                "name": "dfe_ittyear",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "channel_id": {
+                "name": "dfe_channelcreation",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "has_gcse_english_id": {
+                "name": "dfe_websitehasgcseenglish",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "has_gcse_maths_id": {
+                "name": "dfe_websitehasgcsemaths",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "has_gcse_science_id": {
+                "name": "dfe_websitehasgcsescience",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "planning_to_retake_gcse_english_id": {
+                "name": "dfe_websiteplanningretakeenglishgcse",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "planning_to_retake_gcse_maths_id": {
+                "name": "dfe_websiteplanningretakemathsgcse",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "planning_to_retake_gcse_science_id": {
+                "name": "dfe_websiteplanningretakesciencegcse",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "consideration_journey_stage_id": {
+                "name": "dfe_websitewhereinconsiderationjourney",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "type_id": {
+                "name": "dfe_typeofcandidate",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "assignment_status_id": {
+                "name": "dfe_candidatestatus",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "adviser_eligibility_id": {
+                "name": "dfe_iscandidateeligibleforadviser",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "adviser_requirement_id": {
+                "name": "dfe_isadvisorrequiredos",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "preferred_phone_number_type_id": {
+                "name": "dfe_preferredphonenumbertype",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "preferred_contact_method_id": {
+                "name": "preferredcontactmethodcode",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "gdpr_consent_id": {
+                "name": "msgdpr_gdprconsent",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "magic_link_token_status_id": {
+                "name": "dfe_websitemltokenstatus",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "adviser_status_id": {
+                "name": "dfe_candidateadviserstatusreason",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "registration_status_id": {
+                "name": "dfe_candidatereregisterstatus",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "apply_status_id": {
+                "name": "dfe_candidateapplystatus",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "apply_phase_id": {
+                "name": "dfe_candidateapplyphase",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "status_is_waiting_to_be_assigned_at": {
+                "name": "dfe_waitingtobeassigneddate"
+              },
+              "merged": {
+                "name": "merged"
+              },
+              "apply_id": {
+                "name": "dfe_applyid"
+              },
+              "apply_updated_at": {
+                "name": "dfe_applylastmodifiedon"
+              },
+              "apply_created_at": {
+                "name": "dfe_applycreatedon"
+              },
+              "email": {
+                "name": "emailaddress1"
+              },
+              "secondary_email": {
+                "name": "emailaddress2"
+              },
+              "first_name": {
+                "name": "firstname"
+              },
+              "last_name": {
+                "name": "lastname"
+              },
+              "date_of_birth": {
+                "name": "birthdate"
+              },
+              "mobile_telephone": {
+                "name": "mobilephone"
+              },
+              "address_telephone": {
+                "name": "address1_telephone1"
+              },
+              "address_line1": {
+                "name": "address1_line1"
+              },
+              "address_line2": {
+                "name": "address1_line2"
+              },
+              "address_line3": {
+                "name": "address1_line3"
+              },
+              "address_city": {
+                "name": "address1_city"
+              },
+              "address_state_or_province": {
+                "name": "address1_stateorprovince"
+              },
+              "address_postcode": {
+                "name": "address1_postalcode"
+              },
+              "telephone": {
+                "name": "telephone1"
+              },
+              "secondary_telephone": {
+                "name": "telephone2"
+              },
+              "has_dbs_certificate": {
+                "name": "dfe_hasdbscertificate"
+              },
+              "dbs_certificate_issued_at": {
+                "name": "dfe_dateofissueofdbscertificate"
+              },
+              "teacher_id": {
+                "name": "dfe_dfesnumber"
+              },
+              "eligibility_rules_passed": {
+                "name": "dfe_eligibilityrulespassed"
+              },
+              "do_not_bulk_email": {
+                "name": "donotbulkemail"
+              },
+              "do_not_bulk_postal_mail": {
+                "name": "donotbulkpostalmail"
+              },
+              "do_not_email": {
+                "name": "donotemail"
+              },
+              "do_not_postal_mail": {
+                "name": "donotpostalmail"
+              },
+              "do_not_send_mm": {
+                "name": "donotsendmm"
+              },
+              "opt_out_of_sms": {
+                "name": "dfe_optoutsms"
+              },
+              "opt_out_of_gdpr": {
+                "name": "msdyn_gdproptout"
+              },
+              "is_new_registrant": {
+                "name": "dfe_newregistrant"
+              },
+              "magic_link_token": {
+                "name": "dfe_websitemltoken"
+              },
+              "magic_link_token_expires_at": {
+                "name": "dfe_websitemltokenexpirydate"
+              },
+              "welcome_guide_variant": {
+                "name": "dfe_welcomeguidestring"
+              },
+              "has_teacher_training_adviser_subscription": {
+                "name": "dfe_gitisttaserviceissubscriber"
+              },
+              "teacher_training_adviser_subscription_channel_id": {
+                "name": "dfe_gitisttaservicesubscriptionchannel",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "teacher_training_adviser_subscription_start_at": {
+                "name": "dfe_gitisttaservicestartdate"
+              },
+              "teacher_training_adviser_subscription_do_not_bulk_email": {
+                "name": "dfe_gitisttaservicedonotbulkemail"
+              },
+              "teacher_training_adviser_subscription_do_not_bulk_postal_mail": {
+                "name": "dfe_gitisttaservicedonotbulkpostalmail"
+              },
+              "teacher_training_adviser_subscription_do_not_email": {
+                "name": "dfe_gitisttaservicedonotemail"
+              },
+              "teacher_training_adviser_subscription_do_not_postal_mail": {
+                "name": "dfe_gitisttaservicedonotpostalmail"
+              },
+              "teacher_training_adviser_subscription_do_not_send_mm": {
+                "name": "dfe_gitisttaservicedonotsendmm"
+              },
+              "has_mailing_list_subscription": {
+                "name": "dfe_gitismailinglistserviceissubscriber"
+              },
+              "mailing_list_subscription_channel_id": {
+                "name": "dfe_gitismlservicesubscriptionchannel",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "mailing_list_subscription_start_at": {
+                "name": "dfe_gitismailinglistservicestartdate"
+              },
+              "mailing_list_subscription_do_not_bulk_email": {
+                "name": "dfe_gitismailinglistservicedonotbulkemail"
+              },
+              "mailing_list_subscription_do_not_bulk_postal_mail": {
+                "name": "dfe_gitismlservicedonotbulkpostalmail"
+              },
+              "mailing_list_subscription_do_not_email": {
+                "name": "dfe_gitismailinglistservicedonotemail"
+              },
+              "mailing_list_subscription_do_not_postal_mail": {
+                "name": "dfe_gitismailinglistservicedonotpostalmail"
+              },
+              "mailing_list_subscription_do_not_send_mm": {
+                "name": "dfe_gitismailinglistservicedonotsendmm"
+              },
+              "has_events_subscription": {
+                "name": "dfe_gitiseventsserviceissubscriber"
+              },
+              "events_subscription_channel_id": {
+                "name": "dfe_gitiseventsservicesubscriptionchannel",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "events_subscription_type_id": {
+                "name": "dfe_gitiseventsservicesubscriptiontype",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "events_subscription_start_at": {
+                "name": "dfe_gitiseventsservicestartdate"
+              },
+              "events_subscription_do_not_bulk_email": {
+                "name": "dfe_gitiseventsservicedonotbulkemail"
+              },
+              "events_subscription_do_not_bulk_postal_mail": {
+                "name": "dfe_gitiseventsservicedonotbulkpostalmail"
+              },
+              "events_subscription_do_not_email": {
+                "name": "dfe_gitiseventsservicedonotemail"
+              },
+              "events_subscription_do_not_postal_mail": {
+                "name": "dfe_gitiseventsservicedonotpostalmail"
+              },
+              "events_subscription_do_not_send_mm": {
+                "name": "dfe_gitiseventsservicedonotsendmm"
+              },
+              "situation": {
+                "name": "dfe_situation",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "citizenship": {
+                "name": "dfe_citizenship",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "visa_status": {
+                "name": "dfe_visastatus",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "location": {
+                "name": "dfe_location",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "has_qualified_teacher_status": {
+                "name": "dfe_qtsstatus",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              }
+            },
+            "relationships": {
+              "teaching_event_registrations": {
+                "name": "msevtmgt_contact_msevtmgt_eventregistration_Contact",
+                "type": "GetIntoTeachingApi.Models.Crm.TeachingEventRegistration"
+              },
+              "qualifications": {
+                "name": "dfe_contact_dfe_candidatequalification_ContactId",
+                "type": "GetIntoTeachingApi.Models.Crm.CandidateQualification"
+              },
+              "past_teaching_positions": {
+                "name": "dfe_contact_dfe_candidatepastteachingposition_ContactId",
+                "type": "GetIntoTeachingApi.Models.Crm.CandidatePastTeachingPosition"
+              },
+              "application_forms": {
+                "name": "dfe_contact_dfe_applyapplicationform_contact",
+                "type": "GetIntoTeachingApi.Models.Crm.ApplicationForm"
+              },
+              "phone_call": {
+                "name": "dfe_contact_phonecall_contactid",
+                "type": "GetIntoTeachingApi.Models.Crm.PhoneCall"
+              },
+              "privacy_policy": {
+                "name": "dfe_contact_dfe_candidateprivacypolicy_Candidate",
+                "type": "GetIntoTeachingApi.Models.Crm.CandidatePrivacyPolicy"
+              },
+              "school_experiences": {
+                "name": "dfe_contact_dfe_candidateschoolexperience_ContactId",
+                "type": "GetIntoTeachingApi.Models.Crm.CandidateSchoolExperience"
+              },
+              "contact_channel_creations": {
+                "name": "dfe_contact_dfe_contactchannelcreation_ContactId",
+                "type": "GetIntoTeachingApi.Models.Crm.ContactChannelCreation"
+              }
+            }
+          },
+          {
+            "class": "GetIntoTeachingApi.Models.Crm.CandidatePastTeachingPosition",
+            "logical_name": "dfe_candidatepastteachingposition",
+            "fields": {
+              "candidate_id": {
+                "name": "dfe_contactid",
+                "type": "Microsoft.Xrm.Sdk.EntityReference",
+                "reference": "contact"
+              },
+              "subject_taught_id": {
+                "name": "dfe_subjecttaught",
+                "type": "Microsoft.Xrm.Sdk.EntityReference",
+                "reference": "dfe_teachingsubjectlist"
+              },
+              "education_phase_id": {
+                "name": "dfe_educationphase",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "created_at": {
+                "name": "createdon"
+              }
+            },
+            "relationships": {}
+          },
+          {
+            "class": "GetIntoTeachingApi.Models.Crm.CandidatePrivacyPolicy",
+            "logical_name": "dfe_candidateprivacypolicy",
+            "fields": {
+              "candidate_id": {
+                "name": "dfe_candidate",
+                "type": "Microsoft.Xrm.Sdk.EntityReference",
+                "reference": "contact"
+              },
+              "accepted_policy_id": {
+                "name": "dfe_privacypolicynumber",
+                "type": "Microsoft.Xrm.Sdk.EntityReference",
+                "reference": "dfe_privacypolicy"
+              },
+              "consent_received_by_id": {
+                "name": "dfe_consentreceivedby",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "mean_of_consent_id": {
+                "name": "dfe_meanofconsent",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "description": {
+                "name": "dfe_name"
+              },
+              "accepted_at": {
+                "name": "dfe_timeofconsent"
+              }
+            },
+            "relationships": {}
+          },
+          {
+            "class": "GetIntoTeachingApi.Models.Crm.CandidateQualification",
+            "logical_name": "dfe_candidatequalification",
+            "fields": {
+              "candidate_id": {
+                "name": "dfe_contactid",
+                "type": "Microsoft.Xrm.Sdk.EntityReference",
+                "reference": "contact"
+              },
+              "type_id": {
+                "name": "dfe_type",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "uk_degree_grade_id": {
+                "name": "dfe_ukdegreegrade",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "degree_status_id": {
+                "name": "dfe_degreestatus",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "degree_subject": {
+                "name": "dfe_subject"
+              },
+              "created_at": {
+                "name": "createdon"
+              },
+              "graduation_year": {
+                "name": "dfe_graduationyear"
+              },
+              "degree_country": {
+                "name": "dfe_country",
+                "type": "Microsoft.Xrm.Sdk.EntityReference",
+                "reference": "dfe_country"
+              }
+            },
+            "relationships": {}
+          },
+          {
+            "class": "GetIntoTeachingApi.Models.Crm.CandidateSchoolExperience",
+            "logical_name": "dfe_candidateschoolexperience",
+            "fields": {
+              "candidate_id": {
+                "name": "dfe_contactid",
+                "type": "Microsoft.Xrm.Sdk.EntityReference",
+                "reference": "contact"
+              },
+              "school_urn": {
+                "name": "dfe_urn"
+              },
+              "duration_of_placement_in_days": {
+                "name": "dfe_placementduration"
+              },
+              "date_of_school_experience": {
+                "name": "dfe_dateofschoolexperience"
+              },
+              "status": {
+                "name": "statuscode",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "teaching_subject_id": {
+                "name": "dfe_teachingsubject",
+                "type": "Microsoft.Xrm.Sdk.EntityReference",
+                "reference": "dfe_teachingsubjectlist"
+              },
+              "notes": {
+                "name": "dfe_notes"
+              },
+              "school_name": {
+                "name": "dfe_where"
+              }
+            },
+            "relationships": {}
+          },
+          {
+            "class": "GetIntoTeachingApi.Models.Crm.ContactChannelCreation",
+            "logical_name": "dfe_contactchannelcreation",
+            "fields": {
+              "candidate_id": {
+                "name": "dfe_contactid",
+                "type": "Microsoft.Xrm.Sdk.EntityReference",
+                "reference": "contact"
+              },
+              "created_by": {
+                "name": "createdby",
+                "type": "Microsoft.Xrm.Sdk.EntityReference",
+                "reference": "systemuser"
+              },
+              "creation_channel": {
+                "name": "dfe_creationchannel"
+              },
+              "creation_channel_source_id": {
+                "name": "dfe_creationchannelsource",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "creation_channel_service_id": {
+                "name": "dfe_creationchannelservice",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "creation_channel_activity_id": {
+                "name": "dfe_creationchannelactivities",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              }
+            },
+            "relationships": {}
+          },
+          {
+            "class": "GetIntoTeachingApi.Models.Crm.PhoneCall",
+            "logical_name": "phonecall",
+            "fields": {
+              "candidate_id": {
+                "name": "dfe_tocontactguid"
+              },
+              "channel_id": {
+                "name": "dfe_channelcreation",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "destination_id": {
+                "name": "dfe_destination",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "scheduled_at": {
+                "name": "scheduledstart"
+              },
+              "telephone": {
+                "name": "phonenumber"
+              },
+              "subject": {
+                "name": "subject"
+              },
+              "is_appointment": {
+                "name": "dfe_appointmentflag"
+              },
+              "appointment_required": {
+                "name": "dfe_appointmentrequired"
+              },
+              "is_direction_code": {
+                "name": "directioncode"
+              },
+              "talking_points": {
+                "name": "dfe_talkingpoints"
+              }
+            },
+            "relationships": {}
+          },
+          {
+            "class": "GetIntoTeachingApi.Models.Crm.PrivacyPolicy",
+            "logical_name": "dfe_privacypolicy",
+            "fields": {
+              "text": {
+                "name": "dfe_details"
+              },
+              "created_at": {
+                "name": "createdon"
+              }
+            },
+            "relationships": {}
+          },
+          {
+            "class": "GetIntoTeachingApi.Models.Crm.TeachingEvent",
+            "logical_name": "msevtmgt_event",
+            "fields": {
+              "type_id": {
+                "name": "dfe_event_type",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "status_id": {
+                "name": "dfe_eventstatus",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "region_id": {
+                "name": "dfe_eventregion",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "readable_id": {
+                "name": "dfe_websiteeventpartialurl"
+              },
+              "web_feed_id": {
+                "name": "dfe_eventwebfeedid"
+              },
+              "is_online": {
+                "name": "dfe_isonlineevent"
+              },
+              "name": {
+                "name": "dfe_externaleventtitle"
+              },
+              "internal_name": {
+                "name": "msevtmgt_name"
+              },
+              "summary": {
+                "name": "dfe_eventsummary_ml"
+              },
+              "message": {
+                "name": "dfe_miscellaneousmessage_ml"
+              },
+              "description": {
+                "name": "msevtmgt_description"
+              },
+              "video_url": {
+                "name": "dfe_videolink"
+              },
+              "scribble_id": {
+                "name": "dfe_scribbleurl"
+              },
+              "provider_website_url": {
+                "name": "dfe_providerwebsite"
+              },
+              "provider_target_audience": {
+                "name": "dfe_providertargetaudience_ml"
+              },
+              "provider_organiser": {
+                "name": "dfe_providerorganiser"
+              },
+              "provider_contact_email": {
+                "name": "dfe_providercontactemailaddress"
+              },
+              "internal_time_zone": {
+                "name": "msevtmgt_eventtimezone"
+              },
+              "start_at": {
+                "name": "msevtmgt_eventstartdate"
+              },
+              "end_at": {
+                "name": "msevtmgt_eventenddate"
+              },
+              "providers_list": {
+                "name": "dfe_providerslist"
+              },
+              "building_id": {
+                "name": "msevtmgt_building",
+                "type": "Microsoft.Xrm.Sdk.EntityReference",
+                "reference": "msevtmgt_building"
+              },
+              "accessibility_option_set": {
+                "name": "dfe_accessibility",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValueCollection"
+              }
+            },
+            "relationships": {
+              "building": {
+                "name": "msevtmgt_event_building",
+                "type": "GetIntoTeachingApi.Models.Crm.TeachingEventBuilding"
+              }
+            }
+          },
+          {
+            "class": "GetIntoTeachingApi.Models.Crm.TeachingEventBuilding",
+            "logical_name": "msevtmgt_building",
+            "fields": {
+              "venue": {
+                "name": "msevtmgt_name"
+              },
+              "address_line1": {
+                "name": "msevtmgt_addressline1"
+              },
+              "address_line2": {
+                "name": "msevtmgt_addressline2"
+              },
+              "address_line3": {
+                "name": "msevtmgt_addressline3"
+              },
+              "address_city": {
+                "name": "msevtmgt_city"
+              },
+              "address_postcode": {
+                "name": "msevtmgt_postalcode"
+              },
+              "image_url": {
+                "name": "dfe_eventvenueimageurl"
+              }
+            },
+            "relationships": {}
+          },
+          {
+            "class": "GetIntoTeachingApi.Models.Crm.TeachingEventRegistration",
+            "logical_name": "msevtmgt_eventregistration",
+            "fields": {
+              "candidate_id": {
+                "name": "msevtmgt_contactid",
+                "type": "Microsoft.Xrm.Sdk.EntityReference",
+                "reference": "contact"
+              },
+              "event_id": {
+                "name": "msevtmgt_eventid",
+                "type": "Microsoft.Xrm.Sdk.EntityReference",
+                "reference": "msevtmgt_event"
+              },
+              "channel_id": {
+                "name": "dfe_channelcreation",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "is_cancelled": {
+                "name": "msevtmgt_iscanceled"
+              },
+              "registration_notification_seen": {
+                "name": "msevtmgt_registrationnotificationseen"
+              },
+              "accessibility_needs_for_event": {
+                "name": "dfe_accessibilityneedsforevent"
+              }
+            },
+            "relationships": {}
+          },
+          {
+            "class": "GetIntoTeachingApi.Mocks.MockModel",
+            "logical_name": "mock",
+            "fields": {
+              "field1": {
+                "name": "dfe_field1",
+                "type": "Microsoft.Xrm.Sdk.EntityReference",
+                "reference": "dfe_list"
+              },
+              "field2": {
+                "name": "dfe_field2",
+                "type": "Microsoft.Xrm.Sdk.OptionSetValue"
+              },
+              "field3": {
+                "name": "dfe_field3"
+              }
+            },
+            "relationships": {
+              "related_mock": {
+                "name": "dfe_mock_dfe_relatedmock_mock",
+                "type": "GetIntoTeachingApi.Mocks.MockRelatedModel"
+              },
+              "related_mocks": {
+                "name": "dfe_mock_dfe_relatedmock_mocks",
+                "type": "GetIntoTeachingApi.Mocks.MockRelatedModel"
+              }
+            }
+          },
+          {
+            "class": "GetIntoTeachingApi.Mocks.MockRelatedModel",
+            "logical_name": "relatedMock",
+            "fields": {},
+            "relationships": {}
+          }
+        ]
+    http_version: "1.1"
+  recorded_at: Thu, 25 Jun 2026 15:46:00 GMT
+recorded_with: VCR 6.3.1

@@ -27,6 +27,15 @@ Rails.application.routes.draw do
       )
     end
 
+    namespace :operations do
+      get "health_check"
+      get "generate_mapping_info"
+      put "pause_crm_integration"
+      put "resume_crm_integration"
+      post "backfill_apply_candidates"
+      post "backfill_apply_candidates_from_ids"
+    end
+
     namespace :get_into_teaching do
       resources :callbacks, only: :create
       resources :matchbacks, only: :create

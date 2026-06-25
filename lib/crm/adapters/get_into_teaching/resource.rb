@@ -30,8 +30,10 @@ module CRM
           handle_response client.connection.get(url, params, headers)
         end
 
-        def post_request(url, body:, headers: {})
-          handle_response client.connection.post(url, body, headers)
+        def post_request(url, body:, headers: {}, params: {})
+          handle_response client.connection.post(url, body, headers) do |request|
+            request.params.merge!(params)
+          end
         end
 
         def patch_request(url, body:, headers: {})
@@ -50,7 +52,16 @@ module CRM
           case response.status
           when 400
             # Change this when the C# api returns errors in better format
-            errors = response.body.is_a?(String) ? JSON.parse(response.body)["errors"].presence : response.body["error"].presence
+            errors = if response.body.is_a?(String)
+              begin
+                JSON.parse(response.body)["errors"].presence
+              rescue JSON::ParserError
+                response.body
+              end
+            else
+              response.body["error"].presence
+            end
+
             raise BadRequestError, "Your request was malformed. #{errors}"
           when 401
             raise UnauthorizedError, "You did not supply valid authentication credentials. #{response.body["error"]}"
