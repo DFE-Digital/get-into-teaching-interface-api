@@ -31,7 +31,7 @@ module CRM
         end
 
         def post_request(url, body:, headers: {}, params: {})
-          handle_response client.connection.post(url, body, headers) do |reqeust|
+          handle_response client.connection.post(url, body, headers) do |request|
             request.params.merge!(params)
           end
         end

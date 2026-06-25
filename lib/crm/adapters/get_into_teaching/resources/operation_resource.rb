@@ -16,7 +16,6 @@ module CRM
           end
 
           def pause_crm_integration
-            return false
             put_request("/api/operations/pause_crm_integration", body: {})
           end
 

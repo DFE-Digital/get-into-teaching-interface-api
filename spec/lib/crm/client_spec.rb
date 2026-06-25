@@ -162,4 +162,30 @@ RSpec.describe CRM::Client do
       end
     end
   end
+
+  describe "#operations" do
+    context "with a GetIntoTeaching adapter" do
+      it "returns a GIT OperationResource" do
+        client = described_class.new(adapter: CRM::Adapters::GetIntoTeaching::Client.new(base_url: "https://test.example.com", api_key: "test-key"))
+
+        expect(client.operations)
+          .to be_a(CRM::Adapters::GetIntoTeaching::Resources::OperationResource)
+      end
+    end
+
+    context "with an injected adapter" do
+      let(:adapter) { instance_double(CRM::Adapters::GetIntoTeaching::Client) }
+      let(:operation_resource) do
+        instance_double(CRM::Adapters::GetIntoTeaching::Resources::OperationResource)
+      end
+
+      before { allow(adapter).to receive(:operations).and_return(operation_resource) }
+
+      it "delegates to the injected adapter" do
+        result = described_class.new(adapter: adapter).operations
+
+        expect(result).to eq(operation_resource)
+      end
+    end
+  end
 end
