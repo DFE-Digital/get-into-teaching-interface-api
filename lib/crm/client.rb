@@ -43,5 +43,9 @@ module CRM
     def schools_experience
       @adapter.schools_experience
     end
+
+    def operations
+      @adapter.operations
+    end
   end
 end

@@ -58,6 +58,10 @@ module CRM
         def schools_experience
           Resources::SchoolsExperienceResource.new(self)
         end
+
+        def operations
+          Resources::OperationResource.new(self)
+        end
       end
     end
   end
