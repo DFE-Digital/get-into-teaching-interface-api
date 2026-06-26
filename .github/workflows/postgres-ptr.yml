@@ -31,6 +31,9 @@ env:
   SERVICE_SHORT: #SERVICE_SHORT#
   TF_VARS_PATH: terraform/application/config
 
+permissions:
+  id-token: write
+
 jobs:
   ptr-restore:
     name: PTR Restore AKS Database

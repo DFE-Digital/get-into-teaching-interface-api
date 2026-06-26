@@ -14,9 +14,13 @@ on:
         required: true
         type: choice
         options:
-        - review
-        - qa
-        - production
+        - enable
+        - disable
+
+permissions:
+  contents: write
+  id-token: write
+  packages: write
 
 jobs:
   set-maintenance-mode:
