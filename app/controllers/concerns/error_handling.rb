@@ -23,7 +23,7 @@ module ErrorHandling
     end
 
     rescue_from CRM::Adapters::GetIntoTeaching::Resource::BadRequestError do |exception|
-      render_errors([ exception.message ], :bad_request)
+      render_error_objects(exception.errors, :bad_request)
     end
 
     rescue_from CRM::Adapters::GetIntoTeaching::Resource::UnauthorizedError do |exception|

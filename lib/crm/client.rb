@@ -47,5 +47,9 @@ module CRM
     def operations
       @adapter.operations
     end
+
+    def teaching_events
+      @adapter.teaching_events
+    end
   end
 end

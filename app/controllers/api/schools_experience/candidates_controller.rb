@@ -1,9 +1,6 @@
 class API::SchoolsExperience::CandidatesController < API::ApplicationController
   def index
-    data = Rails.cache.fetch(**cache_options(key: request.fullpath).to_h) do
-      client.schools_experience.all(ids: index_params)
-    end
-    render json: data
+    render json: client.schools_experience.all(ids: index_params)
   end
 
   def show
