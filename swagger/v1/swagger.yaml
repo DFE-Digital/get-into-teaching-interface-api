@@ -23,6 +23,8 @@ tags:
   description: Endpoints for the schools experience service
 - name: Teaching Event Buildings
   description: Endpoints for teaching event buildings
+- name: Teaching Events
+  description: Endpoints for searching and retrieving teaching events
 - name: Teacher Training Adviser
   description: Endpoints for the teacher training adviser service
 security:
@@ -1197,6 +1199,178 @@ paths:
                   $ref: "#/components/schemas/TeachingEventBuilding"
         401:
           $ref: "#/components/responses/Unauthorized"
+  "/api/teaching_events/search":
+    get:
+      tags:
+      - Teaching Events
+      summary: Searches for teaching events.
+      description: |
+        Searches for teaching events. Optionally limit the results by
+        distance (in miles) from a postcode, event type, start date, and more.
+      operationId: SearchTeachingEvents
+      parameters:
+      - name: postcode
+        in: query
+        description: Postcode to center the search around.
+        schema:
+          type: string
+      - name: radius
+        in: query
+        description: Radius in miles to search around the postcode.
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+      - name: type_ids
+        in: query
+        description: Filter by teaching event type IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int32
+        style: form
+        explode: true
+      - name: online
+        in: query
+        description: Set to true for online events, false for in-person events.
+        schema:
+          type: boolean
+      - name: start_after
+        in: query
+        description: Filter to events starting after this date.
+        example: "2025-07-01T00:00:00Z"
+        schema:
+          type: string
+          format: date-time
+      - name: start_before
+        in: query
+        description: Filter to events starting before this date.
+        schema:
+          type: string
+          format: date-time
+      - name: status_ids
+        in: query
+        description: Filter by event status IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int32
+        style: form
+        explode: true
+      - name: accessibility_options
+        in: query
+        description: Filter by accessibility option IDs.
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int32
+        style: form
+        explode: true
+      - name: quantity
+        in: query
+        description: Maximum number of results to return.
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TeachingEvent"
+        400:
+          description: bad request
+          content:
+            application/json:
+              example:
+                errors:
+                - error: BadRequest
+                  message: "Postcode must be a valid UK postcode"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+  "/api/teaching_events/{readable_id}":
+    get:
+      tags:
+      - Teaching Events
+      summary: Retrieves a teaching event.
+      operationId: GetTeachingEvent
+      parameters:
+      - name: readable_id
+        in: path
+        required: true
+        description: The readable ID of the teaching event.
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TeachingEvent"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        404:
+          description: not found
+  "/api/teaching_events":
+    post:
+      tags:
+      - Teaching Events
+      summary: Adds or updates a teaching event.
+      description: |
+        If the `id` is specified then the existing teaching event will be updated,
+        otherwise a new teaching event will be created.
+      operationId: UpsertTeachingEvent
+      requestBody:
+        description: Teaching event to upsert.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TeachingEvent"
+            example:
+              id: "123e4567-e89b-12d3-a456-426614174000"
+              type_id: 222750000
+              status_id: 222750001
+              region_id: 222750002
+              readable_id: "250930-get-into-teaching-north-event"
+              is_online: false
+              name: "Get into Teaching - London"
+              start_at: "2026-07-15T10:00:00Z"
+              end_at: "2026-07-15T16:00:00Z"
+              building:
+                venue: "The Open University in Wales"
+                address_line1: "Custom House Street"
+                address_line2: ~
+                address_line3: ~
+                address_city: "Cardiff"
+                address_postcode: "CF10 1AP"
+                image_url: ~
+                id: "3290fb7f-93b4-eb11-8236-000d3a26ba1b"
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TeachingEvent"
+        400:
+          description: bad request
+          content:
+            application/json:
+              example:
+                errors:
+                - error: BadRequest
+                  message: "name can't be blank"
+        401:
+          $ref: "#/components/responses/Unauthorized"
   "/api/teacher_training_adviser/candidates":
     post:
       tags:
@@ -1298,6 +1472,110 @@ paths:
                 errors:
                 - error: "BadRequest"
                   message: "Matchback failed: candidate not found"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+  "/api/teaching_events/attendees":
+    post:
+      tags:
+      - Teaching Events
+      summary: Adds an attendee to a teaching event.
+      description: |
+        Adds an attendee to a teaching event. The event must have a
+        `web_feed_id` to accept external attendees.
+      operationId: AddTeachingEventAttendee
+      requestBody:
+        description: Attendee details to add.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TeachingEventAddAttendee"
+      responses:
+        204:
+          description: no content
+        400:
+          description: bad request
+          content:
+            application/json:
+              example:
+                errors:
+                - error: BadRequest
+                  message: "event_id can't be blank"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+  "/api/teaching_events/exchange_unverified_requests":
+    post:
+      tags:
+      - Teaching Events
+      summary: Retrieves a pre-populated attendee for the candidate without requiring verification.
+      description: |
+        Retrieves a pre-populated TeachingEventAddAttendee for the candidate.
+        This mechanism should be used with caution and the candidate should be
+        treated as "unverified" by the client.
+      operationId: ExchangeUnverifiedRequestForTeachingEventAddAttendee
+      requestBody:
+        description: Candidate details to exchange.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExistingCandidateRequest"
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TeachingEventAddAttendee"
+        400:
+          description: bad request
+          content:
+            application/json:
+              example:
+                errors:
+                - error: BadRequest
+                  message: "Email can't be blank"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+  "/api/teaching_events/attendees/exchange_access_token/{access_token}":
+    post:
+      tags:
+      - Teaching Events
+      summary: Retrieves a pre-populated attendee for the candidate.
+      description: |
+        Retrieves a pre-populated TeachingEventAddAttendee for the candidate.
+        The access token is obtained from a `POST /api/candidates/access_tokens`
+        request.
+      operationId: ExchangeAccessTokenForTeachingEventAddAttendee
+      parameters:
+      - name: access_token
+        in: path
+        required: true
+        description: The access token to exchange.
+        schema:
+          type: string
+      requestBody:
+        description: Candidate details to exchange.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExistingCandidateRequest"
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TeachingEventAddAttendee"
+        400:
+          description: bad request
+          content:
+            application/json:
+              example:
+                errors:
+                - error: BadRequest
+                  message: "Email can't be blank"
         401:
           $ref: "#/components/responses/Unauthorized"
 components:
@@ -1538,6 +1816,156 @@ components:
       required:
       - id
       - venue
+
+    TeachingEvent:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "123e4567-e89b-12d3-a456-426614174000"
+        type_id:
+          type: integer
+          format: int32
+          example: 222750000
+        status_id:
+          type: integer
+          format: int32
+          example: 222750001
+        region_id:
+          type: integer
+          format: int32
+          example: 222750002
+        readable_id:
+          type: string
+          example: "12345"
+        web_feed_id:
+          type: string
+          description: If set, the API will accept new attendees for this event (an external sign up should be used if this value is nil).
+          example: "ABCDE"
+        is_online:
+          type: boolean
+          example: false
+        name:
+          type: string
+          example: "Get into Teaching - London"
+        summary:
+          type: string
+          example: "An event for those interested in teaching."
+        message:
+          type: string
+          description: Used to push miscellaneous messages to users (e.g. if an event is close to being booked out).
+          example: "Limited spaces remaining"
+        description:
+          type: string
+          example: "A full description of the event."
+        video_url:
+          type: string
+          example: "https://www.youtube.com/watch?v=example"
+        scribble_id:
+          type: string
+          example: "scribble-123"
+        provider_website_url:
+          type: string
+          example: "https://www.example.com"
+        provider_target_audience:
+          type: string
+          example: "Aspiring teachers"
+        provider_organiser:
+          type: string
+          example: "Jane Smith"
+        provider_contact_email:
+          type: string
+          format: email
+          example: "jane.smith@example.com"
+        start_at:
+          type: string
+          format: date-time
+          example: "2026-07-15T10:00:00Z"
+        end_at:
+          type: string
+          format: date-time
+          example: "2026-07-15T16:00:00Z"
+        providers_list:
+          type: string
+          example: "Provider A, Provider B"
+        building:
+          $ref: "#/components/schemas/TeachingEventBuilding"
+        is_virtual:
+          type: boolean
+          readOnly: true
+          example: false
+        accessibility_options:
+          type: array
+          items:
+            type: integer
+            format: int32
+          example: [222750000, 222750001]
+        is_in_person:
+          type: boolean
+          readOnly: true
+          example: true
+      required:
+      - readable_id
+      - name
+      - type_id
+      - status_id
+      - is_online
+      - start_at
+      - end_at
+
+    TeachingEventSearchRequest:
+      type: object
+      properties:
+        postcode:
+          type: string
+          description: Postcode to center search around.
+          example: "SW1A 1AA"
+        radius:
+          type: integer
+          format: int32
+          description: Radius in miles to search around the postcode.
+          example: 10
+        type_ids:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Filter by teaching event type IDs.
+          example: [222750000, 222750001]
+        online:
+          type: boolean
+          description: Set to true for online events, false for in-person events.
+          example: false
+        start_after:
+          type: string
+          format: date-time
+          description: Filter to events starting after this date.
+          example: "2026-07-01T00:00:00Z"
+        start_before:
+          type: string
+          format: date-time
+          description: Filter to events starting before this date.
+          example: "2026-08-01T00:00:00Z"
+        status_ids:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Filter by event status IDs.
+          example: [222750001]
+        accessibility_options:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Filter by accessibility option IDs.
+          example: [222750000]
+        quantity:
+          type: integer
+          format: int32
+          description: Maximum number of results to return.
+          example: 10
 
     TeacherTrainingAdviserSignUp:
       type: object
@@ -1974,6 +2402,146 @@ components:
           type: string
           description: The overall health status.
           example: "healthy"
+
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          description: A URI reference that identifies the problem type.
+          example: "https://tools.ietf.org/html/rfc7231#section-6.5.1"
+        title:
+          type: string
+          description: A short, human-readable summary of the problem.
+          example: "Bad Request"
+        status:
+          type: integer
+          format: int32
+          description: The HTTP status code.
+          example: 400
+        detail:
+          type: string
+          description: A human-readable explanation of the problem.
+          example: "The request was invalid."
+        instance:
+          type: string
+          description: A URI reference that identifies the specific occurrence.
+          example: "/api/teaching_events/search"
+
+    TeachingEventAddAttendee:
+      type: object
+      properties:
+        event_id:
+          type: string
+          format: uuid
+          description: The ID of the teaching event to add the attendee to.
+          example: "123e4567-e89b-12d3-a456-426614174000"
+        email:
+          type: string
+          format: email
+          description: The attendee's email address.
+          example: "johndoe@example.com"
+        first_name:
+          type: string
+          description: The attendee's first name.
+          example: "John"
+        last_name:
+          type: string
+          description: The attendee's last name.
+          example: "Doe"
+        accepted_policy_id:
+          type: string
+          format: uuid
+          description: The privacy policy identifier accepted by the attendee.
+          example: "4872c8ed-0229-f111-8342-7c1e5285e3ab"
+        candidate_id:
+          type: string
+          format: uuid
+          description: The candidate CRM identifier (optional).
+          example: "d85a2f0b-290f-4931-98e2-e7d817ac38f3"
+        qualification_id:
+          type: string
+          format: uuid
+          description: The qualification identifier.
+          example: "13da3277-c8ba-4b64-a79e-b0a3960c26be"
+        channel_id:
+          type: integer
+          format: int32
+          description: The channel identifier.
+          example: 222750049
+        creation_channel_source_id:
+          type: integer
+          format: int32
+          description: The source of the creation channel.
+          example: 222750000
+        creation_channel_service_id:
+          type: integer
+          format: int32
+          description: The service of the creation channel.
+          example: 222750010
+        creation_channel_activity_id:
+          type: integer
+          format: int32
+          description: The activity of the creation channel.
+          example: 222750017
+        preferred_teaching_subject_id:
+          type: string
+          format: uuid
+          description: The preferred teaching subject identifier.
+          example: "b02655a1-2afa-e811-a981-000d3a276620"
+        consideration_journey_stage_id:
+          type: integer
+          format: int32
+          description: The consideration journey stage identifier.
+          example: 222750000
+        degree_status_id:
+          type: integer
+          format: int32
+          description: The degree status identifier.
+          example: 222750000
+        address_postcode:
+          type: string
+          description: The attendee's postcode.
+          example: "BN1 1AA"
+        address_telephone:
+          type: string
+          description: The attendee's telephone number.
+          example: "07735 111111"
+        is_verified:
+          type: boolean
+          description: Whether the attendee has been verified.
+          example: false
+        is_walk_in:
+          type: boolean
+          description: Whether the attendee walked in without pre-registration.
+          example: false
+        subscribe_to_mailing_list:
+          type: boolean
+          description: Whether the attendee wants to subscribe to the mailing list.
+          example: false
+        already_subscribed_to_events:
+          type: boolean
+          description: Whether the attendee is already subscribed to events.
+          example: false
+        already_subscribed_to_mailing_list:
+          type: boolean
+          description: Whether the attendee is already subscribed to the mailing list.
+          example: false
+        already_subscribed_to_teacher_training_adviser:
+          type: boolean
+          description: Whether the attendee is already subscribed to the teacher training adviser service.
+          example: false
+        accessibility_needs_for_event:
+          type: string
+          description: Details of any accessibility needs for the event.
+          example: "Wheelchair accessible space required"
+      required:
+      - event_id
+      - email
+      - first_name
+      - last_name
+      - accepted_policy_id
+
   responses:
     Unauthorized:
       description: unauthorized

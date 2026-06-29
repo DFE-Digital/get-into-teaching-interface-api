@@ -36,6 +36,20 @@ Rails.application.routes.draw do
       post "backfill_apply_candidates_from_ids"
     end
 
+    resources :teaching_events, only: [ :create, :show ] do
+      get "search", on: :collection
+    end
+
+    namespace :teaching_events do
+      resources :attendees, only: [ :create ]
+      resources :exchange_unverified_requests, only: [ :create ]
+      post(
+        "/attendees/exchange_access_token/:access_token",
+        to: "exchange_access_tokens#create",
+        as: :exchange_access_token,
+      )
+    end
+
     namespace :get_into_teaching do
       resources :callbacks, only: :create
       resources :matchbacks, only: :create

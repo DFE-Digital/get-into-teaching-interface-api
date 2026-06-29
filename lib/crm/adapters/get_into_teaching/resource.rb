@@ -3,10 +3,16 @@ module CRM
     module GetIntoTeaching
       class Resource
         class Error < StandardError; end
-        class NotFoundError < Error; end
-        class BadRequestError < Error; end
-        class UnauthorizedError < Error; end
-        class Forbidden < Error; end
+        class NotFoundError < StandardError; end
+        class UnauthorizedError < StandardError; end
+        class Forbidden < StandardError; end
+        class BadRequestError < StandardError
+          attr_reader :errors
+          def initialize(errors)
+            @errors = errors
+          end
+        end
+        ErrorObjects = Data.define(:attribute, :message)
 
         attr_reader :client
 
@@ -52,17 +58,13 @@ module CRM
           case response.status
           when 400
             # Change this when the C# api returns errors in better format
-            errors = if response.body.is_a?(String)
-              begin
-                JSON.parse(response.body)["errors"].presence
-              rescue JSON::ParserError
-                response.body
-              end
-            else
-              response.body["error"].presence
+            errors = JSON.parse(response.body)["errors"].map do |key, value|
+              ErrorObjects.new(
+                attribute: key,
+                message: value[0],
+              )
             end
-
-            raise BadRequestError, "Your request was malformed. #{errors}"
+            raise BadRequestError.new(errors)
           when 401
             raise UnauthorizedError, "You did not supply valid authentication credentials. #{response.body["error"]}"
           when 403

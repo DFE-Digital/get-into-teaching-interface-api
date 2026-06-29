@@ -1,0 +1,54 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://getintoteachingapi-development.test.teacherservices.cloud/api/teaching_events/250930-get-into-teaching-north-event
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.14.3
+      Authorization:
+      - "<AUTH>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 29 Jun 2026 15:26:26 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - private,max-age=300
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"typeId":222750012,"statusId":222750000,"regionId":222750011,"readableId":"250930-get-into-teaching-north-event","webFeedId":"972","isOnline":false,"name":"Get
+        Into Teaching event: North","summary":"Meta description for website","message":"Additional
+        notice","description":"<div class=\"ck-content\" data-wrapper=\"true\" dir=\"ltr\"
+        style=\"--ck-image-style-spacing: 1.5em; --ck-inline-image-style-spacing:
+        calc(var(--ck-image-style-spacing) / 2); font-family: Segoe UI; font-size:
+        11pt;\"><p style=\"margin: 0;\">Website copy of description. Hello world!</p></div>","videoUrl":null,"scribbleId":null,"providerWebsiteUrl":null,"providerTargetAudience":null,"providerOrganiser":null,"providerContactEmail":null,"startAt":"2025-09-30T10:00:00","endAt":"2025-09-30T22:00:00","providersList":null,"building":{"venue":"Star
+        Institute","addressLine1":"Shadsworth Road","addressLine2":null,"addressLine3":null,"addressCity":"Blackburn","addressPostcode":"BB1
+        2HT","imageUrl":null,"id":"e918c20f-04b3-eb11-8236-000d3a26ba1b"},"isVirtual":false,"accessibilityOptions":[222750000,222750002,222750004],"isInPerson":true,"id":"6a1f3a0f-9c76-f011-b4cb-7c1e5283b7df"}'
+  recorded_at: Mon, 29 Jun 2026 15:26:26 GMT
+recorded_with: VCR 6.4.0
