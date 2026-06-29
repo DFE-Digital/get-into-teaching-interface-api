@@ -47,7 +47,7 @@ module "worker_application" {
   source     = "./vendor/modules/aks//aks/application"
   depends_on = [module.migrations]
 
-  name                       = "solidqueue_worker"
+  name                       = "solidqueue"
   is_web                     = false
   namespace                  = var.namespace
   environment                = var.environment
