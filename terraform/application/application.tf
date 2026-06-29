@@ -43,7 +43,7 @@ module "web_application" {
 }
 
 # Run database migrations
-# Terraform waits for this to complete before starting web_application and worker_application
+# Terraform waits for this to complete before starting web_application
 module "migrations" {
   source     = "./vendor/modules/aks//aks/job_configuration"
   depends_on = [module.postgres]
