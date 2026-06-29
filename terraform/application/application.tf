@@ -41,3 +41,23 @@ module "web_application" {
 
   send_traffic_to_maintenance_page = var.send_traffic_to_maintenance_page
 }
+
+# Run database migrations
+# Terraform waits for this to complete before starting web_application and worker_application
+module "migrations" {
+  source     = "./vendor/modules/aks//aks/job_configuration"
+  depends_on = [module.postgres]
+
+  namespace    = var.namespace
+  environment  = var.environment
+  service_name = var.service_name
+  docker_image = var.docker_image
+  commands     = ["bundle"]
+  arguments    = ["exec", "rails", "db:prepare"]
+  job_name     = "migrations"
+  enable_logit = true
+
+  config_map_ref = module.application_configuration.kubernetes_config_map_name
+  secret_ref     = module.application_configuration.kubernetes_secret_name
+  cpu            = module.cluster_data.configuration_map.cpu_min
+}
