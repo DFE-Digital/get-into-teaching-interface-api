@@ -1,0 +1,11 @@
+if defined?(Rails::Console)
+  e = ENV.fetch("HOSTING_ENVIRONMENT_NAME", "unknown")
+  IRB.conf[:PROMPT][:Custom] = {
+    PROMPT_I: "get-into-teaching-interface-api(#{e})> ",
+    PROMPT_N: "get-into-teaching-interface-api(#{e})> ",
+    PROMPT_S: nil,
+    PROMPT_C: nil,
+    RETURN: "=> %s\n",
+  }
+  IRB.conf[:PROMPT_MODE] = :Custom
+end
