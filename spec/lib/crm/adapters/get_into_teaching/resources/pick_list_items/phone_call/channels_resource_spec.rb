@@ -37,9 +37,9 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::PickListItems::PhoneCa
                      headers: { "Content-Type" => "application/json" })
       end
 
-      it "raises Resource::Error" do
+      it "raises UnauthorizedError" do
         expect { resource.all }
-          .to raise_error(CRM::Adapters::GetIntoTeaching::Resource::Error, /valid authentication credentials/)
+          .to raise_error(CRM::Adapters::GetIntoTeaching::Resource::UnauthorizedError, /valid authentication credentials/)
       end
     end
   end
