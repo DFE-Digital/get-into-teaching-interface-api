@@ -14,19 +14,27 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resource do
       end
     end
 
+    context "when status is 400" do
+      let(:response) { double(status: 400, body: '{"errors":{"field":["error message"]}}') }
+
+      it "raises BadRequestError" do
+        expect { concrete_resource.handle_response(response) }
+          .to raise_error(described_class::BadRequestError)
+      end
+    end
+
     {
-      400 => "Your request was malformed",
-      401 => "You did not supply valid authentication credentials",
-      403 => "You are not allowed to perform that action",
-      500 => "We were unable to perform the request due to server-side problems",
-      503 => "We were unable to perform the request, due to ongoing maintenance",
-    }.each do |status, message|
+      401 => { class: described_class::UnauthorizedError, message: "You did not supply valid authentication credentials" },
+      403 => { class: described_class::Forbidden, message: "You are not allowed to perform that action" },
+      500 => { class: described_class::Error, message: "We were unable to perform the request due to server-side problems" },
+      503 => { class: described_class::Error, message: "We were unable to perform the request, due to ongoing maintenance" },
+    }.each do |status, config|
       context "when status is #{status}" do
         let(:response) { double(status: status, body: { "error" => "details" }) }
 
-        it "raises Resource::Error" do
+        it "raises #{config[:class].name.split('::').last}" do
           expect { concrete_resource.handle_response(response) }
-            .to raise_error(described_class::Error, /#{Regexp.escape(message)}/)
+            .to raise_error(config[:class], /#{Regexp.escape(config[:message])}/)
         end
       end
     end
