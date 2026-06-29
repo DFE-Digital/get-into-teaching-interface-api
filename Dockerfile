@@ -105,4 +105,4 @@ ENV COMMIT_SHA=$COMMIT_SHA
 # Use non-root user
 USER 10001
 
-CMD bundle exec rails db:migrate:ignore_concurrent_migration_exceptions && bundle exec rails server -b 0.0.0.0
+CMD ["./bin/rails", "server"]
