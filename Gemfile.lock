@@ -90,6 +90,9 @@ GEM
       public_suffix (>= 2.0.2, < 8.0)
     amazing_print (2.0.0)
     ast (2.4.3)
+    audited (5.8.0)
+      activerecord (>= 5.2, < 8.2)
+      activesupport (>= 5.2, < 8.2)
     awesome_print (1.9.2)
     backport (1.2.0)
     base64 (0.3.0)
@@ -563,6 +566,7 @@ PLATFORMS
 
 DEPENDENCIES
   amazing_print
+  audited
   awesome_print
   bootsnap
   brakeman

@@ -81,3 +81,5 @@ gem "ostruct"
 
 # Rails console colours
 gem "colorize"
+
+gem "audited"
