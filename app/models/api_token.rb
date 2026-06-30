@@ -16,8 +16,6 @@ class APIToken < ApplicationRecord
     apply: "apply",
   }, validate: true
 
-  # Z7LsfjEtKxhLkRBN_3tH
-
   def self.create_with_random_token!(integration:, **attributes)
     unhashed_token, hashed_token = TokenGenerator.generate(APIToken, :hashed_token)
     create!(attributes.merge({ hashed_token:, integration: }))
