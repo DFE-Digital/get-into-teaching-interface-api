@@ -78,3 +78,8 @@ gem "webmock", "~> 3.26", group: :test
 gem "rswag", "~> 2.17"
 gem "awesome_print"
 gem "ostruct"
+
+# Rails console colours
+gem "colorize"
+
+gem "audited"

@@ -1,6 +1,8 @@
 class APIToken < ApplicationRecord
   belongs_to :integration
 
+  audited associated_with: :integration
+
   validates :hashed_token, presence: true
 
   scope :used_in_last_3_months, -> { where("last_used_at >= ?", 3.months.ago) }

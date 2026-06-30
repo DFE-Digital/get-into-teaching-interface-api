@@ -21,7 +21,7 @@ class TokenGenerator
 
   def self.key_for(column)
     @key_generator ||= ActiveSupport::CachingKeyGenerator.new(
-      ActiveSupport::KeyGenerator.new(Rails.application.secret_key_base)
+      ActiveSupport::KeyGenerator.new(ENV.fetch("SECRET_KEY_BASE"))
     )
     @key_generator.generate_key("Token #{column}")
   end
