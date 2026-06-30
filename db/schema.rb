@@ -30,7 +30,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_30_101706) do
     t.string "associated_type"
     t.integer "auditable_id"
     t.string "auditable_type"
-    t.text "audited_changes"
+    t.jsonb "audited_changes"
     t.string "comment"
     t.datetime "created_at"
     t.string "remote_address"
