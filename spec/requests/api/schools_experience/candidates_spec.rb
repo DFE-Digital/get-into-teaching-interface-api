@@ -4,8 +4,16 @@ RSpec.describe "API::SchoolsExperience::Candidates", type: :request do
   before { Rails.cache.clear }
   include APIHelper
 
-  let(:demo_client) { CRM::Client.new(adapter: CRM::Adapters::Demo::Client.new) }
-  before { allow(CRM::Client).to receive(:new).and_return(demo_client) }
+  before do
+    schools_experience = double
+    allow(schools_experience).to receive(:all).and_return([])
+    allow(schools_experience).to receive(:find).and_return({ "candidate_id" => "abc-123" })
+    allow(schools_experience).to receive(:create_candidate).and_return({ "candidate_id" => "abc-123" })
+
+    crm_client = double
+    allow(crm_client).to receive(:schools_experience).and_return(schools_experience)
+    allow(CRM::Client).to receive(:new).and_return(crm_client)
+  end
 
   let(:valid_attributes) do
     {

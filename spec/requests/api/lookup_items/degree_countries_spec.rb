@@ -4,6 +4,19 @@ RSpec.describe "GET /api/lookup_items/degree_countries", type: :request do
   before { Rails.cache.clear }
   include APIHelper
 
+  before do
+    degree_countries_resource = double
+    allow(degree_countries_resource).to receive(:all)
+      .and_return([ { "id" => "1", "value" => "United Kingdom", "iso_code" => "GB" } ])
+
+    lookup_items = double
+    allow(lookup_items).to receive(:degree_countries).and_return(degree_countries_resource)
+
+    crm_client = double
+    allow(crm_client).to receive(:lookup_items).and_return(lookup_items)
+    allow(CRM::Client).to receive(:new).and_return(crm_client)
+  end
+
   describe "response format" do
     it "returns JSON" do
       get(api_lookup_items_degree_countries_path, headers:)

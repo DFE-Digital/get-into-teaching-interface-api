@@ -43,12 +43,11 @@ app/
   models/                 # Active Record models (minimal by design)
 lib/
   crm/
-    client.rb             # CRM::Client — facade, constructor-injected adapter (default: Demo)
+    client.rb             # CRM::Client — facade, constructor-injected adapter
     resources/
       look_up_items_resource.rb          # abstract base
       look_up_items/                     # value objects + abstract resource classes
     adapters/
-      demo/               # CRM::Adapters::Demo — hardcoded data, default adapter
       get_into_teaching/  # CRM::Adapters::GetIntoTeaching — live HTTP adapter (Faraday)
 spec/
   requests/api/           # Request specs (integration, use named route helpers)
@@ -87,17 +86,6 @@ Controller → CRM::Client#lookup_items → LookUpItemsResource#<resource> → <
 Controller calls `CRM::Client.new.lookup_items.<resource>.all` inside `Rails.cache.fetch(**cache_options.to_h)`.
 Caching stays in the controller — `CRM::Client` is cache-unaware.
 
-When adding a new lookup resource, use the generator:
-
-```bash
-rails generate crm_endpoint lookup_items/subjects           # depth-2
-rails generate crm_endpoint pick_list_items/candidate/foo   # depth-3
-bundle exec rails zeitwerk:check
-```
-
-The generator creates all four layers (abstract bases, demo stub, GIT HTTP resource, controller), modifies routes and client files, generates all spec files, and inserts a VCR integration test stub. After running it, record the VCR cassette to make the inserted client spec pass.
-
-See `docs/solutions/developer-experience/crm-endpoint-generator-rails-scaffolding-2026-04-29.md` for full usage.
 See `docs/solutions/best-practices/crm-adapter-pattern-demo-phase-2026-04-27.md` for the full architectural pattern.
 
 ### Zeitwerk and acronyms

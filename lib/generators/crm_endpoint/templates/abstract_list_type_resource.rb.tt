@@ -1,7 +1,0 @@
-module CRM
-  module Resources
-    class <%= list_type_class %>
-      def <%= list_type_first_method %>(*) = raise NotImplementedError
-    end
-  end
-end
