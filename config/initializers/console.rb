@@ -25,7 +25,6 @@ module CustomConsole
 
   def setup_console
     IRB.setup(nil)
-    IRB.conf[:USE_AUTOCOMPLETE] = false
     custom_prompt = ConsolePrompt.generate_prompt
 
     IRB.conf[:PROMPT][:Apply] = {

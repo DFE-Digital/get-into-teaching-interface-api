@@ -4,7 +4,7 @@ RSpec.describe CRM::Client do
   describe "#lookup_items" do
     context "with the default adapter" do
       it "returns a Demo LookUpItemsResource" do
-        expect(described_class.new.lookup_items).to be_a(CRM::Adapters::Demo::Resources::LookUpItemsResource)
+        expect(described_class.new(adapter: CRM::Adapters::Demo::Client.new).lookup_items).to be_a(CRM::Adapters::Demo::Resources::LookUpItemsResource)
       end
     end
 
@@ -25,7 +25,7 @@ RSpec.describe CRM::Client do
   describe "#pick_list_items" do
     context "with the default adapter" do
       it "returns a Demo PickListItemsResource" do
-        expect(described_class.new.pick_list_items).to be_a(CRM::Adapters::Demo::Resources::PickListItemsResource)
+        expect(described_class.new(adapter: CRM::Adapters::Demo::Client.new).pick_list_items).to be_a(CRM::Adapters::Demo::Resources::PickListItemsResource)
       end
     end
 
@@ -46,7 +46,7 @@ RSpec.describe CRM::Client do
   describe "#callback_booking_quotas" do
     context "with the default adapter" do
       it "returns a Demo CallbackBookQuotasResource" do
-        expect(described_class.new.callback_booking_quotas).to be_a(CRM::Adapters::Demo::Resources::CallbackBookingQuotasResource)
+        expect(described_class.new(adapter: CRM::Adapters::Demo::Client.new).callback_booking_quotas).to be_a(CRM::Adapters::Demo::Resources::CallbackBookingQuotasResource)
       end
     end
 
@@ -67,7 +67,7 @@ RSpec.describe CRM::Client do
   describe "#privacy_policies" do
     context "with the default adapter" do
       it "returns a Demo PrivacyPoliciesResource" do
-        expect(described_class.new.privacy_policies).to be_a(CRM::Adapters::Demo::Resources::PrivacyPoliciesResource)
+        expect(described_class.new(adapter: CRM::Adapters::Demo::Client.new).privacy_policies).to be_a(CRM::Adapters::Demo::Resources::PrivacyPoliciesResource)
       end
     end
 

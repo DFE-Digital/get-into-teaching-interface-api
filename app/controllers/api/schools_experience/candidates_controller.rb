@@ -40,7 +40,9 @@ class API::SchoolsExperience::CandidatesController < API::ApplicationController
 
   def client
     @client ||= CRM::Client.new(
-      adapter: CRM::Adapters::GetIntoTeaching::Client.new,
+      adapter: CRM::Adapters::GetIntoTeaching::Client.new(
+        api_key: @current_api_token.crm_key,
+      )
     )
   end
 end

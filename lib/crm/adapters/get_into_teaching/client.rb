@@ -4,9 +4,7 @@ module CRM
       class Client
         attr_reader :base_url, :api_key
 
-        def initialize(base_url: ENV["GET_INTO_TEACHING_BASE_URL"],
-                       api_key: ENV["GET_INTO_TEACHING_API_KEY"]
-        )
+        def initialize(base_url: ENV["GET_INTO_TEACHING_BASE_URL"], api_key:)
           @base_url = base_url
           @api_key = api_key
         end

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::GetIntoTeachingResource do
-  let(:client) { CRM::Adapters::GetIntoTeaching::Client.new }
+  let(:client) { CRM::Adapters::GetIntoTeaching::Client.new(api_key: "test-api-key") }
 
   subject(:resource) { described_class.new(client) }
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_30_101706) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_30_135947) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -19,6 +19,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_30_101706) do
     t.string "hashed_token", null: false
     t.bigint "integration_id", null: false
     t.datetime "last_used_at", precision: nil
+    t.string "role", null: false
     t.datetime "updated_at", null: false
     t.index ["hashed_token"], name: "index_api_tokens_on_hashed_token", unique: true
     t.index ["integration_id"], name: "index_api_tokens_on_integration_id"

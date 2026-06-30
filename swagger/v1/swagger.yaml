@@ -2553,3 +2553,4 @@ components:
               message: Please provide a valid authentication token
 servers:
 - url: http://localhost:3000
+- url: https://get-into-teaching-interface-api-qa.test.teacherservices.cloud

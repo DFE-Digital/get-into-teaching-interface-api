@@ -15,13 +15,13 @@ RSpec.describe APIToken, type: :model do
     it "creates an APIToken with a hashed token" do
       integration = create(:integration)
 
-      unhashed = APIToken.create_with_random_token!(integration:)
+      unhashed = APIToken.create_with_random_token!(integration:, role: :admin)
 
       expect(APIToken.find_by_unhashed_token(unhashed)).to be_present
     end
 
     it "returns the unhashed token" do
-      unhashed = APIToken.create_with_random_token!(integration: create(:integration))
+      unhashed = APIToken.create_with_random_token!(integration: create(:integration), role: :admin)
 
       expect(unhashed).to be_a(String)
       expect(unhashed).not_to be_empty
@@ -30,7 +30,7 @@ RSpec.describe APIToken, type: :model do
     it "stores the hashed version in the database" do
       integration = create(:integration)
 
-      unhashed = APIToken.create_with_random_token!(integration:)
+      unhashed = APIToken.create_with_random_token!(integration:, role: :admin)
       token_record = APIToken.find_by_unhashed_token(unhashed)
 
       expect(token_record.hashed_token).not_to eq(unhashed)
@@ -38,14 +38,14 @@ RSpec.describe APIToken, type: :model do
 
     it "persists the record" do
       expect do
-        APIToken.create_with_random_token!(integration: create(:integration))
+        APIToken.create_with_random_token!(integration: create(:integration), role: :admin)
       end.to change(described_class, :count).by(1)
     end
   end
 
   describe ".find_by_unhashed_token" do
     it "returns the token record for a valid unhashed token" do
-      unhashed = APIToken.create_with_random_token!(integration: create(:integration))
+      unhashed = APIToken.create_with_random_token!(integration: create(:integration), role: :admin)
 
       found = APIToken.find_by_unhashed_token(unhashed)
 

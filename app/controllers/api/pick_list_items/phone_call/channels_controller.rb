@@ -9,6 +9,10 @@ class API::PickListItems::PhoneCall::ChannelsController < API::ApplicationContro
   private
 
   def crm_client
-    CRM::Client.new
+    @client ||= CRM::Client.new(
+      adapter: CRM::Adapters::GetIntoTeaching::Client.new(
+        api_key: @current_api_token.crm_key,
+      )
+    )
   end
 end

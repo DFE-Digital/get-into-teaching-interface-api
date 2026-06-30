@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
-  subject(:adapter) { described_class.new }
+  subject(:adapter) { described_class.new(api_key: "test-api-key") }
 
   describe "#lookup_items" do
     it "returns a GIT LookUpItemsResource" do
