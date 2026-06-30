@@ -25,6 +25,7 @@ shared:
     - hashed_token
     - last_used_at
     - integration_id
+    - role
     - created_at
     - updated_at
   :solid_cache_entries:

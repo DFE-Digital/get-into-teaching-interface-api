@@ -3,5 +3,6 @@ FactoryBot.define do
     integration
     hashed_token { "MyString" }
     last_used_at { "2026-05-29 14:56:30" }
+    role { :admin }
   end
 end
