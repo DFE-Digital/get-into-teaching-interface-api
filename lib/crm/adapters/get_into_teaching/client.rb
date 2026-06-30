@@ -15,6 +15,7 @@ module CRM
             conn.request :authorization, :Bearer, api_key
             conn.request :json
             conn.response :json, content_type: "application/json"
+            conn.headers["API-Version"] = "1.0"
           end
         end
 
