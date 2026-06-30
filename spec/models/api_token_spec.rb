@@ -71,4 +71,47 @@ RSpec.describe APIToken, type: :model do
       expect(described_class.used_in_last_3_months).not_to include(stale)
     end
   end
+
+  describe "#crm_key" do
+    let(:token) { build(:api_token, role:) }
+
+    before do
+      allow(ENV).to receive(:fetch).with("ADMIN_CRM_KEY").and_return("admin-secret")
+      allow(ENV).to receive(:fetch).with("GIT_CRM_KEY").and_return("git-secret")
+      allow(ENV).to receive(:fetch).with("SCHOOLS_EXPERIENCE_CRM_KEY").and_return("schools-secret")
+      allow(ENV).to receive(:fetch).with("APPLY_CRM_KEY").and_return("apply-secret")
+    end
+
+    context "when role is admin" do
+      let(:role) { :admin }
+
+      it "returns the ADMIN_CRM_KEY" do
+        expect(token.crm_key).to eq("admin-secret")
+      end
+    end
+
+    context "when role is get_into_teaching" do
+      let(:role) { :get_into_teaching }
+
+      it "returns the GIT_CRM_KEY" do
+        expect(token.crm_key).to eq("git-secret")
+      end
+    end
+
+    context "when role is schools_experience" do
+      let(:role) { :schools_experience }
+
+      it "returns the SCHOOLS_EXPERIENCE_CRM_KEY" do
+        expect(token.crm_key).to eq("schools-secret")
+      end
+    end
+
+    context "when role is apply" do
+      let(:role) { :apply }
+
+      it "returns the APPLY_CRM_KEY" do
+        expect(token.crm_key).to eq("apply-secret")
+      end
+    end
+  end
 end

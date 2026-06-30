@@ -10,8 +10,6 @@ class APIToken < ApplicationRecord
   enum :role, {
     admin: "admin",
     get_into_teaching: "get_into_teaching",
-    get_an_adviser: "get_an_adviser",
-    crm: "crm",
     schools_experience: "schools_experience",
     apply: "apply",
   }, validate: true
@@ -33,11 +31,10 @@ class APIToken < ApplicationRecord
       ENV.fetch("ADMIN_CRM_KEY")
     when "get_into_teaching"
       ENV.fetch("GIT_CRM_KEY")
-    when "get_an_adviser"
-    when "crm"
     when "schools_experience"
       ENV.fetch("SCHOOLS_EXPERIENCE_CRM_KEY")
     when "apply"
+      ENV.fetch("APPLY_CRM_KEY")
     end
   end
 end
