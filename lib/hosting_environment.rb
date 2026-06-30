@@ -7,6 +7,10 @@ module HostingEnvironment
     environment_name == "development"
   end
 
+  def self.qa?
+    environment_name == "qa"
+  end
+
   def self.production?
     environment_name == "production"
   end

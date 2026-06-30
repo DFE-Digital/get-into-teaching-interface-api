@@ -235,5 +235,4 @@ shell: get-cluster-credentials ## Open a shell on the app instance on AKS, eg: m
 console: get-cluster-credentials ## Open a Rails console on the app instance on AKS, eg: make qa console
 	$(if $(PR_NUMBER), $(eval export DSUFFIX="-pr-${PR_NUMBER}"), $(eval export DSUFFIX="-${CONFIG}") )
 	$(eval NAMESPACE=$(shell jq -r '.namespace' terraform/application/config/$(CONFIG).tfvars.json))
-	cat config/irbrc | kubectl -n ${NAMESPACE} exec -i deployment/${SERVICE_NAME}${DSUFFIX} -- sh -c "cat > /app/tmp/irbrc"
-	kubectl -n ${NAMESPACE} -ti exec deployment/${SERVICE_NAME}${DSUFFIX} -- sh -c "cd /app && IRBRC=/app/tmp/irbrc HOSTING_ENVIRONMENT_NAME=${ENVIRONMENT} bundle exec rails console"
+	kubectl -n ${NAMESPACE} -ti exec deployment/${SERVICE_NAME}${DSUFFIX} -- sh -c "cd /app && HOSTING_ENVIRONMENT_NAME=${ENVIRONMENT} bundle exec rails console"
