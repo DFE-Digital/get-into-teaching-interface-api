@@ -225,3 +225,14 @@ scale-worker: get-cluster-credentials
 qa: test-cluster
 	$(eval include global_config/qa.sh)
 
+.PHONY: shell
+shell: get-cluster-credentials ## Open a shell on the app instance on AKS, eg: make qa shell
+	$(if $(PR_NUMBER), $(eval export DSUFFIX="-pr-${PR_NUMBER}"), $(eval export DSUFFIX="-${CONFIG}") )
+	$(eval NAMESPACE=$(shell jq -r '.namespace' terraform/application/config/$(CONFIG).tfvars.json))
+	kubectl -n ${NAMESPACE} -ti exec deployment/${SERVICE_NAME}${DSUFFIX} -- /bin/sh
+
+.PHONY: console
+console: get-cluster-credentials ## Open a Rails console on the app instance on AKS, eg: make qa console
+	$(if $(PR_NUMBER), $(eval export DSUFFIX="-pr-${PR_NUMBER}"), $(eval export DSUFFIX="-${CONFIG}") )
+	$(eval NAMESPACE=$(shell jq -r '.namespace' terraform/application/config/$(CONFIG).tfvars.json))
+	kubectl -n ${NAMESPACE} -ti exec deployment/${SERVICE_NAME}${DSUFFIX} -- sh -c "cd /app && HOSTING_ENVIRONMENT_NAME=${ENVIRONMENT} bundle exec rails console"
