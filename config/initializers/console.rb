@@ -3,10 +3,9 @@ module CustomConsole
     show_warning_message_about_environments
     setup_console
 
-    # return run_console if HostingEnvironment.development?
-    run_console
+    return run_console if HostingEnvironment.development?
 
-    # audit_and_run_console
+    audit_and_run_console
   end
 
   def run_console
