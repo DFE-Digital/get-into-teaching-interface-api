@@ -95,8 +95,8 @@ jobs:
         run: corepack yarn install --immutable
       - name: Prepare test database
         run: bin/rails db:test:prepare
-      - name: Precompile assets
-        run: bin/rails assets:precompile
+      - name: Build CSS
+        run: corepack yarn build:css
       - name: Run tests
         run: bundle exec rspec
 
