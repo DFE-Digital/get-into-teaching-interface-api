@@ -92,7 +92,7 @@ jobs:
         with:
           node-version: "24.15.0"
       - name: Install node packages
-        run: npx --yes yarn@4.14.1 install --immutable
+        run: npx --yes @yarnpkg/cli@4.14.1 install --immutable
       - name: Prepare test database
         run: bin/rails db:test:prepare
       - name: Run tests
