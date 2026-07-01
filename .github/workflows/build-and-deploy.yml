@@ -87,6 +87,13 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24.15.0"
+          cache: yarn
+      - name: Install node packages
+        run: corepack enable && yarn install --immutable
       - name: Prepare test database
         run: bin/rails db:test:prepare
       - name: Run tests
