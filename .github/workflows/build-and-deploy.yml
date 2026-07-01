@@ -91,7 +91,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "24.15.0"
-          cache: yarn
       - name: Install node packages
         run: npx --yes yarn@4.14.1 install --immutable
       - name: Prepare test database
