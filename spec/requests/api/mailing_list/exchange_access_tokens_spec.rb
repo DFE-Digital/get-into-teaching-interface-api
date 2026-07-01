@@ -83,3 +83,108 @@ RSpec.describe "POST /api/mailing_list/members/exchange_access_token", type: :re
     end
   end
 end
+
+RSpec.describe "GET /api/mailing_list/members/exchange_magic_link_token/:magic_link_token", type: :request do
+  before { Rails.cache.clear }
+  include APIHelper
+
+  let(:mailing_list_resource) do
+    instance_double(CRM::Adapters::GetIntoTeaching::Resources::MailingListResource)
+  end
+
+  let(:crm_client) { instance_double(CRM::Client, mailing_list: mailing_list_resource) }
+
+  before do
+    allow(CRM::Client).to receive(:new).and_return(crm_client)
+  end
+
+  describe "when the token is valid" do
+    let(:response_double) do
+      CRM::Resources::MailingList::CandidateResource.new(
+        candidate_id: "abc-123", qualification_id: nil,
+        preferred_teaching_subject_id: nil, accepted_policy_id: nil,
+        consideration_journey_stage_id: nil, channel_id: nil,
+        creation_channel_source_id: nil, creation_channel_service_id: nil,
+        creation_channel_activity_id: nil, email: "test@example.com",
+        first_name: nil, last_name: nil, address_postcode: nil,
+        welcome_guide_variant: nil, already_subscribed_to_events: false,
+        already_subscribed_to_mailing_list: false,
+        already_subscribed_to_teacher_training_adviser: false,
+        default_contact_creation_channel: nil,
+        default_creation_channel_source_id: nil,
+        default_creation_channel_service_id: nil,
+        default_creation_channel_activity_id: nil,
+        situation: nil, citizenship: nil, visa_status: nil, location: nil,
+        graduation_year: nil, inferred_graduation_date: nil,
+        degree_status_id: nil
+      )
+    end
+
+    before do
+      allow(mailing_list_resource).to receive(:exchange_magic_link_token).and_return(response_double)
+    end
+
+    it "returns the pre-populated candidate data" do
+      get(api_mailing_list_exchange_magic_link_token_path(magic_link_token: "abc123"),
+          headers:)
+      expect(response).to have_http_status(:ok)
+      expect(response.content_type).to match(%r{application/json})
+      expect(response.parsed_body).to include("candidate_id" => "abc-123")
+    end
+  end
+
+  describe "when the token is invalid" do
+    before do
+      allow(mailing_list_resource).to receive(:exchange_magic_link_token)
+                                      .and_return({ success: false, exchange_status: "Invalid" })
+    end
+
+    it "returns 401 with the exchange status" do
+      get(api_mailing_list_exchange_magic_link_token_path(magic_link_token: "bad-token"),
+          headers:)
+      expect(response).to have_http_status(:unauthorized)
+      expect(response.parsed_body).to eq("status" => "Invalid", "success" => false)
+    end
+  end
+
+  describe "when the token has expired" do
+    before do
+      allow(mailing_list_resource).to receive(:exchange_magic_link_token)
+                                      .and_return({ success: false, exchange_status: "Expired" })
+    end
+
+    it "returns 401 with the exchange status" do
+      get(api_mailing_list_exchange_magic_link_token_path(magic_link_token: "expired-token"),
+          headers:)
+      expect(response).to have_http_status(:unauthorized)
+      expect(response.parsed_body).to eq("status" => "Expired", "success" => false)
+    end
+  end
+
+  describe "when the token has already been exchanged" do
+    before do
+      allow(mailing_list_resource).to receive(:exchange_magic_link_token)
+                                      .and_return({ success: false, exchange_status: "AlreadyExchanged" })
+    end
+
+    it "returns 401 with the exchange status" do
+      get(api_mailing_list_exchange_magic_link_token_path(magic_link_token: "used-token"),
+          headers:)
+      expect(response).to have_http_status(:unauthorized)
+      expect(response.parsed_body).to eq("status" => "AlreadyExchanged", "success" => false)
+    end
+  end
+
+  describe "when the CRM is unavailable" do
+    before do
+      allow(mailing_list_resource).to receive(:exchange_magic_link_token)
+                                      .and_raise(CRM::Adapters::GetIntoTeaching::Resource::Error)
+    end
+
+    it "returns 503" do
+      get(api_mailing_list_exchange_magic_link_token_path(magic_link_token: "abc123"),
+          headers:)
+      expect(response).to have_http_status(:service_unavailable)
+    end
+  end
+end
