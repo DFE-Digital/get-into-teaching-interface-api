@@ -25,6 +25,11 @@ Rails.application.routes.draw do
         to: "exchange_access_tokens#create",
         as: :exchange_access_token,
       )
+      get(
+        "members/exchange_magic_link_token/:magic_link_token",
+        to: "exchange_access_tokens#show",
+        as: :exchange_magic_link_token,
+      )
     end
 
     namespace :operations do

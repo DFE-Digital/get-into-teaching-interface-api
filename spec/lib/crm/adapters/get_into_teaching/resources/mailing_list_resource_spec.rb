@@ -44,4 +44,13 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::MailingListResource do
       expect(result.candidate_id).to be_present
     end
   end
+
+  describe "#exchange_magic_link_token", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/mailing_list/exchange_magic_link_token" } do
+    let(:token) { "test" }
+
+    it "returns the parsed response body with symbolized keys" do
+      result = resource.exchange_magic_link_token(token)
+      expect(result).to eq({ success: false, status: "Invalid" })
+    end
+  end
 end

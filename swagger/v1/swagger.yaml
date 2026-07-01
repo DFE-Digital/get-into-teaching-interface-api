@@ -301,6 +301,35 @@ paths:
                   message: "Email can't be blank"
         401:
            $ref: "#/components/responses/Unauthorized"
+  "/api/mailing_list/members/exchange_magic_link_token/{magicLinkToken}":
+    get:
+      tags:
+      - Mailing List
+      summary: Exchange a magic link token for a mailing list member sign-up.
+      description: |
+        Retrieves a pre-populated MailingListAddMember for the candidate. The `magicLinkToken` is obtained from a
+        `POST /api/candidates/magic_link_tokens` request.
+      operationId: ExchangeMagicLinkTokenForMailingListAddMember
+      parameters:
+      - name: magicLinkToken
+        in: path
+        required: true
+        description: The magic link token to exchange.
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MailingListAddMember"
+        401:
+          description: unauthorized - token is invalid, expired, or already exchanged
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CandidateMagicLinkExchangeResult"
   "/api/operations/backfill_apply_candidates":
     post:
       tags:
@@ -2541,6 +2570,28 @@ components:
       - first_name
       - last_name
       - accepted_policy_id
+
+    CandidateMagicLinkExchangeResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the magic link token exchange was successful.
+          example: false
+        status:
+          $ref: "#/components/schemas/ExchangeStatus"
+      example:
+        status: Expired
+        success: false
+
+    ExchangeStatus:
+      type: string
+      enum:
+      - Valid
+      - Invalid
+      - Expired
+      - AlreadyExchanged
+      description: The status of the magic link token exchange.
 
   responses:
     Unauthorized:

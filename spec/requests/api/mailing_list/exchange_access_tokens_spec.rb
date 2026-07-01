@@ -83,3 +83,32 @@ RSpec.describe "POST /api/mailing_list/members/exchange_access_token", type: :re
     end
   end
 end
+
+RSpec.describe "GET /api/mailing_list/members/exchange_magic_link_token/:magic_link_token", type: :request do
+  before { Rails.cache.clear }
+  include APIHelper
+
+  let(:mailing_list_resource) do
+    instance_double(CRM::Adapters::GetIntoTeaching::Resources::MailingListResource)
+  end
+
+  let(:crm_client) { instance_double(CRM::Client, mailing_list: mailing_list_resource) }
+
+  before do
+    allow(CRM::Client).to receive(:new).and_return(crm_client)
+  end
+
+  it "returns 200 with candidate data for a valid token" do
+    allow(mailing_list_resource).to receive(:exchange_magic_link_token)
+      .and_return({ success: false, status: "Invalid" })
+
+    get(api_mailing_list_exchange_magic_link_token_path(magic_link_token: "abc123"), headers:)
+    expect(response).to have_http_status(:ok)
+    expect(response.parsed_body).to include("status" => "Invalid")
+  end
+
+  it "returns 401 without an auth token" do
+    get(api_mailing_list_exchange_magic_link_token_path(magic_link_token: "abc123"))
+    expect(response).to have_http_status(:unauthorized)
+  end
+end
