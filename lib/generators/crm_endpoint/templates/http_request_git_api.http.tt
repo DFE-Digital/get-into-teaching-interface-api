@@ -1,5 +1,0 @@
-### GET request to example server
-GET {{apiUrl}}<%= api_path %>
-Authorization: Bearer {{apiKey}}
-
-###

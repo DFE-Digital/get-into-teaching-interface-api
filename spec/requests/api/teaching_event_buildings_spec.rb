@@ -4,6 +4,18 @@ RSpec.describe "GET /api/teaching_event_buildings", type: :request do
   before { Rails.cache.clear }
   include APIHelper
 
+  before do
+    buildings = double
+    allow(buildings).to receive(:all).and_return([ {
+      "id" => "1", "venue" => "Main Hall", "address_line1" => "123 High St",
+      "address_line2" => nil, "address_line3" => nil, "address_city" => "London",
+      "address_postcode" => "SW1A 1AA", "image_url" => nil
+    } ])
+    client = instance_double(CRM::Client)
+    allow(client).to receive(:teaching_event_buildings).and_return(buildings)
+    allow(CRM::Client).to receive(:new).and_return(client)
+  end
+
   describe "response format" do
     it "returns JSON" do
       get(api_teaching_event_buildings_path, headers:)

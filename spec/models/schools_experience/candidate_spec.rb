@@ -18,7 +18,7 @@ RSpec.describe SchoolsExperience::Candidate do
   end
   let(:crm_client) { instance_double(CRM::Client) }
   let(:candidate_resource) do
-    instance_double(CRM::Adapters::Demo::Resources::SchoolsExperienceResource)
+    instance_double(CRM::Adapters::GetIntoTeaching::Resources::SchoolsExperienceResource)
   end
 
   subject do

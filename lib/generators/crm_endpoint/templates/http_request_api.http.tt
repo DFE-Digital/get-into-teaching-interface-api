@@ -1,5 +1,0 @@
-### <%= human_title %>
-GET http://localhost:3000<%= api_path %>
-
-### <%= human_title %> with forced cache miss
-GET http://localhost:3000<%= api_path %>?force_cache_miss=true

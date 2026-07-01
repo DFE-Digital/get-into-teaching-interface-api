@@ -4,6 +4,19 @@ RSpec.describe "GET /api/lookup_items/teaching_subjects", type: :request do
   before { Rails.cache.clear }
   include APIHelper
 
+  before do
+    teaching_subjects_resource = double
+    allow(teaching_subjects_resource).to receive(:all)
+      .and_return([ { "id" => "1", "value" => "Mathematics" } ])
+
+    lookup_items = double
+    allow(lookup_items).to receive(:teaching_subjects).and_return(teaching_subjects_resource)
+
+    crm_client = double
+    allow(crm_client).to receive(:lookup_items).and_return(lookup_items)
+    allow(CRM::Client).to receive(:new).and_return(crm_client)
+  end
+
   describe "response format" do
     it "returns JSON" do
       get(api_lookup_items_teaching_subjects_path, headers:)

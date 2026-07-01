@@ -5,6 +5,14 @@ RSpec.describe "GET /api/privacy_policies/:id", type: :request do
   before { Rails.cache.clear }
   include APIHelper
 
+  before do
+    policies = double
+    allow(policies).to receive(:find).and_return({ "id" => "1", "text" => "test", "created_at" => "2026-01-01T00:00:00Z" })
+    client = instance_double(CRM::Client)
+    allow(client).to receive(:privacy_policies).and_return(policies)
+    allow(CRM::Client).to receive(:new).and_return(client)
+  end
+
   describe "GET /api/privacy_policies/:id" do
     describe "response format" do
       it "returns JSON" do

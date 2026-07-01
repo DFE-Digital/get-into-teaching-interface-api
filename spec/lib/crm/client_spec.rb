@@ -2,15 +2,9 @@ require "rails_helper"
 
 RSpec.describe CRM::Client do
   describe "#lookup_items" do
-    context "with the default adapter" do
-      it "returns a Demo LookUpItemsResource" do
-        expect(described_class.new(adapter: CRM::Adapters::Demo::Client.new).lookup_items).to be_a(CRM::Adapters::Demo::Resources::LookUpItemsResource)
-      end
-    end
-
     context "with an injected adapter" do
-      let(:adapter) { instance_double(CRM::Adapters::Demo::Client) }
-      let(:lookup_items_resource) { instance_double(CRM::Adapters::Demo::Resources::LookUpItemsResource) }
+      let(:adapter) { double }
+      let(:lookup_items_resource) { double }
 
       before { allow(adapter).to receive(:lookup_items).and_return(lookup_items_resource) }
 
@@ -23,15 +17,9 @@ RSpec.describe CRM::Client do
   end
 
   describe "#pick_list_items" do
-    context "with the default adapter" do
-      it "returns a Demo PickListItemsResource" do
-        expect(described_class.new(adapter: CRM::Adapters::Demo::Client.new).pick_list_items).to be_a(CRM::Adapters::Demo::Resources::PickListItemsResource)
-      end
-    end
-
     context "with an injected adapter" do
-      let(:adapter) { instance_double(CRM::Adapters::Demo::Client) }
-      let(:pick_list_items_resource) { instance_double(CRM::Adapters::Demo::Resources::PickListItemsResource) }
+      let(:adapter) { double }
+      let(:pick_list_items_resource) { double }
 
       before { allow(adapter).to receive(:pick_list_items).and_return(pick_list_items_resource) }
 
@@ -44,15 +32,9 @@ RSpec.describe CRM::Client do
   end
 
   describe "#callback_booking_quotas" do
-    context "with the default adapter" do
-      it "returns a Demo CallbackBookQuotasResource" do
-        expect(described_class.new(adapter: CRM::Adapters::Demo::Client.new).callback_booking_quotas).to be_a(CRM::Adapters::Demo::Resources::CallbackBookingQuotasResource)
-      end
-    end
-
     context "with an injected adapter" do
-      let(:adapter) { instance_double(CRM::Adapters::Demo::Client) }
-      let(:callback_booking_quotas_resource) { instance_double(CRM::Adapters::Demo::Resources::CallbackBookingQuotasResource) }
+      let(:adapter) { double }
+      let(:callback_booking_quotas_resource) { double }
 
       before { allow(adapter).to receive(:callback_booking_quotas).and_return(callback_booking_quotas_resource) }
 
@@ -65,15 +47,9 @@ RSpec.describe CRM::Client do
   end
 
   describe "#privacy_policies" do
-    context "with the default adapter" do
-      it "returns a Demo PrivacyPoliciesResource" do
-        expect(described_class.new(adapter: CRM::Adapters::Demo::Client.new).privacy_policies).to be_a(CRM::Adapters::Demo::Resources::PrivacyPoliciesResource)
-      end
-    end
-
     context "with an injected adapter" do
-      let(:adapter) { instance_double(CRM::Adapters::Demo::Client) }
-      let(:privacy_policies_resource) { instance_double(CRM::Adapters::Demo::Resources::PrivacyPoliciesResource) }
+      let(:adapter) { double }
+      let(:privacy_policies_resource) { double }
 
       before { allow(adapter).to receive(:privacy_policies).and_return(privacy_policies_resource) }
 
