@@ -73,11 +73,9 @@ jobs:
     steps:
     - name: Check out repository
       uses: actions/checkout@v6
-
-    # - name: Run tests
-    #   shell: bash
-    #   run: |
-    #     run some tests
+    - name: Run tests
+      shell: bash
+      run: run bin/rspec
 
   deploy-review-app:
     name: Deployment To Review
