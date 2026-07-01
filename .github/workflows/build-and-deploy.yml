@@ -79,6 +79,7 @@ jobs:
         ports:
           - 5432:5432
     env:
+      RAILS_ENV: test
       DATABASE_URL: postgres://postgres:postgres@localhost:5432/get_into_teaching_interface_api_test
     steps:
       - uses: actions/checkout@v6
@@ -86,10 +87,6 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-      - name: Check DATABASE_URL
-        run: |
-          echo "Shell env: DATABASE_URL=[$DATABASE_URL]"
-          echo "Ruby env:  DATABASE_URL=[$(ruby -e 'puts ENV["DATABASE_URL"]')]"
       - name: Prepare test database
         run: bin/rails db:test:prepare
       - name: Run tests
