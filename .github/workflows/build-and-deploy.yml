@@ -94,9 +94,13 @@ jobs:
       - name: Install node packages
         run: corepack yarn install --immutable
       - name: Prepare test database
+        env:
+          SKIP_JS_BUILD: 1
         run: bin/rails db:test:prepare
-      - name: Build CSS
-        run: corepack yarn build:css
+      - name: Build JS and CSS
+        run: |
+          corepack yarn build
+          corepack yarn build:css
       - name: Run tests
         run: bundle exec rspec
 
