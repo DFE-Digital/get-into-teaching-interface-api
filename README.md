@@ -2,6 +2,13 @@
 
 Replace this with a description of what this service does and who it's for.
 
+## Live environments
+
+| Name       | URL                                                                  | Description                                                           | AKS namespace    |
+| ---------- | -------------------------------------------------------------------- | --------------------------------------------------------------------- | ---------------- |
+| QA         | [qa](https://get-into-teaching-interface-api-qa.test.teacherservices.cloud)           | For internal use by DfE for testing. Automatically deployed from main | `git-test`         |
+
+
 ## Getting started
 
 ### Prerequisites
