@@ -75,7 +75,7 @@ jobs:
       uses: actions/checkout@v6
     - name: Run tests
       shell: bash
-      run: run bin/rspec
+      run: bundle exec rspec
 
   deploy-review-app:
     name: Deployment To Review
