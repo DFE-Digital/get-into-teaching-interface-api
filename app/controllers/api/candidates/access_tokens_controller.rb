@@ -5,7 +5,6 @@ class API::Candidates::AccessTokensController < API::ApplicationController
       request_params:
     )
 
-    raise StandardError("test2")
     if access_token.create
       render status: :no_content
     else
