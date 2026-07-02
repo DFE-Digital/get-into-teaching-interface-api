@@ -21,6 +21,9 @@ Bundler.require(*Rails.groups)
 # Load .env.local in test
 Dotenv::Rails.files.unshift(".env.local") if ENV["RAILS_ENV"] == "test"
 
+require "./lib/hosting_environment"
+require "./lib/json_parser"
+
 module GetIntoTeachingInterfaceApi
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.

@@ -9,6 +9,28 @@ Replace this with a description of what this service does and who it's for.
 | QA         | [qa](https://get-into-teaching-interface-api-qa.test.teacherservices.cloud)           | For internal use by DfE for testing. Automatically deployed from main | `git-test`         |
 
 
+## Create API Tokens
+
+You'll need to open a rails console in the azure instance and create your APIToken.
+
+```mermaid
+erDiagram
+    Integration ||--o{ APIToken : has_many
+
+    Integration {
+        string name
+    }
+    APIToken {
+        foreign_key integration_id
+        string role "get-into-teaching, apply, admin (One APIToken has one role)"
+    }
+```
+
+```ruby
+integration = Integration.find_by(name: "Your integration")
+APIToken.create_with_random_token!(integration:, role: :get_into_teaching)
+```
+
 ## Getting started
 
 ### Prerequisites
