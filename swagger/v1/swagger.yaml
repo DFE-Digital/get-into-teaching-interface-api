@@ -2153,12 +2153,12 @@ components:
     DegreeStatusResponse:
       type: object
       properties:
-        degreeStatusId:
+        degree_status_id:
           type: integer
           format: int32
           example: 222750000
       required:
-      - degreeStatusId
+      - degree_status_Id
 
     MailingListAddMember:
       type: object
