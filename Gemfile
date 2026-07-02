@@ -83,3 +83,6 @@ gem "ostruct"
 gem "colorize"
 
 gem "audited"
+
+gem "sentry-ruby"
+gem "sentry-rails"
