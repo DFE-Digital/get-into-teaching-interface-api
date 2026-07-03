@@ -2151,7 +2151,7 @@ components:
         can_subscribe_to_teacher_training_adviser:
           type: boolean
           example: false
-        can_subscribe_to_teacher_training_adviser:
+        assignment_status_id:
           type: int32
           example: 1234567
       required:
