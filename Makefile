@@ -71,8 +71,8 @@ arm-deployment: composed-variables set-azure-account
 	$(if ${ENABLE_KV_DIAGNOSTICS}, $(eval KV_DIAG_ARG=enableDiagnostics=${ENABLE_KV_DIAGNOSTICS} logAnalyticsWorkspaceName=${LOG_ANALYTICS_WORKSPACE_NAME}),)
 
 	az deployment sub create --name "resourcedeploy-tsc-$(shell date +%Y%m%d%H%M%S)" \
-		-l "${REGION}" --template-uri "https://raw.githubusercontent.com/DFE-Digital/tra-shared-services/${ARM_TEMPLATE_TAG}/azure/resourcedeploy.json" \
-		--parameters "resourceGroupName=${RESOURCE_GROUP_NAME}" 'tags=${RG_TAGS}' \
+		-l "${REGION}" --template-uri "https://raw.githubusercontent.com/DFE-Digital/tra-shared-services/remove-merged-branch-reference/azure/resourcedeploy.json" \
+		--parameters "resourceGroupName=${RESOURCE_GROUP_NAME}" 'tags=${RG_TAGS}' 'armTemplateTag=${ARM_TEMPLATE_TAG}' \
 		"tfStorageAccountName=${STORAGE_ACCOUNT_NAME}" "tfStorageContainerName=terraform-state" \
 		${KV_ARG} \
 		${KV_DIAG_ARG} \
@@ -88,8 +88,8 @@ arm-mon-deployment: composed-variables set-azure-account
 
 	az deployment sub create --name "monitoringdeploy-tsc-$(shell date +%Y%m%d%H%M%S)" \
         -l "${REGION}" \
-		--template-uri "https://raw.githubusercontent.com/DFE-Digital/tra-shared-services/${ARM_TEMPLATE_TAG}/azure/monitoringdeploy.json" \
-		--parameters "monitoringResourceGroupName=${AZURE_RESOURCE_PREFIX}-${SERVICE_SHORT}-mn-rg" 'tags=${RG_TAGS}' \
+		--template-uri "https://raw.githubusercontent.com/DFE-Digital/tra-shared-services/remove-merged-branch-reference/azure/monitoringdeploy.json" \
+		--parameters "monitoringResourceGroupName=${AZURE_RESOURCE_PREFIX}-${SERVICE_SHORT}-mn-rg" 'tags=${RG_TAGS}' 'armTemplateTag=${ARM_TEMPLATE_TAG}' \
         "monitoringResourceGroupLocation=${REGION}" \
         "actionGroupName=${AZURE_RESOURCE_PREFIX}-${SERVICE_NAME}" \
 		"alertEmailAddress=$(ACTION_GROUP_EMAIL)" \
