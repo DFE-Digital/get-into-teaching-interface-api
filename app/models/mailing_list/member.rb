@@ -9,6 +9,7 @@ module MailingList
       { name: :first_name },
       { name: :last_name },
       { name: :accepted_policy_id },
+      { name: :qualification_id },
       { name: :consideration_journey_stage_id, type: :integer },
       { name: :preferred_teaching_subject_id },
       { name: :address_postcode },
@@ -21,7 +22,15 @@ module MailingList
       { name: :visa_status, type: :integer },
       { name: :location, type: :integer },
       { name: :channel_id, type: :integer },
+      { name: :creation_channel_source_id, type: :integer },
+      { name: :creation_channel_service_id, type: :integer },
+      { name: :creation_channel_activity_id, type: :integer },
+      { name: :already_subscribed_to_events, type: :boolean },
+      { name: :already_subscribed_to_mailing_list, type: :boolean },
+      { name: :already_subscribed_to_teacher_training_adviser, type: :boolean },
     ].freeze
+
+    inferred_graduation_date (DateTime?)
 
     ATTRIBUTES.each do |attribute_hash|
       attribute attribute_hash[:name], attribute_hash.fetch(:type, :string)
