@@ -931,7 +931,7 @@ paths:
       tags:
       - Pick List Items
       summary: Retrieves the list of teaching event accessibility items.
-      operationId: GetTeachingEventAccessibilityItems
+      operationId: GetTeachingEventAccessibilty
       responses:
         200:
           description: successful
