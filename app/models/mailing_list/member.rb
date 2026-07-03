@@ -31,7 +31,6 @@ module MailingList
       { name: :inferred_graduation_date },
     ].freeze
 
-
     ATTRIBUTES.each do |attribute_hash|
       attribute attribute_hash[:name], attribute_hash.fetch(:type, :string)
     end
