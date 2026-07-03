@@ -230,7 +230,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        domain_environment: [qa, production]
+        domain_environment: [qa] #[qa,production]
     environment:
       name: production
     permissions:
