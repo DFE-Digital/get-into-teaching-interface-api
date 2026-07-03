@@ -43,6 +43,9 @@ module TeacherTrainingAdviser
       { name: :visa_status },
       { name: :location },
       { name: :graduation_year },
+      { name: :inferred_graduation_date },
+      { name: :can_subscribe_to_teacher_training_adviser, type: :boolean },
+      { name: :assignment_status_id },
     ].freeze
 
     ATTRIBUTES.each do |attribute_hash|
