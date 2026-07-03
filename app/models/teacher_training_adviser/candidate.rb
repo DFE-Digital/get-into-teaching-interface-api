@@ -11,6 +11,7 @@ module TeacherTrainingAdviser
       { name: :date_of_birth, type: :date },
       { name: :address_telephone },
       { name: :address_postcode },
+      { name: :teacher_id },
       { name: :country_id },
       { name: :degree_subject },
       { name: :uk_degree_grade_id },
