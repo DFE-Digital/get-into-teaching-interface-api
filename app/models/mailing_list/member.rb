@@ -28,9 +28,9 @@ module MailingList
       { name: :already_subscribed_to_events, type: :boolean },
       { name: :already_subscribed_to_mailing_list, type: :boolean },
       { name: :already_subscribed_to_teacher_training_adviser, type: :boolean },
+      { name: :inferred_graduation_date },
     ].freeze
 
-    inferred_graduation_date (DateTime?)
 
     ATTRIBUTES.each do |attribute_hash|
       attribute attribute_hash[:name], attribute_hash.fetch(:type, :string)

@@ -2167,6 +2167,10 @@ components:
           type: string
           format: uuid
           example: "d85a2f0b-290f-4931-98e2-e7d817ac38f3"
+        qualification_id:
+          type: string
+          format: uuid
+          example: "13da3277-c8ba-4b64-a79e-b0a3960c26be"
         accepted_policy_id:
           type: string
           format: uuid
@@ -2206,6 +2210,18 @@ components:
           type: integer
           format: int32
           example: 222750049
+        creation_channel_source_id:
+          type: integer
+          format: int32
+          example: 222750000
+        creation_channel_service_id:
+          type: integer
+          format: int32
+          example: 222750010
+        creation_channel_activity_id:
+          type: integer
+          format: int32
+          example: 222750017
         situation:
           type: integer
           format: int32
@@ -2222,6 +2238,18 @@ components:
           type: integer
           format: int32
           example: 222750000
+        already_subscribed_to_events:
+          type: boolean
+          example: false
+        already_subscribed_to_mailing_list:
+          type: boolean
+          example: false
+        already_subscribed_to_teacher_training_adviser:
+          type: boolean
+          example: false
+        inferred_graduation_date:
+          type: string
+          example: "2025-01-01"
       required:
       - email
       - first_name
