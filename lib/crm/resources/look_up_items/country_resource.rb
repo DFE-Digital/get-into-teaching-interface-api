@@ -1,7 +1,11 @@
 module CRM
   module Resources
     module LookUpItems
-      CountryResource = Data.define(:id, :value, :iso_code)
+      class CountryResource < BaseStruct
+        attribute :id, Types::String
+        attribute :value, Types::String
+        attribute :iso_code, Types::String.optional
+      end
     end
   end
 end

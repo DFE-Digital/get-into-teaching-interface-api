@@ -2,7 +2,7 @@ module CRM
   module Resources
     module PickListItems
       module TeachingEvent
-        RegionResource = Data.define(:id, :value)
+        class RegionResource < PickListItemResource; end
       end
     end
   end

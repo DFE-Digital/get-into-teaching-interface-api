@@ -2,7 +2,7 @@ module CRM
   module Resources
     module PickListItems
       module ContactCreationChannel
-        ServiceResource = Data.define(:id, :value)
+        class ServiceResource < PickListItemResource; end
       end
     end
   end

@@ -2,7 +2,7 @@ module CRM
   module Resources
     module PickListItems
       module Candidate
-        AssignmentStatusResource = Data.define(:id, :value)
+        class AssignmentStatusResource < PickListItemResource; end
       end
     end
   end

@@ -2,7 +2,7 @@ module CRM
   module Resources
     module PickListItems
       module TeachingEvent
-        AccessibilityItemResource = Data.define(:id, :value)
+        class AccessibilityItemResource < PickListItemResource; end
       end
     end
   end

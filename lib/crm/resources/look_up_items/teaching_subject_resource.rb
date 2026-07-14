@@ -1,7 +1,7 @@
 module CRM
   module Resources
     module LookUpItems
-      TeachingSubjectResource = Data.define(:id, :value)
+      class TeachingSubjectResource < LookUpItemResource; end
     end
   end
 end

@@ -2,7 +2,7 @@ module CRM
   module Resources
     module PickListItems
       module TeachingEvent
-        StatusResource = Data.define(:id, :value)
+        class StatusResource < PickListItemResource; end
       end
     end
   end

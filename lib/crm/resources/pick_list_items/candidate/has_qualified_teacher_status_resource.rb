@@ -2,7 +2,7 @@ module CRM
   module Resources
     module PickListItems
       module Candidate
-        HasQualifiedTeacherStatusResource = Data.define(:id, :value)
+        class HasQualifiedTeacherStatusResource < PickListItemResource; end
       end
     end
   end

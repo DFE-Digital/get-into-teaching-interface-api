@@ -2,7 +2,7 @@ module CRM
   module Resources
     module PickListItems
       module PastTeachingPosition
-        EducationPhaseResource = Data.define(:id, :value)
+        class EducationPhaseResource < PickListItemResource; end
       end
     end
   end

@@ -2,7 +2,7 @@ module CRM
   module Resources
     module PickListItems
       module Candidate
-        AdviserRequirementResource = Data.define(:id, :value)
+        class AdviserRequirementResource < PickListItemResource; end
       end
     end
   end

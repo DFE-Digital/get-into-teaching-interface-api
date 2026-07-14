@@ -2,7 +2,7 @@ module CRM
   module Resources
     module PickListItems
       module Qualification
-        DegreeStatusResource = Data.define(:id, :value)
+        class DegreeStatusResource < PickListItemResource; end
       end
     end
   end

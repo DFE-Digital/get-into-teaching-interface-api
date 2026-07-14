@@ -2,7 +2,7 @@ module CRM
   module Resources
     module PickListItems
       module Candidate
-        VisaStatusResource = Data.define(:id, :value)
+        class VisaStatusResource < PickListItemResource; end
       end
     end
   end

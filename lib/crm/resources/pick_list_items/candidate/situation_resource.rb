@@ -2,7 +2,7 @@ module CRM
   module Resources
     module PickListItems
       module Candidate
-        SituationResource = Data.define(:id, :value)
+        class SituationResource < PickListItemResource; end
       end
     end
   end

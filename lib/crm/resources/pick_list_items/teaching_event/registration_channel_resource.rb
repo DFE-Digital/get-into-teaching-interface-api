@@ -2,7 +2,7 @@ module CRM
   module Resources
     module PickListItems
       module TeachingEvent
-        RegistrationChannelResource = Data.define(:id, :value)
+        class RegistrationChannelResource < PickListItemResource; end
       end
     end
   end

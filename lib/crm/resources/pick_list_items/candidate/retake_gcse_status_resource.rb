@@ -2,7 +2,7 @@ module CRM
   module Resources
     module PickListItems
       module Candidate
-        RetakeGcseStatusResource = Data.define(:id, :value)
+        class RetakeGcseStatusResource < PickListItemResource; end
       end
     end
   end
