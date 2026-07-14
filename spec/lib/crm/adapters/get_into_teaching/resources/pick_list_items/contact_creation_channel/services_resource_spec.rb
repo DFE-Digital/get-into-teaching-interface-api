@@ -12,8 +12,8 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::PickListItems::Contact
         .to_return(
           status: 200,
           body: [
-            { "Id" => "abc-123", "Value" => "Example 1" },
-            { "Id" => "def-456", "Value" => "Example 2" },
+            { "Id" => 123, "Value" => "Example 1" },
+            { "Id" => 456, "Value" => "Example 2" },
           ].to_json,
           headers: { "Content-Type" => "application/json" }
         )
@@ -26,7 +26,7 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::PickListItems::Contact
     it "maps API response attributes to snake_case" do
       item = resource.all.first
 
-      expect(item.id).to eq("abc-123")
+      expect(item.id).to eq(123)
       expect(item.value).to eq("Example 1")
     end
 
