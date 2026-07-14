@@ -1,14 +1,14 @@
 module CRM
   module Resources
-    CallbackBookingQuotaResource = Data.define(
-      :id,
-      :time_slot,
-      :day,
-      :start_at,
-      :end_at,
-      :number_of_bookings,
-      :quota,
-      :is_available,
-    )
+    class CallbackBookingQuotaResource < BaseStruct
+      attribute :id,           Types::String
+      attribute :time_slot,    Types::String
+      attribute :day,          Types::String
+      attribute :start_at,     Types::String
+      attribute :end_at,       Types::String
+      attribute :number_of_bookings, Types::Integer
+      attribute :quota,        Types::Integer
+      attribute :is_available, Types::Params::Bool
+    end
   end
 end

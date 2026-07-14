@@ -2,7 +2,7 @@ module CRM
   module Resources
     module PickListItems
       module Candidate
-        ChannelResource = Data.define(:id, :value)
+        class ChannelResource < PickListItemResource; end
       end
     end
   end

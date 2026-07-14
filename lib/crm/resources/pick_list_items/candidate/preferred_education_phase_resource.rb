@@ -2,7 +2,7 @@ module CRM
   module Resources
     module PickListItems
       module Candidate
-        PreferredEducationPhaseResource = Data.define(:id, :value)
+        class PreferredEducationPhaseResource < PickListItemResource; end
       end
     end
   end

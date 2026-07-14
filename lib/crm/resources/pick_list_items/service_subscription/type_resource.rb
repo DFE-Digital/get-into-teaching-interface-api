@@ -2,7 +2,7 @@ module CRM
   module Resources
     module PickListItems
       module ServiceSubscription
-        TypeResource = Data.define(:id, :value)
+        class TypeResource < PickListItemResource; end
       end
     end
   end

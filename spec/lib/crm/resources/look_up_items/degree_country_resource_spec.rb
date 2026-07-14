@@ -9,9 +9,9 @@ RSpec.describe CRM::Resources::LookUpItems::DegreeCountryResource do
     expect(country.iso_code).to eq("GB")
   end
 
-  it "raises ArgumentError when required fields are missing" do
+  it "raises Dry::Struct::Error when required fields are missing" do
     expect { described_class.new(id: "abc-123", value: "United Kingdom") }
-      .to raise_error(ArgumentError)
+      .to raise_error(Dry::Struct::Error)
   end
 
   it "considers two instances with identical fields equal" do

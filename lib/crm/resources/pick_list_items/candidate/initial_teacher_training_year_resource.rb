@@ -2,7 +2,7 @@ module CRM
   module Resources
     module PickListItems
       module Candidate
-        InitialTeacherTrainingYearResource = Data.define(:id, :value)
+        class InitialTeacherTrainingYearResource < PickListItemResource; end
       end
     end
   end

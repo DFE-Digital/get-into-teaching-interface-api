@@ -1,14 +1,14 @@
 module CRM
   module Resources
-    TeachingEventBuildingResource = Data.define(
-      :venue,
-      :address_line1,
-      :address_line2,
-      :address_line3,
-      :address_city,
-      :address_postcode,
-      :image_url,
-      :id,
-    )
+    class TeachingEventBuildingResource < BaseStruct
+      attribute :venue, Types::String
+      attribute :address_line1, Types::String.optional
+      attribute :address_line2, Types::String.optional
+      attribute :address_line3, Types::String.optional
+      attribute :address_city, Types::String.optional
+      attribute :address_postcode, Types::String.optional
+      attribute :image_url, Types::String.optional
+      attribute :id, Types::String
+    end
   end
 end

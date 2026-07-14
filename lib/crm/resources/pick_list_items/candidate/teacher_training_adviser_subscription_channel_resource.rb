@@ -2,7 +2,7 @@ module CRM
   module Resources
     module PickListItems
       module Candidate
-        TeacherTrainingAdviserSubscriptionChannelResource = Data.define(:id, :value)
+        class TeacherTrainingAdviserSubscriptionChannelResource < PickListItemResource; end
       end
     end
   end

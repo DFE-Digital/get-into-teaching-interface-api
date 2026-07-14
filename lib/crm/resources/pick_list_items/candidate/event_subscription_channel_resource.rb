@@ -2,7 +2,7 @@ module CRM
   module Resources
     module PickListItems
       module Candidate
-        EventSubscriptionChannelResource = Data.define(:id, :value)
+        class EventSubscriptionChannelResource < PickListItemResource; end
       end
     end
   end

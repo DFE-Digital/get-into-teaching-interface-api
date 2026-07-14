@@ -2,7 +2,7 @@ module CRM
   module Resources
     module PickListItems
       module Candidate
-        ConsiderationJourneyStageResource = Data.define(:id, :value)
+        class ConsiderationJourneyStageResource < PickListItemResource; end
       end
     end
   end
