@@ -8,18 +8,18 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::TeachingEventsResource
   describe "#all", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/teaching_events/search" } do
     let(:params) { { typeIds: "222750012", startAfter: "2025-01-01" } }
 
-    it "returns an array of TeachingEventResource instances" do
+    it "returns an array of TeachingEvents::Resource instances" do
       events = resource.all(params)
       expect(events).to be_an(Array)
       expect(events).not_to be_empty
-      expect(events.first).to be_a(CRM::Resources::TeachingEventResource)
+      expect(events.first).to be_a(CRM::Resources::TeachingEvents::Resource)
     end
 
     it "includes building info when present" do
       events = resource.all(params)
       event_with_building = events.find { |e| e.building.present? }
 
-      expect(event_with_building.building).to be_a(CRM::Resources::TeachingEventBuildingResource)
+      expect(event_with_building.building).to be_a(CRM::Resources::TeachingEvents::BuildingResource)
       expect(event_with_building.building.venue).to be_a(String)
     end
 
@@ -35,9 +35,9 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::TeachingEventsResource
   describe "#find", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/teaching_events/find" } do
     let(:id) { "250930-get-into-teaching-north-event" }
 
-    it "returns a single TeachingEventResource instance" do
+    it "returns a single TeachingEvents::Resource instance" do
       event = resource.find(id)
-      expect(event).to be_a(CRM::Resources::TeachingEventResource)
+      expect(event).to be_a(CRM::Resources::TeachingEvents::Resource)
       expect(event.id).to be_a(String)
       expect(event.name).to be_a(String)
     end
@@ -55,9 +55,9 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::TeachingEventsResource
       }
     end
 
-    it "creates an event and returns a TeachingEventResource" do
+    it "creates an event and returns a TeachingEvents::Resource" do
       event = resource.create(body)
-      expect(event).to be_a(CRM::Resources::TeachingEventResource)
+      expect(event).to be_a(CRM::Resources::TeachingEvents::Resource)
       expect(event.id).to be_a(String)
       expect(event.name).to be_a(String)
     end
@@ -109,9 +109,9 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::TeachingEventsResource
       }
     end
 
-    it "returns a TeachingEventAddAttendeeResource" do
+    it "returns an ExchangeUnverifiedRequestResource" do
       result = resource.exchange_unverified_request(body)
-      expect(result).to be_a(CRM::Resources::TeachingEventAddAttendeeResource)
+      expect(result).to be_a(CRM::Resources::TeachingEvents::ExchangeUnverifiedRequestResource)
       expect(result.candidate_id).to be_present
     end
   end
@@ -124,9 +124,9 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::TeachingEventsResource
       }
     end
 
-    it "returns a TeachingEventAddAttendeeResource" do
+    it "returns a TeachingEvents::AddAttendeeResource" do
       result = resource.exchange_access_token(token, body)
-      expect(result).to be_a(CRM::Resources::TeachingEventAddAttendeeResource)
+      expect(result).to be_a(CRM::Resources::TeachingEvents::AddAttendeeResource)
       expect(result.candidate_id).to be_present
     end
   end

@@ -647,13 +647,13 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Client do
   describe "#teaching_event_buildings", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/teaching_event_buildings" } do
     subject(:result) { adapter.teaching_event_buildings.all }
 
-    it "returns TeachingEventBuildingResource instances" do
-      expect(result).to all(be_a(CRM::Resources::TeachingEventBuildingResource))
+    it "returns TeachingEvents::BuildingResource instances" do
+      expect(result).to all(be_a(CRM::Resources::TeachingEvents::BuildingResource))
     end
 
     it "deserializes the first entry correctly" do
       expect(result.first).to eq(
-        CRM::Resources::TeachingEventBuildingResource.new(
+        CRM::Resources::TeachingEvents::BuildingResource.new(
           id: "3290fb7f-93b4-eb11-8236-000d3a26ba1b",
           venue: "The Open University in Wales",
           address_line1: "Custom House Street",

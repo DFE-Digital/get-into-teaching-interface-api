@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe CRM::Resources::TeachingEventBuildingsResource do
+RSpec.describe CRM::Resources::TeachingEvents::BuildingsResource do
   subject(:resource) { described_class.new }
 
   describe "#all" do

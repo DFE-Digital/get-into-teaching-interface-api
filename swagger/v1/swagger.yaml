@@ -1532,13 +1532,13 @@ paths:
                   message: "event_id can't be blank"
         401:
           $ref: "#/components/responses/Unauthorized"
-  "/api/teaching_events/exchange_unverified_requests":
+  "/api/teaching_events/attendees/exchange_unverified_request":
     post:
       tags:
       - Teaching Events
       summary: Retrieves a pre-populated attendee for the candidate without requiring verification.
       description: |
-        Retrieves a pre-populated TeachingEventAddAttendee for the candidate.
+        Retrieves a pre-populated attendee for the candidate.
         This mechanism should be used with caution and the candidate should be
         treated as "unverified" by the client.
       operationId: ExchangeUnverifiedRequestForTeachingEventAddAttendee
@@ -1555,7 +1555,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TeachingEventAddAttendee"
+                $ref: "#/components/schemas/ExchangeUnverifiedRequest"
         400:
           description: bad request
           content:
@@ -2497,6 +2497,24 @@ components:
           type: string
           description: A URI reference that identifies the specific occurrence.
           example: "/api/teaching_events/search"
+
+    ExchangeUnverifiedRequest:
+      type: object
+      properties:
+        candidate_id:
+          type: string
+          format: uuid
+          example: "d85a2f0b-290f-4931-98e2-e7d817ac38f3"
+        email:
+          type: string
+          format: email
+          example: "johndoe@example.com"
+        first_name:
+          type: string
+          example: "John"
+        last_name:
+          type: string
+          example: "Doe"
 
     TeachingEventAddAttendee:
       type: object
