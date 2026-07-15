@@ -8,59 +8,38 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::TeachingEventsResource
   describe "#all", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/teaching_events/search" } do
     let(:params) { { typeIds: "222750012", startAfter: "2025-01-01" } }
 
-    it "returns an array of events with symbolized underscored keys" do
+    it "returns an array of TeachingEventResource instances" do
       events = resource.all(params)
       expect(events).to be_an(Array)
       expect(events).not_to be_empty
-
-      event = events.first
-      expect(event).to include(
-        type_id: Integer,
-        status_id: Integer,
-        readable_id: String,
-        name: String,
-        start_at: String,
-        end_at: String,
-        id: String,
-      )
+      expect(events.first).to be_a(CRM::Resources::TeachingEventResource)
     end
 
     it "includes building info when present" do
       events = resource.all(params)
-      event_with_building = events.find { |e| e[:building].present? }
+      event_with_building = events.find { |e| e.building.present? }
 
-      expect(event_with_building[:building]).to include(
-        venue: String,
-        address_line1: String,
-        address_city: String,
-        address_postcode: String,
-        id: String,
-      )
+      expect(event_with_building.building).to be_a(CRM::Resources::TeachingEventBuildingResource)
+      expect(event_with_building.building.venue).to be_a(String)
     end
 
     it "includes accessibility_options when present" do
       events = resource.all(params)
-      event_with_accessibility = events.find { |e| e[:accessibility_options].present? }
+      event_with_accessibility = events.find { |e| e.accessibility_options.present? }
 
-      expect(event_with_accessibility[:accessibility_options]).to be_an(Array)
-      expect(event_with_accessibility[:accessibility_options]).not_to be_empty
+      expect(event_with_accessibility.accessibility_options).to be_an(Array)
+      expect(event_with_accessibility.accessibility_options).not_to be_empty
     end
   end
 
   describe "#find", vcr: { cassette_name: "CRM_Adapters_GetIntoTeaching_Client/teaching_events/find" } do
     let(:id) { "250930-get-into-teaching-north-event" }
 
-    it "returns a single event with symbolized underscored keys" do
+    it "returns a single TeachingEventResource instance" do
       event = resource.find(id)
-      expect(event).to include(
-        type_id: Integer,
-        status_id: Integer,
-        readable_id: String,
-        name: String,
-        start_at: String,
-        end_at: String,
-        id: String,
-      )
+      expect(event).to be_a(CRM::Resources::TeachingEventResource)
+      expect(event.id).to be_a(String)
+      expect(event.name).to be_a(String)
     end
   end
 
@@ -76,17 +55,11 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::TeachingEventsResource
       }
     end
 
-    it "creates an event and returns the created event data" do
+    it "creates an event and returns a TeachingEventResource" do
       event = resource.create(body)
-      expect(event).to include(
-        type_id: Integer,
-        status_id: Integer,
-        readable_id: String,
-        name: String,
-        start_at: String,
-        end_at: String,
-        id: String,
-      )
+      expect(event).to be_a(CRM::Resources::TeachingEventResource)
+      expect(event.id).to be_a(String)
+      expect(event.name).to be_a(String)
     end
   end
 
@@ -136,10 +109,10 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::TeachingEventsResource
       }
     end
 
-    it "returns a hash with candidate data" do
+    it "returns a TeachingEventAddAttendeeResource" do
       result = resource.exchange_unverified_request(body)
-      expect(result).to be_a(Hash)
-      expect(result[:candidate_id]).to be_present
+      expect(result).to be_a(CRM::Resources::TeachingEventAddAttendeeResource)
+      expect(result.candidate_id).to be_present
     end
   end
 
@@ -151,10 +124,10 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::TeachingEventsResource
       }
     end
 
-    it "returns a hash with candidate data" do
+    it "returns a TeachingEventAddAttendeeResource" do
       result = resource.exchange_access_token(token, body)
-      expect(result).to be_a(Hash)
-      expect(result[:candidate_id]).to be_present
+      expect(result).to be_a(CRM::Resources::TeachingEventAddAttendeeResource)
+      expect(result.candidate_id).to be_present
     end
   end
 end

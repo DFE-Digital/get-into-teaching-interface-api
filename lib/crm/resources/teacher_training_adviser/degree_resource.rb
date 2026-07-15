@@ -1,9 +1,9 @@
 module CRM
   module Resources
     module TeacherTrainingAdviser
-      DegreeResource = Data.define(
-        :degree_status_id,
-      )
+      class DegreeResource < BaseStruct
+        attribute :degree_status_id, Types::Integer.optional
+      end
     end
   end
 end

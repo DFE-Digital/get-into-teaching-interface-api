@@ -1743,10 +1743,10 @@ components:
           example: "Doe"
         preferred_teaching_subject_id:
           type: string
-          example: "subject-1"
+          example: "6b793433-cd1f-e911-a979-000d3a20838a"
         secondary_preferred_teaching_subject_id:
           type: string
-          example: "subject-2"
+          example: "822655a1-2afa-e811-a981-000d3a276620"
         address_line1:
           type: string
           example: "123 Main St"
@@ -1778,17 +1778,17 @@ components:
           type: string
           example: "qual-1"
         degree_status_id:
-          type: string
-          example: "status-1"
+          type: int32
+          example: 222750000
         degree_type_id:
-          type: string
-          example: "type-1"
+          type: int32
+          example: 222750002
         degree_subject:
           type: string
           example: "Mathematics"
         uk_degree_grade_id:
-          type: string
-          example: "grade-1"
+          type: int32
+          example: 222750002
         candidate_id:
           type: string
           example: "candidate-1"
@@ -1803,7 +1803,7 @@ components:
           example: "activity-1"
         accepted_policy_id:
           type: string
-          example: "policy-1"
+          example: "4872c8ed-0229-f111-8342-7c1e5285e3ab"
       required:
       - email
       - first_name
@@ -2309,7 +2309,7 @@ components:
           example: "2026-09-15"
         teaching_subject_id:
           type: string
-          example: "subject-1"
+          example: "6b793433-cd1f-e911-a979-000d3a20838a"
         notes:
           type: string
           example: "Student showed great interest in mathematics."

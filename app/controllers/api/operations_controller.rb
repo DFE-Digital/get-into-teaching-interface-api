@@ -18,13 +18,13 @@ class API::OperationsController < API::ApplicationController
   end
 
   def backfill_apply_candidates
-    client.operations.backfill_apply_candidates(updated_since: params.expect(:updated_since))
+    client.operations.backfill_apply_candidates(updatedSince: params.expect(:updated_since))
     render status: 204
   end
 
   def backfill_apply_candidates_from_ids
     client.operations.backfill_apply_candidates_from_ids(
-      body: { candidate_ids: params.expect(candidate_ids: []) },
+      body: { candidateIds: params.expect(candidate_ids: []) },
     )
     render status: 204
   end

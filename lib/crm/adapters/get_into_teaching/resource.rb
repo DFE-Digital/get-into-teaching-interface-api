@@ -12,7 +12,11 @@ module CRM
             @errors = errors
           end
         end
-        ErrorObjects = Data.define(:attribute, :message)
+        ErrorObjects = Data.define(:attribute, :message) do
+          def initialize(attribute: "body", message:)
+            super
+          end
+        end
 
         attr_reader :client
 
@@ -57,14 +61,8 @@ module CRM
         def handle_response(response)
           case response.status
           when 400
-            # Change this when the C# api returns errors in better format
-            errors = JSON.parse(response.body)["errors"].map do |key, value|
-              ErrorObjects.new(
-                attribute: key,
-                message: value[0],
-              )
-            end
-            raise BadRequestError.new(errors)
+            # This might need to change if the C# api returns errors in better format
+            raise BadRequestError.new(build_error_object(response))
           when 401
             raise UnauthorizedError, "You did not supply valid authentication credentials. #{response.body["error"]}"
           when 403
@@ -87,7 +85,20 @@ module CRM
         private
 
         def underscore_and_sym_keys(attrs)
-          attrs.transform_keys(&:underscore).transform_keys(&:to_sym)
+          attrs.deep_transform_keys(&:underscore).deep_transform_keys(&:to_sym)
+        end
+
+        def build_error_object(response)
+          begin
+            JSON.parse(response.body)["errors"].map do |key, value|
+              ErrorObjects.new(
+                attribute: key,
+                message: value[0],
+              )
+            end
+          rescue JSON::ParserError
+            [ ErrorObjects.new(message: response.body) ]
+          end
         end
       end
     end
