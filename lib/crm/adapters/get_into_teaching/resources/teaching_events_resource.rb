@@ -24,7 +24,7 @@ module CRM
 
           def exchange_unverified_request(body)
             response = post_request("/api/teaching_events/attendees/exchange_unverified_request", body:)
-            response_to_type(response, type: CRM::Resources::TeachingEvents::ExchangeUnverifiedRequestResource)
+            response_to_type(response, type: CRM::Resources::TeachingEvents::AddAttendeeResource)
           end
 
           def exchange_access_token(token, body)

@@ -109,9 +109,10 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::TeachingEventsResource
       }
     end
 
+
     it "returns an ExchangeUnverifiedRequestResource" do
       result = resource.exchange_unverified_request(body)
-      expect(result).to be_a(CRM::Resources::TeachingEvents::ExchangeUnverifiedRequestResource)
+      expect(result).to be_a(CRM::Resources::TeachingEvents::AddAttendeeResource)
       expect(result.candidate_id).to be_present
     end
   end

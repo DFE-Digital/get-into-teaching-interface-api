@@ -1555,7 +1555,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ExchangeUnverifiedRequest"
+                $ref: "#/components/schemas/TeachingEventAddAttendee"
         400:
           description: bad request
           content:
@@ -2497,24 +2497,6 @@ components:
           type: string
           description: A URI reference that identifies the specific occurrence.
           example: "/api/teaching_events/search"
-
-    ExchangeUnverifiedRequest:
-      type: object
-      properties:
-        candidate_id:
-          type: string
-          format: uuid
-          example: "d85a2f0b-290f-4931-98e2-e7d817ac38f3"
-        email:
-          type: string
-          format: email
-          example: "johndoe@example.com"
-        first_name:
-          type: string
-          example: "John"
-        last_name:
-          type: string
-          example: "Doe"
 
     TeachingEventAddAttendee:
       type: object
