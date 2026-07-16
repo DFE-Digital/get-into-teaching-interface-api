@@ -28,7 +28,7 @@ module CRM
           end
 
           def backfill_apply_candidates_from_ids(**params)
-            post_request("/api/operations/backfill_apply_candidates_from_ids", body: {}, params:)
+            post_request("/api/operations/backfill_apply_candidates_from_ids", body: params[:body])
           end
         end
       end

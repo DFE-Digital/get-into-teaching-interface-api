@@ -5,19 +5,17 @@ module CRM
         class TeachingEventsResource < CRM::Adapters::GetIntoTeaching::Resource
           def all(params)
             response = get_request("/api/teaching_events/search", params:)
-            response.body.map do |attrs|
-              attrs.deep_transform_keys(&:underscore).deep_transform_keys(&:to_sym)
-            end
+            response_to_collection(response, type: CRM::Resources::TeachingEvents::Resource)
           end
 
           def find(id)
             response = get_request("/api/teaching_events/#{id}")
-            response.body.deep_transform_keys(&:underscore).deep_transform_keys(&:to_sym)
+            response_to_type(response, type: CRM::Resources::TeachingEvents::Resource)
           end
 
           def create(body)
             response = post_request("/api/teaching_events", body:)
-            response.body.deep_transform_keys(&:underscore).deep_transform_keys(&:to_sym)
+            response_to_type(response, type: CRM::Resources::TeachingEvents::Resource)
           end
 
           def create_attendee(body)
@@ -25,13 +23,13 @@ module CRM
           end
 
           def exchange_unverified_request(body)
-            response = post_request("app/views/api/teaching_events/exchange_unverified_requests", body:)
-            response.body.deep_transform_keys(&:underscore).deep_transform_keys(&:to_sym)
+            response = post_request("/api/teaching_events/attendees/exchange_unverified_request", body:)
+            response_to_type(response, type: CRM::Resources::TeachingEvents::AddAttendeeResource)
           end
 
           def exchange_access_token(token, body)
             response = post_request("/api/teaching_events/attendees/exchange_access_token/#{token}", body:)
-            response.body.deep_transform_keys(&:underscore).deep_transform_keys(&:to_sym)
+            response_to_type(response, type: CRM::Resources::TeachingEvents::AddAttendeeResource)
           end
         end
       end

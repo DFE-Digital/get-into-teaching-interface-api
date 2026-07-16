@@ -47,7 +47,11 @@ Rails.application.routes.draw do
 
     namespace :teaching_events do
       resources :attendees, only: [ :create ]
-      resources :exchange_unverified_requests, only: [ :create ]
+      post(
+        "attendees/exchange_unverified_request",
+        to: "exchange_unverified_requests#create",
+        as: :exchange_unverified_request,
+      )
       post(
         "/attendees/exchange_access_token/:access_token",
         to: "exchange_access_tokens#create",

@@ -37,8 +37,8 @@ RSpec.describe CRM::Adapters::GetIntoTeaching::Resources::TeachingEventBuildings
         )
     end
 
-    it "returns TeachingEventBuildingResource instances" do
-      expect(resource.all).to all(be_a(CRM::Resources::TeachingEventBuildingResource))
+    it "returns TeachingEvents::BuildingResource instances" do
+      expect(resource.all).to all(be_a(CRM::Resources::TeachingEvents::BuildingResource))
     end
 
     it "maps API response attributes to snake_case" do

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "POST /api/teaching_events/exchange_unverified_requests", type: :request do
+RSpec.describe "POST /api/teaching_events/attendees/exchange_unverified_request", type: :request do
   before { Rails.cache.clear }
   include APIHelper
 
@@ -37,17 +37,17 @@ RSpec.describe "POST /api/teaching_events/exchange_unverified_requests", type: :
 
   describe "when the request is valid" do
     it "returns JSON" do
-      post api_teaching_events_exchange_unverified_requests_path, params: valid_attributes, headers:, as: :json
+      post api_teaching_events_exchange_unverified_request_path, params: valid_attributes, headers:, as: :json
       expect(response.content_type).to match(%r{application/json})
     end
 
     it "returns 200" do
-      post api_teaching_events_exchange_unverified_requests_path, params: valid_attributes, headers:, as: :json
+      post api_teaching_events_exchange_unverified_request_path, params: valid_attributes, headers:, as: :json
       expect(response).to have_http_status(:ok)
     end
 
     it "returns the pre-populated attendee data" do
-      post api_teaching_events_exchange_unverified_requests_path, params: valid_attributes, headers:, as: :json
+      post api_teaching_events_exchange_unverified_request_path, params: valid_attributes, headers:, as: :json
       expect(response.parsed_body).to include(
         "event_id" => "123e4567-e89b-12d3-a456-426614174000",
         "email" => "test@example.com",
@@ -59,19 +59,19 @@ RSpec.describe "POST /api/teaching_events/exchange_unverified_requests", type: :
     let(:invalid_attributes) { { email: "bad" } }
 
     it "returns 400" do
-      post api_teaching_events_exchange_unverified_requests_path, params: invalid_attributes, headers:, as: :json
+      post api_teaching_events_exchange_unverified_request_path, params: invalid_attributes, headers:, as: :json
       expect(response).to have_http_status(:bad_request)
     end
 
     it "returns validation errors" do
-      post api_teaching_events_exchange_unverified_requests_path, params: invalid_attributes, headers:, as: :json
+      post api_teaching_events_exchange_unverified_request_path, params: invalid_attributes, headers:, as: :json
       expect(response.parsed_body).to have_key("errors")
     end
   end
 
   describe "when no auth token is provided" do
     it "returns 401" do
-      post api_teaching_events_exchange_unverified_requests_path, params: valid_attributes, as: :json
+      post api_teaching_events_exchange_unverified_request_path, params: valid_attributes, as: :json
       expect(response).to have_http_status(:unauthorized)
     end
   end
@@ -83,7 +83,7 @@ RSpec.describe "POST /api/teaching_events/exchange_unverified_requests", type: :
     end
 
     it "returns 503" do
-      post api_teaching_events_exchange_unverified_requests_path, params: valid_attributes, headers:, as: :json
+      post api_teaching_events_exchange_unverified_request_path, params: valid_attributes, headers:, as: :json
       expect(response).to have_http_status(:service_unavailable)
     end
   end

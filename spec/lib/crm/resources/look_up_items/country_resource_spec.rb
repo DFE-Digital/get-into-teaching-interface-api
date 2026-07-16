@@ -10,7 +10,7 @@ RSpec.describe CRM::Resources::LookUpItems::CountryResource do
   end
 
   it "raises Dry::Struct::Error when required fields are missing" do
-    expect { described_class.new(id: "abc-123", value: "United Kingdom") }
+    expect { described_class.new(id: "abc-123") }
       .to raise_error(Dry::Struct::Error)
   end
 

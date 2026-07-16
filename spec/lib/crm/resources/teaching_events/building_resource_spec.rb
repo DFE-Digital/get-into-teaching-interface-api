@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe CRM::Resources::TeachingEventBuildingResource do
+RSpec.describe CRM::Resources::TeachingEvents::BuildingResource do
   it "can be instantiated with id and value" do
     instance = described_class.new(
       venue: "The Open University in Wales",
