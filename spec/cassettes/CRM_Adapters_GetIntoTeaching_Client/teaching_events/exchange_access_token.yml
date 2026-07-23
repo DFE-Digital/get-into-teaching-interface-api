@@ -7,6 +7,8 @@ http_interactions:
       encoding: UTF-8
       string: '{"email":"johndoe@example.com"}'
     headers:
+      Api-Version:
+      - '1.0'
       User-Agent:
       - Faraday v2.14.3
       Authorization:
@@ -19,29 +21,19 @@ http_interactions:
       - "*/*"
   response:
     status:
-      code: 200
-      message: OK
+      code: 401
+      message: Unauthorized
     headers:
       Date:
-      - Mon, 29 Jun 2026 15:30:00 GMT
-      Content-Type:
-      - application/json; charset=utf-8
-      Transfer-Encoding:
-      - chunked
+      - Thu, 23 Jul 2026 14:14:51 GMT
+      Content-Length:
+      - '0'
       Connection:
       - keep-alive
-      X-Frame-Options:
-      - deny
-      X-Xss-Protection:
-      - 1; mode=block
-      X-Content-Type-Options:
-      - nosniff
-      Content-Security-Policy:
-      - default-src 'self'
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
     body:
       encoding: UTF-8
-      string: '{"candidateId":"2eb391da-d707-4cb4-8def-505efc8ae2ea","qualificationId":"4494eff8-d6ce-430a-9c9b-c2dbf90f5add","preferredTeachingSubjectId":"a42655a1-2afa-e811-a981-000d3a276620","considerationJourneyStageId":222750000,"degreeStatusId":222750002,"email":"johndoe@example.com","firstName":"John","lastName":"Doe","addressPostcode":"BN1 1AA","addressTelephone":"01234567890","isVerified":true,"alreadySubscribedToEvents":true,"alreadySubscribedToMailingList":true,"alreadySubscribedToTeacherTrainingAdviser":true,"accessibilityNeedsForEvent":null,"eventId":null,"channelId":null,"acceptedPolicyId":null,"isWalkIn":false,"subscribeToMailingList":false,"creationChannelSourceId":null,"creationChannelServiceId":null,"creationChannelActivityId":null,"defaultContactCreationChannel":222750029,"defaultCreationChannelSourceId":222750003,"defaultCreationChannelServiceId":222750006,"defaultCreationChannelActivityId":null}'
-  recorded_at: Mon, 29 Jun 2026 15:30:00 GMT
+      string: ''
+  recorded_at: Thu, 23 Jul 2026 14:14:51 GMT
 recorded_with: VCR 6.4.0

@@ -25,38 +25,14 @@ Rails.application.routes.draw do
         to: "exchange_access_tokens#create",
         as: :exchange_access_token,
       )
-      get(
-        "members/exchange_magic_link_token/:magic_link_token",
-        to: "exchange_access_tokens#show",
-        as: :exchange_magic_link_token,
-      )
     end
 
     namespace :operations do
       get "health_check"
-      get "generate_mapping_info"
-      put "pause_crm_integration"
-      put "resume_crm_integration"
-      post "backfill_apply_candidates"
-      post "backfill_apply_candidates_from_ids"
     end
 
     resources :teaching_events, only: [ :create, :show ] do
       get "search", on: :collection
-    end
-
-    namespace :teaching_events do
-      resources :attendees, only: [ :create ]
-      post(
-        "attendees/exchange_unverified_request",
-        to: "exchange_unverified_requests#create",
-        as: :exchange_unverified_request,
-      )
-      post(
-        "/attendees/exchange_access_token/:access_token",
-        to: "exchange_access_tokens#create",
-        as: :exchange_access_token,
-      )
     end
 
     namespace :get_into_teaching do
