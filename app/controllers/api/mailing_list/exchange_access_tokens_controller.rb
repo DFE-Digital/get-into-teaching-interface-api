@@ -1,10 +1,4 @@
 class API::MailingList::ExchangeAccessTokensController < API::ApplicationController
-  def show
-    render json: client.mailing_list.exchange_magic_link_token(
-      params.expect(:magic_link_token),
-    )
-  end
-
   def create
     exchange = MailingList::ExchangeAccessToken.new(
       client:,

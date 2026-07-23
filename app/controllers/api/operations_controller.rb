@@ -3,32 +3,6 @@ class API::OperationsController < API::ApplicationController
     render json: client.operations.health_check
   end
 
-  def generate_mapping_info
-    render json: client.operations.generate_mapping_info
-  end
-
-  def pause_crm_integration
-    client.operations.pause_crm_integration
-    render status: 204
-  end
-
-  def resume_crm_integration
-    client.operations.resume_crm_integration
-    render status: 204
-  end
-
-  def backfill_apply_candidates
-    client.operations.backfill_apply_candidates(updatedSince: params.expect(:updated_since))
-    render status: 204
-  end
-
-  def backfill_apply_candidates_from_ids
-    client.operations.backfill_apply_candidates_from_ids(
-      body: { candidateIds: params.expect(candidate_ids: []) },
-    )
-    render status: 204
-  end
-
 private
 
   def client

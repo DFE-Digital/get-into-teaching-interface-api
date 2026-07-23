@@ -7,6 +7,8 @@ http_interactions:
       encoding: UTF-8
       string: '{"eventId":"6a1f3a0f-9c76-f011-b4cb-7c1e5283b7df","email":"johndoe@example.com","firstName":"John","lastName":"Doe","acceptedPolicyId":"4872c8ed-0229-f111-8342-7c1e5285e3ab"}'
     headers:
+      Api-Version:
+      - '1.0'
       User-Agent:
       - Faraday v2.14.3
       Authorization:
@@ -19,25 +21,19 @@ http_interactions:
       - "*/*"
   response:
     status:
-      code: 204
-      message: No Content
+      code: 401
+      message: Unauthorized
     headers:
       Date:
-      - Mon, 29 Jun 2026 15:25:07 GMT
+      - Thu, 23 Jul 2026 14:14:51 GMT
+      Content-Length:
+      - '0'
       Connection:
       - keep-alive
-      X-Frame-Options:
-      - deny
-      X-Xss-Protection:
-      - 1; mode=block
-      X-Content-Type-Options:
-      - nosniff
-      Content-Security-Policy:
-      - default-src 'self'
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
     body:
       encoding: UTF-8
       string: ''
-  recorded_at: Mon, 29 Jun 2026 15:25:07 GMT
+  recorded_at: Thu, 23 Jul 2026 14:14:51 GMT
 recorded_with: VCR 6.4.0
