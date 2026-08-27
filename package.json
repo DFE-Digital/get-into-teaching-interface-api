@@ -12,6 +12,6 @@
   },
   "dependencies": {
     "govuk-frontend": "^6.2.0",
-    "sass": "^1.100.0"
+    "sass": "^1.103.1"
   }
 }
