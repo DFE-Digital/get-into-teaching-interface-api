@@ -199,7 +199,7 @@ You need `asdf` with Ruby and Node plugins, and a running PostgreSQL instance.
 ```bash
 git clone <repository-url>
 cd get-into-teaching-interface-api
-asdf install        # installs Ruby 4.0.3 and Node 24.15.0
+asdf install        # installs Ruby 4.0.9 and Node 24.15.0
 bin/setup           # gems, JS packages, DB setup, dev server
 ```
 
