@@ -5,7 +5,6 @@ module CRM
         attribute :candidate_id,   Types::String.optional
         attribute :preferred_teaching_subject_id, Types::String.optional
         attribute :secondary_preferred_teaching_subject_id, Types::String.optional
-        attribute :accepted_policy_id, Types::String.optional
         attribute :master_id,      Types::String.optional
         attribute :merged,         Types::Params::Bool
         attribute :full_name,      Types::String
@@ -26,9 +25,9 @@ module CRM
         attribute :degree_type_id, Types::Integer.optional
         attribute :degree_subject, Types::String.optional
         attribute :uk_degree_grade_id, Types::Integer.optional
-        attribute :creation_channel_source_id, Types::String.optional
-        attribute :creation_channel_service_id, Types::String.optional
-        attribute :creation_channel_activity_id, Types::String.optional
+        attribute :creation_channel_source_id, Types::Integer.optional
+        attribute :creation_channel_service_id, Types::Integer.optional
+        attribute :creation_channel_activity_id, Types::Integer.optional
         attribute :default_contact_creation_channel, Types::Integer.optional
         attribute :default_creation_channel_source_id, Types::Integer.optional
         attribute :default_creation_channel_service_id, Types::Integer.optional

@@ -11,7 +11,7 @@ module CRM
 
         def connection
           request = { params_encoder: Faraday::FlatParamsEncoder }
-          @connection ||= Faraday.new(base_url, request:) do |conn|
+          @connection ||= Faraday.new(base_url, request:, ssl: { verify: false }) do |conn|
             conn.request :authorization, :Bearer, api_key
             conn.request :json
             conn.response :json, content_type: "application/json"

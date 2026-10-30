@@ -37,10 +37,22 @@ module CRM
         end
 
         def get_request(url, params: {}, headers: {})
+          puts "REQUEST"
+          puts "REQUEST"
+          puts "REQUEST"
+          puts "REQUEST"
+          puts "REQUEST"
+          puts "REQUEST: #{url} params: #{params.inspect}"
           handle_response client.connection.get(url, params, headers)
         end
 
         def post_request(url, body:, headers: {}, params: {})
+          puts "REQUEST"
+          puts "REQUEST"
+          puts "REQUEST"
+          puts "REQUEST"
+          puts "REQUEST"
+          puts "REQUEST: #{url} body: #{body.inspect} params: #{params.inspect}"
           handle_response client.connection.post(url, body, headers) do |request|
             request.params.merge!(params)
           end
