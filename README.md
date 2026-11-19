@@ -41,7 +41,7 @@ Make sure you have the following installed:
 - [Postgres](https://www.postgresql.org/)
 
 The required versions are:
-- Ruby: 4.0.3 (see `.ruby-version`)
+- Ruby: 4.0.9 (see `.ruby-version`)
 - Node: 24.15.0 (see `package.json` under `engines.node`)
 - Yarn: 4.14.1 (see `package.json` under `packageManager`)
 
