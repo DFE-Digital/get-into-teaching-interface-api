@@ -44,7 +44,7 @@ jobs:
     permissions:
       packages: write
       pull-requests: write
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v6
@@ -64,7 +64,7 @@ jobs:
   test:
     name: Run tests
     if: ${{ github.event_name != 'workflow_dispatch' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     services:
       postgres:
@@ -112,7 +112,7 @@ jobs:
     environment:
       name: review
       url: ${{ steps.deploy_review.outputs.environment_url }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       id-token: write
       pull-requests: write
@@ -142,7 +142,7 @@ jobs:
       name: ${{ matrix.environment }}
       url: ${{ steps.deploy_app.outputs.environment_url }}
     needs: [build, test]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       id-token: write
       pull-requests: write
@@ -175,7 +175,7 @@ jobs:
     environment:
       name: ${{ inputs.environment }}
       url: ${{ steps.deploy_manual.outputs.environment_url }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       id-token: write
       pull-requests: write
@@ -202,7 +202,7 @@ jobs:
 
   deploy_domains_infra:
     name: Deploy Domains Infrastructure
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     concurrency: deploy_domains_infra
     needs: [deploy]
@@ -223,7 +223,7 @@ jobs:
 
   deploy_domains_env:
     name: Deploy Domains to ${{ matrix.domain_environment }} environment
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     concurrency: deploy_domains_${{ matrix.domain_environment }}
     needs: [deploy_domains_infra]
