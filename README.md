@@ -124,4 +124,3 @@ We use `rladr` to generate the boilerplate for new records:
 ```bash
 bundle exec rladr new title
 ```
-
