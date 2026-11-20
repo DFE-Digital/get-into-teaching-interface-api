@@ -15,7 +15,7 @@
 # For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
 # Make sure RUBY_VERSION matches the Ruby version in .tool-versions and .ruby-version
-ARG RUBY_VERSION=4.0.3
+ARG RUBY_VERSION=4.0.10
 # Make sure NODE_VERSION matches the NodeJS version in .tool-versions and package.json
 ARG NODE_VERSION=24.15.0
 
@@ -37,7 +37,6 @@ ENV RAILS_ENV="production"
 FROM base AS builder
 
 # Install node
-COPY --from=node /usr/lib /usr/lib
 COPY --from=node /usr/local/share /usr/local/share
 COPY --from=node /usr/local/lib /usr/local/lib
 COPY --from=node /usr/local/include /usr/local/include
